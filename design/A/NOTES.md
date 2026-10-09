@@ -27,3 +27,10 @@
 - 04: the cloud was cropped at the top-left because a CSS animation overrode its transform; wrapped so it now sits where placed. The mound has a lit rim, shaded flank and crumbs. Petals kept off the frame edges.
 - Light comes from the top-left on every object; outlines are 3 to 4 px throughout. I looked at all six screenshots before committing.
 - Open: the Grandstander link needs network, so offline renders fall back to the system bold in headings.
+
+## Round 4 (closing the three round-3 losses)
+- 01: sky and hills repainted in the first-sprout style: brush-stroke bands, a low outlined sun with halo discs, two clouds, warm distant hills, small flowers. Letter tiles and the sign now share wood grain, nail heads and a lit top edge.
+- 05: the stray "z" ghost is gone (the dozing plant shows folded, greyed leaves only). Stake rows sit on three fixed baselines (back, middle, front), the dozing plant is the same scale as its row, and the right edge is filled with a leafy bush and a short fence.
+- 06: progress hook added under the sound: six leaf outlines, the first filled, with "1 of 6", so the card reads as one step in a loop.
+- 03: the pointer is now a 3 px dashed line with a 3 px arrowhead, matching the tile and ring weight.
+- I looked at 01, 03, 05 and 06 after the last render; 02 and 04 were not touched this round.
