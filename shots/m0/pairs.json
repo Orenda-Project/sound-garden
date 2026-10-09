@@ -1,0 +1,32 @@
+[
+ {
+  "id": "01",
+  "ours": "shots/m0/our-01-seed.png",
+  "bar": "shots/m0/bar-01-landing.png",
+  "question": "Which screen makes it clearer what to do next? Answer A, B, or equal, then one sentence."
+ },
+ {
+  "id": "02",
+  "ours": "shots/m0/our-02-home.png",
+  "bar": "shots/m0/bar-02-welcome.png",
+  "question": "Which screen makes it clearer what to do next? Answer A, B, or equal, then one sentence."
+ },
+ {
+  "id": "03",
+  "ours": "shots/m0/our-03-sitting-end.png",
+  "bar": "shots/m0/bar-03-question.png",
+  "question": "Which screen makes it clearer what to do next? Answer A, B, or equal, then one sentence."
+ },
+ {
+  "id": "04",
+  "ours": "shots/m0/our-04-right.png",
+  "bar": "shots/m0/bar-04-correct.png",
+  "question": "Which screen makes it clearer what to do next? Answer A, B, or equal, then one sentence."
+ },
+ {
+  "id": "05",
+  "ours": "shots/m0/our-05-wrong.png",
+  "bar": "shots/m0/bar-05-wrong.png",
+  "question": "Which screen makes it clearer what to do next? Answer A, B, or equal, then one sentence."
+ }
+]
