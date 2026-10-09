@@ -23,7 +23,7 @@ export function mount(el, lid) {
     <h1 class="disp">Sprouted!</h1>
     <button class="snd" type="button" aria-label="Hear it again">${speaker(26)}<span>${sound}</span></button>
     <div class="hero"><div class="rise"><div class="sp"></div></div></div>
-    <svg class="bigmound" viewBox="-170 -100 340 110" aria-hidden="true" >${mound(2.6)}</svg>
+    <svg class="bigmound" viewBox="-195 -100 390 240" aria-hidden="true"><path d="M-195 6Q-110 -8 0 -6T195 6V140H-195Z" fill="#6B4416"/><path d="M-195 6Q-110 -8 0 -6T195 6" fill="none" stroke="#4A2F14" stroke-width="3.4"/>${mound(2.2)}<g fill="#4A2F14" opacity=".5"><ellipse cx="-120" cy="50" rx="9" ry="4"/><ellipse cx="110" cy="64" rx="10" ry="4"/><ellipse cx="-30" cy="78" rx="8" ry="3.4"/><ellipse cx="150" cy="30" rx="7" ry="3"/></g><g fill="#B88A4A" opacity=".6"><ellipse cx="-150" cy="30" rx="8" ry="3.4"/><ellipse cx="70" cy="40" rx="8" ry="3.4"/></g></svg>
     <a class="btn" data-sprout-go href="${first ? '#/remind' : '#/home'}">${label('garden', 'See my garden')}</a></main>`;
   const sp = createSprig(el.querySelector('.sp'), { stage: 1 });
   onLeave(() => sp.destroy());

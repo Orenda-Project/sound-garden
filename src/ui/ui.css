@@ -34,12 +34,11 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 @keyframes ring { 0%, 100% { opacity: .2; transform: scale(.94); } 50% { opacity: .9; transform: scale(1.06); } }
 .cloud { animation: drift 28s ease-in-out infinite alternate; }
 @keyframes drift { from { transform: translateX(-14px); } to { transform: translateX(70px); } }
-.stack .helper { position: absolute; right: -70px; bottom: 4px; width: 70px; pointer-events: none; }
 .blocks { display: flex; gap: 14px; margin-top: 22px; }
 .blocks i { font: 800 56px/1 var(--font); font-style: normal; width: 78px; height: 78px; display: grid; place-items: center; color: #12330F; border: 4px solid #8A5A1E; border-radius: 8px;
   background: repeating-linear-gradient(176deg, #E9B872 0 9px, #E2AC66 9px 10px); box-shadow: inset 0 3px 0 rgba(255,255,255,.35), 0 5px 0 #8A5A1E; }
-.landing footer { position: relative; z-index: 1; background: var(--bg); text-align: center; padding: 18px 20px 8px; border-radius: 40% 40% 0 0 / 14px 14px 0 0; font-size: 14px; font-weight: 600; }
-.landing footer p { margin: 0 0 2px; }
+.landing footer { position: relative; z-index: 1; background: var(--bg); text-align: center; padding: 20px 20px 12px; border-radius: 40% 40% 0 0 / 14px 14px 0 0; font-size: 16px; font-weight: 600; }
+.landing footer p { margin: 0 0 6px; }
 
 /* S4 lesson: muted. Only the sky strip, one state tint and the leaf underline carry colour. */
 .lesson { position: relative; min-height: 100dvh; display: flex; flex-direction: column; background: var(--bg); }
@@ -100,7 +99,7 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 /* S3p peek: the lesson dims, a soil patch with a swelling seed shows 2 s. Never covers the next item. */
 .peek { position: fixed; inset: 0; pointer-events: none; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 14px; z-index: 5; }
 .peek .dim { position: absolute; inset: 0; background: var(--bg); opacity: .35; animation: fadein .2s both; }
-.peek .patch { position: relative; width: 230px; height: 150px; margin-bottom: 70px; }
+.peek .patch { position: relative; width: 104px; height: 104px; margin-bottom: 70px; }
 .peek .dr { transform-box: fill-box; animation: pdrop .9s .1s cubic-bezier(.5,0,.8,.5) both; } @keyframes pdrop { 0% { transform: translateY(-50px); opacity: 0; } 20% { opacity: 1; } 85% { transform: translateY(0); opacity: 1; } 100% { opacity: 0; } }
 .peek .lf { transform-box: fill-box; transform-origin: 50% 100%; animation: lfup 1.4s 1s ease-out both; } @keyframes lfup { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } } .peek svg { width: 100%; height: 100%; overflow: visible; }
 .peek .sd { transform-box: fill-box; transform-origin: 50% 100%; animation: swell 1.8s .8s ease-out both; }
@@ -112,11 +111,11 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .sprout h1 { position: relative; z-index: 1; margin: 78px 0 14px; font: 800 64px/1 var(--disp); letter-spacing: -.01em; }
 .sprout .snd { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 10px; background: var(--card); border: 3px solid #12330F; border-radius: 22px; padding: 8px 18px 8px 12px; font: 700 18px/1 var(--font); color: var(--text); }
 .sprout .snd svg { color: var(--leaf-text); } .sprout .snd .sd { display: block; }
-.sprout .hero { position: absolute; left: 0; right: 0; bottom: 214px; display: flex; justify-content: center; z-index: 1; }
+.sprout .hero { position: absolute; left: 0; right: 0; bottom: 194px; display: flex; justify-content: center; z-index: 1; }
 .sprout .rise { transform-box: fill-box; transform-origin: 50% 100%; animation: rise 1.1s cubic-bezier(.35,1.8,.35,.83) both; }
 @keyframes rise { from { transform: translateY(60px) scale(.55); opacity: 0; } to { transform: none; opacity: 1; } }
 .sprout .hero .sprig { width: 230px; }
-.sprout .btn { position: absolute; left: 24px; right: 24px; bottom: 28px; width: auto; z-index: 1; }
+.sprout .btn { position: absolute; left: 24px; right: 24px; bottom: 28px; width: auto; z-index: 3; }
 .remind { background: var(--bg); padding: 90px 24px 28px; }
 .remind .card { width: 100%; background: var(--card); border: 3px solid var(--line); border-bottom-width: 6px; border-radius: var(--blob); padding: 24px 20px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
 .remind h1 { margin: 0; font: 800 26px/1.15 var(--font); } .remind .sprig { width: 120px; } .remind p { margin: 0; color: var(--muted); font-weight: 600; }
@@ -164,7 +163,7 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .tile.hit .opt { box-shadow: 0 0 0 6px rgba(15,118,110,.18); }
 .opt .pic svg { width: 88px; height: 88px; display: block; } .opt .n { position: absolute; right: 14px; top: 10px; font: 800 22px/1 var(--font); color: var(--muted); }
 .tile .rep { position: absolute; left: 10px; top: 10px; width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--line); background: var(--card); color: var(--leaf-text); display: grid; place-items: center; padding: 0; z-index: 2; }
-.tile .rep:disabled { opacity: .4; } .tile .rep svg { width: 24px; height: 24px; }
+.tile .rep:disabled { opacity: .85; } .tile .rep svg { width: 24px; height: 24px; }
 .cue .beads { align-items: center; }
 /* S5 sitting end: Sprig-led, on the garden scene */
 .done { position: relative; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; text-align: center; isolation: isolate; padding: 0 20px 28px; }
@@ -186,5 +185,10 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
   .sprout h1 { margin-top: 48px; font-size: 54px; } .sprout .hero { bottom: 150px; } .sprout .hero .sprig { width: 190px; }
   .remind { padding-top: 50px; }
 }
-.sprout .bigmound { position: absolute; left: 0; right: 0; bottom: 118px; width: 100%; height: auto; z-index: 2; }
-@media (max-height: 790px) { .sprout .bigmound { bottom: 100px; } .sprout .hero { bottom: 168px; } }
+.sprout .bigmound { pointer-events: none; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto; z-index: 2; }
+@media (max-height: 790px) { .sprout .bigmound { bottom: -18px; } .sprout .hero { bottom: 150px; } }
+
+.opt .pic { display: block; transform: translateY(10px); }
+
+.fb .sound .meter { display: flex; gap: 4px; margin-top: 14px; }
+.done .hero { margin: 22px -20px -28px; width: calc(100% + 40px); padding: 24px 20px 28px; background: var(--bg); border-radius: 50% 50% 0 0 / 14px 14px 0 0; } .done .hero .btn { width: 100%; }

@@ -8,8 +8,9 @@ import { loadDisplayFont } from './sprout.js';
 import { label } from './btn.js';
 
 // Slots: front row 3, middle 4, back 5 (further = smaller). Lessons fill front to back.
-const ROWS = [{ y: 462, s: 1, xs: [58, 158, 258] }, { y: 346, s: .82, xs: [100, 190, 280, 358] }, { y: 226, s: .66, xs: [42, 118, 194, 270, 346] }];
-const SLOTS = ROWS.flatMap((r) => r.xs.map((x) => ({ x, y: r.y, s: r.s })));
+// Slots: hand-placed, staggered, nearer = bigger; lessons fill front to back, so the garden grows away from you.
+const SPOTS = [[64, 440], [172, 458], [270, 430], [112, 368], [216, 380], [296, 326], [56, 298], [158, 310], [256, 272], [340, 240], [104, 226], [214, 204]];
+const SLOTS = SPOTS.map(([x, y]) => ({ x, y, s: +(0.52 + 0.52 * Math.min(1, Math.max(0, (y - 200) / 290))).toFixed(2) }));
 const demo = () => { const now = Date.now(), p = (stage, h) => ({ stage, at: now - h * HOUR });
   return { sprouted: true, plants: { 'L1.01': p(4, 2), 'L1.02': p(4, 5), 'L1.03': p(3, 26), 'L1.04': p(3, 6), 'L1.05': p(2, 100), 'L1.06': p(2, 3), 'L1.07': p(2, 1) } }; };
 
@@ -36,7 +37,7 @@ export function mount(el) {
   let bub = '';
   if (pickBub) {
     const [verb, [id, name, label]] = pickBub, i = LESSONS.findIndex((l) => l[0] === id), sl = SLOTS[i];
-    const text = `${verb} ${label || name}`, w = text.length * 9 + 28, bx = Math.max(6, Math.min(384 - w, sl.x - w / 2)), by = sl.y - 100 * sl.s - 36;
+    const text = `${verb} ${label || name}`, w = text.length * 9 + 28, bx = Math.max(10, Math.min(380 - w, sl.x - w + 12)), by = sl.y - 100 * sl.s - 36;
     bub = `<g data-bubble="${verb}"><rect x="${bx}" y="${by}" width="${w}" height="30" rx="15" fill="#fff" stroke="#12330F" stroke-width="3"/><path d="M${sl.x - 7} ${by + 29}l7 10 7-10" fill="#fff" stroke="#12330F" stroke-width="3" stroke-linejoin="round"/><path d="M${sl.x - 5} ${by + 28}h10" stroke="#fff" stroke-width="5"/><text x="${bx + w / 2}" y="${by + 20}" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="15" fill="#12330F">${text}</text></g>`;
   }
   const zz = sleeper ? (() => { const sl = SLOTS[LESSONS.findIndex((l) => l[0] === sleeper[0])]; return `<g transform="translate(${sl.x + 54 * sl.s} ${sl.y - 44 * sl.s})"><ellipse rx="20" ry="11" fill="#fff" stroke="#2A74B8" stroke-width="2.6"/><text y="5" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="13" fill="#2A74B8">zz</text></g>`; })() : '';

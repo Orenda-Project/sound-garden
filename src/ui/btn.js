@@ -1,5 +1,5 @@
 // Hero-button content for non-readers: a big icon first, an arrow last, the word small in the middle.
-const S = (d, c = '#12330F') => `<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="${c}" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">${d}</g></svg>`;
+const S = (d, c = '#12330F') => `<svg viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="${c}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${d}</g></svg>`;
 export const ICON = {
   heard: S('<path d="M7 17l6 6 12-14"/>'),
   next: S('<path d="M6 16h18M17 8l8 8-8 8"/>'),

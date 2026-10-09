@@ -15,10 +15,10 @@ const TEACH = {
 };
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const WAVE = '<svg class="wave" viewBox="0 0 390 16" preserveAspectRatio="none" aria-hidden="true"><path d="M0 16Q50 0 120 8T260 6T390 4V16Z" fill="#FBF6EA"/></svg>';
-const BACK = '<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M19 5L9 15l10 10" fill="none" stroke="#12330F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const BACK = '<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M19 5L9 15l10 10" fill="none" stroke="#12330F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const CHIP = `<svg viewBox="0 0 64 64" aria-hidden="true"><defs><clipPath id="cc"><circle cx="32" cy="34" r="25"/></clipPath></defs><circle cx="32" cy="34" r="27" fill="#FBF6EA" stroke="#2F7D32" stroke-width="3"/>
 <g clip-path="url(#cc)"><g transform="translate(32 52)"><g class="cs"><g transform="scale(.36)">${mound(1)}<g transform="translate(0 -18) scale(.8)">${seedShape}</g></g></g><g class="sl"><path d="M0-22q-1-6 0-9" stroke="#2F7D32" stroke-width="2.6" stroke-linecap="round" fill="none"/><path d="M0-30c-7 0-9-4-9-7 6 0 9 3 9 7zM0-30c0-5 3-7 8-7 0 5-3 7-8 7z" fill="#4CB82B" stroke="#2F7D32" stroke-width="1.6"/></g></g><g class="dropwrap"><path d="M32 6q8 11 0 16-8-5 0-16z" fill="#6EC5FF" stroke="#2A74B8" stroke-width="2"/></g></g></svg>`;
-const ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3 8l5 5 5-5" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3 8l5 5 5-5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 export async function mount(el, lid) {
   unlock();   // no-op if the seed tap already did it; a direct visit unlocks on first tap anywhere
@@ -100,7 +100,7 @@ export async function mount(el, lid) {
       const t = document.createElement('div'); t.className = 'tile';
       const b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
       b.setAttribute('aria-label', it.printed ? `Option ${n + 1}: ${o.w}` : `Option ${n + 1}`);
-      b.innerHTML = it.printed ? `<span class="w${o.w.length > 3 ? ' long' : ''}">${esc(o.w)}</span>` : `${hasPicture(o.w) ? `<span class="pic">${picture(o.w, 88)}</span>` : ''}<span class="n">${n + 1}</span>`;
+      b.innerHTML = it.printed ? `<span class="w${o.w.length > 3 ? ' long' : ''}">${esc(o.w)}</span>` : `<span class="pic">${picture(o.w, 88)}</span><span class="n">${n + 1}</span>`;
       if (TEST && o.ok) b.dataset.correct = 'true';
       b.addEventListener('click', () => pick(it, o, t, my));
       t.insertAdjacentHTML('beforeend', `<div class="tap">${ARROW}<span>Tap this one</span></div>`);
