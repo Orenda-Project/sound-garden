@@ -15,7 +15,7 @@ Evidence grades: **A** = peer-reviewed study, meta-analysis, or RCT, read at abs
 | 3 | Streak **freeze** (grace) raised activity: letting learners equip two freezes instead of one gave +0.38% relative DAU. Duolingo cites a UPenn/UCLA result that "a little slack" beats rigid rules. A grace mechanism is a retention feature, not a leak. | https://blog.duolingo.com/how-duolingo-streak-builds-habit/ | B |
 | 4 | Streak anxiety and number-chasing are reported by long-streak users (409-day streak: "not sure the streak itself produced learning benefit"). Hard resets with no forgiveness are a named driver of quit-in-anger. | `game-retention-design/references/live-ops-ethics.md` (cites Quora; psychology.md cites loss-aversion literature) | C |
 | 5 | Gamification overall in learning: Sailer and Homner (2020) meta-analysis: small-to-moderate positive effects, g = .49 cognitive (k=19, N=1,686), .36 motivational (k=16, N=2,246), .25 behavioural (k=9, N=951). The cognitive effect was stable in the high-rigour subset; the motivational and behavioural effects were **less stable**. Game fiction (story/world) and collaboration-plus-competition were the moderators that helped; fiction is what a garden is. | https://link.springer.com/article/10.1007/s10648-019-09498-w | A |
-| 6 | Intrinsic-motivation meta-analysis (35 interventions, 2,500 participants): overall g = .257 (small). Autonomy g = .638 and relatedness g = 1.776 rose, but **competence only g = .277** and the review names "lack of perceived competence" as a main failure. Lesson: a garden helps most if it makes the learner feel more competent, not if it only decorates. | https://link.springer.com/article/10.1007/s11423-023-10337-7 | A |
+| 6 | Li, Hew and Du (2024), intrinsic-motivation meta-analysis (35 interventions, 2,500 participants): overall g = .257 (small). Autonomy g = .638 and relatedness g = 1.776 rose, but **competence only g = .277** and the review names "lack of perceived competence" as a main failure. Lesson: a garden helps most if it makes the learner feel more competent, not if it only decorates. | https://link.springer.com/article/10.1007/s11423-023-10337-7 | A |
 | 7 | 2025 meta-analysis of 182 effect sizes from 37 randomised or quasi-randomised trials: d = 0.566 overall; best element combination "Rules/Goals + Challenge + Mystery"; effect depends on learning domain and on intervention duration. Abstract only. Duration as a moderator is the honest warning that novelty fades. | https://link.springer.com/article/10.1007/s11423-025-10493-y | A |
 | 8 | Variable (random) rewards: I found **no learning-specific evidence** that variable-ratio rewards improve learning. The peer-reviewed evidence on them is from gambling-adjacent games (Candy Crush near-miss raises arousal and urge to continue, Larche et al. 2016, via the retention skill's ethics reference). The effect is real and it is the wrong thing to aim at a learner. | `live-ops-ethics.md` item 13 | A (for the gambling effect) / gap (for learning) |
 | 9 | There is no controlled comparison I could find of "punitive decay" (a tree dies) versus "non-punitive decay" (nothing bad happens) on retention or learning. Everything below on that choice is design reasoning from shipped products, not trial evidence. | search, none found | gap |
@@ -63,7 +63,7 @@ Concrete third-party curves are thin and mostly proprietary. What I could ground
 | `localStorage` is about **5 MiB per origin** (Web Storage capped at 10 MiB total across `localStorage` plus `sessionStorage`); over the limit it throws `QuotaExceededError`, so wrap every write in try/catch. | https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria | A (docs) |
 | IndexedDB, Cache API: far larger. Chromium (Chrome, Edge) up to 60% of disk per origin; Safari/WebKit (macOS 14, iOS 17 and later) around 60% of disk for browser apps and home-screen web apps; Firefox the smaller of 10% of disk or 10 GiB in best-effort mode. | same | A |
 | Data is stored "best-effort" by default; `navigator.storage.persist()` asks for persistent mode (Firefox shows a prompt; Safari and Chromium decide silently from site engagement). The Chrome team says data is very rarely deleted for sites a user visits regularly. | same | A |
-| **Safari trap:** WebKit deletes all of a site's script-writable storage (including `localStorage`, IndexedDB) after **seven days of Safari use without user interaction on the site**. The counter is days of Safari use, not calendar days. **Web apps added to the Home Screen are exempt and get their own counter.** | https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/ and https://webkit.org/tracking-prevention/ | A (primary) |
+| **Safari trap:** WebKit deletes all of a site's script-writable storage (including `localStorage` **and** IndexedDB; WebKit clears them together, so a second store is not a backup) after **seven days of Safari use without user interaction on the site**. The counter is days of Safari use, not calendar days. **Web apps added to the Home Screen are exempt and get their own counter.** | https://webkit.org/blog/10218/full-third-party-cookie-blocking-and-more/ and https://webkit.org/tracking-prevention/ | A (primary) |
 | QR codes: byte-mode capacity ranges up to 2,953 bytes (version 40, level L). Our payload fits easily at a low version. | QR spec figure from my own knowledge, not re-fetched | C |
 
 **Consequence:** a learner on iPhone Safari who studies on Monday, skips a week of Safari use, and opens the site again may find the garden gone. With no account, that is the single most damaging failure for trust. The design in Part 3 therefore pairs `persist()` with an always-visible export code and an "Add to Home Screen" nudge on iOS.
@@ -110,24 +110,24 @@ Every plant has four stages, and **each stage is earned only by a mastery event*
 | Stage | Trigger | What the learner sees |
 |---|---|---|
 | **Seed** | Starts the lesson (sitting 1) | A seed in the soil |
-| **Sprout** | Each completed sitting adds a visible growth step (3 to 5 steps, matching `appSittings`); full sprout when the **lesson check is passed at 80% or more** | A small plant, sound now tappable |
-| **Bloom** | First **successful spaced review** at 1 day or more after the sprout (design: at least 20 hours, so "next morning" qualifies) | Flowers or fruit open; a visitor can arrive |
+| **Sprout** | **Only** when the **lesson check is passed at 80% or more (12+ items)**. Sittings give a *growth step* (the seed is watered, 3 to 5 small animations matching `appSittings`), which is feedback, not a stage and not progress | A small plant, sound now tappable |
+| **Bloom** | First **successful spaced review** at least **20 hours** after the sprout (the one bloom rule, used everywhere in this file) | Flowers or fruit open; a visitor can arrive |
 | **Full** | Successful review again at **7 days or more** | Leaves deepen, a seed pod forms; counts as "mastered" in the field guide |
 
-There is no fifth stage and nothing that regresses on the learner's side. If a plant is overdue (see 2.5) it is shown **dozing** (leaves folded, colour softened). One successful retrieval wakes it immediately. A dozing plant keeps its sound, is still tappable, and is never removed. This is the only "decay" and it is reversible by doing the thing the learner came to do.
+There is no fifth stage and nothing that regresses on the learner's side. If a plant is overdue (see 2.6) it is shown **dozing** (leaves folded, colour softened). One successful retrieval wakes it immediately. A dozing plant keeps its sound, is still tappable, and is never removed. This is the only "decay" and it is reversible by doing the thing the learner came to do.
 
-Review intervals for scheduling (design choice, informed by "optimal gap grows with retention interval", Cepeda 2006): **1, 3, 7, 14, 30 days**, expanding after a correct retrieval, dropping back one step after a miss (tune).
+Review intervals for scheduling (design choice, informed by "optimal gap grows with retention interval", Cepeda 2006): **20 hours, 3, 7, 14, 30 days**, expanding after a correct retrieval, dropping back one step after a miss (tune).
 
 ### 2.3 First visible reward
 
 | When | What happens | Why it is honest |
 |---|---|---|
 | **0 to 10 seconds** | Garden opens with an empty plot and one planted seed already sitting there ("your garden starts with one seed") | Endowed progress that is true: the seed is real, it is the first plant |
-| **Within about 90 seconds** (first correct blend or sound in L1.01) | The seed **sprouts on screen** with a small sound | The first change is caused by the learner's first correct answer |
-| **End of L1.01 (about 15 to 20 minutes)** | First plant reaches Sprout and is tappable | The garden now holds one real piece of reading knowledge |
-| **Next day (2-3 minute review)** | The plant **blooms** and the first visitor can land | The return hook is a thing the learner can see change because they came back |
+| **Within about 90 seconds** (first correct blend or sound in L1.01) | The seed is **watered**: it swells and wiggles with a small sound (a growth step, not a Sprout) | The change is caused by the learner's first correct answer and claims no mastery |
+| **End of L1.01 (about 15 to 20 minutes)** | Lesson check (12+ oral items) passed: first plant **sprouts** and is tappable | The garden now holds one real piece of reading knowledge |
+| **20 hours or more later (2-3 minute review, usually the next day)** | The plant **blooms** and the first visitor can land | The return hook is a thing the learner can see change because they came back |
 
-Target: first visible change at **90 seconds** or sooner; measure it in the first silent playtest, with a ceiling of 3 minutes. The retention skill lists time-to-first-fun as one of the three numbers to instrument.
+Target: first visible change (the watered seed) at **90 seconds** or sooner; measure it in the first silent playtest, with a ceiling of 3 minutes. The retention skill lists time-to-first-fun as one of the three numbers to instrument.
 
 ### 2.4 Daily and weekly loop
 
@@ -144,38 +144,64 @@ Target: first visible change at **90 seconds** or sooner; measure it in the firs
 
 **Surprise, not gambling:** which visitor arrives and when is varied within a fixed set, so a return feels alive. What a learner unlocks is **never** random; visitors are cosmetic and never gate content (reasoning: finding 8, no learning evidence for random rewards, and the ethics table marks chance-based rewards red).
 
-**No notifications** (a static site cannot send them without a server, and "we miss you" pushes are rated amber-red). Optional: a downloadable **.ics calendar event** ("Tend your garden", daily at a time the learner picks) that lives in their own calendar app. No server, no permission prompt.
+**No push notifications in v1** (a static site cannot send them without a server; evaluated in 2.5). Return cues are the "plant is ready" state, an opt-in `.ics` calendar event and the home-screen icon.
 
-### 2.5 Lapse handling
+### 2.5 Return triggers and how we measure return (no accounts)
+
+Three triggers ship in v1; one is rejected for now.
+
+| Trigger | Design | Cost | Verdict |
+|---|---|---|---|
+| **"A plant is ready" state on Home** | When any plant is 20 hours or more past its last stage, Home shows it glowing with the line "Pea is ready to bloom - 3 minutes". This is the primary return hook because it is the only one that works for a learner who is already on the site. | Pure local logic | **Ship** |
+| **Opt-in .ics calendar event** | In settings and on the card after the first bloom: "Remind me" downloads a daily recurring `.ics` ("Tend your garden", time chosen by the learner, with a link to the site). It lives in the learner's own calendar app, so it also works when the browser's storage is wiped. | None, no server, no permission prompt | **Ship** |
+| **Add to Home Screen** | Already prompted for storage reasons (2.8); the icon on the phone is itself a daily cue and gives the learner a stable origin counter on iOS. | None | **Ship** |
+| **Web Push (service worker + push relay)** | A PWA with a service worker can receive pushes, but a *send* needs something to hold each learner's push subscription and fire messages on a schedule: a relay (for example a free-tier edge function with a cron trigger). That is a server holding a per-device identifier, which breaks the "no account, no server, no tracking" promise even if no name is stored. On iOS, push works only for an installed home-screen web app (iOS 16.4 and later; my recollection, C, not re-fetched this session), so it would miss the Safari-tab learners we most worry about. A "we miss you" push is also rated amber-red in the ethics reference. | A relay to run, secure and justify | **Not in v1.** Revisit only if the D7 pilot (below) is under target *and* learners ask for it, and then make it opt-in per device with the subscription deletable in one tap. |
+
+**Return targets (hypotheses to tune, not promises).** Context: mobile game medians are D1 about 22%, D7 about 4%, top 10% D1 about 40% (GameAnalytics, via the retention skill). A learning site with a 20-hour bloom hook and a calendar cue should beat the median; targets for the closed pilot, counted among learners who completed lesson 1's check:
+
+| Metric | Definition | Target | Floor (rethink the loop below this) |
+|---|---|---|---|
+| **D1 return** | Opens the garden on the local calendar day after the first lesson check, and finishes a review round | 35% | 22% |
+| **D7 return** | Any tended day on days 7 to 9 after first use | 15% | 8% |
+| **First bloom rate** | Completes the first spaced review within 3 days | 50% | 30% |
+
+**Measurement without accounts. Two layers:**
+
+1. **Local counter (default, no network).** The device stores `firstDay` and a **30-bit bitmap of tended days** (one bit per day since first use, about 4 bytes). It is included in the full garden code and file (2.8). Pilot testers send their garden code to the team (a chat message); the team decodes D1 and D7 from the bitmap. This is privacy-safe because the learner chooses whether to share, and nothing leaves the device otherwise. Limit: it misses learners who never share, which biases results toward engaged people, so the team must say so in every number it quotes.
+2. **Optional aggregate beacon (opt-in, off by default).** One checkbox in settings: "Share anonymous usage counts". If on, the page sends a request with **no identifier, no cookie, no IP stored** and only a bucket label such as `d1_return`, `d7_return`, `lesson_done_L1.05`, to a cookie-free counter (a self-hosted counter or a privacy-first analytics service; I did not evaluate vendors, C). It can count that "a D7 return happened" but cannot tie two events to one person. Because the learner is not identified, this gives rates, not cohorts, and is enough to judge the targets above. If the team cannot host or trust a counter, skip layer 2 and rely on layer 1 plus interviews.
+
+**What would change the verdict:** if D1 is under its floor, the first thing to examine is whether the 20-hour bloom review is being reached (first bloom rate), not whether to add notifications.
+
+### 2.6 Lapse handling
 
 | Days away | What the learner sees | Rules |
 |---|---|---|
 | 0 to 2 | Normal | Nothing |
-| 3 to 6 | A few plants doze. Message: "Some plants are resting. A 3-minute review wakes them." | Review queue capped at **10 items per session** |
-| 7 to 29 | More plants doze; garden still fully intact | Capped at 12 items; oldest-due first; add 1 optional extra round |
-| 30 or more | "Welcome back. Your garden is exactly as you left it." A **10-item mixed check** across the levels they reached re-sets the review intervals | A pass resets intervals to the safe step; a miss re-seeds only the weak plants, never deletes |
+| 3 to 6 | A few plants doze. Message: "Some plants are resting. A 3-minute review wakes them." | Review queue capped at **12 items per session** (the minimum gate size) |
+| 7 to 29 | More plants doze; garden still fully intact | Capped at 16 items; oldest-due first |
+| 30 or more | "Welcome back. Your garden is exactly as you left it." A **12-item mixed check** across the levels they reached re-sets the review intervals | A pass resets intervals to the safe step; a miss re-seeds only the weak plants, never deletes |
 
 Hard rules: **nothing earned is ever removed**; no "you lost" language; the daily review queue has a cap so an overdue pile cannot become a wall (the review-avalanche that makes many spaced-repetition users quit; C, practitioner experience, not verified here). A lapsed learner always has a 3-minute path back.
 
-### 2.6 Anti-guessing and mastery gates
+### 2.7 Anti-guessing and mastery gates
 
-- **Gates are mastery, never taps or time.** A plant reaches Sprout only via the lesson check at 80% or more, Bloom and Full only via reviews at 80% or more. Level checks need 85% on cumulative content to place a landmark.
-- **Minimum 12 items** per gating check and **no 2-option items** in them (guess maths in 1.6). Prefer production tasks: build the word from tiles, type it, pick the picture for a heard word.
+- **Gates are mastery, never taps or time, and every gate has 12 or more items.** A review round pools due items from several plants; a plant advances only if its own items in that round were first-try correct and the round scored 80% or more. A plant reaches Sprout only via the lesson check at 80% or more, Bloom and Full only via reviews at 80% or more. Level checks need 85% on cumulative content to place a landmark.
+- **Minimum 12 items** per gate (lesson check, review round, level check at 20+ since cumulative, and the lapse check) and **no 2-option items** in them (guess maths in 1.6). Prefer production tasks: build the word from tiles, type it, pick the picture for a heard word.
 - **First attempt counts.** A retry after a wrong answer teaches but does not score. A missed item returns later in the same sitting after at least 2 other items (a retrieval, not an echo).
-- **Speed floor** (tune): an answer under about 600 ms to a novel item is treated as a tap-through, shown a gentle "take your time", and not scored. No penalty beyond not scoring it. (Baker: guessing and hint-spamming correlates with learning less.)
+- **No speed floor in v1.** An earlier draft proposed ignoring answers faster than about 600 ms; there is no data here to justify any number, and fast correct answers are what fluent readers produce. Drop it until a timed pilot (log response time on gating checks, compare with the 12-item guess maths) shows where tap-through really starts.
 - **Test-out for adults:** passing a level check up front plants that level's plants straight to **Sprout**, with blooms still earned by later reviews. It saves a literate adult 8 hours of Level 1 without handing out fake mastery.
 - **No time spent in the garden is ever rewarded.** Looking and rearranging are free toys, never progress.
 
-### 2.7 Device-only persistence and multi-device without an account
+### 2.8 Device-only persistence and multi-device without an account
 
-**State is tiny.** Per lesson: stage (2 bits), review step (3 bits), last-reviewed day (12 bits as days since 2026-10-01, good for 11 years). That is 17 bits times 108 lessons = **1,836 bits, about 230 bytes**; with a counter of tended days and a visitor list, roughly 300 bytes of JSON, a few KB stored. Far below the 5 MiB `localStorage` limit.
+**State is tiny.** Per lesson: stage (2 bits), review step (3 bits), last-reviewed day (12 bits as days since 2026-10-01, good for 11 years). That is 17 bits times 108 lessons = **1,836 bits, about 230 bytes**, plus the 4-byte tended-days bitmap and `firstDay` from 2.5; with a counter of tended days and a visitor list, roughly 300 bytes of JSON, a few KB stored. Far below the 5 MiB `localStorage` limit.
 
 **Storage plan:**
-1. Primary write: `localStorage`, wrapped in try/catch (MDN: `QuotaExceededError`).
-2. Mirror: IndexedDB copy on every save, so a browser clearing one store does not erase both.
-3. On first save, call `navigator.storage.persist()`.
-4. On iPhone Safari, show a one-time, non-blocking note: "Add to Home Screen so Safari does not clear your garden" (WebKit exempts home-screen web apps from the 7-day rule).
-5. Say plainly, once and in the settings page: "Your garden lives on this device only. There is no account. Save your garden code to keep it safe."
+1. Single store: `localStorage`, wrapped in try/catch (MDN: `QuotaExceededError`). No IndexedDB mirror: it would give false comfort because WebKit deletes both stores together.
+2. On first save, call `navigator.storage.persist()` (Safari decides silently from engagement, so treat it as a request, not a guarantee).
+3. On iPhone Safari, show an **Add to Home Screen prompt** (one-time, non-blocking, repeated after the 2nd and 5th lesson): "Add to Home Screen so Safari does not clear your garden" (WebKit exempts home-screen web apps from the 7-day rule).
+4. **Show the garden code at every landmark** (the 7 level checks) as a full-screen "save your garden" card with copy, download and QR buttons, not a reminder in settings.
+5. State plainly, once and in the settings page, that WebKit clears `localStorage` and IndexedDB **together**, so only the garden code, or a home-screen install, protects a Safari learner. Say also: "Your garden lives on this device only. There is no account. Save your garden code to keep it safe."
 
 **Export and import (the backup and the multi-device story):**
 - **Garden code (short):** progress only, 2 bits per lesson plus checksum = 27 bytes + 2 checksum + 1 version, encoded in Crockford base32 as groups of four (about 48 characters). Typeable, readable over a phone call, sendable in any chat. After import, all review dates are treated as due, so the new device starts with one gentle review round (pessimistic but safe).
@@ -183,9 +209,9 @@ Hard rules: **nothing earned is ever removed**; no "you lost" language; the dail
 - **Merge, not overwrite:** importing takes, per lesson, the **higher stage** and the **later review date**. Progress only moves forward, so importing an older code can never destroy newer progress. This is the whole multi-device sync story with no server.
 - **Checksum plus version byte**, so a mistyped code says "check the last group" instead of silently loading nonsense.
 - Camera scan needs `BarcodeDetector`, which is not available everywhere: always show the typed-code path as well.
-- Remind the learner to save the code after each level landmark (the moment of highest attachment).
+- The code card appears at each of the 7 landmarks, the moment of highest attachment.
 
-### 2.8 Adult and child, one garden
+### 2.9 Adult and child, one garden
 
 Same engine and same art; no mode switch that labels anyone. Differences are voice and density only:
 - **Voice:** instructions in plain, short, adult-neutral sentences. A child hears the sounds with the same warmth because the sound is the star; praise is quiet ("Sprouted", not "Awesome!!!").
@@ -194,13 +220,14 @@ Same engine and same art; no mode switch that labels anyone. Differences are voi
 - **Privacy:** lesson titles are not shown on the home screen by default.
 - Tone hypothesis (C, untested): a 40-year-old and a 6-year-old both prefer something that looks like a real garden. Verify in the first playtest with at least three adult learners.
 
-### 2.9 Pacing in numbers (tune)
+### 2.10 Pacing in numbers (tune)
 
 | Moment | Cadence |
 |---|---|
-| First sprout | within 90 s |
+| First growth step (watered seed) | within 90 s |
+| First sprout | end of L1.01, about 15 to 20 min |
 | Level 1 (14 lessons, about 3.8 h) | a plant per lesson: **12 plants + path stones + the gate in the first 4 hours** |
-| First bloom | next day (1 day) |
+| First bloom | 20 hours after the sprout |
 | First visitor | after the **5th bloom** |
 | Visitor rhythm | one per 5 blooms (19 visitors for 98 blooms) |
 | Landmark | one per level end; level lengths are about 4, 6, 8.5, 7.5, 10, 10 and 10 hours of lessons |
@@ -208,129 +235,129 @@ Same engine and same art; no mode switch that labels anyone. Differences are voi
 
 The cadence matches the retention skill's industry curve in spirit (a new thing early and often, wider gaps later) except that plants arrive at one per lesson throughout. That is deliberate: later lessons are 30 to 45 minutes, so a plant per lesson is already a wide gap in clock time.
 
-### 2.10 The unlock table (all 108 lessons)
+### 2.11 The unlock table (all 108 lessons)
 
 One primary garden gain per lesson. Plants (and Level 7 tools) arrive at **Sprout**; landmarks at the level check or capstone. Plant names are placeholders for the art team; each is a procedural variant inside a zone family (see Risk 5). Level 7 gains are **tools in the shed**, an adult-friendly reading of "advanced reader skills", ending in the observatory.
 
 | # | Lesson | Title | Garden gains (at sprout) | Type | Gate (mastery, never time or taps) |
 |---|---|---|---|---|---|
-| 1 | L1.01 | Sounds in Words | First Sprout (the starter plot; sprouts on your first correct answer) | plant | lesson check >= 80% |
-| 2 | L1.02 | s a t | Sunflower | plant | lesson check >= 80% |
-| 3 | L1.03 | p i n | Pine | plant | lesson check >= 80% |
-| 4 | L1.04 | m d | Marigold | plant | lesson check >= 80% |
-| 5 | L1.05 | g o | Grape vine | plant | lesson check >= 80% |
-| 6 | L1.06 | c k ck | Cactus | plant | lesson check >= 80% |
-| 7 | L1.07 | e u | Elderberry | plant | lesson check >= 80% |
-| 8 | L1.08 | r h | Rose | plant | lesson check >= 80% |
-| 9 | L1.09 | b f l | Bluebell | plant | lesson check >= 80% |
-| 10 | L1.10 | ff, ll, ss, zz (FLOSS) + the -s plural | Fern | plant | lesson check >= 80% |
-| 11 | L1.11 | j v w | Jasmine | plant | lesson check >= 80% |
-| 12 | L1.12 | x y z qu | Zinnia | plant | lesson check >= 80% |
-| 13 | L1.13 | Review: All Letters, Letter Names vs. Sou... | Alphabet Path (path stones link the plants) | path | review round >= 80% |
-| 14 | L1.14 | Level 1 Mastery Check | GARDEN GATE (landmark) | landmark | level check >= 85% (cumulative) |
-| 15 | L2.01 | sh | Shell Flower | plant | lesson check >= 80% |
-| 16 | L2.02 | ch, tch | Chestnut | plant | lesson check >= 80% |
-| 17 | L2.03 | th (voiced and unvoiced) | Thistle | plant | lesson check >= 80% |
-| 18 | L2.04 | wh | Wheat | plant | lesson check >= 80% |
-| 19 | L2.05 | ng, nk | Bell Heather | plant | lesson check >= 80% |
-| 20 | L2.06 | Initial blends (st sp sn sm sl sw sk sc b... | Blend Hedge | plant | lesson check >= 80% |
-| 21 | L2.07 | Final blends (-st -nd -nt -mp -sk -lt -ft... | Tall Reeds | plant | lesson check >= 80% |
-| 22 | L2.08 | Three-letter blends (str spr scr spl squ ... | Triple Ivy | plant | lesson check >= 80% |
-| 23 | L2.09 | Adding -s and -es (plural and 3rd-person ... | Twin Daisies | plant | lesson check >= 80% |
-| 24 | L2.10 | Adding -ed (three sounds: /t/ /d/ /ɪd/) | Three-Tone Lily | plant | lesson check >= 80% |
-| 25 | L2.11 | Adding -ing and -er (no base change) | Willow | plant | lesson check >= 80% |
-| 26 | L2.12 | Compound words and closed 2-syllable words | Grafted Apple | plant | lesson check >= 80% |
-| 27 | L2.13 | Review (everything from Level 2) | Pebble Path | path | review round >= 80% |
-| 28 | L2.14 | Level 2 Mastery Check | STONE POND (landmark) | landmark | level check >= 85% (cumulative) |
-| 29 | L3.01 | a_e (VCe with a) | Aspen | plant | lesson check >= 80% |
-| 30 | L3.02 | i_e (VCe with i) | Iris | plant | lesson check >= 80% |
-| 31 | L3.03 | o_e, u_e, e_e (VCe with o, u, e) | Triple Orchid | plant | lesson check >= 80% |
-| 32 | L3.04 | VCe + the Drop-e Rule | Birch | plant | lesson check >= 80% |
-| 33 | L3.05 | Open Syllables | Open Lotus | plant | lesson check >= 80% |
-| 34 | L3.06 | Y as a Vowel | Yarrow | plant | lesson check >= 80% |
-| 35 | L3.07 | Soft c, Soft g | Cedar | plant | lesson check >= 80% |
-| 36 | L3.08 | ar | Artichoke | plant | lesson check >= 80% |
-| 37 | L3.09 | or, ore | Oregano | plant | lesson check >= 80% |
-| 38 | L3.10 | ai, ay | Rain Lily | plant | lesson check >= 80% |
-| 39 | L3.11 | ee, ea | Elm | plant | lesson check >= 80% |
-| 40 | L3.12 | oa, ow, oe | Oak | plant | lesson check >= 80% |
-| 41 | L3.13 | igh, ie | Night Cereus | plant | lesson check >= 80% |
-| 42 | L3.14 | ue, ew, ui | Blueberry | plant | lesson check >= 80% |
-| 43 | L3.15 | oo (Flex-Decoding Two Sounds) | Bamboo | plant | lesson check >= 80% |
-| 44 | L3.16 | -ild, -ind, -old, -ost | Wild Oat | plant | lesson check >= 80% |
-| 45 | L3.17 | Level 3 Review | Cobble Path | path | review round >= 80% |
-| 46 | L3.18 | Level 3 Mastery Check | WOODEN BRIDGE (landmark) | landmark | level check >= 85% (cumulative) |
-| 47 | L4.01 | Cars in the Yard (ar extended) | Ash | plant | lesson check >= 80% |
-| 48 | L4.02 | The Fork in the Road (or/ore extended + t... | Beech | plant | lesson check >= 80% |
-| 49 | L4.03 | Her First Bird | Cherry | plant | lesson check >= 80% |
-| 50 | L4.04 | Fair Weather, Rare Deer | Dogwood | plant | lesson check >= 80% |
-| 51 | L4.05 | The Noisy Boy | Elder | plant | lesson check >= 80% |
-| 52 | L4.06 | Loud Clouds, Slow Cows | Fig | plant | lesson check >= 80% |
-| 53 | L4.07 | Paw, Pause, and the Mall | Hazel | plant | lesson check >= 80% |
-| 54 | L4.08 | Bread and Silent Letters | Juniper | plant | lesson check >= 80% |
-| 55 | L4.09 | Phones, Photos, and Ghosts | Larch | plant | lesson check >= 80% |
-| 56 | L4.10 | Little Candle, Little Table | Linden | plant | lesson check >= 80% |
-| 57 | L4.11 | A Nation's Vision | Mulberry | plant | lesson check >= 80% |
-| 58 | L4.12 | Breaking Words Apart | Poplar | plant | lesson check >= 80% |
-| 59 | L4.13 | Running, Happier, Hoping | Quince | plant | lesson check >= 80% |
-| 60 | L4.14 | The Word-Attack Routine | Rowan | plant | lesson check >= 80% |
-| 61 | L4.15 | Reading the Real World | Sycamore | plant | lesson check >= 80% |
-| 62 | L4.16 | Level 4 Mastery Check | LANTERN (landmark) | landmark | level check >= 85% (cumulative) |
-| 63 | L5.01 | Prefixes un-, re- | Apple tree | plant | lesson check >= 80% |
-| 64 | L5.02 | Prefixes in-/im-/ir-/il- (not), dis- | Pear tree | plant | lesson check >= 80% |
-| 65 | L5.03 | Prefixes en-/em-, non- | Plum tree | plant | lesson check >= 80% |
-| 66 | L5.04 | Prefixes over-, mis- | Peach tree | plant | lesson check >= 80% |
-| 67 | L5.05 | Prefixes sub-, pre- | Orange tree | plant | lesson check >= 80% |
-| 68 | L5.06 | Suffixes -ly, -er/-or | Lemon tree | plant | lesson check >= 80% |
-| 69 | L5.07 | Suffixes -tion/-sion, -able/-ible | Lime tree | plant | lesson check >= 80% |
-| 70 | L5.08 | Prefixes inter-, fore- | Pomegranate | plant | lesson check >= 80% |
-| 71 | L5.09 | Suffixes -al, -y | Mango | plant | lesson check >= 80% |
-| 72 | L5.10 | Prefixes de-, trans- | Guava | plant | lesson check >= 80% |
-| 73 | L5.11 | Suffixes -ness, -ment | Apricot | plant | lesson check >= 80% |
-| 74 | L5.12 | Prefixes super-, semi- | Date palm | plant | lesson check >= 80% |
-| 75 | L5.13 | Suffixes -ful, -less, -ive | Olive tree | plant | lesson check >= 80% |
-| 76 | L5.14 | Prefixes anti-, mid-, under- | Walnut tree | plant | lesson check >= 80% |
-| 77 | L5.15 | Suffixes -ity, -ist | Almond tree | plant | lesson check >= 80% |
-| 78 | L5.16 | Review, Integration & Extensive Reading C... | WINDMILL (landmark) | landmark | level check >= 85% (cumulative) |
-| 79 | L6.01 | How Your Body Is Built | Bamboo grove (the body) | plant | lesson check >= 80% |
-| 80 | L6.02 | How Your Heart Keeps You Alive | Red Hibiscus (the heart) | plant | lesson check >= 80% |
-| 81 | L6.03 | Why We Get Sick — and How the Body Fights... | Neem (fighting sickness) | plant | lesson check >= 80% |
-| 82 | L6.04 | Clean Water, Fewer Diseases | Lotus (clean water) | plant | lesson check >= 80% |
-| 83 | L6.05 | Salt Water and Fresh Water: Earth's Water... | Mangrove (salt and fresh) | plant | lesson check >= 80% |
-| 84 | L6.06 | The Water Cycle: A Journey With No End | Water Lily (the cycle) | plant | lesson check >= 80% |
-| 85 | L6.07 | Climate Change: One Cause, Many Effects | Snow Lily (climate) | plant | lesson check >= 80% |
-| 86 | L6.08 | Floods and Droughts: Naming the Problem, ... | Rice Paddy (floods, droughts) | plant | lesson check >= 80% |
-| 87 | L6.09 | Who's Behind This Page? Learning to Read ... | Heliotrope (reading sideways) | plant | lesson check >= 80% |
-| 88 | L6.10 | How Money Moves: Banks, Loans, and Interest | Cotton (how money moves) | plant | lesson check >= 80% |
-| 89 | L6.11 | How a Government Decides Where Money Goes | Date Grove (budgets) | plant | lesson check >= 80% |
-| 90 | L6.12 | Taxes: Why We Pay Them and What They Buy | Banyan (taxes) | plant | lesson check >= 80% |
-| 91 | L6.13 | Inflation: One Cause, Many Effects on You... | Wheat Field (inflation) | plant | lesson check >= 80% |
-| 92 | L6.14 | The Indus Valley Civilisation: A City Bef... | Pipal (Indus Valley) | plant | lesson check >= 80% |
-| 93 | L6.15 | From Mughal Court to Colonial Rule | Rose Court (Mughal to Colonial) | plant | lesson check >= 80% |
-| 94 | L6.16 | Partition: One Decision, Two Countries (C... | GREAT BANYAN COURTYARD (landmark) | landmark | level check >= 85% (cumulative) |
-| 95 | L7.01 | Orientation & Baseline: What "Advanced Re... | Compass (tool shed) | plant | lesson check >= 80% |
-| 96 | L7.02 | Reading Like a Historian I: Sourcing & Co... | Magnifier | plant | lesson check >= 80% |
-| 97 | L7.03 | Reading Like a Historian II: Corroboration | Balance Scales | plant | lesson check >= 80% |
-| 98 | L7.04 | Reading a Science Article I: Claim, Metho... | Soil Probe | plant | lesson check >= 80% |
-| 99 | L7.05 | Reading a Science Article II: Correlation... | Thermometer | plant | lesson check >= 80% |
-| 100 | L7.06 | Reading an Argumentative Essay: Claim, Re... | Pruning Shears | plant | lesson check >= 80% |
-| 101 | L7.07 | Argument Evaluation: Logical Fallacies & ... | Spirit Level | plant | lesson check >= 80% |
-| 102 | L7.08 | Lateral Reading & Source Credibility | Telescope | plant | lesson check >= 80% |
-| 103 | L7.09 | Reading a Contract, Policy, or Terms of S... | Fine-Print Lens | plant | lesson check >= 80% |
-| 104 | L7.10 | Synthesis I: Two Sources, Contrasting Vie... | Twin Lanterns | plant | lesson check >= 80% |
-| 105 | L7.11 | Synthesis II: 3–4 Sources, One Research Q... | Grafting Knife | plant | lesson check >= 80% |
-| 106 | L7.12 | Literary Reading I: Figurative Language, ... | Watercolour Set | plant | lesson check >= 80% |
-| 107 | L7.13 | Literary Reading II: Unreliable Narrator ... | Quill | plant | lesson check >= 80% |
-| 108 | L7.14 | Reading Stamina & Speed; Course Capstone ... | OBSERVATORY (landmark) | landmark | level check >= 85% (cumulative) |
+| 1 | L1.01 | Sounds in Words | First Sprout (the starter plot; sprouts when the L1.01 check is passed) | plant | lesson check >= 80% (12+ items) |
+| 2 | L1.02 | s a t | Sunflower | plant | lesson check >= 80% (12+ items) |
+| 3 | L1.03 | p i n | Pine | plant | lesson check >= 80% (12+ items) |
+| 4 | L1.04 | m d | Marigold | plant | lesson check >= 80% (12+ items) |
+| 5 | L1.05 | g o | Grape vine | plant | lesson check >= 80% (12+ items) |
+| 6 | L1.06 | c k ck | Cactus | plant | lesson check >= 80% (12+ items) |
+| 7 | L1.07 | e u | Elderberry | plant | lesson check >= 80% (12+ items) |
+| 8 | L1.08 | r h | Rose | plant | lesson check >= 80% (12+ items) |
+| 9 | L1.09 | b f l | Bluebell | plant | lesson check >= 80% (12+ items) |
+| 10 | L1.10 | ff, ll, ss, zz (FLOSS) + the -s plural | Fern | plant | lesson check >= 80% (12+ items) |
+| 11 | L1.11 | j v w | Jasmine | plant | lesson check >= 80% (12+ items) |
+| 12 | L1.12 | x y z qu | Zinnia | plant | lesson check >= 80% (12+ items) |
+| 13 | L1.13 | Review: All Letters, Letter Names vs. Sou... | Alphabet Path (path stones link the plants) | path | review round >= 80% (12+ items) |
+| 14 | L1.14 | Level 1 Mastery Check | GARDEN GATE (landmark) | landmark | level check >= 85% (20+ items, cumulative) |
+| 15 | L2.01 | sh | Shell Flower | plant | lesson check >= 80% (12+ items) |
+| 16 | L2.02 | ch, tch | Chestnut | plant | lesson check >= 80% (12+ items) |
+| 17 | L2.03 | th (voiced and unvoiced) | Thistle | plant | lesson check >= 80% (12+ items) |
+| 18 | L2.04 | wh | Wheat | plant | lesson check >= 80% (12+ items) |
+| 19 | L2.05 | ng, nk | Bell Heather | plant | lesson check >= 80% (12+ items) |
+| 20 | L2.06 | Initial blends (st sp sn sm sl sw sk sc b... | Blend Hedge | plant | lesson check >= 80% (12+ items) |
+| 21 | L2.07 | Final blends (-st -nd -nt -mp -sk -lt -ft... | Tall Reeds | plant | lesson check >= 80% (12+ items) |
+| 22 | L2.08 | Three-letter blends (str spr scr spl squ ... | Triple Ivy | plant | lesson check >= 80% (12+ items) |
+| 23 | L2.09 | Adding -s and -es (plural and 3rd-person ... | Twin Daisies | plant | lesson check >= 80% (12+ items) |
+| 24 | L2.10 | Adding -ed (three sounds: /t/ /d/ /ɪd/) | Three-Tone Lily | plant | lesson check >= 80% (12+ items) |
+| 25 | L2.11 | Adding -ing and -er (no base change) | Willow | plant | lesson check >= 80% (12+ items) |
+| 26 | L2.12 | Compound words and closed 2-syllable words | Grafted Apple | plant | lesson check >= 80% (12+ items) |
+| 27 | L2.13 | Review (everything from Level 2) | Pebble Path | path | review round >= 80% (12+ items) |
+| 28 | L2.14 | Level 2 Mastery Check | STONE POND (landmark) | landmark | level check >= 85% (20+ items, cumulative) |
+| 29 | L3.01 | a_e (VCe with a) | Aspen | plant | lesson check >= 80% (12+ items) |
+| 30 | L3.02 | i_e (VCe with i) | Iris | plant | lesson check >= 80% (12+ items) |
+| 31 | L3.03 | o_e, u_e, e_e (VCe with o, u, e) | Triple Orchid | plant | lesson check >= 80% (12+ items) |
+| 32 | L3.04 | VCe + the Drop-e Rule | Birch | plant | lesson check >= 80% (12+ items) |
+| 33 | L3.05 | Open Syllables | Open Lotus | plant | lesson check >= 80% (12+ items) |
+| 34 | L3.06 | Y as a Vowel | Yarrow | plant | lesson check >= 80% (12+ items) |
+| 35 | L3.07 | Soft c, Soft g | Cedar | plant | lesson check >= 80% (12+ items) |
+| 36 | L3.08 | ar | Artichoke | plant | lesson check >= 80% (12+ items) |
+| 37 | L3.09 | or, ore | Oregano | plant | lesson check >= 80% (12+ items) |
+| 38 | L3.10 | ai, ay | Rain Lily | plant | lesson check >= 80% (12+ items) |
+| 39 | L3.11 | ee, ea | Elm | plant | lesson check >= 80% (12+ items) |
+| 40 | L3.12 | oa, ow, oe | Oak | plant | lesson check >= 80% (12+ items) |
+| 41 | L3.13 | igh, ie | Night Cereus | plant | lesson check >= 80% (12+ items) |
+| 42 | L3.14 | ue, ew, ui | Blueberry | plant | lesson check >= 80% (12+ items) |
+| 43 | L3.15 | oo (Flex-Decoding Two Sounds) | Bamboo | plant | lesson check >= 80% (12+ items) |
+| 44 | L3.16 | -ild, -ind, -old, -ost | Wild Oat | plant | lesson check >= 80% (12+ items) |
+| 45 | L3.17 | Level 3 Review | Cobble Path | path | review round >= 80% (12+ items) |
+| 46 | L3.18 | Level 3 Mastery Check | WOODEN BRIDGE (landmark) | landmark | level check >= 85% (20+ items, cumulative) |
+| 47 | L4.01 | Cars in the Yard (ar extended) | Ash | plant | lesson check >= 80% (12+ items) |
+| 48 | L4.02 | The Fork in the Road (or/ore extended + t... | Beech | plant | lesson check >= 80% (12+ items) |
+| 49 | L4.03 | Her First Bird | Cherry | plant | lesson check >= 80% (12+ items) |
+| 50 | L4.04 | Fair Weather, Rare Deer | Dogwood | plant | lesson check >= 80% (12+ items) |
+| 51 | L4.05 | The Noisy Boy | Elder | plant | lesson check >= 80% (12+ items) |
+| 52 | L4.06 | Loud Clouds, Slow Cows | Fig | plant | lesson check >= 80% (12+ items) |
+| 53 | L4.07 | Paw, Pause, and the Mall | Hazel | plant | lesson check >= 80% (12+ items) |
+| 54 | L4.08 | Bread and Silent Letters | Juniper | plant | lesson check >= 80% (12+ items) |
+| 55 | L4.09 | Phones, Photos, and Ghosts | Larch | plant | lesson check >= 80% (12+ items) |
+| 56 | L4.10 | Little Candle, Little Table | Linden | plant | lesson check >= 80% (12+ items) |
+| 57 | L4.11 | A Nation's Vision | Mulberry | plant | lesson check >= 80% (12+ items) |
+| 58 | L4.12 | Breaking Words Apart | Poplar | plant | lesson check >= 80% (12+ items) |
+| 59 | L4.13 | Running, Happier, Hoping | Quince | plant | lesson check >= 80% (12+ items) |
+| 60 | L4.14 | The Word-Attack Routine | Rowan | plant | lesson check >= 80% (12+ items) |
+| 61 | L4.15 | Reading the Real World | Sycamore | plant | lesson check >= 80% (12+ items) |
+| 62 | L4.16 | Level 4 Mastery Check | LANTERN (landmark) | landmark | level check >= 85% (20+ items, cumulative) |
+| 63 | L5.01 | Prefixes un-, re- | Apple tree | plant | lesson check >= 80% (12+ items) |
+| 64 | L5.02 | Prefixes in-/im-/ir-/il- (not), dis- | Pear tree | plant | lesson check >= 80% (12+ items) |
+| 65 | L5.03 | Prefixes en-/em-, non- | Plum tree | plant | lesson check >= 80% (12+ items) |
+| 66 | L5.04 | Prefixes over-, mis- | Peach tree | plant | lesson check >= 80% (12+ items) |
+| 67 | L5.05 | Prefixes sub-, pre- | Orange tree | plant | lesson check >= 80% (12+ items) |
+| 68 | L5.06 | Suffixes -ly, -er/-or | Lemon tree | plant | lesson check >= 80% (12+ items) |
+| 69 | L5.07 | Suffixes -tion/-sion, -able/-ible | Lime tree | plant | lesson check >= 80% (12+ items) |
+| 70 | L5.08 | Prefixes inter-, fore- | Pomegranate | plant | lesson check >= 80% (12+ items) |
+| 71 | L5.09 | Suffixes -al, -y | Mango | plant | lesson check >= 80% (12+ items) |
+| 72 | L5.10 | Prefixes de-, trans- | Guava | plant | lesson check >= 80% (12+ items) |
+| 73 | L5.11 | Suffixes -ness, -ment | Apricot | plant | lesson check >= 80% (12+ items) |
+| 74 | L5.12 | Prefixes super-, semi- | Date palm | plant | lesson check >= 80% (12+ items) |
+| 75 | L5.13 | Suffixes -ful, -less, -ive | Olive tree | plant | lesson check >= 80% (12+ items) |
+| 76 | L5.14 | Prefixes anti-, mid-, under- | Walnut tree | plant | lesson check >= 80% (12+ items) |
+| 77 | L5.15 | Suffixes -ity, -ist | Almond tree | plant | lesson check >= 80% (12+ items) |
+| 78 | L5.16 | Review, Integration & Extensive Reading C... | WINDMILL (landmark) | landmark | level check >= 85% (20+ items, cumulative) |
+| 79 | L6.01 | How Your Body Is Built | Bamboo grove (the body) | plant | lesson check >= 80% (12+ items) |
+| 80 | L6.02 | How Your Heart Keeps You Alive | Red Hibiscus (the heart) | plant | lesson check >= 80% (12+ items) |
+| 81 | L6.03 | Why We Get Sick — and How the Body Fights... | Neem (fighting sickness) | plant | lesson check >= 80% (12+ items) |
+| 82 | L6.04 | Clean Water, Fewer Diseases | Lotus (clean water) | plant | lesson check >= 80% (12+ items) |
+| 83 | L6.05 | Salt Water and Fresh Water: Earth's Water... | Mangrove (salt and fresh) | plant | lesson check >= 80% (12+ items) |
+| 84 | L6.06 | The Water Cycle: A Journey With No End | Water Lily (the cycle) | plant | lesson check >= 80% (12+ items) |
+| 85 | L6.07 | Climate Change: One Cause, Many Effects | Snow Lily (climate) | plant | lesson check >= 80% (12+ items) |
+| 86 | L6.08 | Floods and Droughts: Naming the Problem, ... | Rice Paddy (floods, droughts) | plant | lesson check >= 80% (12+ items) |
+| 87 | L6.09 | Who's Behind This Page? Learning to Read ... | Heliotrope (reading sideways) | plant | lesson check >= 80% (12+ items) |
+| 88 | L6.10 | How Money Moves: Banks, Loans, and Interest | Cotton (how money moves) | plant | lesson check >= 80% (12+ items) |
+| 89 | L6.11 | How a Government Decides Where Money Goes | Date Grove (budgets) | plant | lesson check >= 80% (12+ items) |
+| 90 | L6.12 | Taxes: Why We Pay Them and What They Buy | Banyan (taxes) | plant | lesson check >= 80% (12+ items) |
+| 91 | L6.13 | Inflation: One Cause, Many Effects on You... | Wheat Field (inflation) | plant | lesson check >= 80% (12+ items) |
+| 92 | L6.14 | The Indus Valley Civilisation: A City Bef... | Pipal (Indus Valley) | plant | lesson check >= 80% (12+ items) |
+| 93 | L6.15 | From Mughal Court to Colonial Rule | Rose Court (Mughal to Colonial) | plant | lesson check >= 80% (12+ items) |
+| 94 | L6.16 | Partition: One Decision, Two Countries (C... | GREAT BANYAN COURTYARD (landmark) | landmark | level check >= 85% (20+ items, cumulative) |
+| 95 | L7.01 | Orientation & Baseline: What "Advanced Re... | Compass (tool shed) | plant | lesson check >= 80% (12+ items) |
+| 96 | L7.02 | Reading Like a Historian I: Sourcing & Co... | Magnifier | plant | lesson check >= 80% (12+ items) |
+| 97 | L7.03 | Reading Like a Historian II: Corroboration | Balance Scales | plant | lesson check >= 80% (12+ items) |
+| 98 | L7.04 | Reading a Science Article I: Claim, Metho... | Soil Probe | plant | lesson check >= 80% (12+ items) |
+| 99 | L7.05 | Reading a Science Article II: Correlation... | Thermometer | plant | lesson check >= 80% (12+ items) |
+| 100 | L7.06 | Reading an Argumentative Essay: Claim, Re... | Pruning Shears | plant | lesson check >= 80% (12+ items) |
+| 101 | L7.07 | Argument Evaluation: Logical Fallacies & ... | Spirit Level | plant | lesson check >= 80% (12+ items) |
+| 102 | L7.08 | Lateral Reading & Source Credibility | Telescope | plant | lesson check >= 80% (12+ items) |
+| 103 | L7.09 | Reading a Contract, Policy, or Terms of S... | Fine-Print Lens | plant | lesson check >= 80% (12+ items) |
+| 104 | L7.10 | Synthesis I: Two Sources, Contrasting Vie... | Twin Lanterns | plant | lesson check >= 80% (12+ items) |
+| 105 | L7.11 | Synthesis II: 3–4 Sources, One Research Q... | Grafting Knife | plant | lesson check >= 80% (12+ items) |
+| 106 | L7.12 | Literary Reading I: Figurative Language, ... | Watercolour Set | plant | lesson check >= 80% (12+ items) |
+| 107 | L7.13 | Literary Reading II: Unreliable Narrator ... | Quill | plant | lesson check >= 80% (12+ items) |
+| 108 | L7.14 | Reading Stamina & Speed; Course Capstone ... | OBSERVATORY (landmark) | landmark | level check >= 85% (20+ items, cumulative) |
 
 Totals: 85 plants, 13 shed tools, 3 path pieces, 7 landmarks = 108. Visitors (19) come from blooms, not lessons: one at each of the 5th, 10th, 15th ... 95th bloom.
 
-### 2.11 Review-driven events (not lessons)
+### 2.12 Review-driven events (not lessons)
 
 | Event | Trigger | Gain |
 |---|---|---|
-| Bloom | A plant's first spaced review at 1 day or more, 80% or more | Flowers; counts toward visitors |
-| Full | Second spaced review at 7 days or more | Seed pod, "Full" in the field guide |
+| Bloom | A plant's first spaced review at least 20 hours after sprout, in a 12+ item round at 80% or more | Flowers; counts toward visitors |
+| Full | Second spaced review at least 7 days after the bloom | Seed pod, "Full" in the field guide |
 | Visitor | Every 5th bloom | One of 19 cosmetic visitors |
 | Zone in bloom | Every plant in a level at Bloom or better | The zone's landmark glows at dusk |
 | Whole garden Full | All plants Full | A closing scene; the garden "sings" every sound (plays each plant's sound in turn) |
@@ -339,11 +366,11 @@ Totals: 85 plants, 13 shed tools, 3 path pieces, 7 landmarks = 108. Visitors (19
 
 ## Part 3 - The 5 biggest risks
 
-1. **The garden becomes the point and the learning becomes the toll.** Evidence: GraphoGame Rime showed no gain over normal teaching in a trial rated very high security; the intrinsic-motivation meta-analysis shows the competence effect is the weak one (g = .277). If a learner can grow plants without learning, or learns to farm the plant, this fails. *Mitigation:* gates are mastery only (2.6), no currency, no reward for time in the garden, minimum 12-item checks, and a playtest measure: do learners who open the garden first (before the lesson) finish fewer lessons than those who open the lesson first? Kill any element that increases garden time but not mastery.
+1. **The garden becomes the point and the learning becomes the toll.** Evidence: GraphoGame Rime showed no gain over normal teaching in a trial rated very high security; the intrinsic-motivation meta-analysis shows the competence effect is the weak one (g = .277). If a learner can grow plants without learning, or learns to farm the plant, this fails. *Mitigation:* gates are mastery only (2.7), no currency, no reward for time in the garden, minimum 12-item checks, and a playtest measure: do learners who open the garden first (before the lesson) finish fewer lessons than those who open the lesson first? Kill any element that increases garden time but not mastery.
 
-2. **Silent data loss destroys trust, and there is no account to recover from.** WebKit's 7-day rule can wipe a Safari learner's garden after a week without use; localStorage can also be cleared by the learner. A 40-year-old who loses months of reading work will not return. *Mitigation:* `persist()`, IndexedDB mirror, Add-to-Home-Screen nudge on iOS, a short garden code shown after every landmark, merge-only import (2.7), and a plain statement of where data lives. Measure: in the first beta, how many returning visitors on iOS Safari find their garden missing?
+2. **Silent data loss destroys trust, and there is no account to recover from.** WebKit's 7-day rule can wipe a Safari learner's garden after a week without use; localStorage can also be cleared by the learner. A 40-year-old who loses months of reading work will not return. *Mitigation:* `persist()` as a request only, an Add-to-Home-Screen prompt on iOS, the garden code shown on a full-screen card at every landmark, merge-only import (2.8), and a plain statement that both browser stores are cleared together, and a plain statement of where data lives. Measure: in the first beta, how many returning visitors on iOS Safari find their garden missing?
 
-3. **Dozing plants and review queues read as punishment or a chore pile.** I found no trial comparing punitive and non-punitive decay (finding 9). Forest-style loss works for one session, not for weeks; Habitica users report discouragement. Anki-style queues grow when someone is away. *Mitigation:* dozing is visual only and fully reversible, queue cap of 10 to 12 items per session, 3-minute return path, no "lost" language, 30-day re-placement check. Measure: return rate after a 7+ day gap, and the words learners use for the dozing state in interviews.
+3. **Dozing plants and review queues read as punishment or a chore pile.** I found no trial comparing punitive and non-punitive decay (finding 9). Forest-style loss works for one session, not for weeks; Habitica users report discouragement. Anki-style queues grow when someone is away. *Mitigation:* dozing is visual only and fully reversible, queue cap of 12 to 16 items per session, 3-minute return path, no "lost" language, 30-day re-placement check. Measure: return rate after a 7+ day gap, and the words learners use for the dozing state in interviews.
 
 4. **The child/adult split: one tone cannot please both without a test.** Evidence on adult-literacy learners and visual tone is absent (1.4). A mascot-led or sugary garden may embarrass adults; a sober one may bore a 6-year-old. *Mitigation:* botanical neutral art as the default, adult-neutral copy, no age label, field guide tab, test with at least 3 adult learners and 3 children in the first silent playtest before any art is commissioned; adjust the surface layer (voice, colour) not the loop.
 
@@ -356,4 +383,4 @@ Totals: 85 plants, 13 shed tools, 3 path pieces, 7 landmarks = 108. Visitors (19
 - No third-party unlock-per-hour curves found; Part 2 numbers are proposals to be tuned.
 - QR capacity figure and Cepeda's optimal-gap ratio are from my own knowledge, not re-fetched.
 - The 2025 adult-literacy and age-aware gamification paper was not read.
-- Next step I recommend: a silent playtest of a Level 1 grey-box (first sprout in 90 seconds, next-day bloom) before any art, following the retention skill's design mode.
+- Next step I recommend: a silent playtest of a Level 1 grey-box (first sprout in 90 seconds, 20-hour bloom) before any art, following the retention skill's design mode.
