@@ -129,6 +129,17 @@ Review intervals for scheduling (design choice, informed by "optimal gap grows w
 
 Target: first visible change (the watered seed) at **90 seconds** or sooner; measure it in the first silent playtest, with a ceiling of 3 minutes. The retention skill lists time-to-first-fun as one of the three numbers to instrument.
 
+**The end-of-lesson-1 card (offered once, right after the L1.01 check passes).** The sprouted plant shows its bloom time on the plant itself: **"Ready tomorrow, about 3 minutes."** Below it: **"Your plant blooms tomorrow after 9:00. Remind me?"** with two buttons:
+- **Remind me** downloads the daily `.ics` event (2.5), set to the shown time.
+- **Add to Home Screen**: on Android (Chrome) the browser's install prompt is triggered from this button (the `beforeinstallprompt` event; a browser-API fact I did not re-verify here, C); on iOS the same button shows the manual Share, Add to Home Screen steps from 2.8.
+
+**Time rule (keeps the 20-hour bloom rule intact).** Ready time = the earliest moment that is at least 20 hours after the sprout and not before 9:00 local. The card shows the exact time it computed. If the learner finishes at 20:00 the ready time is 16:00 the next day; the card then reads "Your plant blooms tomorrow after 16:00", and the default 9:00 wording is used only when the 20 hours has already passed by 9:00. The `.ics` event is created at that computed time.
+
+
+**Review pool and how a round fills to 12 items.**
+- **Day-1 pool:** all 12 or more items from the L1.01 lesson check (and any items shown in its sittings) are eligible. One plant therefore supplies a full round, so the **first bloom gate can be met with a single plant**.
+- **General rule:** a review round always has 12 items (16 on a lapse of 7 days or more). Fill in this order until the round is full: (1) items from plants that are due, oldest-due first; (2) items from the same lesson's plant that were missed in its check; (3) other items from due plants' lessons; (4) if still short, items from the most recently sprouted plants even if not yet due, tagged as practice. **Only items from due plants can advance a stage;** practice items never do. Items repeat within a round only if the pool has fewer than 12 distinct items (a round with fewer than 12 distinct items is padded with the learner's first-attempt misses from earlier in the round, never with duplicates of correct answers).
+
 ### 2.4 Daily and weekly loop
 
 **Daily goal = one step.** Opening the garden and finishing **either one lesson sitting or one 2 to 5 minute review** counts as "tended today". It is decoupled from any bigger goal, following the Duolingo test above. A learner who wants 40 minutes can do 40 minutes; nothing requires it.
@@ -152,12 +163,12 @@ Three triggers ship in v1; one is rejected for now.
 
 | Trigger | Design | Cost | Verdict |
 |---|---|---|---|
-| **"A plant is ready" state on Home** | When any plant is 20 hours or more past its last stage, Home shows it glowing with the line "Pea is ready to bloom - 3 minutes". This is the primary return hook because it is the only one that works for a learner who is already on the site. | Pure local logic | **Ship** |
+| **"A plant is ready" state on Home** | When any plant is 20 hours or more past its last stage, Home shows it glowing with the line "Sunflower is ready to bloom - about 3 minutes" (the L1.02 plant from the 2.11 table). This is the primary return hook because it is the only one that works for a learner who is already on the site. | Pure local logic | **Ship** |
 | **Opt-in .ics calendar event** | In settings and on the card after the first bloom: "Remind me" downloads a daily recurring `.ics` ("Tend your garden", time chosen by the learner, with a link to the site). It lives in the learner's own calendar app, so it also works when the browser's storage is wiped. | None, no server, no permission prompt | **Ship** |
 | **Add to Home Screen** | Already prompted for storage reasons (2.8); the icon on the phone is itself a daily cue and gives the learner a stable origin counter on iOS. | None | **Ship** |
 | **Web Push (service worker + push relay)** | A PWA with a service worker can receive pushes, but a *send* needs something to hold each learner's push subscription and fire messages on a schedule: a relay (for example a free-tier edge function with a cron trigger). That is a server holding a per-device identifier, which breaks the "no account, no server, no tracking" promise even if no name is stored. On iOS, push works only for an installed home-screen web app (iOS 16.4 and later; my recollection, C, not re-fetched this session), so it would miss the Safari-tab learners we most worry about. A "we miss you" push is also rated amber-red in the ethics reference. | A relay to run, secure and justify | **Not in v1.** Revisit only if the D7 pilot (below) is under target *and* learners ask for it, and then make it opt-in per device with the subscription deletable in one tap. |
 
-**Return targets (hypotheses to tune, not promises).** Context: mobile game medians are D1 about 22%, D7 about 4%, top 10% D1 about 40% (GameAnalytics, via the retention skill). A learning site with a 20-hour bloom hook and a calendar cue should beat the median; targets for the closed pilot, counted among learners who completed lesson 1's check:
+**Return targets (hypotheses to tune, not promises).** Context: mobile game medians are D1 about 22%, D7 about 4%, top 10% D1 about 40% (GameAnalytics figures as quoted second-hand in the `game-retention-design` skill; I did not read the report itself). A learning site with a 20-hour bloom hook and a calendar cue should beat the median; targets for the closed pilot, counted among learners who completed lesson 1's check:
 
 | Metric | Definition | Target | Floor (rethink the loop below this) |
 |---|---|---|---|
@@ -383,4 +394,4 @@ Totals: 85 plants, 13 shed tools, 3 path pieces, 7 landmarks = 108. Visitors (19
 - No third-party unlock-per-hour curves found; Part 2 numbers are proposals to be tuned.
 - QR capacity figure and Cepeda's optimal-gap ratio are from my own knowledge, not re-fetched.
 - The 2025 adult-literacy and age-aware gamification paper was not read.
-- Next step I recommend: a silent playtest of a Level 1 grey-box (first sprout in 90 seconds, 20-hour bloom) before any art, following the retention skill's design mode.
+- Next step I recommend: a silent playtest of a Level 1 grey-box (watered seed at 90 seconds, sprout when the L1.01 check passes, bloom 20 hours later in a 12-item round) before any art, following the retention skill's design mode.
