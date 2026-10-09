@@ -1,23 +1,29 @@
 {
   "pairs": [
-    {"id": "m1-06", "a": "ours", "b": "ours", "c": "theirs", "reason": "Sun rays and sprout match the outline weight, and the single SEE MY GARDEN button is the action. Duolingo's illustration is still more finished."},
-    {"id": "m1-04", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Picture tiles are equal and check/arrow is clear. Craft loses: the tent is solid while the sun is line-drawn, and the letters crowd the tile bottoms."},
-    {"id": "m1-03", "a": "ours", "b": "ours", "c": "ours", "reason": "Sprout mounds, letter tags, and sun rays form one consistent garden. Teach Your Monster's default cookie banner covers its hero."},
-    {"id": "m1-05", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Tap this one sits clear of the picture. Craft loses: tile 1 is a generic speech-bubble glyph, not an object, and Duolingo's feedback is tidier."},
-    {"id": "m0-01", "a": "ours", "b": "ours", "c": "theirs", "reason": "The mascot now sits deliberately and the sun rays match. Duolingo's landing is still the more finished illustration."},
-    {"id": "m0-02", "a": "ours", "b": "ours", "c": "theirs", "reason": "Speaker pot with NEXT LESSON is a clear action. Duo's welcome is cleaner."},
-    {"id": "m0-03", "a": "ours", "b": "theirs", "c": "ours", "reason": "Sprig, pot, and See my garden align with no clipping. Duo's quiz is more game-like."},
-    {"id": "m0-04", "a": "ours", "b": "ours", "c": "ours", "reason": "The mound is inset in a clean circle and nothing clips. Duo's feedback card crops its bottle."},
-    {"id": "m0-05", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Tap this one names the answer. Craft loses to the same speech-bubble placeholder on tile 1, and Duo's wrong state is tidier."}
+    {"id": "m1-06", "a": "ours", "b": "ours", "c": "theirs", "reason": "Mound is now contained, but the heavy brown frame has blunt corners. Duolingo is still tidier."},
+    {"id": "m1-04", "a": "ours", "b": "theirs", "c": "ours", "reason": "Picture tiles now share one 3 px stroke and sit evenly. Nothing clips."},
+    {"id": "m1-03", "a": "ours", "b": "ours", "c": "ours", "reason": "Garden is consistent and the Teach Your Monster hero is hidden under a default cookie banner."},
+    {"id": "m1-05", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Ear-and-waves is consistent, but the blue waves do not match the ear outline colour."},
+    {"id": "m0-01", "a": "ours", "b": "ours", "c": "theirs", "reason": "Sign, sun, and tiles are aligned. Duolingo's illustrated hero is still more finished."},
+    {"id": "m0-02", "a": "ours", "b": "ours", "c": "theirs", "reason": "Grey letter tags on mounds have low contrast. Duo's welcome is cleaner."},
+    {"id": "m0-03", "a": "ours", "b": "theirs", "c": "ours", "reason": "Sitting-end is clean and aligned, with no clipping."},
+    {"id": "m0-04", "a": "ours", "b": "ours", "c": "ours", "reason": "Mound sits in a clean inset circle and nothing clips."},
+    {"id": "m0-05", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Same ear-and-waves colour mismatch as m1-05. Duo's wrong state is tidier."}
   ],
-  "craft_tally": {"ours": 3, "theirs": 6, "pairs": 9, "ours_pairs": ["m1-03", "m0-03", "m0-04"]},
-  "play_notes": "Round 4 is a shot-only pass. Git pull was blocked by my uncommitted plan edits; HEAD was already at 223a5ee, so the shots are current.",
+  "craft_tally": {"ours": 4, "theirs": 5, "pairs": 9},
+  "remaining_defects": [
+    "m1-06: heavy brown ground frame with blunt corners.",
+    "m1-05 / m0-05: blue sound waves do not match the ear outline colour.",
+    "m0-02: grey garden letter tags have low contrast.",
+    "m0-01: Duolingo's illustrated hero is still more finished."
+  ],
   "time_to_first_watering_s": 14.3,
-  "biggest_gap": "Tile 1 in the wrong-answer state uses a speech-bubble placeholder, not a picture, on m1-05 and m0-05.",
+  "biggest_gap": "The ear-and-waves wrong-answer tile colour mismatch (m1-05, m0-05).",
   "fixes": [
-    "Replace the speech-bubble placeholder on tile 1 with a real picture.",
-    "Make the tent and sun share one stroke style.",
-    "Give the letters on picture tiles more bottom padding.",
-    "Replace the cookie-free garden letter tags' crowding if the tile count grows."
+    "Match the sound-wave colour to the ear outline.",
+    "Raise contrast on the garden letter tags.",
+    "Round the corners of the mound frame.",
+    "Keep the sun ray stroke weight matched across screens.",
+    "Tighten the seed landing hero illustration."
   ]
 }
