@@ -53,7 +53,7 @@ Hash router (`#/`, `#/lesson/L1.01`, `#/home`). Sprig is a grey rounded box with
 - [x] Saves screenshots to `shots/m0/`: `ours-landing.png`, `ours-question.png`, `ours-right.png`, `ours-wrong.png`. Exit 0 = green.
 
 ## 8. Deploy to GitHub Pages
-- [ ] `.github/workflows/pages.yml`: on push to master, build, `actions/upload-pages-artifact` of `dist`, `actions/deploy-pages`. Ask Kamal once to set Settings > Pages > Source to "GitHub Actions". Record the URL in `plan/M0-demo.md`.
+- [x] `.github/workflows/pages.yml`: on push to master, build, `actions/upload-pages-artifact` of `dist`, `actions/deploy-pages`. Ask Kamal once to set Settings > Pages > Source to "GitHub Actions". Record the URL in `plan/M0-demo.md`.
 - [ ] Open the URL on Kamal's phone: seed tap plays a sound; confirm the 90 KB first-load number from DevTools Network (transferred).
 
 ## 9. Blind test (clarity of next action only, plus the no-wall check)
