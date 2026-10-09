@@ -1,0 +1,44 @@
+#app { max-width: 480px; margin: 0 auto; min-height: 100dvh; position: relative; }
+.landing { min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  background: linear-gradient(var(--sky-top), var(--sky-bottom) 55%, var(--bg) 55%); padding: 32px 16px 20px; text-align: center; }
+.landing h1 { margin: 8px 0 0; font-size: 28px; color: var(--hero-ink); }
+.seed { all: unset; cursor: pointer; display: block; width: min(80vw, 320px); aspect-ratio: 1; touch-action: manipulation; }
+.seed svg { width: 100%; height: 100%; display: block; }
+.seed:focus-visible { outline: 3px solid var(--sky); outline-offset: 4px; border-radius: 24px; }
+.seed .s { transform-origin: 50% 70%; animation: bob 2.4s ease-in-out infinite; }
+@keyframes bob { 50% { transform: scale(1.06); } }
+.landing small, .linkbtn { color: var(--muted); }
+.linkbtn { background: none; border: 0; text-decoration: underline; padding: 12px; min-height: 44px; font-size: 16px; }
+.landing .tag { font-size: 15px; color: var(--muted); }
+.lesson { min-height: 100dvh; display: flex; flex-direction: column; position: relative; }
+.lh { display: flex; align-items: center; gap: 12px; padding: 12px 16px; }
+.stage-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--leaf); flex: none; }
+.bar { flex: 1; height: 10px; background: #E6DFCB; border-radius: 6px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--hero); transform-origin: 0 50%; transform: scaleX(0); transition: transform .3s; }
+.fb { position: relative; margin: 8px 16px; height: 220px; border-radius: 16px; background: var(--card); border: 2px solid var(--border);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; overflow: hidden; }
+.fb .tint { position: absolute; inset: 0; opacity: 0; transition: opacity .15s; }
+.fb.right .tint { background: var(--tint-right); opacity: 1; } .fb.wrong .tint { background: var(--tint-wrong); opacity: 1; }
+.fb > *:not(.tint) { position: relative; }
+.sprig { width: 96px; height: 96px; border-radius: 28px; background: #C9C6BC; color: #3d3b35; display: grid; place-items: center;
+  font-size: 12px; text-align: center; padding: 4px; }
+.fb .word { font-size: 24px; font-weight: 700; margin: 0; } .fb .sound { margin: 0; color: var(--muted); font-size: 16px; }
+.fb.right .word { color: var(--right); } .fb.wrong .word { color: var(--wrong); }
+.example { width: 120px; max-height: 66px; background: var(--card); border: 2px solid var(--border); border-radius: 12px; display: grid; place-items: center; font-size: 14px; }
+.prompt { text-align: center; margin: 4px 16px 8px; color: var(--muted); }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 24px; }
+.opt { all: unset; box-sizing: border-box; cursor: pointer; min-height: 96px; border-radius: 16px; background: var(--card); border: 3px solid var(--border);
+  border-bottom-width: 6px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; font-weight: 700; touch-action: manipulation; }
+.opt.playing { border-color: var(--sky); background: var(--tint-sky); }
+.opt:active { transform: translateY(3px); }
+.opt:focus-visible { outline: 3px solid var(--sky); }
+.lock .opt { pointer-events: none; }
+.peek { position: fixed; inset: 0; pointer-events: none; display: grid; place-items: center; z-index: 5; }
+.peek .dim { position: absolute; inset: 0; background: var(--bg); opacity: .72; animation: fadein .2s both; }
+.peek .patch { position: relative; width: 160px; height: 110px; background: #7a5a3a; border-radius: 80px 80px 20px 20px; display: grid; place-items: center; }
+.peek .patch i { width: 36px; height: 36px; border-radius: 50%; background: var(--hero); animation: swell 2s ease-out both; }
+@keyframes swell { from { transform: scale(.6); } to { transform: scale(1.5); } } @keyframes fadein { from { opacity: 0; } }
+.done { padding: 48px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.done .big { width: 120px; height: 120px; border-radius: 50%; background: var(--hero); animation: swell 1.6s ease-out both; }
+.home { padding: 32px 16px; text-align: center; }
+@media (prefers-reduced-motion: reduce) { .seed .s, .peek .patch i, .done .big { animation: none; } }
