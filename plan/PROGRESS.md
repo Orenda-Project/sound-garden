@@ -1,3 +1,4 @@
 # Progress (lead-maintained)
 - 2026-10-09 round 0: repo created; research round 1 dispatched (teardown, colour, retention/progression, mascot+motion).
 - 2026-10-09 round 1: 04-mascot-motion PASSED critic (round 2, after DOI fixes + spike go/no-go; desktop throttle demoted to smoke test). Mascot = "Sprig", generated SVG + WAAPI state machine, 26 states. Teardown, colour, progression still in flight.
+- 2026-10-09 round 1 cont.: 02-colour PASSED critic round 3 (live user test = build-phase gate for Kamal's playtest). Palette: hero leaf-bright #4CB82B (dark ink labels, full #2F7D32 outline), sun #FFC21A reward ground, sky #2FA8F2 band; calm cream #FBF6EA lesson text area; right teal #0F766E / wrong brown-orange #A84A07 (no red). Rule: muted inside a lesson, saturated outside. Remaining non-blocking: grade retention studies B-pending, neutral 'Try again' on wrong state, dark-mode saturated screens, strip dev labels from mockup. 03-progression at critic round 3.
