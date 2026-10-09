@@ -16,14 +16,14 @@ Date of research: 2026-10-09. Search tooling was flaky (several queries timed ou
 | Review: colour can aid attention and memory, effects depend on context and task. Dzulkifli & Mustafar 2013, Malaysian J Med Sci. https://pubmed.ncbi.nlm.nih.gov/23983571/ | Narrative review | A/B | Colour as a cue (one colour = one meaning) is the defensible use. Decorative colour has no solid learning benefit. |
 | Pop-psychology claims ("yellow boosts memory", "green calms kids") | Found only on blogs | C, rejected | Not used as design reasons anywhere below. |
 
-Adult learner comfort: I found no primary study specific to adult literacy learners and colour. What exists is general readability (1.2 and 1.3) and the point that adults on a children's-looking site may feel patronised. Palette answer: a calm garden, not a cartoon candy shop. Grade C inference, flagged.
+Adult learner comfort: I found no primary study specific to adult literacy learners and colour. What exists is general readability (1.2 and 1.3) and the point that adults on a children's-looking site may feel patronised. Palette answer: a calm garden, not a cartoon candy shop. **The point that a children's-looking site may patronise adults is grade C inference (my reasoning, no study found).**
 
 ### 1.2 Beginning readers and dyslexia
 
 | Finding | Source | Grade |
 |---|---|---|
 | Use cream or a soft pastel, not white ("White can appear too dazzling"). Dark text on a light, not white, background. "Avoid green and red/pink as these are difficult for colour-blind individuals." Some readers have their own colour preference. | British Dyslexia Association Style Guide (text read directly from the PDF): http://www.thedyslexia-spldtrust.org.uk/media/downloads/69-bda-style-guide-april14.pdf | B |
-| Warm backgrounds (peach, orange, yellow) significantly improved reading performance, with benefit for readers with and without dyslexia, and possibly more with dyslexia. Rello & Bigham 2017, ACM ASSETS. https://dl.acm.org/doi/abs/10.1145/3132525.3132546 | Eye-tracking style study, snippet and DOI 10.1145/3132525.3132546 read; I did not read the full text, sample size not checked | A (single study) |
+| Warm backgrounds (peach, orange, yellow) significantly improved reading performance, with benefit for readers with and without dyslexia, and possibly more with dyslexia. Rello & Bigham 2017, ACM ASSETS. https://dl.acm.org/doi/abs/10.1145/3132525.3132546 | Single peer-reviewed study. What I read: the ACM abstract snippet (peach, orange, yellow improved reading performance; readers with and without dyslexia benefit, possibly more with dyslexia) and the Crossref record, DOI 10.1145/3132525.3132546. The full paper (sample size, effect size, method) is NOT read. | **B-pending** (was A; upgrade to A only after the full text is read) |
 | Coloured overlays and filters for visual stress: early positive studies (Wilkins et al. 1995, J Res Reading, DOI 10.1111/j.1467-9817.1995.tb00064.x) but the claim is disputed (title "A rose-tinted cure: the myth of coloured overlays and dyslexia", 2019, DOI 10.64628/ab.th6gwm3sq; contents not read). | Crossref metadata | A/C, contested |
 | Letter colouring in phonics apps | I found no controlled evidence. Practice only. | C |
 
@@ -117,7 +117,65 @@ Garden-themed, warm-neutral ground, one deep leaf green, one sky blue, three fee
 | `--wrong` | `#F0A35E` |
 | `--sun` (reward) | `#FFD04D`, label `#2B2A26` |
 
-### 2.3 Contrast, computed in Python (WCAG 2.x relative luminance; script kept in my scratch dir, formula is the standard sRGB one from the W3C page above)
+### 2.2b Saturated "hero" version, and the rule: muted inside a lesson, saturated outside
+
+Critic feedback: the muted set alone does not feel like a game. Fix: keep the muted set above as the **calm lesson surface** and add a saturated set for home, garden and reward screens.
+
+**Rule: muted inside a lesson, saturated outside.** The lesson screen (letters, options, feedback sheet) uses cream ground, `--text` letters and the muted tokens only (Fisher 2014: nothing lively competing with the letters). Home, garden and reward screens may use the hero colours, sky and hill gradients and big shapes. Hero colours never sit behind running text.
+
+Three hero candidates, tested (WCAG ratios computed in Python, label text on the hero fill):
+
+| Candidate | Fill | Label | Label ratio | White label (for comparison) | Fill vs cream ground | Edge colour (the 3D bottom border that meets the ground) | Edge vs cream |
+|---|---|---|---|---|---|---|---|
+| **A leaf-bright (chosen primary hero)** | `#4CB82B` | `#12330F` | 5.44:1 PASS | 2.56:1 FAIL | 2.38:1 | `#2F7D32` | 4.75:1 PASS |
+| B sun-yellow | `#FFC21A` | `#2B2A26` | 8.88:1 PASS | 1.62:1 FAIL | 1.50:1 | `#9A6700` | 4.51:1 PASS |
+| C sky-blue | `#2FA8F2` | `#2B2A26` | 5.48:1 PASS | 2.62:1 FAIL | 2.43:1 | `#1F6FB2` | 4.90:1 PASS |
+| (ref) Duolingo green | `#58CC02` | `#12330F` | 6.67:1 PASS | 2.09:1 FAIL | 1.94:1 | n/a | n/a |
+
+Findings: every saturated fill needs a **dark label** (white fails on all, as on Duolingo green). None of the fills reaches 3:1 against the cream ground on its own, so each hero button gets a 4-5 px bottom edge in its dark shade (all pass 3:1 against cream, last column) plus the label as the identifier. B (sun) is a poor main hero because it is the reward colour and is lightest (1.50:1 vs cream); keep it for reward screens, where it is the full-screen ground (dark text 7.75 to 10.18:1 across the gradient). C (sky) works as the home sky band and secondary hero. **Decision: A is the primary hero (it is the garden), B the reward ground, C the sky.** The edge of the A button on the reward ground (`#1E5C24` on `#F5B301`) is 4.34:1.
+
+New tokens: `--hero #4CB82B`, `--hero-edge #2F7D32`, `--hero-ink #12330F`, `--sun-hero #FFC21A`, `--sun-edge #9A6700`, sky band `#BFE6FA` (dark text 10.89:1), hill `#CDEFA8` (dark text 11.29:1, `#1E5C24` text on it 6.32:1). Dark mode keeps its existing set; saturated screens in dark mode are not designed yet.
+
+### 2.2c Mockup: judge the feel, not only the table
+
+Static HTML: `research/mockups/colour.html`. Screenshots at 390x844 (Playwright/Chromium, all under 200 KB):
+
+| Screen | File | Mode |
+|---|---|---|
+| Home garden | `research/shots/colour/01-home-garden.png` | saturated |
+| Lesson, wrong answer | `research/shots/colour/02-lesson-wrong.png` | calm |
+| Lesson, correct answer | `research/shots/colour/03-lesson-correct.png` | calm |
+| Reward | `research/shots/colour/04-reward.png` | saturated |
+
+What I saw in them: home and reward feel lively (sky, hills, gold ground, big flower) while the two lesson screens stay quiet cream with one green underline; the wrong state reads as a gentle brown-orange "Try again" with a wobble icon, not an error. Weak spots I can see: the home screen has a large empty middle; the hero green is close in value to the hill, so on home the button relies on its dark label and edge; the mockup uses emoji-free simple SVG art, not final art; picture options in the lesson are text-only.
+
+**Live user testing is NOT done and is still owed.** The mockup is a design artefact, not evidence. Needed: real children and adult learners, a cheap phone, outdoors, with a colour-blind participant (see section 4).
+
+### 2.3 Open pairs now computed
+
+| Pair | Ratio | Result | Consequence |
+|---|---|---|---|
+| `--right` #0F766E on `--leaf` #2F7D32 | **1.07:1** | FAIL, effectively invisible | `--right` must never be placed on a leaf-green fill. Correct feedback sits on `--right-tint` (4.66:1) or cream (5.08:1), never on a button. |
+| `--right` on hero `#4CB82B` | 2.14:1 | FAIL | Same rule for the hero green. |
+| `--right-tint` #DDF1EE on `--leaf` | 4.36:1 | FAIL for small text | Do not put tinted text on the leaf fill; white label (5.12:1) or hero ink (5.44:1 on the bright hero) only. |
+
+Background switcher grounds (peach `#FBEBDD`, blue-grey `#EAF1F5`) against text and accents (cream shown for reference):
+
+| Foreground | Need | Cream `#FBF6EA` | Peach `#FBEBDD` | Blue-grey `#EAF1F5` |
+|---|---|---|---|---|
+| `--text` #2B2A26 | 4.5 | 13.32 PASS | 12.33 PASS | 12.59 PASS |
+| `--muted` #5B574E | 4.5 | 6.67 PASS | 6.18 PASS | 6.31 PASS |
+| `--leaf` #2F7D32 as text | 4.5 | 4.75 PASS | **4.40 FAIL** | **4.49 FAIL** |
+| `--leaf-text` #2A7230 as text | 4.5 | 5.49 PASS | 5.08 PASS | 5.19 PASS |
+| `--sky` #1F6FB2 as text | 4.5 | 4.90 PASS | 4.54 PASS (tight) | 4.63 PASS |
+| `--right` #0F766E | 4.5 | 5.08 PASS | 4.70 PASS | 4.80 PASS |
+| `--wrong` #A84A07 | 4.5 | 5.34 PASS | 4.94 PASS | 5.04 PASS |
+| `--border` #8A8372 (non-text) | 3 | 3.50 PASS | 3.24 PASS | 3.30 PASS |
+| gold `#F5B301` alone (non-text) | 3 | 1.72 FAIL | 1.59 FAIL | 1.62 FAIL (dark outline needed, 12-13:1) |
+
+Result: all three grounds work for text, `--right`, `--wrong`, `--sky` and borders. `--leaf` as **text** fails on peach and just fails on blue-grey, so add `--leaf-text #2A7230` (5.08 to 5.49:1 on all three; white label on it 5.92:1) and use it for any green text or links. Filled `--leaf` buttons with white labels are unaffected (5.12:1).
+
+### 2.4 Contrast for the muted set, computed in Python (WCAG 2.x relative luminance; script kept in my scratch dir, formula is the standard sRGB one from the W3C page above)
 
 Light mode
 
@@ -164,7 +222,7 @@ Dark mode
 
 Reference points computed in the same script: Duolingo white on `#58CC02` 2.09:1, white on `#FF4B4B` 3.30:1, `#4B4B4B` on white 8.72:1.
 
-### 2.4 Colour-blind check (Machado 2009 simulation, CIELAB distance, computed)
+### 2.5 Colour-blind check (Machado 2009 simulation, CIELAB distance, computed)
 
 | Pair (light) | Normal | Protan | Deutan | Tritan |
 |---|---|---|---|---|
@@ -175,22 +233,24 @@ Reference points computed in the same script: Duolingo white on `#58CC02` 2.09:1
 
 Right vs wrong stays far apart in all three types (above 45). Primary green vs wrong orange nearly collapses for protan and deutan, so the two must never be the only difference on one screen: "right" uses teal, "wrong" always carries its own icon and words. The usual green/red pairing collapses to about 16 to 19, which supports rejecting it.
 
-### 2.5 Usage rules (so colour never carries meaning alone)
+### 2.6 Usage rules (so colour never carries meaning alone)
 1. Right: teal plus check icon plus the word "Yes", plus a rising sound. Wrong: orange plus wobble icon plus "Try again", plus a soft tone. Never a red X, never a buzzer.
 2. Max 3 hues on any lesson screen. Letters and words always `--text` on `--card`, nothing decorative behind them (Fisher 2014).
 3. Target grapheme: bold plus 3 px `--leaf` underline, not a colour fill.
 4. Garden art uses the same hues at lower saturation, behind or beside the lesson card, never behind the text.
-5. Background switcher: cream (default), peach `#FBEBDD` (Rello & Bigham warm), pale blue-grey `#EAF1F5`. Each must be checked at 4.5:1 with `--text` before shipping (cream verified above; the other two not yet computed).
+5. Background switcher: cream (default), peach `#FBEBDD` (Rello & Bigham warm), pale blue-grey `#EAF1F5`. All three verified in 2.3 (use `--leaf-text` for green text).
+6. Muted inside a lesson, saturated outside (2.2b). `--right` never on a leaf fill (2.3).
 
 ## 3. Three rejected palettes
 
 1. **Duolingo-style bright green and red on white** (`#58CC02`, `#FF4B4B`, `#FFFFFF`). Rejected: white label on the green is 2.09:1 and on the red 3.30:1, so it fails WCAG for text; green/red feedback collapses for colour-blind users (15.8 to 18.9 in simulation); white ground is "dazzling" per BDA; red as wrong adds avoidance (Elliot 2007) and split cultural meaning. It works for Duolingo only because text is neutral and the buttons are huge with shadows.
-2. **Pastel candy kid palette** (pink, lilac, mint on white, in the Teach Your Monster / "cute" direction). Rejected: pastels have low contrast and wash out first in sunlight (1.6); purple and pink carry mourning or gender baggage in some regions (1.5); it patronises adult learners, who are half the audience; no evidence for benefit (1.1).
+2. **Pastel candy kid palette** (pink, lilac, mint on white, in the Teach Your Monster / "cute" direction). Rejected on grade C reasoning only (inference, not measured): pastels have low contrast and wash out first in sunlight (1.6); purple and pink carry mourning or gender baggage in some regions (1.5); it may patronise adult learners (grade C inference, no study found; the 'half the audience' share is also an assumption, not data); pastels washing out in sunlight is grade C engineering inference (1.6); no evidence for benefit (1.1).
 3. **Strongly tinted warm ground (peach or yellow) as the single default, plus neon-on-black dark-first night garden.** Rejected as defaults: a deep peach or yellow ground lowers contrast for every other colour and dyslexia preference varies (BDA), overlay evidence is contested (1.2); a dark-first neon look is the worst case for bright sunlight and removes the dark-on-light reading BDA recommends. Both survive as options: the peach tint inside the background switcher, and the dark variant in 2.2.
 
 ## 4. Open items and honest gaps
 - Reading Eggs, Finch, Animal Crossing and Khan Academy Kids palettes were not extractable. I did not guess.
-- Rello & Bigham: full text not read, so sample size and effect size are not stated here.
+- Rello & Bigham: only the abstract snippet and Crossref record were read, so the study is graded B-pending; sample size and effect size are not stated here.
 - Cultural table is secondary-source and general knowledge (grade C); worth a native-speaker review for the first target languages.
 - Sunlight and OLED claims are engineering reasoning, not measured on cheap phones. Test `#111814` vs `#000000` on a real low-end OLED outdoors before fixing the dark ground.
-- Peach and blue-grey switcher grounds need their contrast ratios computed before shipping.
+- **Live user test still owed** (children, adult learners, colour-blind participant, cheap phone in sun). The mockup and ratios are not a substitute.
+- Saturated screens in dark mode are not designed or tested.

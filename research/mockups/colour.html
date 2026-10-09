@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sound Garden colour mockup</title>
+<style>
+:root{
+ --bg:#FBF6EA;--card:#FFFCF4;--tint:#EFE7D2;--text:#2B2A26;--muted:#5B574E;--border:#8A8372;
+ --leaf:#2F7D32;--leaf-text:#2A7230;--sky:#1F6FB2;--right:#0F766E;--wrong:#A84A07;--sun:#F5B301;
+ --right-tint:#DDF1EE;--wrong-tint:#FBE9D6;
+ --hero:#4CB82B;--hero-edge:#2F7D32;--hero-ink:#12330F;
+ --sun-hero:#FFC21A;--sun-edge:#9A6700;
+ --skyband:#BFE6FA;--hill:#CDEFA8;
+}
+*{box-sizing:border-box;margin:0}
+body{background:#d9d4c4;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);padding:20px;display:flex;flex-wrap:wrap;gap:20px}
+.screen{width:390px;height:844px;position:relative;overflow:hidden;background:var(--bg);flex:none}
+.btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font-size:18px;font-weight:800;letter-spacing:.3px;text-align:center}
+.btn.hero{background:var(--hero);color:var(--hero-ink);border-bottom:5px solid var(--hero-edge)}
+.btn.calm{background:var(--leaf);color:#fff;border-bottom:4px solid #1E5C24}
+.btn.ghost{background:var(--card);color:var(--sky);border:2px solid var(--border)}
+.btn.sunb{background:var(--sun-hero);color:var(--text);border-bottom:5px solid var(--sun-edge)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--border);border-radius:999px;padding:6px 12px;font-weight:700;font-size:15px}
+.tag{position:absolute;top:8px;right:10px;font-size:11px;font-weight:700;color:var(--muted);background:var(--card);border-radius:8px;padding:2px 6px;z-index:5;border:1px solid var(--border)}
+/* home */
+.sky{position:absolute;inset:0 0 auto 0;height:430px;background:linear-gradient(#8ED2F5,#CFEEFC)}
+.hills{position:absolute;left:0;right:0;top:300px}
+.home-top{position:absolute;top:40px;left:16px;right:16px;display:flex;justify-content:space-between;z-index:3}
+.panel{position:absolute;left:16px;right:16px;bottom:24px;background:var(--card);border-radius:22px;padding:18px;border:2px solid var(--tint);z-index:3}
+.panel h2{font-size:22px;margin-bottom:4px}.panel p{color:var(--muted);font-size:16px;margin-bottom:14px;line-height:1.35}
+.bar{height:12px;background:var(--tint);border-radius:8px;margin:10px 0 14px;overflow:hidden}.bar i{display:block;height:100%;width:62%;background:var(--hero)}
+/* lesson */
+.top{display:flex;align-items:center;gap:12px;padding:44px 20px 0}
+.prog{flex:1;height:14px;background:var(--tint);border-radius:8px;overflow:hidden}.prog i{display:block;height:100%;width:45%;background:var(--leaf);border-radius:8px}
+.prompt{padding:28px 24px 0}.prompt small{color:var(--muted);font-size:16px}
+.big{font-size:92px;font-weight:800;text-align:center;margin:18px 0 6px;letter-spacing:2px}
+.big u{text-decoration:underline;text-decoration-thickness:6px;text-decoration-color:var(--leaf);text-underline-offset:10px}
+.opts{padding:6px 20px;display:grid;gap:12px}
+.opt{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:16px 18px;font-size:24px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.opt.sel-r{border-color:var(--right);border-width:3px;background:var(--right-tint)}
+.opt.sel-w{border-color:var(--wrong);border-width:3px;background:var(--wrong-tint)}
+.sheet{position:absolute;left:0;right:0;bottom:0;padding:20px 20px 30px}
+.sheet.r{background:var(--right-tint)}.sheet.w{background:var(--wrong-tint)}
+.sheet h3{display:flex;align-items:center;gap:10px;font-size:24px;margin-bottom:6px}
+.sheet.r h3{color:var(--right)}.sheet.w h3{color:var(--wrong)}
+.sheet p{font-size:17px;margin-bottom:14px;line-height:1.35}
+/* reward */
+.rw{background:linear-gradient(#FFE78A,#FFC21A 70%,#F5B301)}
+.rw .mid{position:absolute;top:120px;left:0;right:0;text-align:center}
+.rw h1{font-size:34px;margin-top:6px;color:var(--text)}.rw p{font-size:18px;margin:6px 30px;color:var(--text);line-height:1.35}
+.rw .btns{position:absolute;left:20px;right:20px;bottom:34px;display:grid;gap:12px}
+.rw .stats{display:flex;gap:10px;justify-content:center;margin-top:18px}
+.btn.dark{background:var(--text);color:#FFF6D6;border-bottom:5px solid #000}
+</style></head><body>
+
+<!-- 1 HOME -->
+<section class="screen" id="home">
+ <span class="tag">saturated: home / garden</span>
+ <div class="sky"></div>
+ <svg style="position:absolute;top:60px;right:40px" width="90" height="90"><circle cx="45" cy="45" r="30" fill="#FFC21A"/><circle cx="45" cy="45" r="30" fill="none" stroke="#9A6700" stroke-width="3"/></svg>
+ <svg class="hills" width="390" height="300" viewBox="0 0 390 300">
+  <path d="M0 80 Q100 10 200 70 T390 50 V300 H0Z" fill="#8FD14F"/>
+  <path d="M0 140 Q120 70 240 130 T390 110 V300 H0Z" fill="#4CB82B"/>
+  <g stroke="#1E5C24" stroke-width="3" fill="none"><path d="M70 150 v-38"/><path d="M150 170 v-46"/><path d="M250 160 v-52"/><path d="M330 150 v-40"/><path d="M200 120 v-30"/></g>
+  <g stroke="#12330F" stroke-width="2.5"><circle cx="70" cy="106" r="13" fill="#FFC21A"/><circle cx="150" cy="116" r="15" fill="#2FA8F2"/><circle cx="250" cy="100" r="16" fill="#FFC21A"/><circle cx="330" cy="104" r="13" fill="#FF9A3C"/><circle cx="200" cy="86" r="11" fill="#2FA8F2"/></g>
+  <g fill="#FFFCF4" stroke="#12330F" stroke-width="2.5"><circle cx="70" cy="106" r="4"/><circle cx="150" cy="116" r="5"/><circle cx="250" cy="100" r="5"/></g>
+ </svg>
+ <div class="home-top"><span class="chip">&#9679; 4 day streak</span><span class="chip" style="border-color:#9A6700">&#9733; 128 seeds</span></div>
+ <div class="panel">
+  <h2>Your garden is growing</h2>
+  <p>3 of 5 flowers bloomed. One more sound to plant today.</p>
+  <div class="bar"><i></i></div>
+  <button class="btn hero">PLANT TODAY'S SOUND</button>
+ </div>
+</section>
+
+<!-- 2a LESSON WRONG -->
+<section class="screen" id="lesson-wrong">
+ <span class="tag">calm: lesson (wrong)</span>
+ <div class="top"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M18 4 8 13l10 9" stroke="#2B2A26" stroke-width="3" fill="none" stroke-linecap="round"/></svg><div class="prog"><i></i></div></div>
+ <div class="prompt"><small>Which word starts with this sound?</small><div class="big"><u>sh</u></div></div>
+ <div class="opts">
+  <div class="opt">sun <small style="font-size:14px;color:var(--muted)">tap to hear</small></div>
+  <div class="opt sel-w">cat <svg width="30" height="30" viewBox="0 0 30 30"><path d="M5 22c4-4 6 4 10 0s6 4 10 0" stroke="#A84A07" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg></div>
+  <div class="opt">ship</div>
+ </div>
+ <div class="sheet w">
+  <h3><svg width="32" height="32" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#A84A07"/><path d="M7 17c3-4 5 4 8 0s5 4 8 0" stroke="#FBE9D6" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>Try again</h3>
+  <p>Close. Listen once more: "sh" is the sound in <b>ship</b>.</p>
+  <button class="btn ghost">HEAR IT AGAIN</button>
+ </div>
+</section>
+
+<!-- 2b LESSON CORRECT -->
+<section class="screen" id="lesson-right">
+ <span class="tag">calm: lesson (correct)</span>
+ <div class="top"><svg width="26" height="26" viewBox="0 0 26 26"><path d="M18 4 8 13l10 9" stroke="#2B2A26" stroke-width="3" fill="none" stroke-linecap="round"/></svg><div class="prog"><i style="width:55%"></i></div></div>
+ <div class="prompt"><small>Which word starts with this sound?</small><div class="big"><u>sh</u></div></div>
+ <div class="opts">
+  <div class="opt">sun</div>
+  <div class="opt">cat</div>
+  <div class="opt sel-r">ship <svg width="30" height="30" viewBox="0 0 30 30"><path d="M6 16l6 6 12-13" stroke="#0F766E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+ </div>
+ <div class="sheet r">
+  <h3><svg width="32" height="32" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#0F766E"/><path d="M8 16l5 5 9-11" stroke="#DDF1EE" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes!</h3>
+  <p><b>sh</b> as in <b>ship</b>. A new seed is planted.</p>
+  <button class="btn calm">CONTINUE</button>
+ </div>
+</section>
+
+<!-- 3 REWARD -->
+<section class="screen rw" id="reward">
+ <span class="tag">saturated: reward</span>
+ <div class="mid">
+  <svg width="220" height="220" viewBox="0 0 220 220">
+   <g stroke="#2B2A26" stroke-width="4" stroke-linejoin="round">
+    <path d="M110 125 v80" stroke="#1E5C24" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <path d="M110 170 q-40 -10 -50 -40 q36 0 50 40z" fill="#4CB82B"/>
+    <g fill="#FFFCF4"><ellipse cx="110" cy="55" rx="20" ry="34"/><ellipse cx="110" cy="55" rx="20" ry="34" transform="rotate(60 110 95)"/><ellipse cx="110" cy="55" rx="20" ry="34" transform="rotate(120 110 95)"/><ellipse cx="110" cy="55" rx="20" ry="34" transform="rotate(180 110 95)"/><ellipse cx="110" cy="55" rx="20" ry="34" transform="rotate(240 110 95)"/><ellipse cx="110" cy="55" rx="20" ry="34" transform="rotate(300 110 95)"/></g>
+    <circle cx="110" cy="95" r="26" fill="#A84A07"/>
+   </g>
+  </svg>
+  <h1>New flower bloomed</h1>
+  <p>The Sh Daisy joins your garden. 5 of 5 flowers today.</p>
+  <div class="stats"><span class="chip" style="border-color:#2B2A26">&#9733; +20 seeds</span><span class="chip" style="border-color:#2B2A26">&#9679; 5 day streak</span></div>
+ </div>
+ <div class="btns"><button class="btn dark">SEE MY GARDEN</button><button class="btn hero" style="border-bottom-color:#1E5C24">NEXT SOUND</button></div>
+</section>
+</body></html>
