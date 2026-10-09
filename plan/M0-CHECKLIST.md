@@ -15,9 +15,9 @@ Create `tools/pre_m0_check.py` that reads `$SOUND_OUT/content/` and prints PASS/
 - [x] If A or B fails for an item, drop it from the pool and note it; do not record new audio.
 
 ## 2. Repo skeleton
-- [ ] `npm create vite@latest . -- --template vanilla` (keep existing `research/` and `plan/`), then `npm i`; `npm i -D vitest`. In `vite.config.js` set `base: './'`.
-- [ ] Create folders and empty files exactly: `src/{main.js,router.js,store.js,tokens.css}`, `src/engine/{gate.js,check.js}`, `src/ui/{lesson.js,peek.js,landing.js}`, `src/mascot/mascot.js`, `sprig/spike-rig.svg`, `tools/{build_content.py,pre_m0_check.py,size_budget.mjs,critic_capture.py,drive_m0.py}`, `content-overlay/`, `.github/workflows/{ci.yml,pages.yml}`, `public/data/`, `public/audio/`.
-- [ ] `src/tokens.css` `:root` tokens: `--bg #FBF6EA`, `--card #FFFCF4`, `--text #2B2A26`, `--muted #5B574E`, `--border #8A8372`, `--leaf #2F7D32`, `--leaf-text #2A7230`, `--hero #4CB82B`, `--hero-edge #2F7D32`, `--hero-ink #12330F`, `--sky #1F6FB2`, `--right #0F766E`, `--wrong #A84A07`, `--sun #F5B301`, tints `#DDF1EE` `#FBE9D6` `#DCEEF9`, sky band `#8ED2F5`-`#BFE6FA`. Buttons: 3 px `--hero-edge` outline, 6 px bottom edge, `--hero-ink` label. System font stack only. Animate only `transform` and `opacity`.
+- [x] `npm create vite@latest . -- --template vanilla` (keep existing `research/` and `plan/`), then `npm i`; `npm i -D vitest`. In `vite.config.js` set `base: './'`.
+- [x] Create folders and empty files exactly: `src/{main.js,router.js,store.js,tokens.css}`, `src/engine/{gate.js,check.js}`, `src/ui/{lesson.js,peek.js,landing.js}`, `src/mascot/mascot.js`, `sprig/spike-rig.svg`, `tools/{build_content.py,pre_m0_check.py,size_budget.mjs,critic_capture.py,drive_m0.py}`, `content-overlay/`, `.github/workflows/{ci.yml,pages.yml}`, `public/data/`, `public/audio/`.
+- [x] `src/tokens.css` `:root` tokens: `--bg #FBF6EA`, `--card #FFFCF4`, `--text #2B2A26`, `--muted #5B574E`, `--border #8A8372`, `--leaf #2F7D32`, `--leaf-text #2A7230`, `--hero #4CB82B`, `--hero-edge #2F7D32`, `--hero-ink #12330F`, `--sky #1F6FB2`, `--right #0F766E`, `--wrong #A84A07`, `--sun #F5B301`, tints `#DDF1EE` `#FBE9D6` `#DCEEF9`, sky band `#8ED2F5`-`#BFE6FA`. Buttons: 3 px `--hero-edge` outline, 6 px bottom edge, `--hero-ink` label. System font stack only. Animate only `transform` and `opacity`.
 
 ## 3. Content pipeline (`tools/build_content.py`)
 - [x] Reads `$SOUND_OUT/content/{lessons/L1.*.json,options.json,lexicon.json,gpc.json,audio_index.json}`; strips `source`, `blocksFound`, `contentVersion`; writes `public/data/L1.json` and `public/data/shared.json`.
@@ -30,27 +30,27 @@ Create `tools/pre_m0_check.py` that reads `$SOUND_OUT/content/` and prints PASS/
 - [x] Run: `python3 tools/build_content.py` then `python3 tools/build_content.py --check` (must exit 0).
 
 ## 4. Spike rig (day 1)
-- [ ] `sprig/spike-rig.svg`: a plant-creature with exactly 12 animated nodes, each animated by WAAPI with only `transform` and `opacity`, in a looping "thinking plus look-at" state; a page `spike.html` loads it.
-- [ ] On Kamal's phone (Chrome remote debugging) record 60 s in the Performance panel. Pass: 30 fps held and at most 5% of frames over 33 ms. Write frame stats and the device line into `plan/spike.md`. Desktop with 4x CPU throttle and DevTools "Fast 3G" is a smoke test only, not a go.
+- [x] `sprig/spike-rig.svg`: a plant-creature with exactly 12 animated nodes, each animated by WAAPI with only `transform` and `opacity`, in a looping "thinking plus look-at" state; a page `spike.html` loads it.
+- [ ] On Kamal's phone (Chrome remote debugging) record 60 s in the Performance panel. Pass: 30 fps held and at most 5% of frames over 33 ms. Write frame stats and the device line into `plan/spike.md`. Desktop with 4x CPU throttle and DevTools "Fast 3G" is a smoke test only, not a go. (NOT RUN: device not yet named; rig + self-measuring page ready, see plan/spike.md)
 - [ ] No-go: reduce to 8 nodes, then still poses plus 150 ms crossfade, then one pre-rendered 2 s WebP per reward (never Lottie or Rive). Note the result.
 
 ## 5. Grey-box screens S1 to S5 (grey boxes and plain text; no art)
 Hash router (`#/`, `#/lesson/L1.01`, `#/home`). Sprig is a grey rounded box with its pose name as a label. Add `?test=1` which puts `data-correct="true"` on the right option and exposes `window.__sg = {tapAt, wateredAt}` for the drive script.
-- [ ] **S1 landing:** a pre-planted seed in a soil mound is the **one big tap target, no Start button**, plus a small "I have a garden code" link and the footer "Free. No account. No ads. No cookies." Tap = `AudioContext.resume()`, play the first clip, route to `#/lesson/L1.01`, set `__sg.tapAt = performance.now()`. No form fields anywhere.
-- [ ] **S4 lesson player** for L1.01 sitting 1: audio prompt, 2x2 spoken option cards (3+ options where needed), thin item-progress bar (`transform: scaleX`), small plant-stage icon in the header. Port the logic of `$SOUND_OUT/app/src/gate.js` (read it first): options spoken not printed, a wrong pick replays and returns after 2 other items. No DOM code is copied, only the logic.
-- [ ] **S4d feedback area** (fixed region above the options, **no bottom sheet, no "N in a row" counter**): Sprig pose label (`correct-small` or `wrong-soft`), word "Yes" or "Try again", sound named, tint layer that fades in by opacity (150 ms). Wrong state shows one example card at most 120 px square and 30% of the area's height on `--card`, no extra hue.
-- [ ] **First watering:** on the first correct answer set `__sg.wateredAt = performance.now()` and show **S3p garden peek**: lesson dims by opacity, a soil patch with a swelling seed shows 2 s. It never covers the next item: the next item is already loaded, and **any tap cuts the peek and still lands on the item**.
-- [ ] **S5 sitting done:** seed swell, "Sitting 1 of 4 done", under 2 s.
-- [ ] Store: `localStorage` key `sg1` in try/catch, saves the seed's stage and `firstDay`.
-- [ ] Gate engine unit tests (Vitest): 12 items, pass at 10, first attempt scored, retry not scored.
+- [x] **S1 landing:** a pre-planted seed in a soil mound is the **one big tap target, no Start button**, plus a small "I have a garden code" link and the footer "Free. No account. No ads. No cookies." Tap = `AudioContext.resume()`, play the first clip, route to `#/lesson/L1.01`, set `__sg.tapAt = performance.now()`. No form fields anywhere.
+- [x] **S4 lesson player** for L1.01 sitting 1: audio prompt, 2x2 spoken option cards (3+ options where needed), thin item-progress bar (`transform: scaleX`), small plant-stage icon in the header. Port the logic of `$SOUND_OUT/app/src/gate.js` (read it first): options spoken not printed, a wrong pick replays and returns after 2 other items. No DOM code is copied, only the logic.
+- [x] **S4d feedback area** (fixed region above the options, **no bottom sheet, no "N in a row" counter**): Sprig pose label (`correct-small` or `wrong-soft`), word "Yes" or "Try again", sound named, tint layer that fades in by opacity (150 ms). Wrong state shows one example card at most 120 px square and 30% of the area's height on `--card`, no extra hue.
+- [x] **First watering:** on the first correct answer set `__sg.wateredAt = performance.now()` and show **S3p garden peek**: lesson dims by opacity, a soil patch with a swelling seed shows 2 s. It never covers the next item: the next item is already loaded, and **any tap cuts the peek and still lands on the item**.
+- [x] **S5 sitting done:** seed swell, "Sitting 1 of 4 done", under 2 s.
+- [x] Store: `localStorage` key `sg1` in try/catch, saves the seed's stage and `firstDay`.
+- [x] Gate engine unit tests (Vitest): 12 items, pass at 10, first attempt scored, retry not scored.
 
 ## 6. Budget and CI
-- [ ] `tools/size_budget.mjs`: gzip every file requested before the seed tap (HTML, CSS, JS, SVG, manifest, icons); **fail above 90 KB**; also fail if any web font is in that set. Print the breakdown.
-- [ ] `.github/workflows/ci.yml` on push: `npm ci`, `npm run build`, `node tools/size_budget.mjs`, `python3 tools/build_content.py --check`, `npx vitest run`. (The sound-out checkout is not on the runner, so keep `public/data` committed and make `--check` validate the committed data only.)
+- [x] `tools/size_budget.mjs`: gzip every file requested before the seed tap (HTML, CSS, JS, SVG, manifest, icons); **fail above 90 KB**; also fail if any web font is in that set. Print the breakdown.
+- [x] `.github/workflows/ci.yml` on push: `npm ci`, `npm run build`, `node tools/size_budget.mjs`, `python3 tools/build_content.py --check`, `npx vitest run`. (The sound-out checkout is not on the runner, so keep `public/data` committed and make `--check` validate the committed data only.)
 
 ## 7. Drive script (`tools/drive_m0.py`, Playwright, mouse only, 390x844)
-- [ ] Starts `npm run preview`, opens `/?test=1`; asserts: zero `input, select, textarea` elements; URL stays on one origin with no redirects; no console errors; after clicking the seed an audio request for a `.ogg` is made; clicks the `data-correct` option; asserts `wateredAt - tapAt < 90000` ms (log the real value); the peek does not cover the next item (click during the peek reaches the item); every requested audio key exists in `audio-map.json`.
-- [ ] Saves screenshots to `shots/m0/`: `ours-landing.png`, `ours-question.png`, `ours-right.png`, `ours-wrong.png`. Exit 0 = green.
+- [x] Starts `npm run preview`, opens `/?test=1`; asserts: zero `input, select, textarea` elements; URL stays on one origin with no redirects; no console errors; after clicking the seed an audio request for a `.ogg` is made; clicks the `data-correct` option; asserts `wateredAt - tapAt < 90000` ms (log the real value); the peek does not cover the next item (click during the peek reaches the item); every requested audio key exists in `audio-map.json`.
+- [x] Saves screenshots to `shots/m0/`: `ours-landing.png`, `ours-question.png`, `ours-right.png`, `ours-wrong.png`. Exit 0 = green.
 
 ## 8. Deploy to GitHub Pages
 - [ ] `.github/workflows/pages.yml`: on push to master, build, `actions/upload-pages-artifact` of `dist`, `actions/deploy-pages`. Ask Kamal once to set Settings > Pages > Source to "GitHub Actions". Record the URL in `plan/M0-demo.md`.
