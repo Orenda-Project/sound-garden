@@ -115,7 +115,7 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .sprout .rise { transform-box: fill-box; transform-origin: 50% 100%; animation: rise 1.1s cubic-bezier(.35,1.8,.35,.83) both; }
 @keyframes rise { from { transform: translateY(60px) scale(.55); opacity: 0; } to { transform: none; opacity: 1; } }
 .sprout .hero .sprig { width: 230px; }
-.sprout .btn { position: absolute; left: 24px; right: 24px; bottom: 28px; width: auto; z-index: 3; }
+.sprout .btn { position: absolute; left: 32px; right: 32px; bottom: 28px; width: auto; z-index: 3; }
 .remind { background: var(--bg); padding: 90px 24px 28px; }
 .remind .card { width: 100%; background: var(--card); border: 3px solid var(--line); border-bottom-width: 6px; border-radius: var(--blob); padding: 24px 20px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
 .remind h1 { margin: 0; font: 800 26px/1.15 var(--font); } .remind .sprig { width: 120px; } .remind p { margin: 0; color: var(--muted); font-weight: 600; }
@@ -188,7 +188,7 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .sprout .bigmound { pointer-events: none; position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto; z-index: 2; }
 @media (max-height: 790px) { .sprout .bigmound { bottom: -18px; } .sprout .hero { bottom: 150px; } }
 
-.opt .pic { display: block; transform: translateY(10px); }
+.opt .pic { display: block; transform: translate(10px, 10px); }
 
 .fb .sound .meter { display: flex; gap: 4px; margin-top: 14px; }
 .done .hero { margin: 22px -20px -28px; width: calc(100% + 40px); padding: 24px 20px 28px; background: var(--bg); border-radius: 50% 50% 0 0 / 14px 14px 0 0; } .done .hero .btn { width: 100%; }
