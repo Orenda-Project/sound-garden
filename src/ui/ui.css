@@ -31,7 +31,6 @@
 .tile.dim { opacity: .4; }
 .opt:disabled { cursor: default; }
 .tile.target .opt { border-color: var(--right); box-shadow: 0 0 0 4px var(--right); background: var(--tint-right); }
-.tile.target .opt { align-items: flex-start; padding-top: 8px; min-height: 108px; }
 .pill { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); white-space: nowrap; min-height: 44px; min-width: 44px; padding: 0 12px; border-radius: 22px; background: var(--right); color: #fff; border: 0; font-weight: 700; font-size: 16px; }
 .cta { position: relative; z-index: 6; padding: 0 16px 24px; min-height: 92px; } .cta .btn { width: 100%; font-size: 22px; } .cta .btn[hidden] { display: block; visibility: hidden; }
 .opt { all: unset; box-sizing: border-box; cursor: pointer; min-height: 96px; border-radius: 16px; background: var(--card); border: 3px solid var(--border);
