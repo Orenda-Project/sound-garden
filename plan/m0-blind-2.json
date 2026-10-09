@@ -1,0 +1,31 @@
+{
+  "pairs": [
+    {
+      "id": "01",
+      "verdict": "ours",
+      "reason": "Ours has one centred, pictured seed as the only object to tap, with a single line of instruction; the Duolingo landing offers two text-only buttons (GET STARTED / I ALREADY HAVE AN ACCOUNT) a non-reader cannot read, so the target is less obvious for a 6-year-old."
+    },
+    {
+      "id": "02",
+      "verdict": "theirs",
+      "reason": "Ours shows a single 'Water again' button, which implies a prior watering a first-time user has not done, and the grey placeholder gives no visual cue; Duo's speech bubble plus a full-width CONTINUE gives one unambiguous next tap."
+    },
+    {
+      "id": "03",
+      "verdict": "ours",
+      "reason": "Ours has one labelled call to action, 'See my garden', after the sitting ends; the bar's question screen asks a non-reader to pick among three near-identical pictures and then press a disabled CHECK, so the next step is not shown until a guess is made."
+    },
+    {
+      "id": "04",
+      "verdict": "theirs",
+      "reason": "Bar's correct state shows a green answer panel and a CONTINUE button, so moving on is obvious; ours still shows the 'Listen. Tap the one that matches' prompt and the three speaker buttons, with the mole dome covering two of them, so it is unclear whether to keep tapping or move on."
+    },
+    {
+      "id": "05",
+      "verdict": "theirs",
+      "reason": "Bar's wrong state gives a red panel with the correct answer and a CONTINUE button, a clear forward action; ours offers a small speaker pill and the same three options with no forward action, so the correction loop (replay or reselect) is ambiguous for a non-reader."
+    }
+  ],
+  "no_wall": true,
+  "no_wall_notes": "Playwright, 390x844, about 90 s of following visible labelled targets from https://orenda-project.github.io/sound-garden/. No screen asked for an account, email, age, name or payment, and no form inputs appeared. Flow: seed -> listening quiz (speaker buttons 1/2/3) -> 'Try again' on wrong -> 'Sitting 1 of 4 done' -> 'See my garden' -> 'Your garden' with 'Water again'. Caveats: the 'I have a garden code' link was not followed, so any gate behind it is unverified; 'Water again' was not confirmed as exercised; the mole overlay sometimes covers quiz buttons. The first screen's footer says 'Free. No account. No ads. No cookies.'"
+}

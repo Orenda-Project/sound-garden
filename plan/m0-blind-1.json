@@ -1,0 +1,11 @@
+{
+  "pairs": [
+    {"id": "01", "verdict": "ours", "reason": "Ours shows one object in the centre with the instruction 'Tap the seed.', so the only target is obvious; the bar landing asks a choice between 'Get started' and 'I already have an account' before any play."},
+    {"id": "02", "verdict": "ours", "reason": "Ours has one green 'Water again' button under the garden; the bar's 'Continue' under 'Hi there! I'm Duo!' does not say what happens next."},
+    {"id": "03", "verdict": "equal", "reason": "Ours offers a single 'See my garden' button and the bar offers a picture question with answer choices; both leave one obvious tap, though the bar's task needs the word 'cat' to be read."},
+    {"id": "04", "verdict": "theirs", "reason": "Ours has no Continue button after 'Yes' and a brown mound overlay covers parts of options 2 and 3, so the next tap is unclear; the bar shows a clear green Continue."},
+    {"id": "05", "verdict": "theirs", "reason": "Ours says 'Try again' with a small speaker pill and no explicit next step; the bar shows the correct answer with a clear Continue button."}
+  ],
+  "no_wall": true,
+  "no_wall_notes": "Playwright, Chromium, 390x844 mobile viewport, about 90 s of tapping obvious targets on https://orenda-project.github.io/sound-garden/. No screen asked for an account, email, age, name or payment, and no visible input fields were seen in the captured steps. Flow: seed -> listen-and-pick (1/2/3) -> 'Try again' on wrong answers -> 'Sitting 1 of 4 done' -> 'See my garden' -> 'Your garden' with 'Water again'. Never reached a dead end. Caveats: the seed's text-based locator timed out (aria-label is long), so the tap fell back to a coordinate click that worked; the final ~40 s of the JSON output were cut off in my view, though the screens were repeats of the same flow."
+}
