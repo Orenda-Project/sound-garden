@@ -33,15 +33,14 @@ Note: it lists transitions and animations present in the DOM at capture time. Wh
 | Button/card state change (background, color, opacity, clip-path) | 0.4 s | ease |
 | Feedback bottom sheet slide-in | 0.5 s | ease |
 | Pop with overshoot (fires on feedback) | 0.2 s | cubic-bezier(0.35, 1.8, 0.35, 0.83) |
-| Welcome screen transform | 0.7 s | ease-in-out |
 | Modal / collapse (max-height) | 0.3 s | ease-in-out |
-| Fade of new element | 0.4 s | ease-in-out |
-So the base unit is 0.4 s ease, a single 0.2 s overshoot spring for emphasis, and nothing over 0.7 s on a common action. The 3D press look on buttons is a chunky bottom border (see every CTA), not a shadow blur.
+| OneTrust cookie-banner fade-in (not Duolingo UI) | 0.4 s | ease-in-out |
+So, from this dump, the base unit is 0.4 s ease, with a single 0.2 s overshoot pop for emphasis; the longest duration the dump supports is 0.5 s (the feedback panel). An earlier ad-hoc run also saw a 0.7 s ease-in-out transform on the welcome screen, but the committed `motion_dump.json` does not sample it, so it is dropped here. The 3D press look on buttons is a chunky bottom border (see every CTA), not a shadow blur.
 
 ### Progression visualisation
 - A linear segmented progress bar per lesson that fills green and fills with `width 0.4s` (`duo-lesson-m-5-pairs.png` shows it about 40 percent through).
 - Hearts (5) as a visible cost of error.
-- Across lessons (not reached as guest): the Path, a vertical winding trail of circular nodes grouped into Units and Sections, one level per node, chests and "Jump here" [S3, S4]. Active node has a pulsing ring; multi-session nodes show a segmented progress ring; finishing a node and a unit each get their own celebration [S4].
+- Across lessons (not reached as guest; unverified by me): the Path, a vertical trail of circular nodes grouped into Units, one level per node, with practice built in and a guidebook per unit [S3, supported by S3's overview list: "The home screen is now designed as a path that you'll follow step by step", "lessons are grouped into smaller units"]. S4 is a designer's case study of proposed interactions: "Adding a pulsating ring around the active node", "Segmenting the progress ring into lesson chunks", "Interactive Chests", "Jump Here", "Completing an Entire Node ... celebrating learners' progress". S4 says these were in internal dogfooding at the time of writing, so the pulsing ring, segmented ring and node celebrations are proposed or internal, not confirmed as shipped. Treat them as ideas, not as observed behaviour.
 
 ### Return-visit hooks
 - Daily goal chosen in onboarding (5/10/15/20 min), shown with a concrete promise ("25 words in your first week").
@@ -80,7 +79,7 @@ Avoid:
 
 ### Creature and characters (reported, not played; no in-game behaviour observed)
 - The player builds their own monster, takes it to a magical world, meets characters, plays mini-games and wins prizes [S5, S6]. The player's own creation is the mascot, which gives ownership no fixed mascot has.
-- The screenshot on the landing page shows the monster as a character in the scene, a large one-eyed king tree as the quest giver, and letters as apples on a tree: the game objects are the characters.
+- Inference from the landing image only (`tmtr-landing-d.png`), not from play: the tablet mock appears to show a monster in a scene, a large one-eyed king-like tree that looks like a quest giver, and letters on apples. If that reading is right, the game objects are the characters; I did not verify it.
 - Right/wrong reactions and celebration animation timing: not captured (walled). Marked unknown.
 
 ### Motion inventory
@@ -114,11 +113,12 @@ Avoid:
 - Reading Eggs: not captured.
 
 ## 4. Decisions for the build
+All numeric metric targets below (80, 70, 85, 90 percent and the like) are the author's own targets with no baseline; replace them with measured values after the first week of data.
 Metaphor ruling: the learner owns one creature, Sprig, who lives in a garden and grows it. Every progression and return decision uses that.
 1. Zero fields before the first sound plays: one CTA, one tap into a lesson. Metric: time to first sound under 10 s on a mid phone (median, measured in-app); over 90 percent of sessions hear a sound.
 2. Sprig is the creature the child owns, chosen with one tap in session one (colour only), and Sprig lives in and grows the garden. Metric: share of first sessions that pick a Sprig colour (target over 80 percent); Sprig interactions in the day-2 session.
 3. Feedback panel on every answer: bottom panel, 0.5 s ease slide, one word, the right answer shown on a miss, calm tone. No lives. Metric: retry-after-miss rate (target over 70 percent) and quit-after-miss rate under 10 percent.
-4. Motion tokens: 0.4 s ease base, one 0.2 s overshoot `cubic-bezier(0.35,1.8,0.35,0.83)` for pops, nothing over 0.7 s for routine actions, `prefers-reduced-motion` honoured. Metric: tokens used for 100 percent of transitions (lint check); zero animations over 0.7 s except celebrations.
+4. Motion tokens: 0.4 s ease base, one 0.2 s overshoot `cubic-bezier(0.35,1.8,0.35,0.83)` for pops, nothing over 0.5 s for routine actions, `prefers-reduced-motion` honoured. Metric: tokens used for 100 percent of transitions (lint check); zero animations over 0.5 s except celebrations.
 5. "N in a row" counter above a progress bar that fills on a 0.4 s width transition. Metric: lesson completion rate (target over 85 percent of started lessons).
 6. Streak and daily goal in `localStorage`, labelled "on this device", with an export/import code. Metric: day-2 return rate on the same device (baseline in week one, then track); share of day-7 returners who used the export code.
 7. Progression is Sprig growing the garden: each learned sound becomes a plant Sprig tends, and finishing a lesson visibly grows something. Metric: plants grown per session, and day-2 return rate for learners who saw a new plant versus those who did not.
