@@ -41,6 +41,7 @@ try:
         pg.locator(".opt:not([data-correct])").first.click()
         pg.wait_for_selector(".fb.wrong"); time.sleep(.3); pg.screenshot(path="shots/m0/ours-wrong.png")
         ck("no watering on a wrong answer", pg.evaluate("window.__sg.wateredAt") is None)
+        pg.click("[data-next]")
         pg.wait_for_function("document.querySelector('.fb') && !document.querySelector('.fb.wrong')", timeout=6000)
         pg.wait_for_selector(".opt[data-correct]"); time.sleep(.2)
         pg.click(".opt[data-correct]")
@@ -49,19 +50,27 @@ try:
         dt = (t[1] - t[0]) if t[0] and t[1] else None
         ck("first watering under 90 s after seed tap", dt is not None and dt < 90000, f"{dt:.0f} ms" if dt else "no watering")
         ck("garden peek shown", pg.locator(".peek").count() == 1)
-        pg.wait_for_function("document.querySelectorAll('.opt').length>0 && !document.querySelector('.fb.right')", timeout=4000)
+        ck("right state: prompt hidden, Next shown, nothing overlays tiles", pg.locator(".prompt").evaluate("e=>getComputedStyle(e).visibility")=="hidden" and pg.locator("[data-next]").is_visible() and not pg.evaluate("(()=>{const r=document.querySelector('.opts').getBoundingClientRect();const e=document.elementFromPoint(r.x+r.width/2,r.y+10);return !!e.closest('.peek')})()"))
         peek_alive = pg.locator(".peek").count() == 1
         before = pg.evaluate("document.querySelector('.bar i').style.transform")
-        pg.click(".opt[data-correct]")
-        pg.wait_for_selector(".fb.right", timeout=3000)
-        ck("tap during peek reaches the next item, peek cut", pg.locator(".peek").count() == 0, f"peek alive at click: {peek_alive}")
-        time.sleep(.9)
+        pg.click("[data-next]")
+        pg.wait_for_function("document.querySelector('.fb') && !document.querySelector('.fb.right')", timeout=3000)
+        ck("tap during peek cuts it and lands on Next", pg.locator(".peek").count() == 0 and pg.locator(".opt").count() >= 3, f"peek alive at click: {peek_alive}")
+        # wrong state on the 2nd item: outlined tile, pill on tile, one forward button
+        pg.locator(".opt:not([data-correct])").first.click(); pg.wait_for_selector(".fb.wrong")
+        ck("wrong state: target tile outlined, pill on tile, single 'Try again' button", pg.locator(".tile.target .pill").count() == 1 and pg.locator("[data-next]").inner_text() == "Try again" and pg.locator("[data-next]").count() == 1)
+        pg.click(".tile.target .opt"); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=3000)
+        ck("tapping the outlined tile moves on", True)
+        time.sleep(.3)
         ck("progress bar advanced", pg.evaluate("document.querySelector('.bar i').style.transform") != before)
         for _ in range(40):
             if pg.locator(".done").count(): break
-            try: pg.wait_for_selector(".opt[data-correct]", timeout=3000); time.sleep(.15); pg.click(".opt[data-correct]", timeout=1500)
+            try:
+                if pg.locator(".fb.right").count(): pg.click("[data-next]", timeout=1500)
+                else: pg.wait_for_selector(".opt[data-correct]", timeout=3000); pg.click(".opt[data-correct]", timeout=1500)
             except Exception: pass
-            time.sleep(.8)
+            time.sleep(.25)
+        pg.goto(url + "#/home") if False else None
         ck("S5 sitting done reached", pg.locator(".done").count() == 1 and "Sitting 1 of 4 done" in pg.inner_text(".done"))
         ck("no console errors", not errs, "; ".join(errs[:3]))
         origins = {r.split("/")[2] for r in reqs if r.startswith("http")}

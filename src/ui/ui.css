@@ -26,19 +26,26 @@
 .fb.right .word { color: var(--right); } .fb.wrong .word { color: var(--wrong); }
 .example { width: 120px; max-height: 66px; background: var(--card); border: 2px solid var(--border); border-radius: 12px; display: grid; place-items: center; font-size: 14px; }
 .prompt { text-align: center; margin: 4px 16px 8px; color: var(--muted); }
-.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 24px; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 12px; }
+.tile { position: relative; display: flex; } .tile .opt { flex: 1; }
+.tile.dim { opacity: .4; }
+.tile.target .opt { border-color: var(--right); box-shadow: 0 0 0 4px var(--right); background: var(--tint-right); }
+.tile.target .opt { align-items: flex-start; padding-top: 8px; min-height: 108px; }
+.pill { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); white-space: nowrap; min-height: 44px; min-width: 44px; padding: 0 12px; border-radius: 22px; background: var(--right); color: #fff; border: 0; font-weight: 700; font-size: 16px; }
+.cta { padding: 0 16px 24px; min-height: 92px; } .cta .btn { width: 100%; font-size: 22px; } .cta .btn[hidden] { display: block; visibility: hidden; }
 .opt { all: unset; box-sizing: border-box; cursor: pointer; min-height: 96px; border-radius: 16px; background: var(--card); border: 3px solid var(--border);
   border-bottom-width: 6px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; font-weight: 700; touch-action: manipulation; }
 .opt.playing { border-color: var(--sky); background: var(--tint-sky); }
 .opt:active { transform: translateY(3px); }
 .opt:focus-visible { outline: 3px solid var(--sky); }
-.lock .opt { pointer-events: none; }
-.peek { position: fixed; inset: 0; pointer-events: none; display: grid; place-items: center; z-index: 5; }
-.peek .dim { position: absolute; inset: 0; background: var(--bg); opacity: .72; animation: fadein .2s both; }
-.peek .patch { position: relative; width: 160px; height: 110px; background: #7a5a3a; border-radius: 80px 80px 20px 20px; display: grid; place-items: center; }
+.peek { position: fixed; inset: 0; pointer-events: none; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 14px; z-index: 5; }
+.peek .dim { position: absolute; inset: 0; background: var(--bg); opacity: .35; animation: fadein .2s both; }
+.peek .patch { position: relative; width: 120px; height: 64px; background: #7a5a3a; border-radius: 80px 80px 20px 20px; display: grid; place-items: center; }
 .peek .patch i { width: 36px; height: 36px; border-radius: 50%; background: var(--hero); animation: swell 2s ease-out both; }
-@keyframes swell { from { transform: scale(.6); } to { transform: scale(1.5); } } @keyframes fadein { from { opacity: 0; } }
+@keyframes swell { from { transform: scale(.6); } to { transform: scale(1.3); } } @keyframes fadein { from { opacity: 0; } }
 .done { padding: 48px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .done .big { width: 120px; height: 120px; border-radius: 50%; background: var(--hero); animation: swell 1.6s ease-out both; }
-.home { padding: 32px 16px; text-align: center; }
+.home { padding: 32px 16px; text-align: center; display: flex; flex-direction: column; gap: 16px; }
+.home .btn { display: block; width: 100%; text-decoration: none; text-align: center; font-size: 22px; }
+.home .back { align-self: flex-start; color: var(--muted); font-size: 18px; padding: 12px 8px; min-height: 48px; }
 @media (prefers-reduced-motion: reduce) { .seed .s, .peek .patch i, .done .big { animation: none; } }

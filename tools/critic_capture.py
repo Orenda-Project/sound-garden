@@ -20,13 +20,16 @@ with sync_playwright() as p:
     pg.goto(URL + "?test=1"); pg.wait_for_selector(".seed"); time.sleep(.3); shot("our-01-seed.png")
     pg.click(".seed"); pg.wait_for_selector(".opt")
     pg.locator(".opt:not([data-correct])").first.click(); pg.wait_for_selector(".fb.wrong"); time.sleep(.3); shot("our-05-wrong.png")
-    pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=6000); pg.wait_for_selector(".opt[data-correct]"); time.sleep(.2)
+    pg.click("[data-next]"); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=6000); pg.wait_for_selector(".opt[data-correct]"); time.sleep(.2)
     pg.click(".opt[data-correct]"); pg.wait_for_selector(".fb.right"); time.sleep(.3); shot("our-04-right.png")
+    pg.click("[data-next]")
     for _ in range(60):
         if pg.locator(".done").count(): break
-        try: pg.wait_for_selector(".opt[data-correct]", timeout=3000); time.sleep(.15); pg.click(".opt[data-correct]", timeout=1500)
+        try:
+            if pg.locator(".fb.right").count(): pg.click("[data-next]", timeout=1500)
+            else: pg.wait_for_selector(".opt[data-correct]", timeout=3000); pg.click(".opt[data-correct]", timeout=1500)
         except Exception: pass
-        time.sleep(.8)
+        time.sleep(.25)
     pg.wait_for_selector(".done"); time.sleep(1.8); shot("our-03-sitting-end.png")
     pg.click(".done .btn"); pg.wait_for_selector(".home"); time.sleep(.3); shot("our-02-home.png")
     b.close()
