@@ -41,7 +41,7 @@ try:
         pg.locator(".opt:not([data-correct])").first.click()
         pg.wait_for_selector(".fb.wrong"); time.sleep(.3); pg.screenshot(path="shots/m0/ours-wrong.png")
         ck("no watering on a wrong answer", pg.evaluate("window.__sg.wateredAt") is None)
-        pg.click("[data-next]")
+        pg.click(".tile.target .opt", force=True)
         pg.wait_for_function("document.querySelector('.fb') && !document.querySelector('.fb.wrong')", timeout=6000)
         pg.wait_for_selector(".opt[data-correct]"); time.sleep(.2)
         pg.click(".opt[data-correct]")
@@ -59,8 +59,8 @@ try:
         ck("tap during peek cuts it and lands on Next", pg.locator(".peek").count() == 0 and pg.locator(".opt").count() >= 3, f"peek alive at click: {peek_alive}")
         # wrong state on the 2nd item: outlined tile, pill on tile, one forward button
         pg.locator(".opt:not([data-correct])").first.click(); pg.wait_for_selector(".fb.wrong")
-        ck("wrong state: target outlined, no pill, all tiles disabled, one enabled 'Try again'", pg.locator(".tile.target").count() == 1 and pg.locator(".pill").count() == 0 and pg.locator(".opt:enabled").count() == 0 and pg.locator("[data-next]").inner_text() == "Try again" and pg.locator("[data-next]").is_enabled())
-        pg.click("[data-next]"); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=3000)
+        ck("wrong state: no buttons but the outlined tile; exactly one enabled control", pg.locator(".pill").count() == 0 and not pg.locator("[data-next]").is_visible() and pg.locator("main button:enabled").count() == 1 and pg.locator(".tile.target .opt:enabled").count() == 1)
+        pg.click(".tile.target .opt", force=True); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=4000)
         time.sleep(.3)
         ck("progress bar advanced", pg.evaluate("document.querySelector('.bar i').style.transform") != before)
         for _ in range(40):

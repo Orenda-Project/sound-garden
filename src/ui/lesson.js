@@ -32,7 +32,7 @@ export async function mount(el, lid) {
     const it = gate.items[q.i], my = ++token;
     state = 'ask'; target = null; stop();
     fb.className = 'fb'; setPose(sp, 'listening'); word.textContent = ''; snd.textContent = '';
-    prompt.style.visibility = 'visible'; cta.hidden = true; cta.removeAttribute('data-next');
+    prompt.style.visibility = 'visible'; cta.hidden = true; cta.disabled = true; cta.removeAttribute('data-next');
     opts.replaceChildren();
     const order = it.options.map((o, i) => [o, i]).sort((a, b) => ((a[1] * 7 + q.i) % 5) - ((b[1] * 7 + q.i) % 5));  // stable shuffle
     order.forEach(([o], n) => {
@@ -55,15 +55,19 @@ export async function mount(el, lid) {
 
   function pick(it, o, tile, my) {
     if (my !== token) return;
+    if (state === 'wrong') {                             // the outlined tile is the only tappable control: it is the retry
+      if (!o.ok) return;
+      state = 'retry'; play(target.key).then(() => wait(250)).then(() => { if (state === 'retry') show(); });
+      return;
+    }
     if (state !== 'ask') return;                         // locked: only the one CTA moves on
-    if (state === 'wrong') return;                       // informational only: the one button moves on
     stop(); state = o.ok ? 'right' : 'wrong';
     gate.answer(o.ok); progress();
     target = it.options.find(x => x.ok);
     prompt.style.visibility = 'hidden';
-    opts.querySelectorAll('.opt').forEach(x => { x.disabled = true; });
+    opts.querySelectorAll('.opt').forEach(x => { x.disabled = !(!o.ok && x.parentElement.__opt.ok); });
     if (o.ok) [...opts.children].forEach(t => t.classList.add('dim'));
-    cta.hidden = false; cta.dataset.next = '1';
+    if (o.ok) { cta.hidden = false; cta.disabled = false; cta.dataset.next = '1'; }
     if (o.ok) {
       fb.className = 'fb right'; setPose(sp, 'correct-small'); word.textContent = 'Yes';
       snd.textContent = it.printed ? `the word “${target.w}”` : '';   // oral items (L1.01): no letters on screen

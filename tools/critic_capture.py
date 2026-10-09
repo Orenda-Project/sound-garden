@@ -20,7 +20,7 @@ with sync_playwright() as p:
     pg.goto(URL + "?test=1"); pg.wait_for_selector(".seed"); time.sleep(.3); shot("our-01-seed.png")
     pg.click(".seed"); pg.wait_for_selector(".opt")
     pg.locator(".opt:not([data-correct])").first.click(); pg.wait_for_selector(".fb.wrong"); time.sleep(.3); shot("our-05-wrong.png")
-    pg.click("[data-next]"); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=6000); pg.wait_for_selector(".opt[data-correct]"); time.sleep(.2)
+    pg.click(".tile.target .opt", force=True); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=6000); pg.wait_for_selector(".opt[data-correct]"); time.sleep(.2)
     pg.click(".opt[data-correct]"); pg.wait_for_selector(".fb.right"); time.sleep(.3); shot("our-04-right.png")
     pg.click("[data-next]")
     for _ in range(60):
