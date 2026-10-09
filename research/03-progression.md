@@ -129,16 +129,21 @@ Review intervals for scheduling (design choice, informed by "optimal gap grows w
 
 Target: first visible change (the watered seed) at **90 seconds** or sooner; measure it in the first silent playtest, with a ceiling of 3 minutes. The retention skill lists time-to-first-fun as one of the three numbers to instrument.
 
-**The end-of-lesson-1 card (offered once, right after the L1.01 check passes).** The sprouted plant shows its bloom time on the plant itself: **"Ready tomorrow, about 3 minutes."** Below it: **"Your plant blooms tomorrow after 9:00. Remind me?"** with two buttons:
-- **Remind me** downloads the daily `.ics` event (2.5), set to the shown time.
+**The end-of-lesson-1 card (first offer, right after the L1.01 check passes; re-offers listed after the card).** The sprouted plant shows its bloom time on the plant itself: **"Ready tomorrow, about 3 minutes."** Below it: **"Your plant blooms tomorrow after 9:00. Remind me?"** with two buttons:
+- **Remind me** downloads **one** `.ics` event at the computed ready time, on day 1 only (not a daily repeat; see 2.5). A daily repeat is offered only after the first bloom.
 - **Add to Home Screen**: on Android (Chrome) the browser's install prompt is triggered from this button (the `beforeinstallprompt` event; a browser-API fact I did not re-verify here, C); on iOS the same button shows the manual Share, Add to Home Screen steps from 2.8.
+
+**Re-offers (the reminder is not a one-shot).** "Remind me" appears again (a) on the Home "plant is ready" state, (b) on the card after lesson 2's check, and (c) after the first bloom, where it becomes the daily repeat. It stops appearing once the learner has accepted it or dismissed it twice.
+
+**Quit mid-L1.01.** A learner who leaves before the check passes sees on Home: **"Your seed is waiting."** with the same "Remind me" option; the reminder in that case is a one-time `.ics` event for the time the learner picks (default: 24 hours from now), since there is no sprout and so no computed bloom time yet.
 
 **Time rule (keeps the 20-hour bloom rule intact).** Ready time = the earliest moment that is at least 20 hours after the sprout and not before 9:00 local. The card shows the exact time it computed. If the learner finishes at 20:00 the ready time is 16:00 the next day; the card then reads "Your plant blooms tomorrow after 16:00", and the default 9:00 wording is used only when the 20 hours has already passed by 9:00. The `.ics` event is created at that computed time.
 
 
 **Review pool and how a round fills to 12 items.**
 - **Day-1 pool:** all 12 or more items from the L1.01 lesson check (and any items shown in its sittings) are eligible. One plant therefore supplies a full round, so the **first bloom gate can be met with a single plant**.
-- **General rule:** a review round always has 12 items (16 on a lapse of 7 days or more). Fill in this order until the round is full: (1) items from plants that are due, oldest-due first; (2) items from the same lesson's plant that were missed in its check; (3) other items from due plants' lessons; (4) if still short, items from the most recently sprouted plants even if not yet due, tagged as practice. **Only items from due plants can advance a stage;** practice items never do. Items repeat within a round only if the pool has fewer than 12 distinct items (a round with fewer than 12 distinct items is padded with the learner's first-attempt misses from earlier in the round, never with duplicates of correct answers).
+- **General rule:** a review round always has 12 items (16 on a lapse of 7 days or more). Fill in this order until the round is full: (1) items from plants that are due, oldest-due first; (2) items from the same lesson's plant that were missed in its check; (3) other items from due plants' lessons; (4) if still short, items from the most recently sprouted plants even if not yet due, tagged as practice. **Only items from due plants can advance a stage;** practice items never do. **Padding rule:** if the round is still under 12 items after the order above, pad with the learner's own first-attempt misses from earlier in the round; if still under 12, repeat items. **Repeats and padding never count toward stage advance.**
+- **Scoring (resolves practice versus the 80% gate):** the 80% bloom/Full gate is scored on **due-plant items only**, first attempt, with practice items and padding excluded from both numerator and denominator. A gating round needs at least 12 due-plant items; every plant's pool is its lesson-check items (12 or more), so a single due plant always supplies a full gating round. A round that cannot reach 12 due-plant items runs as practice and advances nothing.
 
 ### 2.4 Daily and weekly loop
 
@@ -164,7 +169,7 @@ Three triggers ship in v1; one is rejected for now.
 | Trigger | Design | Cost | Verdict |
 |---|---|---|---|
 | **"A plant is ready" state on Home** | When any plant is 20 hours or more past its last stage, Home shows it glowing with the line "Sunflower is ready to bloom - about 3 minutes" (the L1.02 plant from the 2.11 table). This is the primary return hook because it is the only one that works for a learner who is already on the site. | Pure local logic | **Ship** |
-| **Opt-in .ics calendar event** | In settings and on the card after the first bloom: "Remind me" downloads a daily recurring `.ics` ("Tend your garden", time chosen by the learner, with a link to the site). It lives in the learner's own calendar app, so it also works when the browser's storage is wiped. | None, no server, no permission prompt | **Ship** |
+| **Opt-in .ics calendar event** | Day 1: one `.ics` event at the computed ready time (from the lesson-1 card). After the first bloom: "Remind me" offers a **daily recurring** `.ics` ("Tend your garden", time chosen by the learner, with a link to the site). Re-offered on Home "plant is ready", after lesson 2, and when the learner quits mid-L1.01 ("Your seed is waiting"). It lives in the learner's own calendar app, so it also works when the browser's storage is wiped. | None, no server, no permission prompt | **Ship** |
 | **Add to Home Screen** | Already prompted for storage reasons (2.8); the icon on the phone is itself a daily cue and gives the learner a stable origin counter on iOS. | None | **Ship** |
 | **Web Push (service worker + push relay)** | A PWA with a service worker can receive pushes, but a *send* needs something to hold each learner's push subscription and fire messages on a schedule: a relay (for example a free-tier edge function with a cron trigger). That is a server holding a per-device identifier, which breaks the "no account, no server, no tracking" promise even if no name is stored. On iOS, push works only for an installed home-screen web app (iOS 16.4 and later; my recollection, C, not re-fetched this session), so it would miss the Safari-tab learners we most worry about. A "we miss you" push is also rated amber-red in the ethics reference. | A relay to run, secure and justify | **Not in v1.** Revisit only if the D7 pilot (below) is under target *and* learners ask for it, and then make it opt-in per device with the subscription deletable in one tap. |
 
@@ -196,7 +201,7 @@ Hard rules: **nothing earned is ever removed**; no "you lost" language; the dail
 
 ### 2.7 Anti-guessing and mastery gates
 
-- **Gates are mastery, never taps or time, and every gate has 12 or more items.** A review round pools due items from several plants; a plant advances only if its own items in that round were first-try correct and the round scored 80% or more. A plant reaches Sprout only via the lesson check at 80% or more, Bloom and Full only via reviews at 80% or more. Level checks need 85% on cumulative content to place a landmark.
+- **Gates are mastery, never taps or time, and every gate has 12 or more items.** A review round pools due items from several plants; a plant advances only if its own items in that round were first-try correct and the round scored 80% or more **on due-plant items only (practice items and padding excluded, see 2.3)**. A plant reaches Sprout only via the lesson check at 80% or more, Bloom and Full only via reviews at 80% or more. Level checks need 85% on cumulative content to place a landmark.
 - **Minimum 12 items** per gate (lesson check, review round, level check at 20+ since cumulative, and the lapse check) and **no 2-option items** in them (guess maths in 1.6). Prefer production tasks: build the word from tiles, type it, pick the picture for a heard word.
 - **First attempt counts.** A retry after a wrong answer teaches but does not score. A missed item returns later in the same sitting after at least 2 other items (a retrieval, not an echo).
 - **No speed floor in v1.** An earlier draft proposed ignoring answers faster than about 600 ms; there is no data here to justify any number, and fast correct answers are what fluent readers produce. Drop it until a timed pilot (log response time on gating checks, compare with the 12-item guess maths) shows where tap-through really starts.
@@ -367,7 +372,7 @@ Totals: 85 plants, 13 shed tools, 3 path pieces, 7 landmarks = 108. Visitors (19
 
 | Event | Trigger | Gain |
 |---|---|---|
-| Bloom | A plant's first spaced review at least 20 hours after sprout, in a 12+ item round at 80% or more | Flowers; counts toward visitors |
+| Bloom | A plant's first spaced review at least 20 hours after sprout, 12+ due-plant items at 80% or more (padding excluded) | Flowers; counts toward visitors |
 | Full | Second spaced review at least 7 days after the bloom | Seed pod, "Full" in the field guide |
 | Visitor | Every 5th bloom | One of 19 cosmetic visitors |
 | Zone in bloom | Every plant in a level at Bloom or better | The zone's landmark glows at dusk |
