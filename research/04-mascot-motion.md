@@ -3,6 +3,11 @@
 Date: 2026-10-09. Scope: mascot design evidence, web animation tech, whether the agent-face rig can be the mascot, motion rules, asset pipeline.
 Evidence grades: A = meta-analysis or peer-reviewed; B = single study or developer-published design rationale with a research citation; C = vendor blog, review analysis, or tutorial. Numbers marked (unverified) came from one secondary source. Nothing here was benchmarked on a device; see "Gaps".
 
+## Scope: who this is for, and what the evidence covers
+
+- Target learner: ages 6 to adult, all of them early decoders of English (learning to map letters to sounds), on a phone-class device: a 2 GB RAM Android, low-end CPU, Chrome, often slow or metered data.
+- Evidence base: the studies below are on K-12 or adult learners in general multimedia learning, or on preschool story e-books. None tests early decoders (6 to adult) practising decoding with a mascot. Treat every effect size as indirect; the design rules in sections 3 to 5 are inference, not measured results for this audience.
+
 ## 1. What makes learning-product mascots work
 
 ### 1.1 The four reference mascots
@@ -18,12 +23,12 @@ Pattern worth copying: the mascot is a state machine tied to app events (idle, l
 
 ### 1.2 Does a mascot help? (what the studies say)
 
-- Pedagogical agents, Schroeder et al. 2013 meta-analysis (43 studies, 3,088 participants): small but significant learning benefit; larger for K-12 than for post-secondary; agents using on-screen text beat agents using narration. Grade A. [7]
-- Mayer and Fiorella handbook chapter: g = 0.45 transfer, g = 0.23 retention. Grade A. [7]
-- A later multimedia-agent meta-analysis (32 effect sizes, N = 2104): overall g+ = 0.20; 2D agents g+ = 0.38 vs 3D g+ = 0.11; nonverbal communication, motion and voice did not moderate effectiveness. Grade A. [8] Implication: a flat 2D character is the better bet; do not pay for gesture polish expecting a learning gain.
+- Pedagogical agents, Schroeder, Adesope and Gilbert 2013 meta-analysis, Journal of Educational Computing Research 49(1), doi:10.2190/EC.49.1.A (43 studies, 3,088 participants): small but significant learning benefit; larger for K-12 than for post-secondary; agents using on-screen text beat agents using narration. Grade A (DOI and journal confirmed via Crossref; study counts and moderator findings from a search summary of the abstract). [7]
+- Cambridge Handbook of Multimedia Learning chapter on animated pedagogical agents: g = 0.45 transfer, g = 0.23 retention. Grade B: reported in a search summary; I did not read the chapter or confirm which edition and authors state these figures. [7]
+- A later multimedia-agent meta-analysis (Educational Psychology Review 2021; 32 effect sizes, N = 2104): overall g+ = 0.20; 2D agents g+ = 0.38 vs 3D g+ = 0.11; nonverbal communication, motion and voice did not moderate effectiveness. Grade B: a meta-analysis, but I read it only through a university repository summary, not the full paper. [8] Implication: a flat 2D character is the better bet; do not pay for gesture polish expecting a learning gain.
 - Caveat: none of these isolate animated mascots for young children or for decoding practice. The honest claim is "a small learning effect from a well-designed social agent, plausibly a larger motivation effect"; the motivation part is not measured in what I found.
-- Seductive details hurt: Sundar and Adesope meta-analysis (58 studies, 7,500+ students) found learners given extra attractive-but-irrelevant material scored lower; the harm was larger when the detail was constant on screen next to relevant diagrams. A second analysis gives g = -0.16 (50 studies). Grade A. [9] A constantly moving mascot beside the letters is exactly this risk.
-- E-book features, Takacs et al. meta-analysis (43 studies, 2,147 children): animation, music and sound effects tied to the story helped (comprehension g+ = 0.17, vocabulary g+ = 0.20 for technology overall); interactive hotspots, games and dictionaries hurt, most for children from less stimulating homes. Preschool UCI study: story-unrelated animation and games reduced comprehension. Grade A/B. [10][11]
+- Seductive details hurt: Sundar and Adesope meta-analysis (58 studies, 7,500+ students) found learners given extra attractive-but-irrelevant material scored lower; the harm was larger when the detail was constant on screen next to relevant diagrams. A second analysis gives g = -0.16 (50 studies). Grade A for the existence of the meta-analysis (Sundar and Adesope 2020, doi:10.1007/s10648-020-09522-4, confirmed via Crossref); the study counts and g = -0.16 come from news and repository summaries, so treat the numbers as B. [9] A constantly moving mascot beside the letters is exactly this risk.
+- E-book features, Takacs et al. meta-analysis (43 studies, 2,147 children): animation, music and sound effects tied to the story helped (comprehension g+ = 0.17, vocabulary g+ = 0.20 for technology overall); interactive hotspots, games and dictionaries hurt, most for children from less stimulating homes. Preschool UCI study: story-unrelated animation and games reduced comprehension. Grade A for Takacs et al. (Review of Educational Research 2015, doi:10.3102/0034654314566989; the g+ values, 43 studies and 2,147 children match the Crossref abstract); the UCI preschool result is B. [10][11]
 
 Net rule: the mascot should move to carry information (right, wrong, try again, look here) and be near-still while the learner is decoding. Rich motion belongs in the gaps between items.
 
@@ -54,12 +59,12 @@ What exists (inspected):
 
 Why not ship agent-face as is:
 1. Wrong fit: a glowing LED panel does not say "garden", and learners are meant to feel growth.
-2. Cost: 93 files at about 50 KB each is 5 MB. We need about 25 states; even at 50 KB that is 1.2 MB plus the player (75 KB gzip lottie-web or 500 KB WASM). Too heavy for the first-load budget on cheap phones.
+2. Cost: 93 files at about 50 KB each is 5 MB. We need about 26 states; even at 50 KB that is 1.2 MB plus the player (75 KB gzip lottie-web or 500 KB WASM). Too heavy for the first-load budget on cheap phones.
 3. Lottie cannot cheaply blend or react to input: look-at-the-tapped-letter, eye follow, and "grow one stage" need runtime control, which is the reason the Rive/Duolingo example exists [2].
 
 Recommendation: rework, do not reuse the files. Keep three things from agent-face: the idea of a profile-driven rig (a short YAML describes the creature, a script emits every state), the state vocabulary, and the lottie-motion timing table. Make a new character, "Sprig": a seed that becomes a sprout, then leaves, then a small plant over the learner's progress (3 to 5 growth stages, changing silhouette, not just size). Face = two eyes and a small mouth in the Rumi/blob grammar (eyes, mouth, at most one prop) so existing face work carries over.
 
-### 3.1 State list (about 25), tied to app events
+### 3.1 State list (26 states), tied to app events
 
 Growth stage is a separate variable (seed, sprout, sapling, small plant, flowering) and multiplies every state. States:
 
@@ -91,9 +96,8 @@ Growth stage is a separate variable (seed, sprout, sapling, small plant, floweri
 | 24 | proud | Weekly goal or milestone | once | stands tall, flower bud |
 | 25 | goodbye | Session end | once | waves, folds leaves |
 | 26 | error-offline | Asset or audio failed | once | shrug; hides itself if repeated |
-| 27 | reduced-motion-pose | `prefers-reduced-motion` | static | each state maps to a still pose, no loops |
 
-State 27 is not a state to draw: it is the rule that every state has a still pose (one frame) for reduced motion, and for slow phones.
+Not a 27th state, a rule: every state has a still pose (one frame) for reduced motion, and for slow phones.
 
 Design rule: 2 or 3 of the states do all the work during a lesson (idle-lesson, correct-small, wrong-soft). The expensive ones (level-up, celebrate, water) appear between items.
 
@@ -110,7 +114,7 @@ Design rule: 2 or 3 of the states do all the work during a lesson (idle-lesson, 
 ## 5. Asset pipeline: pick one
 
 Options:
-A. python-lottie to Lottie JSON, played by lottie-web or dotLottie. Existing skill and rig. Cost: 75 KB gzip or about 500 KB WASM, JSON parse time, weak runtime input control. Licence: python-lottie is AGPL-3.0+ [26]; generated JSON is not obviously covered, but a build tool with that licence is a point to verify before it goes into a repo we plan to open-source.
+A. python-lottie to Lottie JSON, played by lottie-web or dotLottie. Existing skill and rig. Cost: 75 KB gzip or about 500 KB WASM, JSON parse time, weak runtime input control. Licence: python-lottie is AGPL-3.0+ [26]. Does it matter here? Little. We would not ship python-lottie, only the JSON it writes. AGPL conditions apply to conveying or network-serving the program and modified versions of it, and a program's output is generally not covered unless it embeds the program's own copyrighted code (not checked for python-lottie output; not legal advice). agent-face already lists it as a dependency, not bundled, under MIT. So licence is not the deciding factor against A; runtime weight and weak input control are. If the generator script is published, list python-lottie as an install-time dependency and do not vendor its source.
 B. Rive via its editor. Best state machine, small files. Not automatable from Python, editor-only authoring, WASM 222 to 567 KB, and export needs a paid plan [18][20]. Blocks "generate 25 states by script".
 C. Layered SVG generated by a Python script (our code, MIT), animated in the browser by a small state machine that plays WAAPI keyframes or CSS transforms (Motion `animate` mini at 2.3 KB, or hand-written WAAPI), swapping face groups for expressions.
 
@@ -131,16 +135,18 @@ Performance budget (to be verified on a real cheap phone): mascot SVG at most 15
 
 ## Decisions for the build
 
-1. Build a new mascot, "Sprig" (seed to plant). Do not ship the agent-face Lottie files; keep its profile-driven generator idea and lottie-motion timing table.
-2. Pipeline = Python-generated layered SVG plus a small WAAPI/CSS state machine (Motion mini 2.3 KB or hand-rolled). No Lottie player and no Rive runtime at first paint.
-3. Implement about 25 states from the table; four matter most in lessons: idle-lesson, correct-small, wrong-soft, pointing.
-4. Growth stage (3 to 5 stages, silhouette changes) is the progress indicator; level-up is the biggest animation.
-5. Mascot stays near-still while the learner decodes; rich motion only at item boundaries and in rewards.
-6. No sad or red wrong-answer reaction; head tilt plus pointing at the correct example.
-7. Animate only transform and opacity; at most 12 animated nodes; pause when hidden.
-8. Honour `prefers-reduced-motion` and add an in-app calm mode; every state has a still pose.
-9. Spike-benchmark on the cheapest Android phone before locking the budget; fall back to still poses automatically on slow frames.
-10. Optional Lottie via dotLottie, lazily loaded, only for rare celebrations, and only if the spike shows headroom.
+Owner is lead for all ten; date is 2026-10-09. Each has a reversal trigger.
+
+1. Build a new mascot, "Sprig" (seed to plant); do not ship agent-face Lottie files, keep its profile-driven generator idea and the lottie-motion timing table. Reverse if: five 6-to-adult learners in a quick test read Sprig as childish or confusing, or the lead rejects the look after the first stage render.
+2. Pipeline = Python-generated layered SVG plus a small WAAPI/CSS state machine (Motion mini 2.3 KB or hand-rolled); no Lottie player or Rive runtime at first paint. Reverse if: the decision 9 spike fails with SVG/WAAPI (then see its fallback), or an animator needs shapes SVG groups cannot express.
+3. Implement the 26 states in the table; four matter most in lessons: idle-lesson, correct-small, wrong-soft, pointing. Reverse if: after the first build more than 8 states are unused by any app event (cut them) or a lesson event has no state (add one).
+4. Growth stage (3 to 5 stages, silhouette changes) is the progress indicator; level-up is the biggest animation. Reverse if: learners misread growth as a score they can lose, or art cost for stage silhouettes exceeds one day per stage.
+5. Mascot stays near-still while the learner decodes; rich motion only at item boundaries and in rewards. Reverse if: playtest shows learners ignore feedback they cannot see, or an A/B shows no difference in accuracy between still and moving idle.
+6. No sad or red wrong-answer reaction; head tilt plus pointing at the correct example. Reverse if: learners fail to notice they were wrong in playtest.
+7. Animate only transform and opacity; at most 12 animated nodes; pause when hidden. Reverse if: a needed expression (for example mouth shapes for speaking) cannot be done with transforms or swapped groups; allow one extra node type, re-run the spike.
+8. Honour `prefers-reduced-motion` and add an in-app calm mode; every state has a still pose. No reversal: accessibility floor. Revisit only the calm mode default if more than half of first-session users switch it on.
+9. Spike go/no-go before locking the budget. Device: cheapest 2 GB RAM Android on hand, Chrome; if none, Chrome DevTools on desktop with 4x CPU throttle at 390x844. Test: the Sprig rig with 12 animated nodes looping in a non-trivial state, 30 fps held for 60 s, frame time from the Performance panel (no more than 5% of frames over 33 ms). Go: pass. No-go: switch to the fallback ladder: (a) cut to 8 animated nodes and drop shadow or blur, retest; (b) if still failing, mascot shows still poses only plus a 150 ms opacity crossfade between them (the reduced-motion path becomes the default); (c) rich motion only as one pre-rendered 2 s WebP loop per reward. Do not move to Lottie or Rive, since both are heavier. Reverse if: Lottie canvas passes the same test and SVG fails (then reconsider A).
+10. Optional Lottie via dotLottie, lazily loaded, only for rare celebrations and only if the spike shows headroom. Reverse if: the page crosses its first-load budget or a 2 GB device runs out of memory with the WASM loaded.
 
 ## Sources
 
@@ -150,10 +156,10 @@ Performance budget (to be verified on a real cheap phone): mascot SVG at most 15
 4. Games and Learning, development and marketing of Teach Your Monster to Read: https://www.gamesandlearning.org/tag/reading
 5. Khan Academy, supporting English language acquisition with Khan Academy Kids (Kodi design): https://blog.khanacademy.org/supporting-english-language-acquisition-with-khan-academy-kids/
 6. Appbot, Finch app reviews and emotional attachment: https://appbot.co/blog/finch-app-reviews-emotional-attachment-user-retention-product-loyalty/
-7. Schroeder et al. 2013 and Mayer/Fiorella, animated pedagogical agents: https://journals.sagepub.com/doi/ref/10.1177/07356331211041701 and https://resolve.cambridge.org/core/books/cambridge-handbook-of-multimedia-learning/multimedia-learning-with-animated-pedagogical-agents/B629E8948494D949DB818B4AB31F3B4F
-8. Multimedia pedagogical agents meta-analysis (diversity of features): https://research.birmingham.ac.uk/en/publications/effectiveness-of-multimedia-pedagogical-agents-predicted-by-diver/
-9. Sundar and Adesope seductive details meta-analysis (summary): https://news.wsu.edu/2020/03/19/seductive-details-inhibit-learning/ and https://par.nsf.gov/biblio/10637927
-10. Takacs et al. e-book enhancements meta-analysis (via summary): https://bop.unibe.ch/JEMR/article/download/11237/14708/54338
+7. Schroeder, Adesope and Gilbert 2013, How Effective are Pedagogical Agents for Learning? A Meta-Analytic Review, JECR 49(1): https://doi.org/10.2190/EC.49.1.A ; Cambridge Handbook of Multimedia Learning chapter (g = 0.45 / 0.23, unread, Grade B): https://resolve.cambridge.org/core/books/cambridge-handbook-of-multimedia-learning/multimedia-learning-with-animated-pedagogical-agents/B629E8948494D949DB818B4AB31F3B4F . Correction: the earlier version cited doi 10.1177/07356331211041701, which is a different 2021 paper (an analysis framework for pedagogical-agent studies).
+8. Effectiveness of Multimedia Pedagogical Agents Predicted by Diverse Theories: a Meta-Analysis, Educ Psychol Rev 2021 (repository summary, Grade B): https://doi.org/10.1007/s10648-020-09587-1 ; https://research.birmingham.ac.uk/en/publications/effectiveness-of-multimedia-pedagogical-agents-predicted-by-diver/
+9. Sundar and Adesope 2020, Keep it Coherent: A Meta-Analysis of the Seductive Details Effect: https://doi.org/10.1007/s10648-020-09522-4 ; summaries: https://news.wsu.edu/2020/03/19/seductive-details-inhibit-learning/ and https://par.nsf.gov/biblio/10637927
+10. Takacs, Swart and Bus 2015, Benefits and Pitfalls of Multimedia and Interactive Features in Technology-Enhanced Storybooks, Rev Educ Res: https://doi.org/10.3102/0034654314566989 ; secondary summary: https://bop.unibe.ch/JEMR/article/download/11237/14708/54338
 11. UCI, enhanced e-book features may reduce learning for preschoolers: https://news.uci.edu/research/enhanced-e-book-features-unrelated-to-narrative-may-reduce-learning-for-preschoolers
 12. vivo engineering, native Android Lottie frame times (as found via): https://www.besthub.dev/articles/avoid-animation-pitfalls-comparing-multiple-android-animation-solutions-and-choosing-the-right-one-1ae39e1ebfd1
 13. lottie-web and lottie-web-light sizes: https://depscope.dev/pkg/npm/lottie-web and https://mcp.depscope.dev/pkg/npm/lottie-web-light
