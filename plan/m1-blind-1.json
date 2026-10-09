@@ -5,73 +5,73 @@
    "a": "ours",
    "b": "ours",
    "c": "ours",
-   "reason": "Tap-the-seed sign and ringed seed point at the one action; Duolingo splash is text-led."
+   "reason": "Tap-the-seed sign and ring; rayed sun and painted hills are one stroke language."
   },
   {
    "id": "m0-02",
    "a": "ours",
    "b": "ours",
-   "c": "theirs",
-   "reason": "Garden has a speaker pot and one arrow button; Duo's CONTINUE is text-only. Our letter mounds are templated and the right edge is cropped."
+   "c": "ours",
+   "reason": "Natural garden layout with a speaker pot and arrow button; no templated grid."
   },
   {
    "id": "m0-03",
    "a": "ours",
    "b": "ours",
    "c": "ours",
-   "reason": "Sitting end now has Sprig, pot and a caption; the big button carries an arrow. Stronger than Duo's cat card with empty space."
+   "reason": "Sprig, pot and caption with one arrow button; consistent sun rays."
   },
   {
    "id": "m0-04",
    "a": "ours",
    "b": "ours",
-   "c": "theirs",
-   "reason": "Check mark, water drops and arrow NEXT read without words; the seed mound is cropped behind the button and a drop is clipped at the card edge."
+   "c": "ours",
+   "reason": "Check and arrow NEXT read without words; Duo's third card is cropped under its sheet."
   },
   {
    "id": "m0-05",
    "a": "ours",
    "b": "ours",
    "c": "ours",
-   "reason": "Tap this one arrow with picture cards names the target; Duo's red CORRECT SOLUTION panel is punitive."
+   "reason": "Tap this one pill in the tile; Duo's third card is cropped under the red sheet."
   },
   {
    "id": "m1-03",
    "a": "ours",
    "b": "ours",
    "c": "ours",
-   "reason": "Garden with speaker pot and mascot beats Teach Your Monster's cookie banner over a cropped hero."
+   "reason": "Natural garden and pot; Teach Your Monster's cookie banner covers the hero."
   },
   {
    "id": "m1-04",
    "a": "ours",
    "b": "theirs",
    "c": "ours",
-   "reason": "Icon-first I HEARD IT with check and arrow; 2x2 tile grid is cleaner than Duo's orphaned third card. Duo's picture-choice is more game-like."
+   "reason": "Icon-first I HEARD IT, tiles fully visible; Duo's picture choice is more game-like."
   },
   {
    "id": "m1-05",
    "a": "ours",
    "b": "ours",
    "c": "ours",
-   "reason": "Picture cards with Tap this one and progress dots; Duo's cropped third card sits under a red sheet."
+   "reason": "Picture-led wrong state with one icon language; Duo's red panel is punitive and cropped."
   },
   {
    "id": "m1-06",
    "a": "ours",
    "b": "ours",
    "c": "theirs",
-   "reason": "Sprouted! mascot and icon-plus-arrow SEE MY GARDEN read clearly; Duo's celebration panel is more finished."
+   "reason": "Mound and soil band bleed off both edges, so it reads cropped; Duo's card is clean."
   }
  ],
- "play_notes": "390x844 live run (110s plus a second failed-sitting cycle): seed tap to first lesson change 0.71s. Wrong picks on purpose: 'Not that one. Listen to this one.' with Tap this one on the right card. First correct answer ('Yes!', water drops on Sprig) at about 15s from seed tap. Failed sitting ends at 'Sitting 1 of 4 done - Your seed had a drink.' with Sprig sleepy, pot showing a sprout stem, and an AGAIN button. Never zero: the pot keeps a sprout. AGAIN restarted the lesson both times (at 42s and 84s). No console errors. Sprig reacts on right (water drops) and wrong (sleepy face on end screen). Non-reader text still needed: I HEARD IT, Hear it again, Tap the one that matches, AGAIN, Your seed had a drink.",
- "biggest_gap": "Return loop: the failed sitting restarts with no visible reason to come back tomorrow, and the garden the player returns to still shows letter-coded mounds a non-reader cannot use.",
+ "play_notes": "No replay this round. Round-2 replay stands: first lesson change 0.71s; failed sitting never zero; AGAIN restarts.",
+ "biggest_gap": "Return loop: garden is now natural but still static, with letter-labelled plots a non-reader cannot read.",
  "fixes": [
-  "Garden letter mounds need picture or sound cues so a non-reader can see what each plot is.",
-  "Wrong-answer card frame: drop the dim orange so it reads as a retry, not an error.",
-  "Make the first watering visible in under 10 seconds, e.g. show a drop animation on the first tap.",
-  "Replace the AGAIN label with an icon plus a short sound cue for non-readers.",
-  "Carry the failed sitting's sprout into the garden so the pot visibly grows on retry."
+  "Make the m1-06 mound fit inside its frame so nothing bleeds off the edge.",
+  "Replace letter labels on garden plots with sound or picture cues.",
+  "Give the garden a visible change per correct answer so there is a reason to return.",
+  "Keep the sprout's soil band inside the NEXT bar's safe area.",
+  "Test craft at 360x740 as well as 390x844."
  ],
  "time_to_first_watering_s": 15.0
 }

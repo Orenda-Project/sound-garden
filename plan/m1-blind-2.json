@@ -1,23 +1,23 @@
 {
   "pairs": [
-    {"id": "m1-06", "a": "ours", "b": "ours", "c": "theirs", "reason": "Full-width SEE MY GARDEN button with sprout icon and arrow is the only action. Duolingo's feedback card is cleaner."},
-    {"id": "m1-04", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Check and arrow on I HEARD IT are clear, and picture tiles now exist. Duolingo's picture cards are bigger and more game-like."},
-    {"id": "m1-03", "a": "ours", "b": "ours", "c": "ours", "reason": "Letter-labelled mounds and a speaker pot give a return hook. The Teach Your Monster hero is hidden under a default cookie banner."},
-    {"id": "m1-05", "a": "ours", "b": "ours", "c": "theirs", "reason": "Picture cards plus the Tap this one pill and progress dots name the next action. The pill covers card 1's speaker glyph, and Duolingo's craft is tighter."},
-    {"id": "m0-01", "a": "ours", "b": "ours", "c": "theirs", "reason": "'Tap the seed' sign points at the action in a game world. Duolingo's landing is more polished, and ours has tiny footer text and a clipped mascot."},
-    {"id": "m0-02", "a": "ours", "b": "ours", "c": "theirs", "reason": "Speaker pot and NEXT LESSON with arrow give a clear action and a garden to return to. Duo's welcome is cleaner."},
-    {"id": "m0-03", "a": "ours", "b": "theirs", "c": "ours", "reason": "'Your seed grew a leaf' with a plant pot and an icon button tells a non-reader what happened. Duo's quiz is more game-like, and ours is well composed."},
-    {"id": "m0-04", "a": "ours", "b": "ours", "c": "theirs", "reason": "Check on card 2 and NEXT are clear, and the rain drop on Sprig is a delight cue. The water drop and mound crop over card 3 look misaligned."},
-    {"id": "m0-05", "a": "ours", "b": "ours", "c": "theirs", "reason": "Tap this one names the answer with picture cards. The pill covers the speaker glyph on card 1, and Duo's wrong state is tidier."}
+    {"id": "m1-06", "a": "ours", "b": "ours", "c": "theirs", "reason": "Sun rays and sprout match the outline weight, and the single SEE MY GARDEN button is the action. Duolingo's illustration is still more finished."},
+    {"id": "m1-04", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Picture tiles are equal and check/arrow is clear. Craft loses: the tent is solid while the sun is line-drawn, and the letters crowd the tile bottoms."},
+    {"id": "m1-03", "a": "ours", "b": "ours", "c": "ours", "reason": "Sprout mounds, letter tags, and sun rays form one consistent garden. Teach Your Monster's default cookie banner covers its hero."},
+    {"id": "m1-05", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Tap this one sits clear of the picture. Craft loses: tile 1 is a generic speech-bubble glyph, not an object, and Duolingo's feedback is tidier."},
+    {"id": "m0-01", "a": "ours", "b": "ours", "c": "theirs", "reason": "The mascot now sits deliberately and the sun rays match. Duolingo's landing is still the more finished illustration."},
+    {"id": "m0-02", "a": "ours", "b": "ours", "c": "theirs", "reason": "Speaker pot with NEXT LESSON is a clear action. Duo's welcome is cleaner."},
+    {"id": "m0-03", "a": "ours", "b": "theirs", "c": "ours", "reason": "Sprig, pot, and See my garden align with no clipping. Duo's quiz is more game-like."},
+    {"id": "m0-04", "a": "ours", "b": "ours", "c": "ours", "reason": "The mound is inset in a clean circle and nothing clips. Duo's feedback card crops its bottle."},
+    {"id": "m0-05", "a": "ours", "b": "theirs", "c": "theirs", "reason": "Tap this one names the answer. Craft loses to the same speech-bubble placeholder on tile 1, and Duo's wrong state is tidier."}
   ],
-  "play_notes": "Round 2 replay (2 min, 390x844). Seed tap then I HEARD IT, then 3 picture tiles. Forced wrong picks: 'Not that one.' plus Sprig's neutral pose, then the hinted tile must be tapped. First correct answer at t=14.3 s: 'Yes!' with Sprig squinting and a rain drop (the first visible watering cue). Every answer now visibly changes Sprig: correct gets a drop, wrong gets a neutral pose. First sitting failed at 35.5 s: 'Sitting 1 of 4 done / Your seed had a drink.' with an AGAIN button, not zero plants and not a dead end. AGAIN restarted the sitting and worked on all three tries (t=35.9, 70.9, 106.5 s). The garden was not revisited this round because a failed sitting does not reach SEE MY GARDEN. No JS errors; the only script error was a stale-handle race in my own driver. Must-read text: 'Listen. Tap the one that matches.', 'Not that one.', 'Yes!', 'NEXT', 'AGAIN', 'Your seed had a drink.'",
+  "craft_tally": {"ours": 3, "theirs": 6, "pairs": 9, "ours_pairs": ["m1-03", "m0-03", "m0-04"]},
+  "play_notes": "Round 4 is a shot-only pass. Git pull was blocked by my uncommitted plan edits; HEAD was already at 223a5ee, so the shots are current.",
   "time_to_first_watering_s": 14.3,
-  "biggest_gap": "The question still depends on reading the tap instruction and on a forced reset after a wrong pick. Craft polish trails Duolingo: small picture glyphs, the Tap this one pill covers the speaker icon, and the mound crops under the NEXT bar.",
+  "biggest_gap": "Tile 1 in the wrong-answer state uses a speech-bubble placeholder, not a picture, on m1-05 and m0-05.",
   "fixes": [
-    "Move the Tap this one pill so it no longer covers the speaker glyph on card 1.",
-    "Enlarge picture glyphs in each tile to Duolingo's scale so the answer reads at a glance.",
-    "After a wrong pick, let the next correct tap advance instead of resetting the whole question.",
-    "Keep the sitting-end drink and add a plant-pot icon on AGAIN so a non-reader knows it is a retry.",
-    "Stop the mound and water drop from cropping under card 3 and the NEXT bar on the Yes screen."
+    "Replace the speech-bubble placeholder on tile 1 with a real picture.",
+    "Make the tent and sun share one stroke style.",
+    "Give the letters on picture tiles more bottom padding.",
+    "Replace the cookie-free garden letter tags' crowding if the tile count grows."
   ]
 }
