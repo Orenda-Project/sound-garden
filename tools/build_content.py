@@ -3,6 +3,8 @@
    python3 tools/build_content.py          needs $SOUND_OUT (pinned in .sound-out-commit)
    python3 tools/build_content.py --check  validates committed public/data only (CI-safe)"""
 import json, os, shutil, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import levels_build as LB
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 D = "public/data"; MIN_ITEMS = 12; PASS = 10
@@ -23,8 +25,9 @@ def check():
     for k, v in AM.items():
         if v["status"] != "real": fails.append(f"placeholder audio {k}")
         if not os.path.exists(f"public/audio/L1/{v['file']}"): fails.append(f"missing file {v['file']}")
+    fails += LB.check()
     for f in fails: print("FAIL", f)
-    print("content check:", "FAIL" if fails else f"OK ({len(L1['lessons'])} lessons, all gates >= {MIN_ITEMS}, {len(AM)} audio keys)")
+    print("content check:", "FAIL" if fails else f"OK (L1 {len(L1['lessons'])} lessons, all gates >= {MIN_ITEMS}, {len(AM)} audio keys; L2-4 gated, L5-7 practice)")
     return 1 if fails else 0
 
 def build():
@@ -90,6 +93,8 @@ def build():
         r.write(f"\nDe-duplicated audio: {len(ids)} files, {total:,} bytes ({total/1e6:.2f} MB) in `public/audio/L1/`, {len(AM)} keys.\n")
         r.write("sound-out as a whole holds 2,898 .ogg (14.6 MB counting copies); its app set is 898 files, 6.2 MB. L1.02-L1.13 slots keep sound-out's repeated words (e.g. L1.02 has `at`, `sat` twice).\n")
         r.write("Dropped (no options entry): `qov`, `tio` (L1.13 pseudo words).\n")
+    rep = LB.build(SO, pinned, AM)
+    with open("content-report.md", "a") as r: r.write(LB.report_md(rep))
     for lid, l in lessons.items(): print(lid, before[lid], "->", len(l["gate"]["items"]))
     if bad: print("FAIL placeholder audio:", bad); return 1
     print(f"audio: {len(ids)} files {total/1e6:.2f} MB")
