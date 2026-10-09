@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.05",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "dog",
+   "options": [
+    {
+     "w": "dog",
+     "ipa": "dˈɔɡ",
+     "cell": "target",
+     "key": "ipa:dˈɔɡ",
+     "ok": true
+    },
+    {
+     "w": "log",
+     "ipa": "lˈɔɡ",
+     "cell": "onset",
+     "key": "ipa:lˈɔɡ",
+     "ok": false
+    },
+    {
+     "w": "dug",
+     "ipa": "dˈʌɡ",
+     "cell": "vowel",
+     "key": "ipa:dˈʌɡ",
+     "ok": false
+    },
+    {
+     "w": "lug",
+     "ipa": "lˈʌɡ",
+     "cell": "onset+vowel",
+     "key": "ipa:lˈʌɡ",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

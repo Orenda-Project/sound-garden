@@ -1,0 +1,306 @@
+{
+ "lesson": "L1.01",
+ "addItems": [
+  {
+   "kind": "blend",
+   "word": "sat",
+   "prompt": [
+    "ph:s",
+    "ph:a",
+    "ph:t"
+   ],
+   "options": [
+    {
+     "w": "sat",
+     "key": "w:sat",
+     "ok": true
+    },
+    {
+     "w": "top",
+     "key": "w:top",
+     "ok": false
+    },
+    {
+     "w": "pig",
+     "key": "w:pig",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "blend",
+   "word": "top",
+   "prompt": [
+    "ph:t",
+    "ph:o",
+    "ph:p"
+   ],
+   "options": [
+    {
+     "w": "top",
+     "key": "w:top",
+     "ok": true
+    },
+    {
+     "w": "pig",
+     "key": "w:pig",
+     "ok": false
+    },
+    {
+     "w": "dog",
+     "key": "w:dog",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "blend",
+   "word": "pig",
+   "prompt": [
+    "ph:p",
+    "ph:i",
+    "ph:g"
+   ],
+   "options": [
+    {
+     "w": "pig",
+     "key": "w:pig",
+     "ok": true
+    },
+    {
+     "w": "dog",
+     "key": "w:dog",
+     "ok": false
+    },
+    {
+     "w": "mat",
+     "key": "w:mat",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "blend",
+   "word": "dog",
+   "prompt": [
+    "ph:d",
+    "ph:o",
+    "ph:g"
+   ],
+   "options": [
+    {
+     "w": "dog",
+     "key": "w:dog",
+     "ok": true
+    },
+    {
+     "w": "sat",
+     "key": "w:sat",
+     "ok": false
+    },
+    {
+     "w": "top",
+     "key": "w:top",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "blend",
+   "word": "mat",
+   "prompt": [
+    "ph:m",
+    "ph:a",
+    "ph:t"
+   ],
+   "options": [
+    {
+     "w": "mat",
+     "key": "w:mat",
+     "ok": true
+    },
+    {
+     "w": "top",
+     "key": "w:top",
+     "ok": false
+    },
+    {
+     "w": "pig",
+     "key": "w:pig",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "blend",
+   "word": "at",
+   "prompt": [
+    "ph:a",
+    "ph:t"
+   ],
+   "options": [
+    {
+     "w": "at",
+     "key": "w:at",
+     "ok": true
+    },
+    {
+     "w": "sat",
+     "key": "w:sat",
+     "ok": false
+    },
+    {
+     "w": "top",
+     "key": "w:top",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "blend",
+   "word": "it",
+   "prompt": [
+    "ph:i",
+    "ph:t"
+   ],
+   "options": [
+    {
+     "w": "it",
+     "key": "w:it",
+     "ok": true
+    },
+    {
+     "w": "sat",
+     "key": "w:sat",
+     "ok": false
+    },
+    {
+     "w": "top",
+     "key": "w:top",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "blend",
+   "word": "on",
+   "prompt": [
+    "ph:o",
+    "ph:n"
+   ],
+   "options": [
+    {
+     "w": "on",
+     "key": "w:on",
+     "ok": true
+    },
+    {
+     "w": "sat",
+     "key": "w:sat",
+     "ok": false
+    },
+    {
+     "w": "top",
+     "key": "w:top",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "first",
+   "word": "sun",
+   "prompt": [
+    "w:sun"
+   ],
+   "options": [
+    {
+     "w": "s",
+     "key": "ph:s",
+     "ok": true
+    },
+    {
+     "w": "a",
+     "key": "ph:a",
+     "ok": false
+    },
+    {
+     "w": "t",
+     "key": "ph:t",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "first",
+   "word": "top",
+   "prompt": [
+    "w:top"
+   ],
+   "options": [
+    {
+     "w": "t",
+     "key": "ph:t",
+     "ok": true
+    },
+    {
+     "w": "s",
+     "key": "ph:s",
+     "ok": false
+    },
+    {
+     "w": "a",
+     "key": "ph:a",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "first",
+   "word": "pig",
+   "prompt": [
+    "w:pig"
+   ],
+   "options": [
+    {
+     "w": "p",
+     "key": "ph:p",
+     "ok": true
+    },
+    {
+     "w": "s",
+     "key": "ph:s",
+     "ok": false
+    },
+    {
+     "w": "a",
+     "key": "ph:a",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "first",
+   "word": "dog",
+   "prompt": [
+    "w:dog"
+   ],
+   "options": [
+    {
+     "w": "d",
+     "key": "ph:d",
+     "ok": true
+    },
+    {
+     "w": "s",
+     "key": "ph:s",
+     "ok": false
+    },
+    {
+     "w": "a",
+     "key": "ph:a",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

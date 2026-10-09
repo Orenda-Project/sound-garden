@@ -1,0 +1,406 @@
+{
+ "lesson": "L1.14",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "sat",
+   "options": [
+    {
+     "w": "sat",
+     "ipa": "sˈæt",
+     "cell": "target",
+     "key": "ipa:sˈæt",
+     "ok": true
+    },
+    {
+     "w": "tat",
+     "ipa": "tˈæt",
+     "cell": "onset",
+     "key": "ipa:tˈæt",
+     "ok": false
+    },
+    {
+     "w": "sass",
+     "ipa": "sˈæs",
+     "cell": "coda",
+     "key": "ipa:sˈæs",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "real",
+   "word": "cut",
+   "options": [
+    {
+     "w": "cut",
+     "ipa": "kˈʌt",
+     "cell": "target",
+     "key": "ipa:kˈʌt",
+     "ok": true
+    },
+    {
+     "w": "nut",
+     "ipa": "nˈʌt",
+     "cell": "onset",
+     "key": "ipa:nˈʌt",
+     "ok": false
+    },
+    {
+     "w": "cat",
+     "ipa": "kˈæt",
+     "cell": "vowel",
+     "key": "ipa:kˈæt",
+     "ok": false
+    },
+    {
+     "w": "nat",
+     "ipa": "nˈæt",
+     "cell": "onset+vowel",
+     "key": "ipa:nˈæt",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "real",
+   "word": "run",
+   "options": [
+    {
+     "w": "run",
+     "ipa": "ɹˈʌn",
+     "cell": "target",
+     "key": "ipa:ɹˈʌn",
+     "ok": true
+    },
+    {
+     "w": "pun",
+     "ipa": "pˈʌn",
+     "cell": "onset",
+     "key": "ipa:pˈʌn",
+     "ok": false
+    },
+    {
+     "w": "ran",
+     "ipa": "ɹˈæn",
+     "cell": "vowel",
+     "key": "ipa:ɹˈæn",
+     "ok": false
+    },
+    {
+     "w": "pan",
+     "ipa": "pˈæn",
+     "cell": "onset+vowel",
+     "key": "ipa:pˈæn",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "real",
+   "word": "box",
+   "options": [
+    {
+     "w": "box",
+     "ipa": "bˈɑks",
+     "cell": "target",
+     "key": "ipa:bˈɑks",
+     "ok": true
+    },
+    {
+     "w": "sox",
+     "ipa": "sˈɑks",
+     "cell": "onset",
+     "key": "ipa:sˈɑks",
+     "ok": false
+    },
+    {
+     "w": "bax",
+     "ipa": "bˈæks",
+     "cell": "vowel",
+     "key": "ipa:bˈæks",
+     "ok": false
+    },
+    {
+     "w": "sacks",
+     "ipa": "sˈæks",
+     "cell": "onset+vowel",
+     "key": "ipa:sˈæks",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "real",
+   "word": "jam",
+   "options": [
+    {
+     "w": "jam",
+     "ipa": "ʤˈæm",
+     "cell": "target",
+     "key": "ipa:ʤˈæm",
+     "ok": true
+    },
+    {
+     "w": "sam",
+     "ipa": "sˈæm",
+     "cell": "onset",
+     "key": "ipa:sˈæm",
+     "ok": false
+    },
+    {
+     "w": "gym",
+     "ipa": "ʤˈɪm",
+     "cell": "vowel",
+     "key": "ipa:ʤˈɪm",
+     "ok": false
+    },
+    {
+     "w": "sim",
+     "ipa": "sˈɪm",
+     "cell": "onset+vowel",
+     "key": "ipa:sˈɪm",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "real",
+   "word": "bat",
+   "options": [
+    {
+     "w": "bat",
+     "ipa": "bˈæt",
+     "cell": "target",
+     "key": "ipa:bˈæt",
+     "ok": true
+    },
+    {
+     "w": "sat",
+     "ipa": "sˈæt",
+     "cell": "onset",
+     "key": "ipa:sˈæt",
+     "ok": false
+    },
+    {
+     "w": "bit",
+     "ipa": "bˈɪt",
+     "cell": "vowel",
+     "key": "ipa:bˈɪt",
+     "ok": false
+    },
+    {
+     "w": "sit",
+     "ipa": "sˈɪt",
+     "cell": "onset+vowel",
+     "key": "ipa:sˈɪt",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "pseudo",
+   "word": "dax",
+   "options": [
+    {
+     "w": "dax",
+     "ipa": "dˈæks",
+     "cell": "target",
+     "key": "ipa:dˈæks",
+     "ok": true
+    },
+    {
+     "w": "caks",
+     "ipa": "kˈæks",
+     "cell": "onset",
+     "key": "ipa:kˈæks",
+     "ok": false
+    },
+    {
+     "w": "dakt",
+     "ipa": "dˈækt",
+     "cell": "final",
+     "key": "ipa:dˈækt",
+     "ok": false
+    },
+    {
+     "w": "cakt",
+     "ipa": "kˈækt",
+     "cell": "onset+final",
+     "key": "ipa:kˈækt",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "pseudo",
+   "word": "zeb",
+   "options": [
+    {
+     "w": "zeb",
+     "ipa": "zˈɛb",
+     "cell": "target",
+     "key": "ipa:zˈɛb",
+     "ok": true
+    },
+    {
+     "w": "veb",
+     "ipa": "vˈɛb",
+     "cell": "onset",
+     "key": "ipa:vˈɛb",
+     "ok": false
+    },
+    {
+     "w": "zib",
+     "ipa": "zˈɪb",
+     "cell": "vowel",
+     "key": "ipa:zˈɪb",
+     "ok": false
+    },
+    {
+     "w": "vib",
+     "ipa": "vˈɪb",
+     "cell": "onset+vowel",
+     "key": "ipa:vˈɪb",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "pseudo",
+   "word": "wuk",
+   "options": [
+    {
+     "w": "wuk",
+     "ipa": "wˈʌk",
+     "cell": "target",
+     "key": "ipa:wˈʌk",
+     "ok": true
+    },
+    {
+     "w": "vuck",
+     "ipa": "vˈʌk",
+     "cell": "onset",
+     "key": "ipa:vˈʌk",
+     "ok": false
+    },
+    {
+     "w": "wuff",
+     "ipa": "wˈʌf",
+     "cell": "final",
+     "key": "ipa:wˈʌf",
+     "ok": false
+    },
+    {
+     "w": "vuff",
+     "ipa": "vˈʌf",
+     "cell": "onset+final",
+     "key": "ipa:vˈʌf",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "pseudo",
+   "word": "zox",
+   "options": [
+    {
+     "w": "zox",
+     "ipa": "zˈɑks",
+     "cell": "target",
+     "key": "ipa:zˈɑks",
+     "ok": true
+    },
+    {
+     "w": "goks",
+     "ipa": "ɡˈɑks",
+     "cell": "onset",
+     "key": "ipa:ɡˈɑks",
+     "ok": false
+    },
+    {
+     "w": "zuks",
+     "ipa": "zˈʌks",
+     "cell": "vowel",
+     "key": "ipa:zˈʌks",
+     "ok": false
+    },
+    {
+     "w": "guks",
+     "ipa": "ɡˈʌks",
+     "cell": "onset+vowel",
+     "key": "ipa:ɡˈʌks",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "pseudo",
+   "word": "quab",
+   "options": [
+    {
+     "w": "quab",
+     "ipa": "kwˈæb",
+     "cell": "target",
+     "key": "ipa:kwˈæb",
+     "ok": true
+    },
+    {
+     "w": "klab",
+     "ipa": "klˈæb",
+     "cell": "onset",
+     "key": "ipa:klˈæb",
+     "ok": false
+    },
+    {
+     "w": "kweb",
+     "ipa": "kwˈɛb",
+     "cell": "vowel",
+     "key": "ipa:kwˈɛb",
+     "ok": false
+    },
+    {
+     "w": "kleb",
+     "ipa": "klˈɛb",
+     "cell": "onset+vowel",
+     "key": "ipa:klˈɛb",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "pseudo",
+   "word": "yig",
+   "options": [
+    {
+     "w": "yig",
+     "ipa": "jˈɪɡ",
+     "cell": "target",
+     "key": "ipa:jˈɪɡ",
+     "ok": true
+    },
+    {
+     "w": "hig",
+     "ipa": "hˈɪɡ",
+     "cell": "onset",
+     "key": "ipa:hˈɪɡ",
+     "ok": false
+    },
+    {
+     "w": "yeg",
+     "ipa": "jˈɛɡ",
+     "cell": "vowel",
+     "key": "ipa:jˈɛɡ",
+     "ok": false
+    },
+    {
+     "w": "heg",
+     "ipa": "hˈɛɡ",
+     "cell": "onset+vowel",
+     "key": "ipa:hˈɛɡ",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,100 @@
+{
+ "lesson": "L1.13",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "sat",
+   "options": [
+    {
+     "w": "sat",
+     "ipa": "sˈæt",
+     "cell": "target",
+     "key": "ipa:sˈæt",
+     "ok": true
+    },
+    {
+     "w": "tat",
+     "ipa": "tˈæt",
+     "cell": "onset",
+     "key": "ipa:tˈæt",
+     "ok": false
+    },
+    {
+     "w": "sass",
+     "ipa": "sˈæs",
+     "cell": "coda",
+     "key": "ipa:sˈæs",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "real",
+   "word": "cut",
+   "options": [
+    {
+     "w": "cut",
+     "ipa": "kˈʌt",
+     "cell": "target",
+     "key": "ipa:kˈʌt",
+     "ok": true
+    },
+    {
+     "w": "nut",
+     "ipa": "nˈʌt",
+     "cell": "onset",
+     "key": "ipa:nˈʌt",
+     "ok": false
+    },
+    {
+     "w": "cat",
+     "ipa": "kˈæt",
+     "cell": "vowel",
+     "key": "ipa:kˈæt",
+     "ok": false
+    },
+    {
+     "w": "nat",
+     "ipa": "nˈæt",
+     "cell": "onset+vowel",
+     "key": "ipa:nˈæt",
+     "ok": false
+    }
+   ]
+  },
+  {
+   "kind": "real",
+   "word": "run",
+   "options": [
+    {
+     "w": "run",
+     "ipa": "ɹˈʌn",
+     "cell": "target",
+     "key": "ipa:ɹˈʌn",
+     "ok": true
+    },
+    {
+     "w": "pun",
+     "ipa": "pˈʌn",
+     "cell": "onset",
+     "key": "ipa:pˈʌn",
+     "ok": false
+    },
+    {
+     "w": "ran",
+     "ipa": "ɹˈæn",
+     "cell": "vowel",
+     "key": "ipa:ɹˈæn",
+     "ok": false
+    },
+    {
+     "w": "pan",
+     "ipa": "pˈæn",
+     "cell": "onset+vowel",
+     "key": "ipa:pˈæn",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

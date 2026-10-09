@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.09",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "fat",
+   "options": [
+    {
+     "w": "fat",
+     "ipa": "fˈæt",
+     "cell": "target",
+     "key": "ipa:fˈæt",
+     "ok": true
+    },
+    {
+     "w": "cat",
+     "ipa": "kˈæt",
+     "cell": "onset",
+     "key": "ipa:kˈæt",
+     "ok": false
+    },
+    {
+     "w": "fit",
+     "ipa": "fˈɪt",
+     "cell": "vowel",
+     "key": "ipa:fˈɪt",
+     "ok": false
+    },
+    {
+     "w": "kit",
+     "ipa": "kˈɪt",
+     "cell": "onset+vowel",
+     "key": "ipa:kˈɪt",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+ "lesson": "L1.02",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "tat",
+   "options": [
+    {
+     "w": "tat",
+     "ipa": "tˈæt",
+     "cell": "target",
+     "key": "ipa:tˈæt",
+     "ok": true
+    },
+    {
+     "w": "sat",
+     "ipa": "sˈæt",
+     "cell": "onset",
+     "key": "ipa:sˈæt",
+     "ok": false
+    },
+    {
+     "w": "sass",
+     "ipa": "sˈæs",
+     "cell": "onset+coda",
+     "key": "ipa:sˈæs",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

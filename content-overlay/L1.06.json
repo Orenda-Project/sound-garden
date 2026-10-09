@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.06",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "cot",
+   "options": [
+    {
+     "w": "cot",
+     "ipa": "kˈɑt",
+     "cell": "target",
+     "key": "ipa:kˈɑt",
+     "ok": true
+    },
+    {
+     "w": "knot",
+     "ipa": "nˈɑt",
+     "cell": "onset",
+     "key": "ipa:nˈɑt",
+     "ok": false
+    },
+    {
+     "w": "kit",
+     "ipa": "kˈɪt",
+     "cell": "vowel",
+     "key": "ipa:kˈɪt",
+     "ok": false
+    },
+    {
+     "w": "knit",
+     "ipa": "nˈɪt",
+     "cell": "onset+vowel",
+     "key": "ipa:nˈɪt",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

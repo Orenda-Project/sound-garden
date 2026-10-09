@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.10",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "fell",
+   "options": [
+    {
+     "w": "fell",
+     "ipa": "fˈɛl",
+     "cell": "target",
+     "key": "ipa:fˈɛl",
+     "ok": true
+    },
+    {
+     "w": "cell",
+     "ipa": "sˈɛl",
+     "cell": "onset",
+     "key": "ipa:sˈɛl",
+     "ok": false
+    },
+    {
+     "w": "fill",
+     "ipa": "fˈɪl",
+     "cell": "vowel",
+     "key": "ipa:fˈɪl",
+     "ok": false
+    },
+    {
+     "w": "sill",
+     "ipa": "sˈɪl",
+     "cell": "onset+vowel",
+     "key": "ipa:sˈɪl",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

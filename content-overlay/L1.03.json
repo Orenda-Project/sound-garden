@@ -1,0 +1,32 @@
+{
+ "lesson": "L1.03",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "at",
+   "options": [
+    {
+     "w": "at",
+     "ipa": "ˈæt",
+     "cell": "target",
+     "key": "ipa:ˈæt",
+     "ok": true
+    },
+    {
+     "w": "ad",
+     "ipa": "ˈæd",
+     "cell": "final",
+     "key": "ipa:ˈæd",
+     "ok": false
+    },
+    {
+     "w": "it",
+     "ipa": "ˈɪt",
+     "cell": "vowel",
+     "key": "ipa:ˈɪt",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

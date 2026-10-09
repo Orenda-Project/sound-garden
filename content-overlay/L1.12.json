@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.12",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "fox",
+   "options": [
+    {
+     "w": "fox",
+     "ipa": "fˈɑks",
+     "cell": "target",
+     "key": "ipa:fˈɑks",
+     "ok": true
+    },
+    {
+     "w": "box",
+     "ipa": "bˈɑks",
+     "cell": "onset",
+     "key": "ipa:bˈɑks",
+     "ok": false
+    },
+    {
+     "w": "fax",
+     "ipa": "fˈæks",
+     "cell": "vowel",
+     "key": "ipa:fˈæks",
+     "ok": false
+    },
+    {
+     "w": "bax",
+     "ipa": "bˈæks",
+     "cell": "onset+vowel",
+     "key": "ipa:bˈæks",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

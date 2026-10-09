@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.08",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "ran",
+   "options": [
+    {
+     "w": "ran",
+     "ipa": "ɹˈæn",
+     "cell": "target",
+     "key": "ipa:ɹˈæn",
+     "ok": true
+    },
+    {
+     "w": "tan",
+     "ipa": "tˈæn",
+     "cell": "onset",
+     "key": "ipa:tˈæn",
+     "ok": false
+    },
+    {
+     "w": "run",
+     "ipa": "ɹˈʌn",
+     "cell": "vowel",
+     "key": "ipa:ɹˈʌn",
+     "ok": false
+    },
+    {
+     "w": "ton",
+     "ipa": "tˈʌn",
+     "cell": "onset+vowel",
+     "key": "ipa:tˈʌn",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.07",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "tug",
+   "options": [
+    {
+     "w": "tug",
+     "ipa": "tˈʌɡ",
+     "cell": "target",
+     "key": "ipa:tˈʌɡ",
+     "ok": true
+    },
+    {
+     "w": "dug",
+     "ipa": "dˈʌɡ",
+     "cell": "onset",
+     "key": "ipa:dˈʌɡ",
+     "ok": false
+    },
+    {
+     "w": "tig",
+     "ipa": "tˈɪɡ",
+     "cell": "vowel",
+     "key": "ipa:tˈɪɡ",
+     "ok": false
+    },
+    {
+     "w": "dig",
+     "ipa": "dˈɪɡ",
+     "cell": "onset+vowel",
+     "key": "ipa:dˈɪɡ",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}

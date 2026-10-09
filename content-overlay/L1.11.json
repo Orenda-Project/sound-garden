@@ -1,0 +1,39 @@
+{
+ "lesson": "L1.11",
+ "addItems": [
+  {
+   "kind": "real",
+   "word": "jog",
+   "options": [
+    {
+     "w": "jog",
+     "ipa": "ʤˈɑɡ",
+     "cell": "target",
+     "key": "ipa:ʤˈɑɡ",
+     "ok": true
+    },
+    {
+     "w": "hog",
+     "ipa": "hˈɑɡ",
+     "cell": "onset",
+     "key": "ipa:hˈɑɡ",
+     "ok": false
+    },
+    {
+     "w": "jug",
+     "ipa": "ʤˈʌɡ",
+     "cell": "vowel",
+     "key": "ipa:ʤˈʌɡ",
+     "ok": false
+    },
+    {
+     "w": "hug",
+     "ipa": "hˈʌɡ",
+     "cell": "onset+vowel",
+     "key": "ipa:hˈʌɡ",
+     "ok": false
+    }
+   ]
+  }
+ ]
+}
