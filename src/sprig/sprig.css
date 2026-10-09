@@ -1,0 +1,17 @@
+/* Sprig: static styles only. All motion is WAAPI in sprig.js (transform + opacity). */
+.sprig{display:inline-block;line-height:0;--sp-leaf:#4CB82B}
+.sprig svg{display:block;overflow:visible;width:100%;height:auto}
+.sprig [class^="sp-"]{transform-box:fill-box;transform-origin:50% 50%}
+.sprig .sp-root,.sprig .sp-body,.sprig .sp-plant{transform-origin:50% 100%}
+.sprig .sp-lids{transform-origin:50% 0}
+.sprig .sp-leafL{transform-origin:100% 80%}
+.sprig .sp-leafR{transform-origin:0 80%}
+.sprig .sp-fxa,.sprig .sp-fxb,.sprig .sp-mouthO{opacity:0}
+.sprig .sp-lids{transform:scaleY(0)}
+.sprig .lf1{fill:var(--sp-leaf)}
+.sprig .lf2{fill:color-mix(in srgb,var(--sp-leaf) 88%,#fff)}
+.sprig .fxb>*{display:none}
+.sprig[data-fx="drops"] .drops,.sprig[data-fx="zzz"] .zzz,.sprig[data-fx="bulb"] .bulb,.sprig[data-fx="petals"] .petals{display:inline}
+.sprig[data-stage="0"] .lv,.sprig:not([data-stage="0"]) .x0{display:none}
+.sprig:not([data-stage="2"]):not([data-stage="3"]):not([data-stage="4"]) .x2,
+.sprig:not([data-stage="3"]) .x3,.sprig:not([data-stage="4"]) .x4{display:none}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sprig rig demo</title>
+<link rel="stylesheet" href="/src/sprig/sprig.css">
+<style>body{margin:0;background:#FBF6EA;color:#2B2A26;font:15px system-ui;text-align:center}
+#stage{width:200px;margin:12px auto 4px}#btns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:0 12px}
+button,select{font:inherit;min-height:44px;padding:0 10px;border:2px solid #2F7D32;border-radius:10px;background:#fff}
+button.on{background:#4CB82B;color:#12330F}label{display:inline-block;margin:6px}pre{white-space:pre-wrap;font-size:13px}</style></head>
+<body><h1 style="font-size:18px;margin:10px">Sprig rig (dev: npm run dev, open /sprig-demo.html)</h1>
+<div id="stage"></div>
+<div><label>Stage <select id="stg"></select></label><label>Point <select id="pt"><option>right</option><option>left</option></select></label><label><input type="checkbox" id="calm"> Calm</label><button id="meas">Run 60 s frame test</button></div>
+<div id="btns"></div><pre id="stats">state: idle</pre>
+<script type="module">
+import { createSprig, STATE_NAMES, STAGES } from '/src/sprig/sprig.js';
+const $ = (i) => document.getElementById(i), sp = createSprig($('stage'), { stage: 2 });
+const q = new URLSearchParams(location.search); window.sprig = sp;
+STAGES.forEach((n, i) => $('stg').add(new Option(i + ' ' + n, i))); $('stg').value = 2;
+$('stg').onchange = () => sp.setStage(+$('stg').value);
+$('calm').onchange = () => sp.setCalm($('calm').checked);
+for (const n of STATE_NAMES) { const b = document.createElement('button'); b.textContent = n; b.onclick = () => { sp.setState(n, { point: $('pt').value, toStage: n === 'level-up' ? Math.min(4, sp.stage + 1) : undefined }); document.querySelectorAll('button.on').forEach((x) => x.classList.remove('on')); b.classList.add('on'); $('stats').textContent = 'state: ' + n; if (n === 'level-up') setTimeout(() => ($('stg').value = sp.stage), 1200); }; $('btns').append(b); }
+addEventListener('pointermove', (e) => { const r = $('stage').getBoundingClientRect(); sp.lookAt((e.clientX - r.x - r.width / 2) / 200, (e.clientY - r.y - r.height / 2) / 200); });
+// 60 s self-measuring frame test: loops celebrate/level-up-free busy mix so the rig is under real load
+$('meas').onclick = () => {
+  const order = ['idle', 'thinking', 'speaking', 'listening', 'celebrate', 'water'], out = $('stats'); let i = 0, last = performance.now(), n = 0, over = 0, worst = 0; const t0 = last;
+  const sw = setInterval(() => sp.setState(order[i++ % order.length]), 3000); sp.setState('idle');
+  requestAnimationFrame(function f(t) { const d = t - last; last = t; n++; if (d > 33.4) over++; if (d > worst) worst = d; const s = (t - t0) / 1000;
+    out.textContent = `nodes: 12 max (WAAPI transform+opacity)\nframes: ${n}\nfps: ${(n / s).toFixed(1)}\nframes > 33 ms: ${over} (${(100 * over / n).toFixed(1)}%)\nworst frame: ${worst.toFixed(1)} ms\nelapsed: ${s.toFixed(1)} s${s >= 60 ? '\nDONE' : ''}`;
+    if (s < 60) requestAnimationFrame(f); else { clearInterval(sw); window.__spikeDone = { frames: n, fps: n / s, over, worst }; } });
+};
+if (q.get('state')) sp.setState(q.get('state'), { point: q.get('point') || 'right' }); if (q.get('stage')) { sp.setStage(+q.get('stage')); $('stg').value = q.get('stage'); }
+</script></body></html>
