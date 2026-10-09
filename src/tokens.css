@@ -1,15 +1,9 @@
 :root {
-  --bg: #FBF6EA; --card: #FFFCF4; --text: #2B2A26; --muted: #5B574E; --border: #8A8372;
+  --bg: #FBF6EA; --card: #FFFDF6; --text: #2B2A26; --muted: #5B574E; --line: #E6DCC2; --border: #8A8372;
   --leaf: #2F7D32; --leaf-text: #2A7230; --hero: #4CB82B; --hero-edge: #2F7D32; --hero-ink: #12330F;
-  --sky: #1F6FB2; --right: #0F766E; --wrong: #A84A07; --sun: #F5B301;
+  --sky: #2FA8F2; --sky-ink: #0B5A8A; --right: #0F766E; --wrong: #A84A07; --sun: #FFC21A;
   --tint-right: #DDF1EE; --tint-wrong: #FBE9D6; --tint-sky: #DCEEF9;
-  --sky-top: #8ED2F5; --sky-bottom: #BFE6FA;
-  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  --disp: "Grandstander", var(--font);   /* Grandstander loads lazily after the first sprout; system stack until then */
+  --blob: 26px 22px 28px 20px / 22px 28px 20px 26px;
 }
-* { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; }
-body { background: var(--bg); color: var(--text); font: 18px/1.4 var(--font); -webkit-tap-highlight-color: transparent; }
-button { font: inherit; color: inherit; cursor: pointer; }
-.btn { background: var(--hero); color: var(--hero-ink); font-weight: 700; border: 3px solid var(--hero-edge);
-  border-bottom-width: 6px; border-radius: 16px; padding: 12px 20px; min-height: 56px; }
-.btn:active { transform: translateY(3px); }
