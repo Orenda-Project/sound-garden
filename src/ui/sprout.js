@@ -4,6 +4,7 @@ import { load, sprout } from '../store.js';
 import { LESSONS } from '../progression.js';
 import { play, unlock } from '../audio.js';
 import { onLeave } from '../router.js';
+import { label } from './btn.js';
 
 export function loadDisplayFont() {   // Grandstander: lazy, only after the first sprout; headings use the system stack until it lands
   if (document.getElementById('sg-font')) return;
@@ -23,7 +24,7 @@ export function mount(el, lid) {
     <button class="snd" type="button" aria-label="Hear it again">${speaker(26)}<span>${sound}</span></button>
     <div class="hero"><div class="rise"><div class="sp"></div></div></div>
     <svg class="bigmound" viewBox="-170 -100 340 110" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:96px;width:100%;z-index:2;height:auto">${mound(2.6)}</svg>
-    <a class="btn" data-sprout-go href="${first ? '#/remind' : '#/home'}">See my garden<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 11h15M12 5l6 6-6 6" fill="none" stroke="#12330F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></a></main>`;
+    <a class="btn" data-sprout-go href="${first ? '#/remind' : '#/home'}">${label('garden', 'See my garden')}</a></main>`;
   const sp = createSprig(el.querySelector('.sp'), { stage: 1 });
   onLeave(() => sp.destroy());
   sp.setState('level-up', { toStage: 2 });
@@ -38,7 +39,7 @@ export function remind(el) {
   const at = new Date(Date.now() + 20 * 3600e3), pad = (n) => String(n).padStart(2, '0');
   const when = at.toLocaleString([], { weekday: 'long', hour: 'numeric', minute: '2-digit' });
   el.innerHTML = `<main class="remind"><div class="card"><div class="sp"></div><h1>Ready tomorrow, about 3 minutes</h1><p>Your plant is ready for a drink from <b>${when}</b>.</p></div>
-    <div class="acts"><button class="btn" type="button" data-remind>Remind me</button><button class="btn ghost" type="button" data-install>Add to Home Screen</button><a class="linkbtn" data-notnow href="#/home" style="text-align:center">Not now</a></div></main>`;
+    <div class="acts"><button class="btn" type="button" data-remind>${label('bell', 'Remind me', false)}</button><button class="btn ghost" type="button" data-install>${label('house', 'Add to Home Screen', false)}</button><a class="linkbtn" data-notnow href="#/home" style="text-align:center">Not now</a></div></main>`;
   const sp = createSprig(el.querySelector('.sp'), { stage: 2 }); onLeave(() => sp.destroy()); sp.setState('proud');
   const ymd = (d) => `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`;
   el.querySelector('[data-remind]').addEventListener('click', (e) => {

@@ -51,8 +51,12 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .chip { position: absolute; right: 18px; top: 18px; width: 64px; height: 64px; }
 .chip svg { width: 100%; height: 100%; overflow: visible; }
 .chip .dropwrap { transform-box: fill-box; opacity: 0; }
-.chip.wet .dropwrap { animation: drop 1.1s cubic-bezier(.5,0,.8,.5) both; }
-@keyframes drop { 0% { transform: translateY(-20px); opacity: 0; } 20% { opacity: 1; } 75% { transform: translateY(8px); opacity: 1; } 100% { transform: translateY(8px); opacity: 0; } }
+.chip.wet .dropwrap { animation: drop 1s cubic-bezier(.5,0,.8,.5) both; }
+@keyframes drop { 0% { transform: translateY(-4px); opacity: 0; } 15% { opacity: 1; } 80% { transform: translateY(24px); opacity: 1; } 100% { transform: translateY(26px); opacity: 0; } }
+.chip .cs { transform-box: fill-box; transform-origin: 50% 100%; } .chip.wet .cs { animation: chipswell 1.2s .8s ease-out both; }
+@keyframes chipswell { 0% { transform: scale(1); } 45% { transform: scale(1.3); } 100% { transform: scale(1.15); } }
+.chip .sl { opacity: 0; } .chip.wet .sl { opacity: 1; transition: opacity .3s 1s; }
+.chip.wet { animation: chipbop .5s .9s both; } @keyframes chipbop { 40% { transform: scale(1.14); } }
 .cue { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 14px 16px 4px; min-height: 108px; }
 .cue .say { width: 76px; height: 76px; border-radius: 50%; background: var(--card); border: 3px solid var(--line); border-bottom-width: 6px; display: grid; place-items: center; color: var(--leaf-text); padding: 0; }
 .cue .pic { width: 104px; height: 88px; border-radius: 30px 24px 32px 22px / 24px 32px 22px 30px; background: #FFF3C4; border: 3px solid #E9CF7C; border-bottom-width: 6px; display: grid; place-items: center; }
@@ -89,24 +93,21 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .tile.target .tag { display: grid; } .tile .tag svg { width: 20px; height: 20px; }
 .cta { position: relative; z-index: 6; padding: 6px 14px 22px; min-height: 96px; }
 .teach .opts .opt { min-height: 128px; padding-top: 6px; } .teach .opt .pic svg { width: 42px; height: 42px; display: block; }
-.teach .opt { font-size: 56px; } .teach .tile.on .opt { border: 4px solid #12330F; border-bottom-width: 7px; }
-.teach .tile:not(.on) { opacity: .75; }
+.teach .opt { font-size: 56px; }
 .meter { display: flex; gap: 6px; align-items: center; margin-top: 8px; } .meter svg { width: 20px; height: 20px; }
-@media (prefers-reduced-motion: reduce) { .tile.target, .ring, .cloud, .chip.wet .dropwrap { animation: none; } .chip.wet .dropwrap { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .tile.target, .ring, .cloud, .chip.wet .dropwrap { animation: none; } .chip.wet .dropwrap { opacity: 0; } .chip.wet { animation: none; } }
 
 /* S3p peek: the lesson dims, a soil patch with a swelling seed shows 2 s. Never covers the next item. */
 .peek { position: fixed; inset: 0; pointer-events: none; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 14px; z-index: 5; }
 .peek .dim { position: absolute; inset: 0; background: var(--bg); opacity: .35; animation: fadein .2s both; }
-.peek .patch { position: relative; width: 150px; height: 96px; } .peek svg { width: 100%; height: 100%; overflow: visible; }
-.peek .sd { transform-box: fill-box; transform-origin: 50% 100%; animation: swell 2s ease-out both; }
+.peek .patch { position: relative; width: 230px; height: 150px; margin-bottom: 70px; }
+.peek .dr { transform-box: fill-box; animation: pdrop .9s .1s cubic-bezier(.5,0,.8,.5) both; } @keyframes pdrop { 0% { transform: translateY(-50px); opacity: 0; } 20% { opacity: 1; } 85% { transform: translateY(0); opacity: 1; } 100% { opacity: 0; } }
+.peek .lf { transform-box: fill-box; transform-origin: 50% 100%; animation: lfup 1.4s 1s ease-out both; } @keyframes lfup { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } } .peek svg { width: 100%; height: 100%; overflow: visible; }
+.peek .sd { transform-box: fill-box; transform-origin: 50% 100%; animation: swell 1.8s .8s ease-out both; }
 @keyframes swell { from { transform: scale(.6); } to { transform: scale(1.25); } } @keyframes fadein { from { opacity: 0; } }
 
 /* S5 sitting end, S6 first sprout, S6a reminder */
 .done, .sprout, .remind { position: relative; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; text-align: center; isolation: isolate; }
-.done { background: linear-gradient(var(--sky) 0 30%, var(--bg) 30%); padding: 0 16px 28px; justify-content: space-between; }
-.done .big { margin-top: 90px; width: 190px; } .done .big svg { width: 100%; overflow: visible; } .done .big .sd { transform-box: fill-box; transform-origin: 50% 100%; animation: swell 1.6s ease-out both; }
-.done h1 { margin: 0; font: 800 28px/1.1 var(--font); } .done p { margin: 6px 0 0; color: var(--muted); font-weight: 600; }
-.done .txt { margin-top: 24px; } .done .btn { margin-top: 24px; }
 .sprout { color: var(--hero-ink); padding: 0 24px 28px; }
 .sprout h1 { position: relative; z-index: 1; margin: 78px 0 14px; font: 800 64px/1 var(--disp); letter-spacing: -.01em; }
 .sprout .snd { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 10px; background: var(--card); border: 3px solid #12330F; border-radius: 22px; padding: 8px 18px 8px 12px; font: 700 18px/1 var(--font); color: var(--text); }
@@ -126,12 +127,12 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .home .top { position: relative; z-index: 1; padding: 30px 20px 0; }
 .home h1 { margin: 0; font: 800 34px/1.05 var(--disp); color: var(--hero-ink); }
 .home .sub { margin: 6px 0 0; font: 700 15px/1.2 var(--font); color: var(--hero-ink); }
-.home .yard { position: relative; z-index: 1; flex: none; width: 100%; max-width: 390px; margin: auto auto 0; aspect-ratio: 390 / 500; }
+.home .yard { position: relative; z-index: 1; flex: none; width: 100%; max-width: 390px; margin: auto auto 0; aspect-ratio: 390 / 520; }
 .home .yard > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .pl { cursor: pointer; outline: none; } .pl:focus-visible { outline: none; } .pl:focus-visible use { filter: none; }
 .pl.glow .gl { animation: glow 2.6s ease-in-out infinite; }
 @keyframes glow { 0%, 100% { opacity: .2; } 50% { opacity: .75; } }
-.pl.pop { animation: pop .3s cubic-bezier(.35,1.8,.35,.83); transform-box: fill-box; transform-origin: 50% 100%; }
+.pl.pop .pi { animation: pop .3s cubic-bezier(.35,1.8,.35,.83); transform-box: fill-box; transform-origin: 50% 100%; }
 @keyframes pop { from { transform: scale(.9); } }
 .home .bubble { position: absolute; z-index: 2; background: #fff; border: 3px solid #12330F; border-radius: 18px; padding: 8px 14px; font: 800 15px/1 var(--font); color: #12330F; white-space: nowrap; transform: translate(-50%, -100%); }
 .home .bubble::after { content: ""; position: absolute; left: 50%; bottom: -10px; margin-left: -7px; border: 7px solid transparent; border-top: 8px solid #12330F; border-bottom: 0; }
@@ -141,7 +142,7 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .home .chip2 { display: inline-flex; gap: 8px; align-items: center; background: rgba(255,255,255,.7); border-radius: 20px; padding: 6px 14px 6px 8px; font: 800 14px/1 var(--font); color: var(--hero-ink); margin-bottom: 10px; }
 .back { display: inline-block; padding: 12px 8px; min-height: 48px; color: var(--muted); text-decoration: none; }
 .codepage { padding: 32px 16px; text-align: center; display: flex; flex-direction: column; gap: 16px; }
-@media (prefers-reduced-motion: reduce) { .pl.glow .gl, .sprout .rise, .done .big .sd, .peek .sd, .pl.pop { animation: none; } .pl.glow .gl { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .peek .dr, .peek .lf, .chip .cs, .pl.glow .gl, .sprout .rise, .peek .sd, .pl.pop .pi { animation: none; } .pl.glow .gl { opacity: .5; } }
 
 .tile.miss .opt { border-color: var(--wrong); background: var(--tint-wrong); } .tile.hit .opt { border-color: var(--right); background: var(--tint-right); border-width: 4px; border-bottom-width: 7px; }
 .tile.hit::after, .tile.miss::after { content: ""; position: absolute; right: 10px; top: 10px; width: 30px; height: 30px; border-radius: 50%; background: var(--right) center / 18px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M3 9.5l4 4 8-9' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
@@ -151,3 +152,24 @@ svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0;
 .teach.oral .cue .pic { width: 190px; height: 150px; } .teach.oral .cue .pic svg { width: 112px; height: 112px; }
 .teach.oral .cue .row { display: flex; gap: 18px; align-items: center; }
 .teach.oral .cue .beads i { width: 28px; height: 28px; }
+
+/* hero button for non-readers: icon first, arrow last, the word is secondary */
+.btn .bi svg { width: 34px; height: 34px; display: block; } .btn .ba svg { width: 30px; height: 30px; display: block; }
+.btn .bl { font: 800 15px/1 var(--font); letter-spacing: .06em; opacity: .85; flex: 0 1 auto; }
+.btn:has(.ba) { justify-content: space-between; padding: 0 22px; } .btn:has(.ba) .bl { flex: 1; text-align: center; }
+.mascot { transition: transform .28s cubic-bezier(.35,1.8,.35,.83); transform-origin: 50% 100%; }
+.fb.right .mascot { transform: translateY(-10px) scale(1.14); } .fb.wrong .mascot { transform: rotate(-8deg) translateX(-6px) scale(.96); }
+.fb.right .word::before { content: ""; display: inline-block; width: 30px; height: 30px; margin-right: 10px; vertical-align: -6px; border-radius: 50%; background: var(--right) center / 18px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M3 9.5l4 4 8-9' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.fb.right { min-height: 170px; } .fb.right .sprig { width: 124px; }
+.tile.hit .opt { box-shadow: 0 0 0 6px rgba(15,118,110,.18); }
+.opt .pic svg { width: 46px; height: 46px; display: block; } .opt .n { font-size: 22px; }
+.tile .rep { position: absolute; left: 10px; top: 10px; width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--line); background: var(--card); color: var(--leaf-text); display: grid; place-items: center; padding: 0; z-index: 2; }
+.tile .rep:disabled { opacity: .4; } .tile .rep svg { width: 24px; height: 24px; }
+.cue .beads { align-items: center; }
+/* S5 sitting end: Sprig-led, on the garden scene */
+.done { position: relative; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; text-align: center; isolation: isolate; padding: 0 20px 28px; }
+.done h1 { position: relative; z-index: 1; margin: 70px 0 0; font: 800 34px/1.05 var(--disp); color: var(--hero-ink); }
+.done .stagebox { position: relative; z-index: 1; margin-top: auto; display: flex; align-items: flex-end; justify-content: center; gap: 4px; width: 100%; }
+.done .stagebox .mascot { width: 190px; } .done .stagebox .pot { width: 160px; height: 256px; overflow: visible; }
+.done .line { position: relative; z-index: 1; margin: 16px 0 0; font: 800 20px/1.2 var(--font); color: var(--hero-ink); background: rgba(255,253,246,.85); padding: 8px 18px; border-radius: 18px; }
+.done .hero { position: relative; z-index: 1; width: 100%; margin-top: 22px; } .done .hero .btn { width: 100%; }

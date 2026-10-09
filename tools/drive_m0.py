@@ -53,8 +53,9 @@ try:
         dt = (t[1] - t[0]) if t[0] and t[1] else None
         ck("first watering under 90 s after seed tap", dt is not None and dt < 90000, f"{dt:.0f} ms" if dt else "no watering")
         ck("garden peek shown", pg.locator(".peek").count() == 1)
+        ck("first correct answer waters: header widget wet, seed stored at stage 1, Sprig on screen", pg.locator("[data-widget].wet").count() == 1 and pg.evaluate("JSON.parse(localStorage.sg1).plants['L1.01'].stage") == 1 and pg.locator(".fb .sprig").count() == 1)
         ck("right state: prompt hidden, Next shown, nothing overlays tiles", pg.locator(".prompt").evaluate("e=>getComputedStyle(e).visibility")=="hidden" and pg.locator("[data-next]").is_visible() and not pg.evaluate("(()=>{const r=document.querySelector('.opts').getBoundingClientRect();const e=document.elementFromPoint(r.x+r.width/2,r.y+10);return !!e.closest('.peek')})()"))
-        ck("right state: tiles disabled+dimmed, Next solid hero green", pg.locator(".opt:enabled").count() == 0 and pg.locator(".tile.dim").count() == pg.locator(".tile").count() - 1 and pg.locator(".tile.hit").count() == 1 and pg.evaluate("(()=>{const b=document.querySelector('[data-next]');const r=b.getBoundingClientRect();const top=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return getComputedStyle(b).backgroundColor=='rgb(76, 184, 43)' && (top===b)})()"))
+        ck("right state: tiles disabled+dimmed, Next solid hero green", pg.locator(".opt:enabled").count() == 0 and pg.locator(".tile.dim").count() == pg.locator(".tile").count() - 1 and pg.locator(".tile.hit").count() == 1 and pg.evaluate("(()=>{const b=document.querySelector('[data-next]');const r=b.getBoundingClientRect();const top=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return getComputedStyle(b).backgroundColor=='rgb(76, 184, 43)' && b.contains(top)})()"))
         peek_alive = pg.locator(".peek").count() == 1
         before = pg.evaluate("document.querySelector('.bar i').style.transform")
         pg.click("[data-next]")
@@ -74,6 +75,7 @@ try:
             except Exception: pass
             time.sleep(.25)
         n_pre = len(reqs); fonts_pre = [r for r in reqs if "fonts.g" in r]
+        ck("S5 Sprig-led: Sprig, plant at new stage, one hero button, no pass-mark stat", pg.locator(".done .sprig").count() == 1 and pg.locator(".done [data-plant]").count() == 1 and pg.locator(".done .btn").count() == 1 and "Pass mark" not in pg.inner_text(".done"))
         ck("S5 sitting done reached", pg.locator(".done").count() == 1 and "Sitting 1 of 4 done" in pg.inner_text(".done"))
         origins = {r.split("/")[2] for r in reqs[:n_pre] if r.startswith("http")}
         ck("one origin, no redirects, no web font before first sprout", len(origins) == 1 and not redirects and not fonts_pre, f"{origins} redirects={len(redirects)} fonts={len(fonts_pre)}")
@@ -102,6 +104,24 @@ try:
         n_anim = pg.evaluate("document.getAnimations().length")
         ck("S3 demo: at most 12 animated nodes (Sprig included)", n_anim <= 12, str(n_anim))
         pg.screenshot(path="shots/m1/ours-home-demo.png")
+        # a failed sitting still grows the seed and offers Again, never a dead end
+        pf = b.new_context(viewport={"width": 390, "height": 844}).new_page(); pf.route("**/fonts.googleapis.com/**", lambda r: r.fulfill(status=200, content_type="text/css", body=""))
+        pf.goto(url + "?test=1#/lesson/L1.01"); pf.wait_for_selector("[data-teach-go]"); pf.click("[data-teach-go]")
+        rep_ok = None
+        for _ in range(220):
+            if pf.locator(".done").count(): break
+            try:
+                if pf.locator(".fb.wrong").count(): pf.click(".tile.target .opt", force=True, timeout=1500)
+                else:
+                    pf.wait_for_selector(".opt:not([data-correct]):enabled", timeout=3000)
+                    if rep_ok is None: rep_ok = pf.locator(".tile .rep:enabled").count() >= 3 and pf.locator(".tile .pic svg").count() >= 0
+                    pf.locator(".opt:not([data-correct])").first.click(timeout=1500)
+            except Exception: pass
+            time.sleep(.2)
+        ck("oral tiles have replay buttons while asking", bool(rep_ok))
+        ck("failed sitting: Again button, seed watered (stage 1), Sprig present, no stat line", pf.locator(".done [data-again]").count() == 1 and pf.locator(".done .sprig").count() == 1 and "Pass mark" not in pf.inner_text(".done") and pf.evaluate("JSON.parse(localStorage.sg1).plants['L1.01'].stage") == 1)
+        pf.click("[data-again]"); pf.wait_for_selector("[data-teach-go], .opt", timeout=4000)
+        ck("Again restarts the lesson", pf.locator("[data-teach-go], .opt").count() >= 1)
         ctx2 = b.new_context(viewport={"width": 390, "height": 844}, reduced_motion="reduce"); p2 = ctx2.new_page()
         p2.goto(url + "?test=1&demo=1#/home"); p2.reload(); p2.wait_for_selector(".home"); time.sleep(.8)
         run = p2.evaluate("document.getAnimations().filter(a=>a.playState==='running'&&a.effect.getTiming().iterations===Infinity).length")

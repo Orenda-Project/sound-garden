@@ -65,8 +65,8 @@ export const PLANT_COLORS = ['#FFC21A', '#4FA3E8', '#FFFDF6', '#F29B73', '#B06AD
 export function plant({ x, y, s = 1, stage = 1, label = '', color, id, glow = false, ring = false, hit = true }) {
   const t = label ? `<text x="0" y="31" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="${label.length > 1 ? 24 : 32}" fill="#12330F">${label}</text>` : '<g color="#12330F" transform="translate(-13 6)"><use href="#spk" width="26" height="26"/></g>';
   return `<g class="pl${glow ? ' glow' : ''}" data-plant="${id}" data-stage="${stage}" ${hit ? 'tabindex="0" role="button"' : ''} aria-label="${label || 'First sound'} plant, ${stage === 'zz' ? 'resting' : 'stage ' + stage}" style="--pc:${color || PLANT_COLORS[0]}" transform="translate(${x} ${y}) scale(${s})">
-<ellipse cx="0" cy="48" rx="34" ry="6" fill="#12330F" opacity=".2"/>${glow || ring ? `<ellipse class="gl" cx="0" cy="-8" rx="50" ry="62" fill="#FFE98F" opacity="${ring ? .5 : 0}"/>` : ''}
+<g class="pi"><ellipse cx="0" cy="48" rx="34" ry="6" fill="#12330F" opacity=".2"/>${glow || ring ? `<ellipse class="gl" cx="0" cy="-8" rx="50" ry="62" fill="#FFE98F" opacity="${ring ? .5 : 0}"/>` : ''}
 <use href="#pl${stage === 'zz' ? 'z' : stage}" x="-40" y="-80" width="80" height="80"/>
 <path d="M-23 0H23L19 8H-19Z" fill="#A5632A" stroke="#6B3C14" stroke-width="3" stroke-linejoin="round"/>
-<rect x="-19" y="8" width="38" height="38" rx="5" fill="#E9B872" stroke="#8A5A1E" stroke-width="3"/>${t}</g>`;
+<rect x="-19" y="8" width="38" height="38" rx="5" fill="#E9B872" stroke="#8A5A1E" stroke-width="3"/>${t}</g></g>`;
 }
