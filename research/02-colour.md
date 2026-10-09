@@ -4,6 +4,15 @@ Scope: Sound Garden, a free no-login English reading site for children and adult
 Evidence grades: **A** primary study or peer-reviewed review, **B** expert guideline or standard, **C** blog, vendor page or practice.
 Date of research: 2026-10-09. Search tooling was flaky (several queries timed out); items I could not verify are marked "not verified" and nothing is invented.
 
+## Decisions (read first)
+
+- **Owed: live test.** No user test has been done; Kamal's playtest with his children (plus an adult learner, a colour-blind participant, a cheap phone in sun) is a build-phase gate. Everything below is research and design, not user evidence.
+- **Muted inside a lesson text area, saturated outside it** (2.2b). The lesson screen gets one saturated element outside the text area: a sky header band with a bright progress bar.
+- **One primary action colour.** Hero green `#4CB82B` with dark ink `#12330F` is the single primary button on every screen. Secondary actions are cream with a sky outline and sky text. Charcoal `#2B2A26` is text only, never a button.
+- **Hero buttons are outlined on the full perimeter** in `#2F7D32` (4.75:1 against cream), with a thicker bottom edge for the 3D feel.
+- **Right/wrong/reward:** teal check, brown-orange wobble (never red), gold with dark outline. Icon plus word plus sound, never colour alone.
+- **Default ground is cream; switcher offers peach and blue-grey.** Green text uses `--leaf-text #2A7230`.
+
 ## 1. Findings by area
 
 ### 1.1 Colour, children's learning and attention
@@ -81,6 +90,19 @@ Design consequences:
 - Avoid mid-lightness tints for state backgrounds carrying small text. Our tints are very light with dark text.
 - Dark mode is an option (night, battery on OLED). Its ground is `#111814`, near-black, not `#000000`. Reason (practice, unverified on target devices): pure black next to bright text causes smearing on slow OLED panels and very high glare contrast. Test on a real cheap OLED before promising this.
 
+### 1.7 Feedback and reward in learning games
+
+Peer-reviewed sources exist and were located; none of them is about colour. Titles, journals and DOIs were verified through Crossref. **I did not read the abstracts or papers in this session; the findings below are my recollection of their conclusions and must be re-checked before they drive a decision.**
+
+| Source | Recollected finding | Grade |
+|---|---|---|
+| Hattie & Timperley 2007, Review of Educational Research, DOI 10.3102/003465430298487 (cited 9667 times) | Feedback helps most when it is about the task and the process, and least when it is praise aimed at the person | A (recollection) |
+| Wouters et al. 2013, J Educational Psychology, DOI 10.1037/a0031311 (meta-analysis of serious games) | Serious games beat conventional instruction on learning and retention but not on motivation; they work better over multiple sessions and mixed with other instruction | A (recollection) |
+| Sailer & Homner 2019, Educational Psychology Review, DOI 10.1007/s10648-019-09498-w (gamification meta-analysis) | Small positive effects on cognitive, motivational and behavioural outcomes | A (recollection) |
+| Deci, Koestner & Ryan 1999, Psychological Bulletin, DOI 10.1037/0033-2909.125.6.627 | Expected tangible rewards undermine intrinsic motivation; verbal praise tends to enhance it | A (recollection) |
+
+Design consequences (inference, grade C): feedback copy names the sound and the word ("sh as in ship"), not "Great job!"; rewards are small, tied to the thing learned (a flower per sound) and not tangible prizes; reward screens stay brief. **No primary evidence was found on which colour or colour intensity makes feedback or rewards work better in learning games.** The right/wrong/reward hues are therefore chosen on accessibility and cultural-risk grounds only.
+
 ## 2. PROPOSED palette
 
 Garden-themed, warm-neutral ground, one deep leaf green, one sky blue, three feedback accents that do not depend on red/green discrimination.
@@ -125,16 +147,22 @@ Critic feedback: the muted set alone does not feel like a game. Fix: keep the mu
 
 Three hero candidates, tested (WCAG ratios computed in Python, label text on the hero fill):
 
-| Candidate | Fill | Label | Label ratio | White label (for comparison) | Fill vs cream ground | Edge colour (the 3D bottom border that meets the ground) | Edge vs cream |
+| Candidate | Fill | Label | Label ratio | White label (for comparison) | Fill vs cream ground | Outline colour (full perimeter, thicker at the bottom) | Edge vs cream |
 |---|---|---|---|---|---|---|---|
 | **A leaf-bright (chosen primary hero)** | `#4CB82B` | `#12330F` | 5.44:1 PASS | 2.56:1 FAIL | 2.38:1 | `#2F7D32` | 4.75:1 PASS |
 | B sun-yellow | `#FFC21A` | `#2B2A26` | 8.88:1 PASS | 1.62:1 FAIL | 1.50:1 | `#9A6700` | 4.51:1 PASS |
 | C sky-blue | `#2FA8F2` | `#2B2A26` | 5.48:1 PASS | 2.62:1 FAIL | 2.43:1 | `#1F6FB2` | 4.90:1 PASS |
 | (ref) Duolingo green | `#58CC02` | `#12330F` | 6.67:1 PASS | 2.09:1 FAIL | 1.94:1 | n/a | n/a |
 
-Findings: every saturated fill needs a **dark label** (white fails on all, as on Duolingo green). None of the fills reaches 3:1 against the cream ground on its own, so each hero button gets a 4-5 px bottom edge in its dark shade (all pass 3:1 against cream, last column) plus the label as the identifier. B (sun) is a poor main hero because it is the reward colour and is lightest (1.50:1 vs cream); keep it for reward screens, where it is the full-screen ground (dark text 7.75 to 10.18:1 across the gradient). C (sky) works as the home sky band and secondary hero. **Decision: A is the primary hero (it is the garden), B the reward ground, C the sky.** The edge of the A button on the reward ground (`#1E5C24` on `#F5B301`) is 4.34:1.
+Findings: every saturated fill needs a **dark label** (white fails on all, as on Duolingo green). None of the fills reaches 3:1 against the cream ground on its own, so each hero button is **outlined on the full perimeter** (3 px, bottom edge 6 px) in its dark shade (all pass 3:1 against cream, last column) plus the label as the identifier. B (sun) is a poor main hero because it is the reward colour and is lightest (1.50:1 vs cream); keep it for reward screens, where it is the full-screen ground (dark text 7.75 to 10.18:1 across the gradient). C (sky) works as the home sky band and secondary hero. **Decision: A is the primary hero (it is the garden), B the reward ground, C the sky.** 
 
 New tokens: `--hero #4CB82B`, `--hero-edge #2F7D32`, `--hero-ink #12330F`, `--sun-hero #FFC21A`, `--sun-edge #9A6700`, sky band `#BFE6FA` (dark text 10.89:1), hill `#CDEFA8` (dark text 11.29:1, `#1E5C24` text on it 6.32:1). Dark mode keeps its existing set; saturated screens in dark mode are not designed yet.
+
+**Hero button outline `#2F7D32`, ratio against every ground it sits on (computed):** cream `#FBF6EA` 4.75:1, card `#FFFCF4` 5.00:1, right tint `#DDF1EE` 4.36:1, wrong tint `#FBE9D6` 4.32:1, sky band end `#BFE6FA` 3.88:1, sky band top `#8ED2F5` 3.09:1, reward gold `#FFC21A` 3.17:1 (all at or above 3:1). The reward ground therefore ends at `#FFC21A`, not `#F5B301` (outline 2.76:1, would fail). The hero fill itself against the sky band is only 1.55:1, so the outline carries the shape. Secondary button: sky `#1F6FB2` outline and text on card, text 5.15:1; outline against gold `#FFC21A` 3.27:1.
+
+**Action hierarchy:** one primary per screen (hero green, dark ink), one optional secondary (cream, sky outline). Charcoal is a text colour only; the earlier charcoal "See my garden" button on the reward screen is gone. Lesson buttons (Continue, Try again) are now hero green too, so the primary looks the same in and out of lessons; the lesson stays calm because the text area, option cards and feedback sheet are still cream and tinted.
+
+**Lesson header:** a sky band (`#8ED2F5` to `#BFE6FA`) behind back arrow and progress bar, bar fill hero green in a cream track with a `#2F7D32` outline (track vs band is carried by the outline, 3.09 to 3.88:1). Everything below it is cream.
 
 ### 2.2c Mockup: judge the feel, not only the table
 
@@ -147,9 +175,9 @@ Static HTML: `research/mockups/colour.html`. Screenshots at 390x844 (Playwright/
 | Lesson, correct answer | `research/shots/colour/03-lesson-correct.png` | calm |
 | Reward | `research/shots/colour/04-reward.png` | saturated |
 
-What I saw in them: home and reward feel lively (sky, hills, gold ground, big flower) while the two lesson screens stay quiet cream with one green underline; the wrong state reads as a gentle brown-orange "Try again" with a wobble icon, not an error. Weak spots I can see: the home screen has a large empty middle; the hero green is close in value to the hill, so on home the button relies on its dark label and edge; the mockup uses emoji-free simple SVG art, not final art; picture options in the lesson are text-only.
+What I saw in them (re-screenshotted after the round-2 fixes): home and reward feel lively (sky, hills, gold ground, big flower); the lesson screens have a sky header band and bright progress bar above a quiet cream text area; every screen has one green hero button with a full outline; the wrong state reads as a gentle brown-orange "Try again" with a wobble icon and a hero "Try again" button. Weak spots I can see: the home screen has a large empty middle; the hero green is close in value to the hill, so on home the button relies on its dark label and edge; the mockup uses emoji-free simple SVG art, not final art; picture options in the lesson are text-only.
 
-**Live user testing is NOT done and is still owed.** The mockup is a design artefact, not evidence. Needed: real children and adult learners, a cheap phone, outdoors, with a colour-blind participant (see section 4).
+**Live user testing is NOT done and is still owed** (see Decisions). The mockup is a design artefact, not evidence. Needed: real children and adult learners, a cheap phone, outdoors, with a colour-blind participant (see section 4).
 
 ### 2.3 Open pairs now computed
 
@@ -239,7 +267,8 @@ Right vs wrong stays far apart in all three types (above 45). Primary green vs w
 3. Target grapheme: bold plus 3 px `--leaf` underline, not a colour fill.
 4. Garden art uses the same hues at lower saturation, behind or beside the lesson card, never behind the text.
 5. Background switcher: cream (default), peach `#FBEBDD` (Rello & Bigham warm), pale blue-grey `#EAF1F5`. All three verified in 2.3 (use `--leaf-text` for green text).
-6. Muted inside a lesson, saturated outside (2.2b). `--right` never on a leaf fill (2.3).
+6. Muted inside the lesson text area, saturated outside it (2.2b). `--right` never on a leaf fill (2.3).
+7. One primary action colour (hero green); charcoal is text only; hero buttons carry a full-perimeter outline.
 
 ## 3. Three rejected palettes
 

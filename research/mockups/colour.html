@@ -14,9 +14,9 @@
 body{background:#d9d4c4;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);padding:20px;display:flex;flex-wrap:wrap;gap:20px}
 .screen{width:390px;height:844px;position:relative;overflow:hidden;background:var(--bg);flex:none}
 .btn{display:block;width:100%;border:0;border-radius:16px;padding:16px;font-size:18px;font-weight:800;letter-spacing:.3px;text-align:center}
-.btn.hero{background:var(--hero);color:var(--hero-ink);border-bottom:5px solid var(--hero-edge)}
+.btn.hero{background:var(--hero);color:var(--hero-ink);border:3px solid var(--hero-edge);border-bottom-width:6px}
 .btn.calm{background:var(--leaf);color:#fff;border-bottom:4px solid #1E5C24}
-.btn.ghost{background:var(--card);color:var(--sky);border:2px solid var(--border)}
+.btn.ghost{background:var(--card);color:var(--sky);border:2px solid var(--sky)}
 .btn.sunb{background:var(--sun-hero);color:var(--text);border-bottom:5px solid var(--sun-edge)}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--border);border-radius:999px;padding:6px 12px;font-weight:700;font-size:15px}
 .tag{position:absolute;top:8px;right:10px;font-size:11px;font-weight:700;color:var(--muted);background:var(--card);border-radius:8px;padding:2px 6px;z-index:5;border:1px solid var(--border)}
@@ -28,9 +28,9 @@ body{background:#d9d4c4;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sa
 .panel h2{font-size:22px;margin-bottom:4px}.panel p{color:var(--muted);font-size:16px;margin-bottom:14px;line-height:1.35}
 .bar{height:12px;background:var(--tint);border-radius:8px;margin:10px 0 14px;overflow:hidden}.bar i{display:block;height:100%;width:62%;background:var(--hero)}
 /* lesson */
-.top{display:flex;align-items:center;gap:12px;padding:44px 20px 0}
-.prog{flex:1;height:14px;background:var(--tint);border-radius:8px;overflow:hidden}.prog i{display:block;height:100%;width:45%;background:var(--leaf);border-radius:8px}
-.prompt{padding:28px 24px 0}.prompt small{color:var(--muted);font-size:16px}
+.top{display:flex;align-items:center;gap:12px;padding:44px 20px 22px;background:linear-gradient(#8ED2F5,#BFE6FA)}
+.prog{flex:1;height:18px;background:var(--card);border:2px solid var(--hero-edge);border-radius:10px;overflow:hidden}.prog i{display:block;height:100%;width:45%;background:var(--hero);border-radius:8px}
+.prompt{padding:24px 24px 0}.prompt small{color:var(--muted);font-size:16px}
 .big{font-size:92px;font-weight:800;text-align:center;margin:18px 0 6px;letter-spacing:2px}
 .big u{text-decoration:underline;text-decoration-thickness:6px;text-decoration-color:var(--leaf);text-underline-offset:10px}
 .opts{padding:6px 20px;display:grid;gap:12px}
@@ -43,12 +43,11 @@ body{background:#d9d4c4;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sa
 .sheet.r h3{color:var(--right)}.sheet.w h3{color:var(--wrong)}
 .sheet p{font-size:17px;margin-bottom:14px;line-height:1.35}
 /* reward */
-.rw{background:linear-gradient(#FFE78A,#FFC21A 70%,#F5B301)}
+.rw{background:linear-gradient(#FFE78A,#FFC21A 60%)}
 .rw .mid{position:absolute;top:120px;left:0;right:0;text-align:center}
 .rw h1{font-size:34px;margin-top:6px;color:var(--text)}.rw p{font-size:18px;margin:6px 30px;color:var(--text);line-height:1.35}
 .rw .btns{position:absolute;left:20px;right:20px;bottom:34px;display:grid;gap:12px}
 .rw .stats{display:flex;gap:10px;justify-content:center;margin-top:18px}
-.btn.dark{background:var(--text);color:#FFF6D6;border-bottom:5px solid #000}
 </style></head><body>
 
 <!-- 1 HOME -->
@@ -85,7 +84,7 @@ body{background:#d9d4c4;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sa
  <div class="sheet w">
   <h3><svg width="32" height="32" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#A84A07"/><path d="M7 17c3-4 5 4 8 0s5 4 8 0" stroke="#FBE9D6" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>Try again</h3>
   <p>Close. Listen once more: "sh" is the sound in <b>ship</b>.</p>
-  <button class="btn ghost">HEAR IT AGAIN</button>
+  <button class="btn hero" style="margin-bottom:10px">TRY AGAIN</button><button class="btn ghost">HEAR IT AGAIN</button>
  </div>
 </section>
 
@@ -102,7 +101,7 @@ body{background:#d9d4c4;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sa
  <div class="sheet r">
   <h3><svg width="32" height="32" viewBox="0 0 30 30"><circle cx="15" cy="15" r="14" fill="#0F766E"/><path d="M8 16l5 5 9-11" stroke="#DDF1EE" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes!</h3>
   <p><b>sh</b> as in <b>ship</b>. A new seed is planted.</p>
-  <button class="btn calm">CONTINUE</button>
+  <button class="btn hero">CONTINUE</button>
  </div>
 </section>
 
@@ -122,6 +121,6 @@ body{background:#d9d4c4;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sa
   <p>The Sh Daisy joins your garden. 5 of 5 flowers today.</p>
   <div class="stats"><span class="chip" style="border-color:#2B2A26">&#9733; +20 seeds</span><span class="chip" style="border-color:#2B2A26">&#9679; 5 day streak</span></div>
  </div>
- <div class="btns"><button class="btn dark">SEE MY GARDEN</button><button class="btn hero" style="border-bottom-color:#1E5C24">NEXT SOUND</button></div>
+ <div class="btns"><button class="btn hero">NEXT SOUND</button><button class="btn ghost">SEE MY GARDEN</button></div>
 </section>
 </body></html>
