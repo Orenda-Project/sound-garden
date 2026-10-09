@@ -18,3 +18,12 @@
 - First sprout: sunburst replaced by a low outlined sun, painted gold bands, two clouds, warm distant hills and tiny flowers in the same illustration style as the garden.
 - Lesson-right: the water droplet is now clipped inside the plant-stage chip and removed from the static frame, so it cannot read as a stray bug.
 - 12-node cap: S6 petals and sun-ray-style extras are decoration only; drop the 6 falling petals first if the budget is tight. S3 is unchanged at 9 animated nodes.
+
+## Round 3 (craft pass after judge round 2)
+- Ship blocker fixed: the CHECK / WRONG / TEACH annotations are gone from inside the phone frames; they now live in a caption strip under each phone in index.html.
+- Graded screens 02 and 03: the prompt shows the spoken word as a picture (a sun on a warm card) beside the replay speaker. Tiles stay letter-only; the picture is the prompt, not a cue on the answer.
+- 01: seed redrawn with a lit top-left edge, shaded right side, crease and speckles; it sits in soil with a cast shadow, crumb texture and soil covering its base. Sign post shortened so it no longer pokes the seed; the helper Sprig no longer touches a tile.
+- 05: stake letters raised to about 34-42 px; the "Tend i" bubble sits above plant i in clear sky with 12+ px to every stake; back row re-spaced so Sprig and the dozing plant no longer collide.
+- 04: the cloud was cropped at the top-left because a CSS animation overrode its transform; wrapped so it now sits where placed. The mound has a lit rim, shaded flank and crumbs. Petals kept off the frame edges.
+- Light comes from the top-left on every object; outlines are 3 to 4 px throughout. I looked at all six screenshots before committing.
+- Open: the Grandstander link needs network, so offline renders fall back to the system bold in headings.
