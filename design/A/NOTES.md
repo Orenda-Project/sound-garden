@@ -34,3 +34,8 @@
 - 06: progress hook added under the sound: six leaf outlines, the first filled, with "1 of 6", so the card reads as one step in a loop.
 - 03: the pointer is now a 3 px dashed line with a 3 px arrowhead, matching the tile and ring weight.
 - I looked at 01, 03, 05 and 06 after the last render; 02 and 04 were not touched this round.
+
+## Round 5
+- 05: the dozing plant is now a sleeping plant on purpose: grey-green bud with a face and closed eyes, drooped leaves, a "zz" in a soft thought bubble beside it, and a single "Wake o" bubble whose tail points at it. It is drawn at 0.9 scale so the face reads. No ghost glyph remains.
+- 06: no hearts and no streak number (ruling). The teaching card gets a small garden widget in its corner: a water drop that fills as sounds are learned (drawn at 1 of 6) above the lesson's seed in its mound, so the lesson visibly feeds the garden. The six-leaf meter and "1 of 6" stay. Card text shortened to "New sound" to keep 12 px clear of the widget.
+- Looked at 05 and 06 after the final render.
