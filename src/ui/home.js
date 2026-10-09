@@ -8,6 +8,6 @@ export function mount(el) {
   <a class="btn" data-cta href="#/lesson/L1.01">${returning ? 'Keep going' : 'Next sitting'}</a></main>`;
 }
 export function code(el) {
-  el.innerHTML = `<main class="home"><a class="back" href="#/" data-back>\u2039 Back</a><h1>Garden code</h1><p>Coming in a later milestone.</p>
+  el.innerHTML = `<main class="home"><a class="back" href="#/" data-back>\u2039 Back</a><h1>Garden code</h1><p>Coming soon.</p>
   <a class="btn" href="#/" data-back>Back to the seed</a></main>`;
 }

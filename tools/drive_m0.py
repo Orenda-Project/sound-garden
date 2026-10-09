@@ -51,6 +51,7 @@ try:
         ck("first watering under 90 s after seed tap", dt is not None and dt < 90000, f"{dt:.0f} ms" if dt else "no watering")
         ck("garden peek shown", pg.locator(".peek").count() == 1)
         ck("right state: prompt hidden, Next shown, nothing overlays tiles", pg.locator(".prompt").evaluate("e=>getComputedStyle(e).visibility")=="hidden" and pg.locator("[data-next]").is_visible() and not pg.evaluate("(()=>{const r=document.querySelector('.opts').getBoundingClientRect();const e=document.elementFromPoint(r.x+r.width/2,r.y+10);return !!e.closest('.peek')})()"))
+        ck("right state: tiles disabled+dimmed, Next solid hero green", pg.locator(".opt:enabled").count() == 0 and pg.locator(".tile.dim").count() == pg.locator(".tile").count() and pg.evaluate("(()=>{const b=document.querySelector('[data-next]');const r=b.getBoundingClientRect();const top=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return getComputedStyle(b).backgroundColor=='rgb(76, 184, 43)' && (top===b)})()"))
         peek_alive = pg.locator(".peek").count() == 1
         before = pg.evaluate("document.querySelector('.bar i').style.transform")
         pg.click("[data-next]")
@@ -58,9 +59,8 @@ try:
         ck("tap during peek cuts it and lands on Next", pg.locator(".peek").count() == 0 and pg.locator(".opt").count() >= 3, f"peek alive at click: {peek_alive}")
         # wrong state on the 2nd item: outlined tile, pill on tile, one forward button
         pg.locator(".opt:not([data-correct])").first.click(); pg.wait_for_selector(".fb.wrong")
-        ck("wrong state: target tile outlined, pill on tile, single 'Try again' button", pg.locator(".tile.target .pill").count() == 1 and pg.locator("[data-next]").inner_text() == "Try again" and pg.locator("[data-next]").count() == 1)
-        pg.click(".tile.target .opt"); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=3000)
-        ck("tapping the outlined tile moves on", True)
+        ck("wrong state: target outlined, no pill, all tiles disabled, one enabled 'Try again'", pg.locator(".tile.target").count() == 1 and pg.locator(".pill").count() == 0 and pg.locator(".opt:enabled").count() == 0 and pg.locator("[data-next]").inner_text() == "Try again" and pg.locator("[data-next]").is_enabled())
+        pg.click("[data-next]"); pg.wait_for_function("!document.querySelector('.fb.wrong')", timeout=3000)
         time.sleep(.3)
         ck("progress bar advanced", pg.evaluate("document.querySelector('.bar i').style.transform") != before)
         for _ in range(40):

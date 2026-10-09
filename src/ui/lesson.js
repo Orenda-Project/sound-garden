@@ -55,12 +55,14 @@ export async function mount(el, lid) {
 
   function pick(it, o, tile, my) {
     if (my !== token) return;
-    if (state === 'right') return;                       // locked: only Next moves on
-    if (state === 'wrong') { if (o.ok) show(); return; } // tapping the outlined tile also moves on
+    if (state !== 'ask') return;                         // locked: only the one CTA moves on
+    if (state === 'wrong') return;                       // informational only: the one button moves on
     stop(); state = o.ok ? 'right' : 'wrong';
     gate.answer(o.ok); progress();
     target = it.options.find(x => x.ok);
     prompt.style.visibility = 'hidden';
+    opts.querySelectorAll('.opt').forEach(x => { x.disabled = true; });
+    if (o.ok) [...opts.children].forEach(t => t.classList.add('dim'));
     cta.hidden = false; cta.dataset.next = '1';
     if (o.ok) {
       fb.className = 'fb right'; setPose(sp, 'correct-small'); word.textContent = 'Yes';
@@ -78,10 +80,7 @@ export async function mount(el, lid) {
       const ci = [...opts.children].findIndex(t => t.__opt?.ok);
       const ct = opts.children[ci];
       [...opts.children].forEach(t => t.classList.toggle('dim', t !== ct));
-      ct.classList.add('target');
-      const pill = document.createElement('button'); pill.type = 'button'; pill.className = 'pill'; pill.setAttribute('aria-label', 'Hear this tile again');
-      pill.textContent = '\u{1F50A} hear'; pill.addEventListener('click', e => { e.stopPropagation(); play(target.key); });
-      ct.append(pill); play(target.key);
+      ct.classList.add('target'); play(target.key);   // auto-plays once; tile is outlined, not tappable
     }
   }
 
