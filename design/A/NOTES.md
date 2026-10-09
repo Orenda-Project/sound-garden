@@ -17,4 +17,4 @@
 - Home: stake letters grew to about 30 px; bubble "Tend n" is anchored to the plant that needs attention with a tail pointing at it, replacing the loose "3 plants are ready" line.
 - First sprout: sunburst replaced by a low outlined sun, painted gold bands, two clouds, warm distant hills and tiny flowers in the same illustration style as the garden.
 - Lesson-right: the water droplet is now clipped inside the plant-stage chip and removed from the static frame, so it cannot read as a stray bug.
-- Cut for the 12-node cap in round 2: the 6 falling petals on S6 move to a single still frame of petals; the sign pulse on S1 is opacity-only on one ring.
+- 12-node cap: S6 petals and sun-ray-style extras are decoration only; drop the 6 falling petals first if the budget is tight. S3 is unchanged at 9 animated nodes.
