@@ -1,0 +1,66 @@
+{
+ "captured_at": "2026-10-09T08:57:34.332823+05:00",
+ "register": {
+  "trans": {
+   "filter 0.2s ease": 1,
+   "right 0.3s ease": 1
+  },
+  "kf": [
+   "onetrust-fade-in 0.4s ease-in-out 1"
+  ],
+  "canvas": 0,
+  "video": 0
+ },
+ "welcome": {
+  "trans": {
+   "right 0.3s ease": 1
+  },
+  "kf": [
+   "onetrust-fade-in 0.4s ease-in-out 1"
+  ],
+  "canvas": 0,
+  "video": 0
+ },
+ "seconds_pick_language_to_first_challenge_scripted": 57.2,
+ "welcome_step_urls": [
+  "/lesson",
+  "/welcome",
+  "/welcome?welcomeStep=choosePath",
+  "/welcome?welcomeStep=courseOverview",
+  "/welcome?welcomeStep=dailyGoal",
+  "/welcome?welcomeStep=hdyhau",
+  "/welcome?welcomeStep=learningReason",
+  "/welcome?welcomeStep=proficiency"
+ ],
+ "lesson": {
+  "trans": {
+   "filter 0.2s ease": 1,
+   "background, color, opacity, clip-path, -webkit-clip-path 0.4s ease": 2,
+   "width 0.4s ease": 2,
+   "max-height 0.3s ease-in-out": 1,
+   "right 0.3s ease": 1
+  },
+  "kf": [
+   "onetrust-fade-in 0.4s ease-in-out 1"
+  ],
+  "canvas": 0,
+  "video": 0
+ },
+ "feedback": {
+  "trans": {
+   "filter 0.2s ease": 4,
+   "background, color, opacity, clip-path, -webkit-clip-path 0.4s ease": 2,
+   "width 0.4s ease": 2,
+   "max-height 0.3s ease-in-out": 1,
+   "right 0.3s ease": 1
+  },
+  "kf": [
+   "p_P_D 0.5s ease 1",
+   "gTkFz 0.2s cubic-bezier(0.35, 1.8, 0.35, 0.83) 1",
+   "_3qS6D 0.4s ease-in-out 1",
+   "onetrust-fade-in 0.4s ease-in-out 1"
+  ],
+  "canvas": 0,
+  "video": 0
+ }
+}
