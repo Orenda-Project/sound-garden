@@ -1,0 +1,26 @@
+[
+ {
+  "id": "06",
+  "ours": "shots/m1/our-06-sprout.png",
+  "bar": "shots/m1/bar-06-celebration.png",
+  "question": "Which screen is better on (1) clarity of the next action, (2) delight, (3) calm of the text area, (4) hierarchy? Answer A or B or equal for each, then one sentence."
+ },
+ {
+  "id": "04",
+  "ours": "shots/m1/our-04-teach.png",
+  "bar": "shots/m1/bar-04-question.png",
+  "question": "Which screen is better on (1) clarity of the next action, (2) delight, (3) calm of the text area, (4) hierarchy? Answer A or B or equal for each, then one sentence."
+ },
+ {
+  "id": "03",
+  "ours": "shots/m1/our-03-home.png",
+  "bar": "shots/m1/bar-03-landing.png",
+  "question": "Which screen is better on (1) clarity of the next action, (2) delight, (3) calm of the text area, (4) hierarchy? Answer A or B or equal for each, then one sentence."
+ },
+ {
+  "id": "05",
+  "ours": "shots/m1/our-05-wrong.png",
+  "bar": "shots/m1/bar-05-wrong.png",
+  "question": "Which screen makes it clearer what to do next? Answer A, B, or equal, then one sentence."
+ }
+]
