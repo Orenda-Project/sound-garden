@@ -1,12 +1,16 @@
-# Critic: DESIGN.md (senior Duolingo-style product designer)
+# Critic: DESIGN.md revision 2 (senior Duolingo-style product designer)
 
-VERDICT: FAIL
+VERDICT: PASS
 
-**Biggest gap:** The design breaks its own first-90-seconds promise. Principle 1 says the seed is watered by 90 s, but S5 waters it only at "Sitting done" (about 15-20 min in). R3 §2.3 says the first correct answer waters it. Until then the learner has seen no garden, because S3 is never placed in the first session. A 6-year-old gets Start, four seed colours, and a Look chip of text before any sound.
+Revision 2 fixes all five CD items. Watering moves to the first correct answer (under 90 s) with a garden peek. The seed onboarding is one tap. Chips move after the first sprout. Sprig gets a pose on every answer. Only transform and opacity animate. The S3 budget sums to 9 of 12 nodes (4 Sprig + 1 cloud + 2 glow + 1 visitor + 1 pop). Plant stages are the one growth meter.
+
+**Biggest gap:** S6 (first sprout) stacks four asks on one card: the Sprig colour pick, the Look chip, "Remind me", and "Add to Home Screen". That is the emotional peak, and a 6-year-old or a non-reading adult gets four decisions in a row. It reads as a permissions wall at the moment of reward.
 
 **Fixes by impact:**
-1. Move the watering to the first correct answer inside S4 (R3 §2.3, under 90 s). Show a garden peek, with the seed, right after it. Rewrite S5 as the end-of-sitting beat only.
-2. Cut S2 to one tap on a pre-planted seed (R3 §2.3 "one planted seed already sitting there"). Move the Playful/Quiet "Look" chip to after the first sprout or to S10. Text chips are unreadable for a non-reader, and "Quiet and calm" tells adults they are being sorted.
-3. Resolve the Sprig contradiction. §3 says a feedback state on every answer, but the last paragraph says Sprig reacts "not on every tap". Make it explicit: every answer gets a Sprig pose (still is fine), and only rewards and item boundaries get motion.
-4. Fix the motion contradictions with R4 decision 7 (transform and opacity only). §2 animates fills and colour, and dawn/dusk recolours the sky. S3 also stacks 3 clouds, 6 ambient elements, Sprig, glowing ready plants and visitors. Count against the 12-node cap. Pick one visible growth meter: Sprig's 5 stages or the plant's 4 stages.
-5. Stop copying Duolingo's lesson feel. The "N in a row" combo label, the saturated sky band, and the green-hero bottom sheet are Duolingo's lesson grammar. Use a Sprig-pose-led feedback area, and make S1's Start tap also unlock audio, since browsers block autoplay until a tap.
+1. Split S6. Keep the sprout celebration alone. Move the colour and Look picks to the next Home visit or after lesson 2, and keep reminders on their own card.
+2. Reconcile the first tap. Principle 1 says the seed tap unlocks audio. S1 says the Start button does. Pick one and name it.
+3. Add a rule that the garden peek (S3p) never covers the next item. Its 2 s dim must be skipped if the learner taps during it.
+4. Name the wrong-answer example's size and hue budget in S4d, since "correct example shown" can break the 3-hue rule.
+5. Make time-to-watering (under 90 s) a go/no-go metric in the first silent playtest, not only an instrumented number.
+
+Written to /home/oye/Documents/free_work/sound-garden/plan/critic-design.md.
