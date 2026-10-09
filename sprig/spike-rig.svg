@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="300" height="360">
+  <g id="n1"><ellipse cx="100" cy="206" rx="52" ry="12" fill="#7a5a3a"/></g>
+  <g id="n2"><rect x="94" y="130" width="12" height="76" rx="6" fill="#2F7D32"/></g>
+  <g id="n3"><ellipse cx="68" cy="160" rx="30" ry="14" fill="#4CB82B" stroke="#2F7D32" stroke-width="3"/></g>
+  <g id="n4"><ellipse cx="132" cy="160" rx="30" ry="14" fill="#4CB82B" stroke="#2F7D32" stroke-width="3"/></g>
+  <g id="n5"><ellipse cx="100" cy="100" rx="46" ry="40" fill="#4CB82B" stroke="#2F7D32" stroke-width="4"/></g>
+  <g id="n6"><ellipse cx="84" cy="96" rx="10" ry="12" fill="#fff" stroke="#12330F" stroke-width="2"/></g>
+  <g id="n7"><ellipse cx="116" cy="96" rx="10" ry="12" fill="#fff" stroke="#12330F" stroke-width="2"/></g>
+  <g id="n8"><circle cx="84" cy="98" r="5" fill="#12330F"/></g>
+  <g id="n9"><circle cx="116" cy="98" r="5" fill="#12330F"/></g>
+  <g id="n10"><path d="M88 116 q12 8 24 0" stroke="#12330F" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+  <g id="n11"><ellipse cx="86" cy="52" rx="10" ry="22" fill="#4CB82B" stroke="#2F7D32" stroke-width="3"/></g>
+  <g id="n12"><ellipse cx="114" cy="52" rx="10" ry="22" fill="#4CB82B" stroke="#2F7D32" stroke-width="3"/></g>
+</svg>

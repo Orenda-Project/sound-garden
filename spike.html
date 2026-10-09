@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sprig spike</title>
+<style>body{margin:0;background:#FBF6EA;font:16px system-ui;text-align:center}#rig{display:inline-block}#rig svg{max-width:90vw;height:auto}#rig g{transform-box:fill-box;transform-origin:center}pre{white-space:pre-wrap}</style></head>
+<body><h1>Sprig spike: 12 nodes, thinking + look-at</h1><div id="rig"></div><pre id="stats">measuring...</pre>
+<script type="module">
+import svg from './sprig/spike-rig.svg?raw';
+const rig = document.getElementById('rig'); rig.innerHTML = svg;
+const g = id => rig.querySelector('#' + id);
+const loop = (id, kf, dur, delay = 0) => g(id).animate(kf, { duration: dur, delay, iterations: Infinity, easing: 'ease-in-out', direction: 'alternate' });
+// transform + opacity only. "thinking" = body breathing, leaf sway, blink; "look-at" = eyes/pupils drift
+loop('n1', [{ transform: 'scaleX(1)' }, { transform: 'scaleX(1.06)' }], 900);
+loop('n2', [{ transform: 'scaleY(1)' }, { transform: 'scaleY(1.03)' }], 900);
+loop('n3', [{ transform: 'rotate(-6deg)' }, { transform: 'rotate(6deg)' }], 700);
+loop('n4', [{ transform: 'rotate(6deg)' }, { transform: 'rotate(-6deg)' }], 700);
+loop('n5', [{ transform: 'translateY(0) scale(1)' }, { transform: 'translateY(-3px) scale(1.03)' }], 900);
+loop('n6', [{ transform: 'scaleY(1)' }, { transform: 'scaleY(.15)' }], 1600);
+loop('n7', [{ transform: 'scaleY(1)' }, { transform: 'scaleY(.15)' }], 1600);
+loop('n8', [{ transform: 'translate(-4px,0)' }, { transform: 'translate(4px,-2px)' }], 1100);
+loop('n9', [{ transform: 'translate(-4px,0)' }, { transform: 'translate(4px,-2px)' }], 1100);
+loop('n10', [{ transform: 'scaleX(1)', opacity: 1 }, { transform: 'scaleX(.8)', opacity: .8 }], 1200);
+loop('n11', [{ transform: 'rotate(-10deg)' }, { transform: 'rotate(4deg)' }], 800);
+loop('n12', [{ transform: 'rotate(10deg)' }, { transform: 'rotate(-4deg)' }], 800);
+// frame stats over 60 s (read these off the device, then write them into plan/spike.md)
+let last = performance.now(), n = 0, over = 0, t0 = last, run = true;
+const out = document.getElementById('stats');
+requestAnimationFrame(function f(t) {
+  const d = t - last; last = t; n++; if (d > 33.4) over++;
+  const s = (t - t0) / 1000;
+  if (run && s >= 60) run = false;
+  out.textContent = `nodes: 12\nframes: ${n}\nfps: ${(n / s).toFixed(1)}\nframes > 33 ms: ${over} (${(100 * over / n).toFixed(1)}%)\nelapsed: ${s.toFixed(0)} s${run ? '' : '  (done: pass = 30 fps and <= 5% over)'}`;
+  if (run) requestAnimationFrame(f);
+});
+</script></body></html>
