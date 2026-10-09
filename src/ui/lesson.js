@@ -56,7 +56,7 @@ export async function mount(el, lid) {
     const target = it.options.find(x => x.ok);
     if (o.ok) {
       fb.className = 'fb right'; setPose(sp, 'correct-small'); word.textContent = 'Yes';
-      snd.textContent = `the sound “${target.w}”`;
+      snd.textContent = it.printed ? `the word “${target.w}”` : "";   // oral items (L1.01): no letters on screen
       play('ui:good');
       if (!watered && !load().firstDay) { /* first ever */ }
       if (!watered) {
@@ -67,8 +67,8 @@ export async function mount(el, lid) {
       await wait(650);
     } else {
       fb.className = 'fb wrong'; setPose(sp, 'wrong-soft'); word.textContent = 'Try again';
-      snd.textContent = `it was “${target.w}”`;
-      const ex = Object.assign(document.createElement('button'), { className: 'example', type: 'button', textContent: '\u{1F50A} hear it' });
+      snd.textContent = it.printed ? `it was “${target.w}”` : "Listen to the right one";
+      const ex = Object.assign(document.createElement('button'), { className: 'example', type: 'button', textContent: '\u{1F50A}' });
       ex.addEventListener('click', () => play(target.key)); fb.append(ex);
       await play(target.key); await wait(500);
     }
