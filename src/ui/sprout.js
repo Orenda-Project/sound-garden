@@ -23,7 +23,7 @@ export function mount(el, lid) {
     <h1 class="disp">Sprouted!</h1>
     <button class="snd" type="button" aria-label="Hear it again">${speaker(26)}<span>${sound}</span></button>
     <div class="hero"><div class="rise"><div class="sp"></div></div></div>
-    <svg class="bigmound" viewBox="-170 -100 340 110" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:96px;width:100%;z-index:2;height:auto">${mound(2.6)}</svg>
+    <svg class="bigmound" viewBox="-170 -100 340 110" aria-hidden="true" >${mound(2.6)}</svg>
     <a class="btn" data-sprout-go href="${first ? '#/remind' : '#/home'}">${label('garden', 'See my garden')}</a></main>`;
   const sp = createSprig(el.querySelector('.sp'), { stage: 1 });
   onLeave(() => sp.destroy());

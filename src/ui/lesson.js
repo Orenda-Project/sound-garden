@@ -94,16 +94,16 @@ export async function mount(el, lid) {
       return true;
     };
     cue.querySelector('.say').onclick = () => { if (state === 'ask') { stop(); const me = ++token; playPrompt(me).then(() => { if (me === token && state === 'ask') sp.setState('listening'); }); } };
-    opts.replaceChildren();
+    opts.replaceChildren(); opts.dataset.item = String(q.i) + ':' + q.attempt;
     const order = it.options.map((o, i) => [o, i]).sort((a, b) => ((a[1] * 7 + q.i) % 5) - ((b[1] * 7 + q.i) % 5));  // stable shuffle
     order.forEach(([o], n) => {
       const t = document.createElement('div'); t.className = 'tile';
       const b = document.createElement('button'); b.className = 'opt'; b.type = 'button';
       b.setAttribute('aria-label', it.printed ? `Option ${n + 1}: ${o.w}` : `Option ${n + 1}`);
-      b.innerHTML = it.printed ? `<span class="w${o.w.length > 3 ? ' long' : ''}">${esc(o.w)}</span>` : `${hasPicture(o.w) ? `<span class="pic">${picture(o.w, 46)}</span>` : ''}<span class="n">${n + 1}</span>`;
+      b.innerHTML = it.printed ? `<span class="w${o.w.length > 3 ? ' long' : ''}">${esc(o.w)}</span>` : `${hasPicture(o.w) ? `<span class="pic">${picture(o.w, 88)}</span>` : ''}<span class="n">${n + 1}</span>`;
       if (TEST && o.ok) b.dataset.correct = 'true';
       b.addEventListener('click', () => pick(it, o, t, my));
-      t.insertAdjacentHTML('beforeend', `<div class="tap">${ARROW}<span>Tap this one</span></div><div class="tag" aria-hidden="true">${speaker(20)}</div>`);
+      t.insertAdjacentHTML('beforeend', `<div class="tap">${ARROW}<span>Tap this one</span></div>`);
       if (!it.printed) {   // oral tiles: a separate speaker button replays the sound before answering
         const r = document.createElement('button'); r.className = 'rep'; r.type = 'button'; r.setAttribute('aria-label', `Hear option ${n + 1}`); r.innerHTML = speaker(26);
         r.addEventListener('click', async () => { if (state !== 'ask') return; stop(); token++; const me = token; b.classList.add('playing'); sp.setState('listening'); await seq([o.key], 0); b.classList.remove('playing'); });
@@ -143,7 +143,7 @@ export async function mount(el, lid) {
       if (!watered) {
         watered = true; window.__sg.wateredAt = performance.now(); chip.classList.add('wet');
         { const L = load(); save({ stage: Math.max(1, L.stage), firstDay: L.firstDay || new Date().toISOString().slice(0, 10), plants: { ...L.plants, [lid]: L.plants?.[lid] || { stage: 1, at: Date.now() } } }); }
-        peek(document.body);
+        peek(document.body, fb);
       }
     } else {
       streak = 0;

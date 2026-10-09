@@ -12,6 +12,18 @@ if "--url" not in sys.argv:
     for _ in range(50):
         try: urllib.request.urlopen(url); break
         except Exception: time.sleep(.2)
+
+CLIP_JS = """() => { const sel = '.opt,.tile,.btn,.fb,.cue .pic,.cue .say,.cue .pic svg,.opt .pic svg,.sprig,.done .pot,[data-plant],[data-plot],.chip,.bubble,.snd,.card,.sign,.seed,.blocks i,.peek .patch,.rep,.tap,.stagebox,.sprout h1,h1';
+  const vw = innerWidth, vh = innerHeight, bad = [], T = 1.5;
+  for (const e of document.querySelectorAll(sel)) {
+    const r = e.getBoundingClientRect(); if (!r.width || !r.height) continue; const st = getComputedStyle(e); if (st.visibility === 'hidden' || st.display === 'none') continue;
+    const name = (e.className && e.className.baseVal !== undefined ? e.className.baseVal : e.className) || e.tagName;
+    if (r.left < -T || r.top < -T || r.right > vw + T || r.bottom > vh + T) bad.push(name + ' outside viewport ' + [r.left, r.top, r.right, r.bottom].map(Math.round));
+    for (let a = e.parentElement; a && a !== document.body; a = a.parentElement) {
+      const o = getComputedStyle(a); if (o.overflow === 'visible' && o.overflowX === 'visible') continue; if (a.id === 'app') continue;
+      const q = a.getBoundingClientRect(); if (r.left < q.left - T || r.right > q.right + T || r.top < q.top - T || r.bottom > q.bottom + T) bad.push(name + ' clipped by ' + (a.className.baseVal ?? a.className)); break;
+    }
+  } return bad; }"""
 fails = []
 def ck(name, ok, info=""):
     print(("PASS " if ok else "FAIL ") + name + (f"  [{info}]" if info else ""), flush=True)
@@ -104,6 +116,41 @@ try:
         n_anim = pg.evaluate("document.getAnimations().length")
         ck("S3 demo: at most 12 animated nodes (Sprig included)", n_anim <= 12, str(n_anim))
         pg.screenshot(path="shots/m1/ours-home-demo.png")
+        # ---- layout sweep: nothing clips or leaves the viewport at 390x844 and 360x740 ----
+        for (vw, vh) in [(390, 844), (360, 740)]:
+            cx = b.new_context(viewport={"width": vw, "height": vh}); pz = cx.new_page()
+            pz.route("**/fonts.googleapis.com/**", lambda r: r.fulfill(status=200, content_type="text/css", body=""))
+            bad = []
+            def sweep(name, extra=None):
+                time.sleep(.5); o = pz.evaluate(CLIP_JS); bad.extend(f"{name}: {x}" for x in o)
+            pz.goto(url + "?test=1"); pz.wait_for_selector(".seed"); sweep("landing")
+            pz.click(".seed"); pz.wait_for_selector("[data-teach-go]"); sweep("teach oral")
+            pz.click("[data-teach-go]"); pz.wait_for_selector(".opt"); sweep("check oral")
+            pz.locator(".opt:not([data-correct])").first.click(); pz.wait_for_selector(".fb.wrong"); sweep("wrong")
+            before = pz.evaluate("document.querySelector('.opts').dataset.item")
+            pz.click(".tile.target .opt", force=True); pz.wait_for_function("!document.querySelector('.fb.wrong')", timeout=6000); time.sleep(.3)
+            after = pz.evaluate("document.querySelector('.opts').dataset.item")
+            ck(f"{vw}x{vh} wrong state: tapping the hinted tile advances to the next item", before != after, f"{before} -> {after}")
+            pz.wait_for_selector(".opt[data-correct]"); pz.click(".opt[data-correct]"); pz.wait_for_selector(".fb.right"); time.sleep(.3); sweep("right+peek")
+            ov = pz.evaluate("(()=>{const p=document.querySelector('.peek .patch');if(!p)return null;const a=p.getBoundingClientRect();return ['.opts','.cta'].some(s=>{const r=document.querySelector(s).getBoundingClientRect();return a.bottom>r.top&&a.top<r.bottom})})()")
+            ck(f"{vw}x{vh} peek never overlaps tiles or the Next bar", ov is False, str(ov))
+            for _ in range(60):
+                if pz.locator(".done").count(): break
+                try:
+                    if pz.locator(".fb.right").count(): pz.click("[data-next]", timeout=1500)
+                    else: pz.wait_for_selector(".opt[data-correct]", timeout=3000); pz.click(".opt[data-correct]", timeout=1500)
+                except Exception: pass
+                time.sleep(.2)
+            sweep("sitting end")
+            pz.click(".done .btn"); pz.wait_for_selector(".sprout"); time.sleep(1.3); sweep("sprout")
+            pz.click(".sprout .btn"); pz.wait_for_selector(".remind"); sweep("remind")
+            pz.click("[data-notnow]"); pz.wait_for_selector(".home"); sweep("home")
+            pz.click("[data-cta]"); pz.wait_for_selector("[data-teach-go]"); sweep("teach letters")
+            pz.click("[data-teach-go]"); pz.wait_for_selector(".opt"); sweep("check letters")
+            pz.locator(".opt:not([data-correct])").first.click(); pz.wait_for_selector(".fb.wrong"); sweep("wrong letters")
+            pz.goto(url + "?test=1&demo=1#/home"); pz.reload(); pz.wait_for_selector(".home"); sweep("home demo")
+            ck(f"{vw}x{vh} no element clipped or outside the viewport (13 screens)", not bad, "; ".join(bad[:6]))
+            cx.close()
         # a failed sitting still grows the seed and offers Again, never a dead end
         pf = b.new_context(viewport={"width": 390, "height": 844}).new_page(); pf.route("**/fonts.googleapis.com/**", lambda r: r.fulfill(status=200, content_type="text/css", body=""))
         pf.goto(url + "?test=1#/lesson/L1.01"); pf.wait_for_selector("[data-teach-go]"); pf.click("[data-teach-go]")
