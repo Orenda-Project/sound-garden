@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+"""M0 drive script: mouse only, 390x844. Run `npm run build` first.
+   python3 tools/drive_m0.py [--url https://.../]   (default: starts `npm run preview`)"""
+import json, os, subprocess, sys, time, gzip, urllib.request
+from playwright.sync_api import sync_playwright
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); os.chdir(ROOT)
+os.makedirs("shots/m0", exist_ok=True)
+url = sys.argv[sys.argv.index("--url") + 1] if "--url" in sys.argv else "http://localhost:4173/"
+srv = None
+if "--url" not in sys.argv:
+    srv = subprocess.Popen(["npm", "run", "preview"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    for _ in range(50):
+        try: urllib.request.urlopen(url); break
+        except Exception: time.sleep(.2)
+fails = []
+def ck(name, ok, info=""):
+    print(("PASS " if ok else "FAIL ") + name + (f"  [{info}]" if info else ""), flush=True)
+    if not ok: fails.append(name)
+try:
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        ctx = b.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2)
+        pg = ctx.new_page()
+        errs, reqs, redirects = [], [], []
+        pg.on("console", lambda m: errs.append(m.text) if m.type == "error" else None)
+        pg.on("pageerror", lambda e: errs.append(str(e)))
+        pg.on("request", lambda r: (reqs.append(r.url), redirects.append(r.url) if r.redirected_from else None))
+        pg.goto(url + "?test=1"); pg.wait_for_selector(".seed")
+        pre_tap = list(reqs)
+        ck("zero input/select/textarea (landing)", pg.locator("input, select, textarea").count() == 0)
+        pg.screenshot(path="shots/m0/ours-landing.png")
+        n_before = len([r for r in reqs if r.endswith(".ogg")])
+        pg.click(".seed")
+        pg.wait_for_selector(".opt", timeout=8000)
+        time.sleep(1.2)
+        ogg = [r for r in reqs if r.endswith(".ogg")]
+        ck("audio .ogg requested after seed tap", len(ogg) > n_before, f"{len(ogg)} requests")
+        ck("one tap from / to first lesson item", pg.url.endswith("#/lesson/L1.01"))
+        ck("zero input/select/textarea (lesson)", pg.locator("input, select, textarea").count() == 0)
+        pg.screenshot(path="shots/m0/ours-question.png")
+        pg.locator(".opt:not([data-correct])").first.click()
+        pg.wait_for_selector(".fb.wrong"); time.sleep(.3); pg.screenshot(path="shots/m0/ours-wrong.png")
+        ck("no watering on a wrong answer", pg.evaluate("window.__sg.wateredAt") is None)
+        pg.wait_for_function("document.querySelector('.fb') && !document.querySelector('.fb.wrong')", timeout=6000)
+        pg.wait_for_selector(".opt[data-correct]"); time.sleep(.2)
+        pg.click(".opt[data-correct]")
+        pg.wait_for_selector(".fb.right"); time.sleep(.3); pg.screenshot(path="shots/m0/ours-right.png")
+        t = pg.evaluate("[window.__sg.tapAt, window.__sg.wateredAt]")
+        dt = (t[1] - t[0]) if t[0] and t[1] else None
+        ck("first watering under 90 s after seed tap", dt is not None and dt < 90000, f"{dt:.0f} ms" if dt else "no watering")
+        ck("garden peek shown", pg.locator(".peek").count() == 1)
+        pg.wait_for_function("document.querySelectorAll('.opt').length>0 && !document.querySelector('.fb.right')", timeout=4000)
+        peek_alive = pg.locator(".peek").count() == 1
+        before = pg.evaluate("document.querySelector('.bar i').style.transform")
+        pg.click(".opt[data-correct]")
+        pg.wait_for_selector(".fb.right", timeout=3000)
+        ck("tap during peek reaches the next item, peek cut", pg.locator(".peek").count() == 0, f"peek alive at click: {peek_alive}")
+        time.sleep(.9)
+        ck("progress bar advanced", pg.evaluate("document.querySelector('.bar i').style.transform") != before)
+        for _ in range(40):
+            if pg.locator(".done").count(): break
+            try: pg.wait_for_selector(".opt[data-correct]", timeout=3000); time.sleep(.15); pg.click(".opt[data-correct]", timeout=1500)
+            except Exception: pass
+            time.sleep(.8)
+        ck("S5 sitting done reached", pg.locator(".done").count() == 1 and "Sitting 1 of 4 done" in pg.inner_text(".done"))
+        ck("no console errors", not errs, "; ".join(errs[:3]))
+        origins = {r.split("/")[2] for r in reqs if r.startswith("http")}
+        ck("one origin, no redirects", len(origins) == 1 and not redirects, f"{origins} redirects={len(redirects)}")
+        gz = sum(len(gzip.compress(urllib.request.urlopen(u).read())) for u in pre_tap if u.startswith("http"))
+        ck("pre-tap requests under 90 KB gzip (real requests)", gz < 90 * 1024, f"{gz/1024:.1f} KB across {len(pre_tap)} requests")
+        AM = json.load(open("public/data/audio-map.json")); files = {v["file"] for v in AM.values() if v["file"]}
+        bad = [u for u in ogg if u.rsplit("/", 1)[1] not in files]
+        ck("every requested audio file is in audio-map", not bad, str(bad[:3]))
+        b.close()
+finally:
+    if srv: srv.terminate()
+print("\nRESULT:", "GREEN" if not fails else f"RED ({', '.join(fails)})")
+sys.exit(1 if fails else 0)
