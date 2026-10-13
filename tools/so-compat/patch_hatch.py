@@ -14,4 +14,7 @@ if 'hatch-seed' not in s:
     s = s.replace('    page.wait_for_selector(".splash-play, .whocard"); time.sleep(0.8)\n', '    page.wait_for_selector(".hatch-seed, .splash-play, .whocard"); time.sleep(0.8)\n' + TAP, 1)
     s = s.replace('    page.goto(f"http://localhost:{PORT}/?fast")      # the rest at test speed (the first load already made nothing: still no profile)\n    page.wait_for_selector(".splash-play, .whocard"); settle(page, "who", 20)', '    page.goto(f"http://localhost:{PORT}/?fast")      # the rest at test speed (the first load already made nothing: still no profile)\n    page.wait_for_selector(".hatch-seed, .splash-play, .whocard"); settle(page, "who", 20)', 1)
     p.write_text(s)
-print('hatch tap patched')
+for f in T.glob('*.py'):
+    t = f.read_text()
+    if 'page.title().endswith("Sound Garden")' in t: f.write_text(t.replace('page.title().endswith("Sound Garden")', '"Sound Garden" in page.title()'))   # the site title is now 'Sound Garden - learn to read English, free'
+print('hatch tap + title patched')

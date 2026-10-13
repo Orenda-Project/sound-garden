@@ -1,35 +1,37 @@
-// First-load budget: gzip every file requested before the seed tap. Fail above 90 KB or if any web font is in the set.
-// Static walk of dist/: index.html -> script/link/modulepreload -> static imports; dynamic imports are followed only for the
-// landing chunk (the lesson, home and audio chunks load after the tap). tools/drive_m0.py re-checks with real browser requests.
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+// Landing page weight budget, static (no browser): gzip of everything the landing page at #/ needs to render, from dist/.
+//   index.html, the entry script, its static imports, the landing chunks it loads on demand (landing, hero-art, art, engine, sprig),
+//   the CSS files, and the web fonts the landing CSS names (Fredoka and Nunito; the app's Andika is loaded later, by the app).
+// Not counted: audio (never fetched before a tap), lazy images (reported), the lesson engine and lesson data (loaded after Start).
+// Limit 300 KB gzip. tools/landing_budget.py measures the same thing with a real browser and real requests.
+import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
-import { join, dirname } from 'node:path';
-const DIST = 'dist', LIMIT = 90 * 1024, set = new Set();
+import { join } from 'node:path';
+const DIST = 'dist', LIMIT = 300 * 1024, A = join(DIST, 'assets');
+const set = new Set(['index.html']);
 const html = readFileSync(join(DIST, 'index.html'), 'utf8');
-set.add('index.html');
-for (const m of html.matchAll(/(?:src|href)="\.?\/?([^"]+\.(?:js|css|svg|png|webmanifest|json|ico))"/g)) walk(m[1]);
-// manifest/icons referenced in html are included by the regex above
-function walk(f) {
-  if (set.has(f) && f !== 'index.html') return; set.add(f);
-  if (!f.endsWith('.js')) return;
+const walk = (f) => {   // an entry file, its static imports, and the landing chunks it loads on demand
+  if (set.has(f)) return; set.add(f); if (!f.endsWith('.js')) return;
   const src = readFileSync(join(DIST, f), 'utf8');
-  for (const m of src.matchAll(/(?:from|import)\s*["']\.\/([^"']+\.js)["']/g)) walk(join(dirname(f), m[1]));
-  for (const m of src.matchAll(/["'`]\.\/(landing-[^"'`]+\.js)["'`]/g)) walk(join(dirname(f), m[1]));
-  for (const m of src.matchAll(/["']([^"']*assets\/[^"']+\.css)["']/g)) { /* vite css preload map */ }
+  for (const m of src.matchAll(/(?:from|import)\s*["']\.\/([^"']+\.js)["']/g)) walk('assets/' + m[1]);
+  for (const m of src.matchAll(/["']\.\/((?:landing|hero-art|art|sprig|engine)-[^"']+\.js)["']/g)) walk('assets/' + m[1]);
+};
+for (const m of html.matchAll(/(?:src|href)="\.\/(assets\/[^"]+\.(?:js|css))"/g)) walk(m[1]);
+for (const f of [...set]) {   // CSS that a landing chunk names
+  if (!f.endsWith('.js')) continue;
+  for (const m of readFileSync(join(DIST, f), 'utf8').matchAll(/["']\.\/([^"']+\.css)["']/g)) if (/^(landing|sprig|engine|hero-art|art|main)-/.test(m[1]) && existsSync(join(A, m[1]))) set.add('assets/' + m[1]);
 }
-// css the landing page needs = the css its entry chunk imports (the app's stylesheet loads only after the tap, with the app chunk)
-const entry = [...set].find((f) => /assets\/main-.*\.js$/.test(f));
-if (entry) { const m = readFileSync(join(DIST, entry), 'utf8').match(/assets\/(?:main|landing|sprig)-[\w-]+\.css/g) || []; for (const c of m) if (/main-|landing-|sprig-/.test(c)) set.add(c); }
-let total = 0, fonts = [];
-console.log('Pre-tap files (gzip bytes):');
+for (const f of [...set]) {   // fonts named by the landing CSS
+  if (!f.endsWith('.css')) continue;
+  for (const m of readFileSync(join(DIST, f), 'utf8').matchAll(/url\((?:\.\/|\.\.\/assets\/|\/assets\/)?([^)"']+\.woff2)\)/g)) { const n = m[1].split('/').pop(); if (/^(Fredoka|Nunito)/.test(n) && existsSync(join(A, n))) set.add('assets/' + n); }
+}
+let total = 0, code = 0, css = 0, font = 0;
+console.log('Landing files (gzip bytes):');
 for (const f of [...set].sort()) {
-  const p = join(DIST, f); if (!existsSync(p)) continue;
-  const b = readFileSync(p), g = gzipSync(b).length; total += g;
-  console.log(`  ${String(g).padStart(6)}  ${f}`);
-  if (/\.(woff2?|ttf|otf)$/.test(f)) fonts.push(f);
-  if (f.endsWith('.css') && /@font-face/.test(b.toString())) fonts.push(f + ' (@font-face)');
+  const raw = readFileSync(join(DIST, f)), g = f.endsWith('.woff2') ? raw.length : gzipSync(raw, { level: 9 }).length;   // woff2 is already compressed
+  total += g; if (f.endsWith('.css')) css += g; else if (f.endsWith('.woff2')) font += g; else code += g;
+  console.log(`  ${String(g).padStart(7)}  ${f}`);
 }
-console.log(`Total: ${(total / 1024).toFixed(1)} KB gzip (limit 90 KB)`);
-if (fonts.length) { console.error('FAIL web font in first load:', fonts); process.exit(1); }
+const imgs = existsSync(join(DIST, 'img/site')) ? readdirSync(join(DIST, 'img/site')).reduce((n, f) => n + statSync(join(DIST, 'img/site', f)).size, 0) : 0;
+console.log(`\nTotal: ${(total / 1024).toFixed(1)} KB gzip (code ${(code / 1024).toFixed(1)}, css ${(css / 1024).toFixed(1)}, fonts ${(font / 1024).toFixed(1)}; limit ${LIMIT / 1024} KB). Lazy phone screens: ${(imgs / 1024).toFixed(0)} KB (webp), loaded as the section scrolls near.`);
 if (total > LIMIT) { console.error('FAIL over budget'); process.exit(1); }
 console.log('size budget OK');

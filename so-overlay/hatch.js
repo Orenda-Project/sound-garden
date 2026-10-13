@@ -6,7 +6,7 @@ import { tilo } from './tilo.js';
 import { mark, isFast } from './audio.js';
 import { sfx } from './sfx.js';
 import { createSprig } from '../../../src/sprig/sprig.js';
-import { Sp, addActor, removeActor, springVal, popIn, clamp, rnd, NS, isCalm } from '../../../src/motion/engine.js';
+import { Sp, addActor, removeActor, springVal, popIn, confetti, clamp, rnd, NS, isCalm } from '../../../src/motion/engine.js';
 
 const ZIG = [[8, 100], [26, 86], [40, 102], [56, 88], [70, 104], [84, 88], [98, 102], [114, 90]];
 const BODY = 'M60 28 C92 30 106 66 101 94 C97 116 79 123 60 123 C41 123 23 116 19 94 C14 66 28 30 60 28Z';
@@ -50,7 +50,7 @@ export async function hatchSplash(app) {
   const actor = {
     get active() { return s.isConnected; },
     update(dt, h2, n, now) {
-      if (st.phase === 'egg' && now > st.nextWob) { sp.rot.kick(Math.random() < 0.5 ? 150 : -150); sp.sy.x = 0.94; st.nextWob = now + rnd(1.8, 3); }
+      if (st.phase === 'egg' && now > st.nextWob) { sp.rot.kick(Math.random() < 0.5 ? 210 : -210); sp.sy.x = 0.9; st.nextWob = now + rnd(1.1, 2.1); }
       for (let i = 0; i < n; i++) { for (const k in sp) sp[k].step(h2); sp.rot.t = 0; }
       const sh = sp.shake.x * Math.sin(now * 42), sy = sp.sy.x, sx = clamp(1 / Math.sqrt(sy), 0.8, 1.3);
       N.inn.setAttribute('transform', `translate(60 123) rotate(${(sh + sp.rot.x).toFixed(2)}) scale(${sx.toFixed(3)} ${sy.toFixed(3)}) translate(-60 -123)`);
@@ -77,6 +77,7 @@ export async function hatchSplash(app) {
     N.cr.style.display = 'none';
     [['pL', 60, 70, -210, -330, -6], ['pM', 100, 56, 150, -430, 3], ['pR', 140, 70, 240, -300, 7]].forEach(([k, cx, cy, vx, vy, vr]) => st.pieces.push({ el: N[k], cx: cx - 40, cy, x: 0, y: 0, r: 0, vx: vx + rnd(-30, 30), vy, vr, rest: false, b: 0 }));
     for (let i = 0; i < 14; i++) spawnStar(60 + rnd(-40, 40), rnd(20, 90), { vx: rnd(-50, 50), vy: rnd(-130, -50), g: 90, life: rnd(0.8, 1.3), size: rnd(5, 10) });
+    if (!isCalm()) confetti(document.body, [[0, 44, 0.5, 0.62, 0.9]]);
     spot.style.opacity = 1; spot.classList.add('on');
     sprig = createSprig(spot, { stage: 1 }); sprig.setState('wake'); sfx.hello?.();
     L(() => sprig.setState('greet'), 700);
@@ -86,8 +87,8 @@ export async function hatchSplash(app) {
   function crack() {
     if (st.phase !== 'egg') return; st.phase = 'hatching'; hint.hidden = true;
     if (isCalm()) { pop(); return; }
-    sp.sy.t = 0.8;
-    L(() => { sp.sy.t = 1.07; sp.shake.t = 5; sp.k1.t = 1; spawnStar(60, 40, { vx: 20, vy: -70, g: 60, size: 6, life: 0.7 }); }, 150);
+    sp.sy.t = 0.72;
+    L(() => { sp.sy.t = 1.12; sp.shake.t = 6; sp.k1.t = 1; spawnStar(60, 40, { vx: 20, vy: -70, g: 60, size: 6, life: 0.7 }); }, 150);
     L(() => { sp.shake.t = 9; sp.k2.t = 1; sp.sy.t = 1.03; spawnStar(96, 70, { vx: 60, vy: -60, g: 60, size: 6, life: 0.7 }); }, 360);
     L(() => { sp.shake.t = 14; sp.k3.t = 1; sp.sy.t = 1; spawnStar(26, 70, { vx: -60, vy: -60, g: 60, size: 6, life: 0.7 }); sp.fl.t = 0.16; }, 570);
     L(pop, 740);

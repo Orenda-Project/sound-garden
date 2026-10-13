@@ -12,7 +12,7 @@ import { growthStage } from './garden-scene.js';
 import { privacyScreen } from './privacy.js';
 import { guideHub, guideSection } from './guide.js';
 import { initMotion } from './motion.js';
-import { screenIn, stagIn, endFx } from './fx.js';
+import { screenIn, stagIn, endFx, watchSteps, meadowIn } from './fx.js';
 import { sayItScreen } from './sayit.js';   // Sound it out
 import { practiceScreen } from './practice-hub.js';   // Practice hub
 import './screens/session/index.js'; // Levels 5-7 practice (Library + session screens)
@@ -33,7 +33,7 @@ const app = {
     tilo.setHome(null); root.replaceChildren(el); window.scrollTo(0, 0); teacher.newScreen();
     const c = el.classList;
     if (c.contains('home') || c.contains('privacy') || c.contains('guide')) c.add('enter-fade');
-    screenIn(el, nextDir); stagIn(el);
+    screenIn(el, nextDir); stagIn(el); meadowIn(el);
     if (c.contains('endscreen') || c.contains('onb-done')) endFx(el, { passed: !/practice/i.test(el.querySelector('h2')?.textContent || '') });
     nextDir = 'fwd';
     app.onScreen?.(el);   // Sound Garden shell: keep the URL and the browser Back button in step (src/play.js)
@@ -71,7 +71,7 @@ window.__so.endDemo = (key, o) => { demoEnd(app, profile, key, o); return true; 
 let started = false;
 // Called by the Sound Garden shell (src/play.js). Idempotent: a second call just boots again into the same page.
 export async function start(el, { deep } = {}) {
-  root = el;
+  root = el; watchSteps(el);
   if (!started) { started = true; teacher.start(); initNative(app); }
   app.deep = deep || null;
   return app.boot();

@@ -2,7 +2,7 @@
 // Motion = CSS keyframes + WAAPI (Sprig), transform and opacity only. One rAF-throttled scroll handler writes CSS variables; nothing reads layout in it.
 import { logoMark, speaker } from '../art/art.js';
 import { createSprig } from '../sprig/sprig.js';
-import { popIn, springVal, bump, isCalm } from '../motion/engine.js';
+import { popIn, springVal, bump, isCalm, Sp, addActor, toast } from '../motion/engine.js';
 import { heroLayers, cloudSvg, sunSvg, butterfly, sproutPlant, SPROUT_COLORS } from './hero-art.js';
 import sounds from './sounds.json';
 
@@ -38,7 +38,7 @@ export function mount(el) {
   const tiles = (arr) => arr.map(([p, g, w, id]) => `<button class="snd" type="button" data-id="${id}" data-g="${g}" data-w="${w}" aria-label="Hear the sound ${g}, as in ${w}"><b>${g}</b><i>${w}</i></button>`).join('');
   el.innerHTML = `<div class="landing" id="top"><a class="skip" href="#/" data-go="main">Skip to content</a>
 <header class="nav" role="banner"><a class="brand" href="#/" data-go="top">${logoMark(34)}<span>Sound Garden</span></a>
-  <nav aria-label="Sections"><a href="#/" data-go="how">How it works</a><a href="#/" data-go="path">The course</a><a href="#/" data-go="sounds">Sounds</a><a href="#/teach">For grown-ups</a><a href="#/" data-go="faq">FAQ</a></nav>
+  <nav aria-label="Sections"><a href="#/" data-go="how">How it works</a><a href="#/" data-go="see">See it</a><a href="#/" data-go="path">The course</a><a href="#/" data-go="sounds">Sounds</a><a href="#/teach">For grown-ups</a><a href="#/" data-go="faq">FAQ</a></nav>
   <a class="navgo" href="#/play">Start</a></header>
 
 <section class="hero" aria-labelledby="h1">
@@ -71,6 +71,15 @@ export function mount(el) {
     <li class="step rv" style="--d:.12s"><div class="art art-say"><svg viewBox="0 0 160 120" aria-hidden="true"><ellipse cx="80" cy="108" rx="52" ry="7" fill="#12330F" opacity=".14"/><g class="mouthg"><path d="M22 58C40 28 120 28 138 58 124 92 36 92 22 58Z" fill="#F29B73" stroke="#A8643A" stroke-width="5" stroke-linejoin="round"/><ellipse class="mouth" cx="80" cy="60" rx="34" ry="12" fill="#7A2E1B"/><path d="M52 52h56" stroke="#fff" stroke-width="9" stroke-linecap="round"/></g><g class="say-waves" fill="none" stroke="#2F7D32" stroke-width="5" stroke-linecap="round"><path d="M148 38q10 20 0 40"/><path d="M158 28q16 30 0 60" opacity=".6"/></g></svg></div><h3><span>2</span> Say</h3><p>Say it back. Sounds come first, never letter names, so reading starts to make sense.</p></li>
     <li class="step rv" style="--d:.24s"><div class="art art-read"><div class="slide"><b class="t1">s</b><b class="t2">a</b><b class="t3">t</b></div><div class="word" aria-hidden="true">sat</div></div><h3><span>3</span> Read</h3><p>Slide the sounds together into a word, then into a short sentence. The whole word is always said.</p></li>
   </ol></div></section>
+
+<section class="sec show" id="see" aria-labelledby="see-h"><div class="wrap">
+  <p class="kick rv">See it</p><h2 id="see-h" class="rv">What a lesson feels like</h2>
+  <p class="sub rv">Real screens from the app. Tap a card, hear a sound, watch your garden grow. Sprig reacts to every answer.</p>
+  <div class="phones" id="phones">
+    <figure class="phone p1"><div class="screenwrap"><img src="./img/site/app-hear.webp" width="390" height="844" loading="lazy" decoding="async" alt="A lesson screen: the sound m, the word mountain, and Sprig saying let's begin."></div><figcaption>Hear it, say it</figcaption></figure>
+    <figure class="phone p2"><div class="screenwrap"><img src="./img/site/app-home.webp" width="390" height="844" loading="lazy" decoding="async" alt="The garden: three flowers in bloom, a seed ready to plant, and a big Play button."></div><figcaption>Your garden grows</figcaption></figure>
+    <figure class="phone p3"><div class="screenwrap"><img src="./img/site/app-done.webp" width="390" height="844" loading="lazy" decoding="async" alt="The lesson is done: three stars, Sprig cheering, a sticker, and the plant that grew."></div><figcaption>Every lesson blooms</figcaption></figure>
+  </div></div></section>
 
 <section class="sec path" id="path" aria-labelledby="path-h"><div class="wrap">
   <p class="kick rv">The course</p><h2 id="path-h" class="rv">A garden that grows from seed to story</h2>
@@ -127,10 +136,11 @@ function wire(el) {
   const mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   const stored = () => { try { return localStorage.getItem('sg-calm') === '1'; } catch { return false; } };
   const still = /[?&]still=1/.test(location.href) || /[?&]still=1/.test(location.search);
+  if (still) document.documentElement.dataset.still = '1';
   const applyCalm = () => { document.documentElement.classList.toggle('calm', stored() || !!mq?.matches || still); setCalmBtn(); };
   const calmBtn = root.querySelector('#calm');
   function setCalmBtn() { const on = stored() || !!mq?.matches; calmBtn.setAttribute('aria-pressed', String(on)); calmBtn.querySelector('b').textContent = on ? 'on' : 'off'; }
-  calmBtn.addEventListener('click', () => { try { localStorage.setItem('sg-calm', stored() ? '0' : '1'); } catch { /* private mode */ } applyCalm(); heroSprig?.setCalm(calmOn()); footSprig?.setCalm(calmOn()); });
+  calmBtn.addEventListener('click', () => { try { localStorage.setItem('sg-calm', stored() ? '0' : '1'); } catch { /* private mode */ } applyCalm(); heroSprig?.setCalm(calmOn()); footSprig?.setCalm(calmOn()); toast(stored() ? 'Calm motion is on' : 'Calm motion is off'); });
   applyCalm();
 
   // start: the tap is the user gesture the browser wants before the first sound plays in the app
@@ -138,6 +148,7 @@ function wire(el) {
   // in-page links scroll smoothly (the hash belongs to the router)
   root.querySelectorAll('[data-go]').forEach((a) => a.addEventListener('click', (e) => {
     e.preventDefault(); const t = document.getElementById(a.dataset.go); if (!t) return;
+    root.classList.add('full'); setTimeout(() => root.classList.remove('full'), 1400);   // real section heights while the page scrolls there
     t.scrollIntoView({ behavior: calmOn() ? 'auto' : 'smooth', block: 'start' }); t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true });
   }));
 
@@ -152,6 +163,11 @@ function wire(el) {
   greetT = setTimeout(hello, 1200);
   wrap.addEventListener('click', (e) => { if (e.detail === 0) heroSprig?.setState('tap-react'); });   // a keyboard press (a mouse or finger press is already handled by the rig)
   const hero = root.querySelector('.hero');
+  // the hills slide against each other as the pointer moves (a spring on one number, written as a CSS variable; far layers move least)
+  const par = new Sp(0, 60, 12); let parOn = false;
+  const parAct = { get active() { return parOn && !isCalm() && hero.isConnected; }, update(dt, h, n) { for (let i = 0; i < n; i++) par.step(h); hero.style.setProperty('--px', par.x.toFixed(3)); if (par.rest && par.t === 0) parOn = false; } };
+  hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); par.t = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - 0.5) * 2)); if (!parOn) { parOn = true; addActor(parAct); } }, { passive: true });
+  hero.addEventListener('pointerleave', () => { par.t = 0; });
   hero.addEventListener('pointermove', (e) => heroSprig?.lookAtClient(e.clientX, e.clientY), { passive: true });
   // the footer Sprig wakes when it scrolls in
   const wake = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && !calmOn()) { footSprig?.setState('idle'); footSprig?.setState('wake'); } }), { threshold: 0.6 }); wake.observe(root.querySelector('.fcta'));
@@ -187,6 +203,14 @@ function wire(el) {
     });
   }, { threshold: 0.16, rootMargin: '0px 0px -6% 0px' });
   root.querySelectorAll('.rv').forEach((n) => io.observe(n));
+  // the phones lean toward the pointer (a spring per phone, transform only)
+  const phones = [...root.querySelectorAll('.phone')];
+  if (phones.length && matchMedia('(hover: hover)').matches) {
+    const st = phones.map(() => ({ x: new Sp(0, 90, 11), y: new Sp(0, 90, 11) })); let on = false;
+    const act = { get active() { return on && !isCalm() && root.isConnected; }, update(dt, h, n) { phones.forEach((ph, i) => { for (let k = 0; k < n; k++) { st[i].x.step(h); st[i].y.step(h); } ph.style.setProperty('--rx', st[i].y.x.toFixed(2) + 'deg'); ph.style.setProperty('--ry', st[i].x.x.toFixed(2) + 'deg'); }); if (!st.some((q) => Math.abs(q.x.x) > 0.05 || Math.abs(q.y.x) > 0.05 || Math.abs(q.x.t) > 0)) on = false; } };
+    const sec = root.querySelector('#see'); sec.addEventListener('pointermove', (e) => { const r = sec.getBoundingClientRect(); const nx = (e.clientX - r.left) / r.width - 0.5, ny = (e.clientY - r.top) / r.height - 0.5; st.forEach((q, i) => { q.x.t = nx * (8 + i * 2); q.y.t = -ny * 6; }); on = true; addActor(act); }, { passive: true });
+    sec.addEventListener('pointerleave', () => st.forEach((q) => { q.x.t = 0; q.y.t = 0; }));
+  }
   // seeds in the meadow pop up one after another when it scrolls into view
   const meadowPlants = [...root.querySelectorAll('.sp')];
   const mio = new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) return; mio.disconnect(); meadowPlants.forEach((pl, i) => setTimeout(() => springVal(0, 1, 150, 8, (v) => pl.style.setProperty('--p', v.toFixed(3))), isCalm() ? 0 : i * 150)); }), { threshold: 0.35 });

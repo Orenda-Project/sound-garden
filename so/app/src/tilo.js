@@ -5,7 +5,7 @@ import { createSprig } from '../../../src/sprig/sprig.js';
 import { bus, isFast } from './audio.js';
 import { isCalm } from './motion.js';
 
-const POSE_STATE = { idle: 'idle', listening: 'listening', speaking: 'speaking', celebrating: 'celebrate', encouraging: 'encourage', thinking: 'thinking' };
+const POSE_STATE = { greeting: 'greet', idle: 'idle', listening: 'listening', speaking: 'speaking', celebrating: 'celebrate', encouraging: 'encourage', thinking: 'thinking' };
 const reduced = () => isCalm();
 const still = isFast || new URLSearchParams(location.search).has('still');
 const st = { beat: null, homeHost: null, track: null, mood: 'idle', emote: null, emoteKey: null, pinned: null, speaking: false, mouth: 'mid', offT: 0, emoteT: 0, hold: null, host: null, uiKey: false, stage: 1, color: null };

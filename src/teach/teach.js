@@ -2,6 +2,7 @@
 // The Teach guide and every practice page are the same PDFs Sound Out ships (public/practice/*.pdf), so they print offline once the page has loaded.
 import './teach.css';
 import { scene } from '../art/art.js';
+import { stagger } from '../motion/engine.js';
 
 const LEVELS = [
   [1, 'First sounds', 'L1'], [2, 'Sounds together', 'L2'], [3, 'Long vowels', 'L3'], [4, 'Longer words', 'L4'],
@@ -48,6 +49,7 @@ export async function mount(el) {
     <li>It works offline after the first visit. Install it from the browser menu (Add to Home screen).</li></ul>
     <a class="tp-btn" href="#/play">Open the app</a></section>
   </main>`;
+  stagger(el.querySelectorAll('.tp-card'), 120, 85);   // the cards spring in (engine.js); calm motion shows them at once
   try {
     const ix = await (await fetch('./practice/index.json')).json();
     const box = el.querySelector('#tp-levels'); box.replaceChildren();

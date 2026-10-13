@@ -3,3 +3,12 @@ dist
 __pycache__
 *.pyc
 tools/so-compat/app/shots/
+# working captures for the critic rounds (the verdict keeps the results; final/ keeps the README media)
+shots/site/bars/
+shots/site/bars2/
+shots/site/critics/
+shots/site/r[2-9]/
+shots/site/m[2-9]/
+shots/site/poses/
+shots/site/l-*.png
+shots/site/before-*.png

@@ -92,8 +92,8 @@ export function pressable() {
 export function confetti(host, bursts) {
   if (calm) return null;
   const cv = document.createElement('canvas'); cv.className = 'sg-confetti'; cv.setAttribute('aria-hidden', 'true');
-  const dpr = Math.min(2, devicePixelRatio || 1), W = host.clientWidth || innerWidth, H = host.clientHeight || innerHeight;
-  cv.width = W * dpr; cv.height = H * dpr; Object.assign(cv.style, { position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 60 });
+  const fixed = host === document.body, dpr = Math.min(2, devicePixelRatio || 1), W = fixed ? innerWidth : (host.clientWidth || innerWidth), H = fixed ? innerHeight : (host.clientHeight || innerHeight);
+  cv.width = W * dpr; cv.height = H * dpr; Object.assign(cv.style, { position: fixed ? 'fixed' : 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 60 });
   host.appendChild(cv); const cx = cv.getContext('2d'); const ps = []; let run = false;
   const cols = ['#FFC21A', '#F29B73', '#4CB82B', '#6EC5FF', '#F78FB3', '#B06AD6'];
   const burst = (n, x, y, spread = 1) => {
@@ -113,4 +113,15 @@ export function confetti(host, bursts) {
   }
   (bursts || []).forEach(([delay, n, x, y, s]) => setTimeout(() => burst(n, x * W, y * H, s), delay));
   return { burst };
+}
+
+// a small message that springs up from the bottom and away again (role=status, so a screen reader hears it)
+export function toast(text, ms = 1800) {
+  if (typeof document === 'undefined') return;
+  let t = document.getElementById('sg-toast');
+  if (!t) { t = document.createElement('div'); t.id = 'sg-toast'; t.setAttribute('role', 'status'); t.setAttribute('aria-live', 'polite'); document.body.append(t); }
+  t.textContent = text; clearTimeout(t.__h);
+  if (calm) { t.style.opacity = 1; t.style.transform = ''; t.__h = setTimeout(() => { t.style.opacity = 0; }, ms); return; }
+  springVal(0, 1, 260, 17, (p) => { t.style.opacity = clamp(p * 1.5, 0, 1); t.style.transform = `translateX(-50%) translateY(${(1 - p) * 20}px) scale(${0.85 + 0.15 * p})`; });
+  t.__h = setTimeout(() => springVal(1, 0, 200, 24, (p) => { t.style.opacity = clamp(p, 0, 1); }), ms);
 }

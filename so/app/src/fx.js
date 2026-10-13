@@ -4,7 +4,7 @@
 //   endFx      the celebration: canvas confetti, a badge that pops, "days practised" counts up, the seed -> sprout -> bloom of this lesson's plant
 // Calm motion (html.calm): the engine snaps every spring, so all of this lands in its final state at once.
 import { Sp, addActor, removeActor, springVal, popIn, countTo, bump, confetti, clamp, rnd, isCalm } from '../../../src/motion/engine.js';
-import { butterfly } from '../../../src/ui/hero-art.js';
+import { butterfly, miniMeadow, cloudSvg } from '../../../src/ui/hero-art.js';
 import * as db from './db.js';
 
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -18,7 +18,7 @@ export function screenIn(el, dir = 'fwd') {
   el.style.opacity = 0; el.style.transform = `translateX(${d * 46}px)`;
   springVal(0, 1, 190, 17, (p) => { el.style.opacity = clamp(p * 1.6, 0, 1); el.style.transform = `translateX(${(1 - p) * d * 46}px)`; }, () => { el.style.opacity = ''; el.style.transform = ''; });
 }
-const POP = { onboard: '.sheet > *', home: '.home-sheet > *', endscreen: ':scope > h2, :scope > .score, :scope > .daysline, :scope > .sticker, :scope > .muted, :scope > .endplant, :scope > .cele-line', 'ss-session': ':scope > *' };
+const POP = { onboard: '.sheet > *', home: '.home-sheet > *', endscreen: ':scope > h2, :scope > .score, :scope > .daysline, :scope > .muted, :scope > .endplant, :scope > .cele-line', 'ss-session': ':scope > *' };
 export function stagIn(el) {
   if (isCalm()) return;
   const key = Object.keys(POP).find((k) => el.classList.contains(k)); if (!key) return;
@@ -37,6 +37,8 @@ export function homeFx(s, { prog } = {}) {
   const actor = {
     get active() { return yard.isConnected && !document.hidden && !isCalm(); },
     update(dt, h, n, now) {
+      const settled = pls.every((p) => p.sp.rest);
+      if (settled && (this.fr = (this.fr || 0) + 1) % 2) return;   // everything has grown: sway at 30 fps (half the SVG repaints)
       for (const p of pls) {
         for (let k = 0; k < n; k++) p.sp.step(h);
         const sc = p.sp.x, sway = p.sp.x > 0.9 ? Math.sin(now * 1.4 + p.ph) * 1.8 : 0;
@@ -76,6 +78,7 @@ export function homeFx(s, { prog } = {}) {
   }
   // butterflies drift over the garden
   const area = s.querySelector('.scene-area');
+  if (area) { const cl = document.createElement('div'); cl.className = 'hclouds'; cl.setAttribute('aria-hidden', 'true'); cl.innerHTML = `<span class="c1">${cloudSvg(120)}</span><span class="c2">${cloudSvg(80)}</span>`; area.prepend(cl); }
   if (area && !isCalm()) { const b = document.createElement('div'); b.className = 'hbf'; b.setAttribute('aria-hidden', 'true'); b.innerHTML = `<span class="b1">${butterfly('#F78FB3')}</span><span class="b2">${butterfly('#FFC21A')}</span>`; area.append(b); }
   // checks of finished steps draw themselves once, with sparks
   if (prog) {
@@ -111,8 +114,8 @@ export function sparks(host, n = 7) {
 // ---- the celebration (Track A) ----
 export async function endFx(s, { passed } = {}) {
   if (!s.classList.contains('track-A')) return;
-  if (passed) { confetti(s.ownerDocument.body, [[250, 70, 0.5, 0.36, 1.1], [700, 36, 0.14, 0.5, 0.7], [700, 36, 0.86, 0.5, 0.7], [1500, 46, 0.5, 0.34, 1.3]]); }
-  const st = s.querySelector('.sticker'); if (st && !isCalm()) { st.style.opacity = 0; setTimeout(() => springVal(0, 1, 170, 8, (p) => { st.style.opacity = clamp(p * 2, 0, 1); st.style.transform = `scale(${p}) rotate(${(1 - p) * -14}deg)`; }, () => { st.style.transform = ''; st.style.opacity = ''; }), 1100); }
+  if (passed) { confetti(s.ownerDocument.body, [[250, 70, 0.5, 0.36, 1.1], [700, 36, 0.14, 0.5, 0.7], [700, 36, 0.86, 0.5, 0.7], [1500, 46, 0.5, 0.34, 1.3], [3300, 26, 0.3, 0.45, 0.9], [3300, 26, 0.7, 0.45, 0.9]]); }
+  const st = s.querySelector('.sticker'); if (st && !isCalm()) { st.style.opacity = 0; setTimeout(() => springVal(0, 1, 170, 8, (p) => { st.style.opacity = clamp(p * 2, 0, 1); st.style.scale = String(Math.max(p, 0.01)); st.style.rotate = `${7 + (1 - p) * -22}deg`; }, () => { st.style.scale = ''; st.style.rotate = ''; st.style.opacity = ''; }), 1100); }
   // "days practised": counts up, never resets, never framed as a loss
   try {
     const pid = await db.setting('active'), prog = await db.progress(pid), days = (prog.days || []).length; if (!days || !passed) return;
@@ -133,4 +136,24 @@ export function growEnd(el, from, to, passed) {
   setTimeout(() => { pop(); }, 500);
   let t = 1250; if (from === to) return;
   for (let st = from + 1; st <= to; st++) { const k = st; setTimeout(() => { set(k); pop(); sparks(pi, 6); if (k === 4) confetti(document.body, [[0, 30, 0.5, 0.6, 0.8]]); }, t); t += 800; }
+}
+
+// ---- lessons: every new step card springs in (the prompt, the picture card, the buttons), 70 ms apart ----
+export function watchSteps(root) {
+  if (watchSteps.on) return; watchSteps.on = true;
+  new MutationObserver((muts) => {
+    if (isCalm()) return;
+    for (const m of muts) for (const n of m.addedNodes) {
+      if (n.nodeType !== 1 || !n.classList?.contains('screen') || !n.closest('.sitting')) continue;
+      [...n.children].filter((c) => !c.hidden).slice(0, 7).forEach((c, i) => popIn(c, 40 + i * 70, 22, 0.94));
+    }
+  }).observe(root, { childList: true, subtree: true });
+}
+
+// lesson and Practice screens get a living lower edge: swaying flowers and grass, and a butterfly (Track A only; calm motion: flowers only, not moving)
+export function meadowIn(el) {
+  const c = el.classList; if (!c.contains('track-A') || !(c.contains('sitting') || c.contains('onb-lesson'))) return;
+  const d = document.createElement('div'); d.className = 'sg-meadow-wrap'; d.setAttribute('aria-hidden', 'true');
+  d.innerHTML = miniMeadow() + (isCalm() ? '' : `<div class="hbf"><span class="b1">${butterfly('#F78FB3')}</span></div>`);
+  el.prepend(d);
 }

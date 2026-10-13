@@ -56,7 +56,10 @@ export async function mount(root, rest) {
   // a link opens the lesson it names; a reload of the page lands on Home (a half-done sitting is not resumable)
   const nav = performance.getEntriesByType?.('navigation')?.[0];
   const reloaded = nav?.type === 'reload' && !deepUsed; deepUsed = true;
-  return so.start(root, { deep: reloaded ? null : parse(rest) });
+  const done = await so.start(root, { deep: reloaded ? null : parse(rest) });
+  // carry the landing page's Calm-motion choice into the app (the app's own switch lives in the grown-ups area; both end in html.calm)
+  try { const m = await import('../so/app/src/motion.js'); if (localStorage.getItem('sg-calm') === '1' && !m.isCalm()) m.setCalm(true); } catch { /* storage blocked */ }
+  return done;
 }
 
 // Offline: ask the service worker to keep the core clips (the sounds, the spoken instructions, the names): about 3 MB, once, when idle.

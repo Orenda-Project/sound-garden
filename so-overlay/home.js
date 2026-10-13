@@ -153,7 +153,7 @@ export async function home(app, profile) {
   app.mount(s);
   if (track === 'A') {
     const slot = s.querySelector('.scene-tilo .tilo-slot');
-    tilo.dock(slot); applyLook(profile.tiloLook?.scarf); tilo.setStage(growthStage(prog)); tilo.arrive(); if (newItems && !isCalm()) tilo.emote('celebrating', null, 1700);
+    tilo.dock(slot); applyLook(profile.tiloLook?.scarf); tilo.setStage(growthStage(prog)); tilo.arrive(); if (newItems && !isCalm()) tilo.emote('celebrating', null, 1700); else if (!isCalm()) setTimeout(() => tilo.emote('greeting', null, 1600), 500);
   }
   if (track === 'A') homeFx(s, { prog });
   if (animate) unlockSequence(s, st, fresh, track);

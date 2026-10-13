@@ -33,7 +33,7 @@ const STATES = {
   'tap-react': { m: 'happy', ms: 900, go: (c) => c.poke() },
   'correct-small': { m: 'happy', ms: 800, go: (c) => { c.hop(300); c.burst(4); } },
   'correct-streak': { m: 'cheer', ms: 1100, go: (c) => { c.hop(380); c.burst(9); } },
-  'celebrate': { m: 'cheer', ms: 1900, go: (c) => c.party(1700) },
+  'celebrate': { m: 'cheer', base: 1, go: (c) => c.party(Infinity) },
   'cheer': { m: 'cheer', ms: 1900, go: (c) => c.party(1700) },
   'level-up': { m: 'cheer', ms: 2400, go: (c, d, o) => { c.hop(560); c.burst(16); c.petals(10); if (o.toStage != null) c.later(() => c.setStage(o.toStage, true), 420); c.party(2000); } },
   'wrong-soft': { m: 'oops', ms: 1000, go: (c) => c.droop() },
@@ -65,7 +65,7 @@ const svgMarkup = () => `<svg viewBox="-30 -62 180 200" aria-hidden="true" focus
 <path d="M32 54 C38 40 50 33 62 33 C50 38 42 46 38 60Z" fill="#FBE8BB" opacity=".9"/>
 <g class="sp-face"><ellipse class="sp-chL" cx="29" cy="92" rx="8" ry="5.5" fill="#F29B73" opacity=".6"/><ellipse class="sp-chR" cx="91" cy="92" rx="8" ry="5.5" fill="#F29B73" opacity=".6"/>
 ${eyeW(43)}${eyeW(77)}${eyeP(43)}${eyeP(77)}
-<ellipse class="sp-lidL" cx="43" cy="73" rx="18.5" ry="21.5" fill="#EFCB8A"/><ellipse class="sp-lidR" cx="77" cy="73" rx="18.5" ry="21.5" fill="#EFCB8A"/>
+<ellipse class="sp-lidL" cx="43" cy="73" rx="19.8" ry="22.8" fill="#EFCB8A"/><ellipse class="sp-lidR" cx="77" cy="73" rx="19.8" ry="22.8" fill="#EFCB8A"/>
 <path class="sp-arcL" d="M28 78 Q43 58 58 78" fill="none" stroke="#2A1A0A" stroke-width="4.6" stroke-linecap="round" opacity="0"/><path class="sp-arcR" d="M62 78 Q77 58 92 78" fill="none" stroke="#2A1A0A" stroke-width="4.6" stroke-linecap="round" opacity="0"/>
 <path class="sp-brL" d="M30 50 L54 47" stroke="#7A4B16" stroke-width="4" stroke-linecap="round" opacity="0"/><path class="sp-brR" d="M66 47 L90 50" stroke="#7A4B16" stroke-width="4" stroke-linecap="round" opacity="0"/>
 <path class="sp-mo" d="" fill="#7A2E1B" stroke="#2A1A0A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/></g>
@@ -76,7 +76,7 @@ ${eyeW(43)}${eyeW(77)}${eyeP(43)}${eyeP(77)}
 <g class="x4"><g fill="#FFD84A" stroke="#B87800" stroke-width="2.6"><circle cx="60" cy="-12" r="8"/><circle cx="70" cy="-4" r="8"/><circle cx="66" cy="8" r="8"/><circle cx="54" cy="8" r="8"/><circle cx="50" cy="-4" r="8"/></g><circle cx="60" cy="-1" r="6" fill="#F29B73" stroke="#A84A07" stroke-width="2.4"/></g>
 <g transform="translate(60 12)"><g class="sp-lL">${LEAF}</g><g class="sp-lR">${LEAFR}</g></g></g></g>
 </g>
-<g class="sp-th" opacity="0"><circle cx="112" cy="26" r="3" fill="#fff" stroke="#8A8372" stroke-width="1.4"/><circle cx="122" cy="10" r="4.6" fill="#fff" stroke="#8A8372" stroke-width="1.4"/><ellipse cx="140" cy="-12" rx="24" ry="16" fill="#fff" stroke="#8A8372" stroke-width="1.6"/><circle class="sp-t1" cx="129" cy="-12" r="3" fill="#5B574E"/><circle class="sp-t2" cx="140" cy="-12" r="3" fill="#5B574E"/><circle class="sp-t3" cx="151" cy="-12" r="3" fill="#5B574E"/></g>
+<g class="sp-th" opacity="0"><circle cx="106" cy="40" r="3" fill="#fff" stroke="#8A8372" stroke-width="1.4"/><circle cx="113" cy="28" r="4.4" fill="#fff" stroke="#8A8372" stroke-width="1.4"/><ellipse cx="126" cy="8" rx="21" ry="15" fill="#fff" stroke="#8A8372" stroke-width="1.6"/><circle class="sp-t1" cx="116" cy="8" r="3" fill="#5B574E"/><circle class="sp-t2" cx="126" cy="8" r="3" fill="#5B574E"/><circle class="sp-t3" cx="136" cy="8" r="3" fill="#5B574E"/></g>
 </g><g class="sp-fx"></g></svg>`;
 
 export function createSprig(el, { stage = 1, identityColor } = {}) {
@@ -89,7 +89,7 @@ export function createSprig(el, { stage = 1, identityColor } = {}) {
   const S = (x, k, d) => new Sp(x, k, d);
   const sp = { sy: S(1, 230, 11), tilt: S(0, 130, 9), lx: S(0, 170, 16), ly: S(0, 170, 16), blink: S(0, 700, 50), eh: S(0, 300, 28), sl: S(0, 200, 24), wide: S(0, 260, 20),
     mw: S(9, 200, 18), mc: S(8, 180, 15), mo: S(0, 230, 19), lL: S(0, 180, 10), lR: S(0, 180, 10), cheek: S(1, 220, 12), th: S(0, 160, 16), pop: S(1, 190, 11), br: S(0, 240, 18), stg: S(STAGE_SCALE[clamp(stage, 0, 4)] || 1, 150, 9) };
-  const c = { mood: 'idle', base: 'idle', tok: 0, timers: [], hy: 0, hv: 0, sq: 0, breath: 0, follow: false, pokes: 0, nextBlink: 1.2, nextGlance: 2, accZ: 0, accP: 0, parts: [], active: false, dead: false, visible: true, curStage: 0, state: 'idle', talk: 0, waving: null, pointing: null, partyEnd: 0, rainEnd: 0, nextHop: 0, ft: 0, dir: 1, tkn: 0 };
+  const c = { mood: 'idle', base: 'idle', tok: 0, timers: [], hy: 0, hv: 0, sq: 0, breath: 0, follow: false, pokes: 0, nextBlink: 1.2, nextGlance: 2, nextFun: 5, nextWig: 2, accZ: 0, accP: 0, parts: [], active: false, dead: false, visible: true, curStage: 0, state: 'idle', talk: 0, waving: null, pointing: null, partyEnd: 0, rainEnd: 0, nextHop: 0, ft: 0, dir: 1, tkn: 0 };
   c.curStage = clamp(stage | 0, 0, 4); el.dataset.stage = c.curStage;
   const put = (node, attr, val) => { const key = '_' + attr; if (node[key] !== val) { node[key] = val; node.setAttribute(attr, val); } };
 
@@ -97,6 +97,7 @@ export function createSprig(el, { stage = 1, identityColor } = {}) {
   c.later = (fn, ms) => { const t = c.tok; const id = setTimeout(() => { if (t === c.tok && !c.dead) fn(); }, isCalm() ? Math.min(ms, 60) : ms); c.timers.push(id); };
   c.setMood = (m, base) => {
     c.tok++; c.timers.forEach(clearTimeout); c.timers = []; c.mood = m; if (base) c.base = m;
+    if (m !== 'sleepy') for (let i = c.parts.length - 1; i >= 0; i--) if (c.parts[i].type === 'zzz') { c.parts[i].n.remove(); c.parts.splice(i, 1); }
     const t = MOODS[m] || MOODS.idle;
     sp.eh.t = t.eh; sp.sl.t = t.sl; sp.mw.t = t.mw; sp.mc.t = t.mc; sp.mo.t = t.mo; sp.lL.t = t.lL; sp.lR.t = t.lR; sp.th.t = t.th; sp.br.t = t.br; sp.wide.t = t.wide; c.baseTilt = t.tilt; c.mouthBase = t;
     if (m === 'thinking') { sp.lx.t = -0.9; sp.ly.t = -0.8; } else if (m === 'oops') { sp.lx.t = -0.4; sp.ly.t = 0.7; } else if (!c.follow) { sp.lx.t = 0; sp.ly.t = 0; }
@@ -104,9 +105,9 @@ export function createSprig(el, { stage = 1, identityColor } = {}) {
   c.revert = (ms) => c.later(() => c.setMood(c.base), ms);
   c.hop = (power = 400) => { if (isCalm()) return; c.sq = -0.2; c.later(() => { c.sq = 0; c.hv = power; c.hy = 0.01; }, 130); };
   c.droop = () => { sp.sy.x = 0.9; sp.tilt.kick(40); sp.lL.kick(-120); sp.lR.kick(120); };
-  c.wave = (d = 1) => { c.waving = { t: 0, dur: 1.2, d: d < 0 ? -1 : 1 }; };
+  c.partyStart = 0; c.wave = (d = 1) => { c.waving = { t: 0, dur: 1.2, d: d < 0 ? -1 : 1 }; };
   c.point = (d, ms) => { c.pointing = { d: d < 0 ? -1 : 1, until: performance.now() + ms }; sp.lx.t = d < 0 ? -1 : 1; sp.ly.t = 0.3; c.later(() => { c.pointing = null; sp.lx.t = 0; sp.ly.t = 0; }, ms); };
-  c.party = (ms) => { c.partyEnd = performance.now() + ms; c.nextHop = 0; c.hearts(0); };
+  c.party = (ms) => { c.partyStart = performance.now(); c.partyEnd = ms === Infinity ? Infinity : performance.now() + ms; c.nextHop = 0; };
   c.rain = (ms) => { c.rainEnd = performance.now() + ms; };
   c.emerge = () => { if (isCalm()) { sp.pop.x = sp.pop.t = 1; return; } sp.pop.x = 0.35; sp.pop.t = 1; sp.sy.x = 1.35; sp.sy.v = 0; c.burst(8); };
   c.poke = () => {
@@ -157,11 +158,16 @@ export function createSprig(el, { stage = 1, identityColor } = {}) {
     update(dt, h, n, now) {
       const m = c.mood, calm = isCalm(), tnow = performance.now();
       if (!calm) {
-        c.breath = Math.sin(now * (m === 'sleepy' ? 1.4 : 2.4)) * (m === 'sleepy' ? 0.034 : 0.02);
+        c.breath = Math.sin(now * (m === 'sleepy' ? 1.4 : 2.4)) * (m === 'sleepy' ? 0.034 : 0.032);
         if (m !== 'sleepy') {
           if (now > c.nextBlink) { sp.blink.t = 1; c.blinkAt = now; c.nextBlink = now + rnd(2, 5); if (Math.random() < 0.22) c.nextBlink = now + 0.32; }
           if (c.blinkAt && now > c.blinkAt + 0.11) { sp.blink.t = 0; c.blinkAt = 0; }
           if (!c.follow && !c.pointing && m === 'idle' && now > c.nextGlance) { if (Math.random() < 0.4) { sp.lx.t = 0; sp.ly.t = 0; c.nextGlance = now + rnd(0.6, 1.4); } else { sp.lx.t = rnd(-1, 1); sp.ly.t = rnd(-0.5, 0.5); c.nextGlance = now + rnd(1.2, 2.8); } }
+        }
+        // idle fun: a small hop, a leaf wiggle, now and then (only while it is idle and nobody is touching it)
+        if (m === 'idle' && !c.follow && !c.pointing && !c.waving) {
+          if (now > c.nextFun) { c.nextFun = now + rnd(6, 11); if (Math.random() < 0.55) { c.hop(240); } else { sp.tilt.kick(Math.random() < 0.5 ? 60 : -60); } sp.lL.kick(-90); sp.lR.kick(90); }
+          if (now > c.nextWig) { c.nextWig = now + rnd(2.5, 5); sp.lL.kick(rnd(-120, 120)); sp.lR.kick(rnd(-120, 120)); }
         }
         // leaves: a little life of their own, a wave overrides the swing
         const t = c.mouthBase || MOODS.idle;
@@ -171,17 +177,20 @@ export function createSprig(el, { stage = 1, identityColor } = {}) {
         if (c.pointing) { if (c.pointing.d > 0) sp.lR.t = -62; else sp.lL.t = 62; }
         if (m === 'speaking') { c.talk += dt; if (c.talk > 0.11) { c.talk = 0; sp.mo.t = rnd(0.05, 0.95); sp.mw.t = rnd(7, 12); } }
         if (m === 'sleepy') { c.accZ += dt; if (c.accZ > 1.25) { c.accZ = 0; spawn('zzz', 96, 40, { vx: 14, vy: -26, size: rnd(15, 20), life: 2 }); } }
-        if (tnow < c.partyEnd) { if (tnow > c.nextHop) { c.nextHop = tnow + 520; c.hop(430); c.burst(5); c.petals(4); } }
+        if (tnow < c.partyEnd) { if (tnow > c.nextHop) { const early = tnow - c.partyStart < 1800; c.nextHop = tnow + (early ? 520 : 1250); c.hop(early ? 430 : 330); c.burst(early ? 5 : 3); c.petals(early ? 4 : 2); } }
         if (tnow < c.rainEnd) { c.accP += dt; if (c.accP > 0.09) { c.accP = 0; spawn('drop', 60 + rnd(-40, 40), -26, { vx: 0, vy: rnd(60, 100), g: 260, size: rnd(4, 6), life: 0.9 }); } }
       }
       sp.tilt.t = c.baseTilt + (c.follow ? sp.lx.t * 3.5 : 0);
-      const air = c.hy > 0 ? Math.min(0.15, Math.abs(c.hv) / 2600) : 0;
+      const air = c.hy > 0 ? Math.min(0.24, Math.abs(c.hv) / 1800) : 0;
       sp.sy.t = 1 + c.breath + c.sq + air;
       for (let i = 0; i < n; i++) {
         for (const k in sp) sp[k].step(h);
-        if (c.hy > 0 || c.hv > 0) { c.hv -= 1500 * h; c.hy += c.hv * h; if (c.hy <= 0) { const imp = -c.hv; c.hy = 0; c.hv = 0; if (imp > 120) { sp.sy.x = 1 - Math.min(0.3, imp / 1500); sp.sy.v = 0; sp.lL.kick(-120); sp.lR.kick(120); sp.cheek.x = 1.2; } } }
+        if (c.hy > 0 || c.hv > 0) { c.hv -= 1500 * h; c.hy += c.hv * h; if (c.hy <= 0) { const imp = -c.hv; c.hy = 0; c.hv = 0; if (imp > 120) { sp.sy.x = 1 - Math.min(0.36, imp / 1100); sp.sy.v = 0; sp.lL.kick(-120); sp.lR.kick(120); sp.cheek.x = 1.2; } } }
       }
-      stepParts(dt); apply(now);
+      stepParts(dt);
+      // idle and nothing moving but the breathing: draw every other frame (half the SVG work, same look)
+      if (!c.hy && !c.parts.length && c.mood === 'idle' && !c.follow && !c.waving && !c.pointing && !dragging && (c.fr = (c.fr || 0) + 1) % 2) return;
+      apply(now);
       if (calm && !c.parts.length && !c.hy) c.active = false;   // calm: draw once, then sleep
     },
   };
@@ -189,12 +198,12 @@ export function createSprig(el, { stage = 1, identityColor } = {}) {
     const sy = sp.sy.x, sx = clamp(1 / Math.sqrt(Math.max(0.4, sy)), 0.75, 1.35), pop = sp.pop.x;
     put(N.rig, 'transform', `translate(0 ${f2(-c.hy)})`);
     put(N.body, 'transform', `translate(60 123) rotate(${f2(sp.tilt.x)}) scale(${(sx * pop).toFixed(3)} ${(sy * pop).toFixed(3)}) translate(-60 -123)`);
-    put(N.sh, 'rx', f2(44 * (1 - c.hy / 260) * (0.4 + 0.6 * clamp(pop, 0, 1)))); put(N.sh, 'opacity', f2(0.22 * (1 - c.hy / 200)));
+    const lift = clamp(c.hy / 70, 0, 1); put(N.sh, 'rx', f2(44 * (1 - lift * 0.55) * (0.4 + 0.6 * clamp(pop, 0, 1)))); put(N.sh, 'opacity', f2(0.24 * (1 - lift * 0.7)));
     const lx = sp.lx.x, ly = sp.ly.x, eh = clamp(sp.eh.x, 0, 1), sl = sp.sl.x, bl = sp.blink.x;
     put(N.face, 'transform', `translate(${f2(lx * 3.5)} ${f2(ly * 2.4)})`);
     pus.forEach((p) => put(p, 'transform', `translate(${f2(lx * 3.2)} ${f2(ly * 3)}) scale(${f2(1 + sp.wide.x * 0.1)})`));
     const lid = clamp(Math.max(bl, sl * 0.72, eh), 0, 1);
-    ['L', 'R'].forEach((s) => { put(N['lid' + s], 'transform', `translate(0 51.5) scale(1 ${Math.max(0.001, lid).toFixed(3)}) translate(0 -51.5)`); put(N['arc' + s], 'opacity', f2(eh)); });
+    ['L', 'R'].forEach((s) => { put(N['lid' + s], 'transform', `translate(0 50.2) scale(1 ${Math.max(0.001, lid).toFixed(3)}) translate(0 -50.2)`); put(N['arc' + s], 'opacity', f2(eh)); });
     const b = sp.br.x, bo = Math.min(1, Math.abs(b) * 1.4);
     put(N.brL, 'opacity', f2(bo)); put(N.brR, 'opacity', f2(bo));
     put(N.brL, 'transform', `rotate(${f2(-b * 16)} 42 48)`); put(N.brR, 'transform', `rotate(${f2(b * 16)} 78 48)`);

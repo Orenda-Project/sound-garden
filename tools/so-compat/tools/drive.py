@@ -164,7 +164,7 @@ def run(br, track, start=None, until=None):
     page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
     page.on("pageerror", lambda e: errors.append(str(e)))
     page.goto(URL)
-    assert page.title().endswith("Sound Garden"), f"wrong app on the port: {page.title()}"
+    assert "Sound Garden" in page.title(), f"wrong app on the port: {page.title()}"
     # Tilo pose log (child track only): every pose the mascot took, and whether it was ever visible
     page.evaluate("""() => { window.__poses = new Set(); window.__tiloSeen = false;
       new MutationObserver(() => { const t = document.querySelector('.tilo'); if (!t) return; if (!t.hidden) window.__tiloSeen = true; if (!t.hidden && t.dataset.pose) window.__poses.add(t.dataset.pose); })

@@ -1,0 +1,26 @@
+# Netlify: connect the repo (or `npx netlify deploy --prod --dir=dist`). No rewrites are needed: the site uses hash routes (#/play, #/teach).
+[build]
+  command = "npm ci && npm run build"
+  publish = "dist"
+[build.environment]
+  NODE_VERSION = "20"
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/audio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"

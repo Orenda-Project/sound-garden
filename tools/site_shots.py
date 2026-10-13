@@ -16,7 +16,7 @@ with sync_playwright() as p:
         H = pg.evaluate('document.documentElement.scrollHeight')
         y = 0
         while y < H:
-            pg.evaluate(f'window.scrollTo(0,{y})'); pg.wait_for_timeout(450); y += h * 0.7
-        pg.wait_for_timeout(1500); pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(600)
+            pg.evaluate(f'window.scrollTo(0,{y})'); pg.wait_for_timeout(450); y += h * 0.7; H = pg.evaluate('document.documentElement.scrollHeight')
+        pg.add_style_tag(content='.landing .sec,.landing .foot{content-visibility:visible!important}'); pg.wait_for_timeout(1500); pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(600)
         pg.screenshot(path=str(out / f'full-{w}.png'), full_page=True); print(w, 'height', H, 'errors', errs[:4]); pg.close()
     b.close()
