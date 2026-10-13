@@ -39,7 +39,7 @@ h1 { font-size: 2.1rem; margin: .4em 0 .2em; } h2 { font-size: 1.45rem; margin: 
 .days { font-size: .85rem; color: var(--muted); } .days b { color: var(--ink); font-size: 1.1rem; }
 .hero { display: flex; gap: 10px; align-items: center; } .hero h1 { margin: 0; }
 @keyframes wave { 50% { transform: rotate(-18deg); } } @keyframes hop { 50% { transform: translateY(-12px); } }
-.village { position: relative; display: flex; align-items: flex-end; gap: 4px; min-height: 72px; padding: 8px 10px 14px; margin: 10px 0; border-radius: var(--radius); background: linear-gradient(var(--band-1), #E6F5FA 70%); overflow: hidden; }
+.village { position: relative; display: flex; align-items: flex-end; gap: 4px; min-height: 72px; padding: 8px 10px 14px; margin: 10px 0; border-radius: var(--radius); background: linear-gradient(var(--band-1), #E9FAE6 70%); overflow: hidden; }
 .village .ground { position: absolute; inset: auto 0 0 0; height: 16px; background: #8CC063; }
 .village .piece { position: relative; width: 48px; height: 48px; } .village .piece svg { width: 100%; height: 100%; }
 .village .piece.new { animation: grow .9s cubic-bezier(.3, 1.6, .5, 1); }
@@ -318,7 +318,7 @@ button:focus:not(:focus-visible), a:focus:not(:focus-visible) { outline: none; }
 .opt-pick:disabled, .ghost-pick { background: var(--good-tint); color: var(--good-text); opacity: 1; --lip: transparent; --glow: none; --hi: transparent; box-shadow: inset 0 0 0 2px #BFE6C8; }
 .opt-pick:not(:disabled):not(.ghost-pick) { background: linear-gradient(var(--good-hi), var(--good)); color: var(--tap-ink); opacity: 1; --lip: var(--good-edge); --hi: rgba(255, 255, 255, .45); --glow: 0 8px 14px -6px rgba(31, 138, 59, .5); }
 .track-B .opt-pick:not(:disabled):not(.ghost-pick) { background: linear-gradient(var(--primary-hi), var(--primary)); color: #fff; --lip: var(--primary-edge); }
-.track-B .opt-pick:disabled { background: var(--primary-tint); color: var(--primary-edge); box-shadow: inset 0 0 0 2px #B9D4D2; }
+.track-B .opt-pick:disabled { background: var(--primary-tint); color: var(--primary-edge); box-shadow: inset 0 0 0 2px #BDD4B9; }
 /* level bands: a colour per level on the level card; state is colour + shape + icon + word */
 .level-card { background: var(--band, var(--band-1)); border-radius: var(--radius); box-shadow: var(--e1); }
 .level-card.locked { background: var(--locked-fill); opacity: 1; }

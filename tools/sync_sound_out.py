@@ -36,7 +36,23 @@ def pull():
 DRIVERS = ['_onb', 'drive', 'drive_levels', 'drive_practice', 'drive_sayit', 'drive_session', 'drive_teacher', 'check_nav', 'check_failed_check', 'check_ph_keys', 'check_practice_links', 'check_foils']
 # (file, old, new) in PATCH_LIST below: each old must match exactly once, or the sync stops (a changed upstream line is a decision for a human)
 
+import re, colorsys
+def to_leaf(m):
+    # Sound Out's hard-coded teal (hue 155-200 degrees) becomes Sound Garden's leaf green at the same lightness and saturation, so contrast is unchanged.
+    # (The var(--good) feedback tokens stay teal on purpose: right = teal in Sound Garden's palette; they are set in so-overlay/garden.css.)
+    hx = m.group(1); r, g, b = [int(hx[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    hh, l, sat = colorsys.rgb_to_hls(r, g, b)
+    if not (0.43 < hh < 0.56 and sat > 0.15): return m.group(0)
+    r2, g2, b2 = colorsys.hls_to_rgb(0.31, l, sat)
+    return '#%02X%02X%02X' % (round(r2 * 255), round(g2 * 255), round(b2 * 255))
+
+def recolor():
+    for f in list(SRC.rglob('*.css')) + list(SRC.rglob('*.js')):
+        t = f.read_text(); n = re.sub(r'#([0-9A-Fa-f]{6})\b', to_leaf, t)
+        if n != t: f.write_text(n)
+
 def apply():
+    recolor()
     for f in (ROOT / 'so-overlay').glob('*.js'): shutil.copy(f, SRC / f.name)
     for f in (ROOT / 'so-overlay').glob('*.css'): shutil.copy(f, SRC / f.name)
     for name, old, new, *flag in PATCH_LIST:
@@ -48,6 +64,8 @@ def apply():
     print('overlay + patches applied')
 
 PATCH_LIST = [
+    ('session.js', "if (track === 'A') s.append(village(prog.village, { justAdded: piece }));", "if (track === 'A') s.append(endPlant(lid, states(prog, track), passed));   // Sound Garden: the lesson's plant, not Tilo's village"),
+    ('session.js', "async function endScreen(app,", "import { endPlant } from './garden-scene.js';\nasync function endScreen(app,"),
     ('ui.js', "export function scene({ h = 560, kind = 'day', sun = true, trees = true, extra = '' } = {}) {", "import { gardenScene } from './garden-art.js';\nexport const scene = (o = {}) => gardenScene(o);   // Sound Garden scenery; the Sound Out original is kept below as sceneSO\nexport function sceneSO({ h = 560, kind = 'day', sun = true, trees = true, extra = '' } = {}) {"),
     ('sayit.css', 'url(/fonts/', 'url(./fonts/', 'all'),   # absolute font path breaks under a sub-path host
     ('avatars.js', "child: `<img src=\"${import.meta.env.BASE_URL}img/tilo/face_happy_2x.webp\" alt=\"\" width=\"102\" height=\"102\">`,", "child: SPRIG_FACE,"),

@@ -38,3 +38,10 @@
 @media (prefers-reduced-motion: reduce) { .garden-yard .pop { animation: none; } }
 .garden-home .scene-tilo { left: auto; right: 10px; bottom: -22px; width: 104px; z-index: 6; }   /* Sprig stands on the edge of the Play card */
 .garden-home .home-bubble { z-index: 4; }
+
+/* ---- reward screens: leaf green ground (was teal), the lesson's plant instead of a village ---- */
+.onb-done.track-A, .endscreen.track-A { background: radial-gradient(circle at 50% 38%, #3FA133, #1F5C24 82%); }
+.onb-done.track-A h2, .endscreen.track-A h2 { text-shadow: 0 4px 0 #12330F; }
+.endplant { order: 5; width: 100%; max-width: 340px; display: flex; align-items: center; gap: 14px; justify-content: center; margin: 8px 0 4px; padding: 6px 12px; background: rgba(255,255,255,.16); border-radius: 22px; }
+.endplant svg { width: 96px; height: 130px; flex: none; overflow: visible; }
+.endplant p { margin: 0; font: 700 19px/1.2 var(--display); color: #fff; text-align: left; }

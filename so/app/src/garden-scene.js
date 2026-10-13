@@ -66,5 +66,14 @@ export function gardenYard(plots, { onPick, freshId } = {}) {
   return el;
 }
 
-export const lessonsOf = () => null;   // (kept so a future caller can import without touching content.js)
-void lessonById;
+// The end of a sitting (Track A): the plant this lesson belongs to, as it stands now. A seed was planted when the lesson began; each finished
+// sitting grows it; a finished lesson blooms. `st` = states(prog, track).
+export function endPlant(lid, st, passed) {
+  const l = lessonById(lid); if (!l) return h('div');
+  const p = plotsFor(l.level || 1, st, [l]).find(x => x.id === lid);
+  const stage = Math.max(1, p.stage || (passed ? 2 : 1));
+  const bloom = stage === 4, txt = bloom ? 'It is in bloom!' : passed ? 'Your seed is growing.' : 'Your seed is waiting for you.';
+  const el = h('div', { class: 'endplant', role: 'img', 'aria-label': `${p.label ? 'Sound ' + p.label : 'Lesson ' + lid.slice(1)} plant. ${txt}` });
+  el.innerHTML = `${defs()}<svg viewBox="-60 -110 120 170" aria-hidden="true">${plant({ x: 0, y: 0, s: 1, stage, label: p.label, color: PLANT_COLORS[(parseInt(lid.slice(-2), 10) || 0) % PLANT_COLORS.length], hit: false })}</svg><p>${txt}</p>`;
+  return el;
+}

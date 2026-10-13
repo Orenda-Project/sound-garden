@@ -8,7 +8,7 @@ import { isCalm } from '../motion.js';
 
 const SIZE = 300, PEN = 44, R = 2;   // SIZE = logical canvas (drivers read it); R = backing-store scale so the fat letter stays crisp
 const FONT = '"Andika", "Comic Neue", "Trebuchet MS", sans-serif';
-const BURST = ['#E1A263', '#12776B', '#FFC53D', '#FF8FA3', '#7FD1A0', '#8EC5FF'];
+const BURST = ['#E1A263', '#207712', '#FFC53D', '#FF8FA3', '#7FD1A0', '#8EC5FF'];
 // Where the letter sits: scaled so it FILLS the card (a big bold letter is the whole screen), centred by its real ink box.
 function metrics(letter) {
   const c = document.createElement('canvas').getContext('2d'); c.font = `700 100px ${FONT}`;
@@ -83,7 +83,7 @@ export async function trace(ctx, letter) {
   try { await Promise.race([document.fonts?.load(`700 100px ${FONT}`, letter), wait(400)]); } catch {}
   const g = cv.getContext('2d'); g.setTransform(R, 0, 0, R, 0, 0);
   const C = isB ? { rail: '#DCE3EA', dots: '#76848F', ink: '#2F5573', win: '#2F5573', mark: '#2F5573', line: '#D9DEE4' }
-                : { rail: '#E9DCC4', dots: '#8C7860', ink: '#14A08F', win: '#FFC53D', mark: '#C2571F', line: '#E3D6BF' };
+                : { rail: '#E9DCC4', dots: '#8C7860', ink: '#28A014', win: '#FFC53D', mark: '#C2571F', line: '#E3D6BF' };
   const M = metrics(letter);
   // the fat letter: fill + a round outline, so the target is wide enough for a small finger
   const paint = (c, color, outline = 10) => {

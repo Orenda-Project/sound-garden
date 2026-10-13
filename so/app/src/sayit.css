@@ -6,7 +6,7 @@
 
 .sayit, .sy-tile {
   --sy-ink:#3A2619; --sy-soft:#6B5646; --sy-cream:#FFF8EA; --sy-paper:#FFFBF3;
-  --sy-hero:#0E7C7B; --sy-hero-edge:#0A5F5E; --sy-tint:#D9F0EE;
+  --sy-hero:#1D7C0E; --sy-hero-edge:#165F0A; --sy-tint:#DCF0D9;
   --sy-vow:#6A4CC4; --sy-vow-edge:#4B33A0; --sy-vow-tint:#ECE6FA;
   --sy-sun1:#FFCB61; --sy-sun2:#F2A93B; --sy-sun-edge:#B97110;
   --sy-green1:#5BD173; --sy-green2:#36B454; --sy-green-edge:#1F8A3B;
@@ -14,7 +14,7 @@
   --sy-sh:rgba(20,64,62,.28); --sy-lip:rgba(20,64,62,.12);
   --sy-disp:'Fredoka','Nunito',system-ui,sans-serif; --sy-ui:'Nunito',system-ui,sans-serif; --sy-read:'Andika','Nunito',system-ui,sans-serif;
 }
-.sayit.track-B, .track-B .sy-tile { --sy-ink:#16302F; --sy-soft:#4F6867; --sy-cream:#F3F7F6; --sy-paper:#F8FBFA; --sy-hero:#176B6A; --sy-hero-edge:#0F4F4E; --sy-tint:#DCEBEA; --sy-vow:#9A5B13; --sy-vow-edge:#6F410C; --sy-vow-tint:#F8EBDA; --sy-h1:#6FB3AE; --sy-h2:#3F8F8C; --sy-h3:#2A7F7E; --sy-meadow:#2A7F7E; --sy-trunk:#0F4F4E; --sy-leaf:#176B6A; --sy-leaf2:#2A8584; --sy-onm:#fff; }
+.sayit.track-B, .track-B .sy-tile { --sy-ink:#1A3016; --sy-soft:#4F6867; --sy-cream:#F4F7F3; --sy-paper:#F8FBF8; --sy-hero:#236B17; --sy-hero-edge:#184F0F; --sy-tint:#DEEBDC; --sy-vow:#9A5B13; --sy-vow-edge:#6F410C; --sy-vow-tint:#F8EBDA; --sy-h1:#79B36F; --sy-h2:#4A8F3F; --sy-h3:#367F2A; --sy-meadow:#367F2A; --sy-trunk:#184F0F; --sy-leaf:#236B17; --sy-leaf2:#37852A; --sy-onm:#fff; }
 
 /* ---------- Home tile ---------- */
 .sy-tile { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 84px; margin: 14px 0 6px; padding: 12px 16px; border: 0; border-radius: 28px; text-align: left; font-family: var(--sy-ui); color: var(--sy-ink);
@@ -30,8 +30,8 @@
 
 /* ---------- Screen ---------- */
 .sayit { position: relative; min-height: 100dvh; display: flex; flex-direction: column; font-family: var(--sy-ui); color: var(--sy-ink);
-  background: linear-gradient(180deg, #5CC3D0 0, #B5E8E6 22%, #E6F7F1 42%) top / 100% 440px no-repeat, var(--sy-meadow); margin: -16px -16px 0; padding: 0 16px; }
-.sayit.track-B { background: linear-gradient(180deg, #14585A 0, #3C8F8E 14%, #9FD2CC 38%, #DCEBEA 60%) top / 100% 440px no-repeat, var(--sy-meadow); }
+  background: linear-gradient(180deg, #6CD05C 0, #BCE8B5 22%, #E8F7E6 42%) top / 100% 440px no-repeat, var(--sy-meadow); margin: -16px -16px 0; padding: 0 16px; }
+.sayit.track-B { background: linear-gradient(180deg, #1E5A14 0, #488F3C 14%, #A6D29F 38%, #DEEBDC 60%) top / 100% 440px no-repeat, var(--sy-meadow); }
 .sayit .sy-hdr { padding: 14px 70px 12px 0; gap: 12px; }
 .sayit .sy-close { background: #fff; box-shadow: 0 3px 0 var(--sy-lip), 0 8px 14px -6px var(--sy-sh); color: var(--sy-hero); flex: none; }
 .sayit h1 { margin: 0; font: 600 27px/1.08 var(--sy-disp); color: var(--sy-ink); text-wrap: balance; }
@@ -52,7 +52,7 @@
 .sy-empty { display: flex; gap: 12px; grid-area: 1/1; } .sy-empty i { width: 64px; height: 84px; border-radius: 20px; border: 3px dashed rgba(14,124,123,.38); } .has-word .sy-empty { display: none; }
 .sy-row { grid-area: 1/1; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 12px; position: relative; transition: gap .5s cubic-bezier(.3,.7,.4,1); }
 .sy-row:empty { display: none; }
-.sb { --c: var(--sy-hero); --e: var(--sy-hero-edge); position: relative; min-width: 76px; min-height: 124px; padding: 6px 10px 4px; border: 0; border-radius: 20px; background: linear-gradient(180deg, #fff, #F3FAF9); color: var(--c); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+.sb { --c: var(--sy-hero); --e: var(--sy-hero-edge); position: relative; min-width: 76px; min-height: 124px; padding: 6px 10px 4px; border: 0; border-radius: 20px; background: linear-gradient(180deg, #fff, #F4FAF3); color: var(--c); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
   box-shadow: 0 5px 0 var(--e), 0 14px 22px -10px var(--sy-sh); transition: transform 160ms cubic-bezier(.3,.7,.4,1.5), background 160ms, color 160ms, box-shadow 400ms; touch-action: manipulation; }
 .sb.v { --c: var(--sy-vow); --e: var(--sy-vow-edge); }
 .sb-l { padding-bottom: .14em; font: 700 var(--fs, 72px)/1 var(--sy-read); letter-spacing: 0; }

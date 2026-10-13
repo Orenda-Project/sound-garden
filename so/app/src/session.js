@@ -197,6 +197,7 @@ export async function demoEnd(app, profile, key, { passed = true, mastery = fals
   return endScreen(app, profile, key, { judged: mastery ? 0 : judged, correct, passed, sticker, piece: null, prog, checkResult: mastery ? { mastery: true, result: passed ? 'checked' : 'miss' } : null, firstToday: false, failedCheck: !!failed && !passed, parked: !!parked });
 }
 
+import { endPlant } from './garden-scene.js';
 async function endScreen(app, profile, key, { judged, correct, passed, sticker, piece, prog, checkResult, firstToday, failedCheck = false, parked = false }) {
   const [lid, track] = key.split(':');
   // a failed check keeps the lesson current: no celebration, the next lesson stays locked, "Practise first" goes to the reteach sitting
@@ -218,7 +219,7 @@ async function endScreen(app, profile, key, { judged, correct, passed, sticker, 
   if (levelDone && track === 'B') s.append(h('p', { class: 'cele-line' }, `Level ${lvl} done. Level ${lvl + 1} is open.`));
   if (!passed) s.append(h('p', { class: 'prompt' }, failedCheck ? "Let's practise these words first. Then we try the check again." : parked ? 'Your grown-up can see this one in their corner.' : "Let's practise this sitting again next time."));
   if (sticker && !failedCheck) s.append(h('div', { class: 'sticker land' }, sticker), h('p', { class: 'muted' }, 'You earned a sticker!'));
-  if (track === 'A') s.append(village(prog.village, { justAdded: piece }));
+  if (track === 'A') s.append(endPlant(lid, states(prog, track), passed));   // Sound Garden: the lesson's plant, not Tilo's village
   const row = h('div', { class: 'row' });
   // Track B fast track: "Keep going?" only after a >= 90% mini check (course fast-track note); the path still opens at 80%
   const offer = next && (track === 'A' || checkResult || !judged || correct / judged >= 0.9);

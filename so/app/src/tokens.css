@@ -16,7 +16,7 @@
   /* ink: warm brown, never black */
   --ink: #3A2619; --muted: #6B5646;
   /* brand */
-  --primary: #0E7C7B; --primary-hi: #17958F; --primary-edge: #0A5F5E; --primary-ink: #FFFFFF; --primary-tint: #D9F0EE;
+  --primary: #1D7C0E; --primary-hi: #299517; --primary-edge: #165F0A; --primary-ink: #FFFFFF; --primary-tint: #DCF0D9;
   --tap: #F2A93B; --tap-hi: #FFCB61; --tap-edge: #B97110; --tap-ink: #3A2619;   /* the one gold action */
   --tan: #E1A263; --tan-deep: #9A5A1E;
   --accent: var(--primary); --accent-ink: var(--primary-ink);
@@ -27,7 +27,7 @@
   --star: #F2A900;          /* only on a dark or white chip, never as text on the page */
   --hl: #FFE08A; --heart: #D9483B;
   --locked-fill: #E5EBF1; --locked-ink: #4A5E74;
-  --sky: #BFE6F2;
+  --sky: #C6F2BF;
   /* radius, elevation (teal-tinted, never grey) */
   --r-sm: 14px; --r-md: 20px; --r-lg: 28px; --r-xl: 36px; --radius: 20px; --press: 5px;
   --e1: 0 1px 0 rgba(20, 64, 62, .06), 0 6px 14px -4px rgba(20, 64, 62, .16);
@@ -39,21 +39,21 @@
 }
 /* Track B: Lagoon Dusk. Same shapes, cooler colour; "next" is the teal primary (no gold). */
 .track-B {
-  --paper: #F3F7F6; --sheet: #FFFFFF; --card: #FFFFFF; --card-soft: #EAF2F1;
-  --line: #5F7776; --rule: #D8E4E3;
-  --ink: #16302F; --muted: #4F6867;
-  --primary: #176B6A; --primary-hi: #2A8584; --primary-edge: #0F4F4E; --primary-ink: #FFFFFF; --primary-tint: #DCEBEA;
-  --tap: #176B6A; --tap-hi: #2A8584; --tap-edge: #0F4F4E; --tap-ink: #FFFFFF;
-  --tan: #176B6A; --tan-deep: #176B6A; --accent-warm: #E39A4A;
+  --paper: #F4F7F3; --sheet: #FFFFFF; --card: #FFFFFF; --card-soft: #EBF2EA;
+  --line: #5F7776; --rule: #DAE4D8;
+  --ink: #1A3016; --muted: #4F6867;
+  --primary: #236B17; --primary-hi: #37852A; --primary-edge: #184F0F; --primary-ink: #FFFFFF; --primary-tint: #DEEBDC;
+  --tap: #236B17; --tap-hi: #37852A; --tap-edge: #184F0F; --tap-ink: #FFFFFF;
+  --tan: #236B17; --tan-deep: #236B17; --accent-warm: #E39A4A;
   --good: #2D7A4D; --good-hi: #3E9A63; --good-edge: #1F6039; --good-tint: #E4F2E8; --good-text: #1F6039;
   --oops: #B0432C; --oops-tint: #FBE9E4; --oops-text: #9C3B26;
   --hl: #FFE08A;
-  --locked-fill: #E3EBEA; --locked-ink: #4F6867;
+  --locked-fill: #E4EBE3; --locked-ink: #4F6867;
   --t-rel: 160ms; --ease-rel: cubic-bezier(.4, 0, .2, 1);
 }
 /* seven pastel level bands (ink on every one passes 11:1); shared by both tracks */
 :root {
-  --band-1: #BFE6F2; --band-2: #CFEBB5; --band-3: #FFE08A; --band-4: #FFD3C7; --band-5: #E3D5F7; --band-6: #BFEBDD; --band-7: #F2D3A8;
+  --band-1: #C6F2BF; --band-2: #CFEBB5; --band-3: #FFE08A; --band-4: #FFD3C7; --band-5: #E3D5F7; --band-6: #C5EBBF; --band-7: #F2D3A8;
   --e-std: cubic-bezier(.4, 0, .2, 1); --e-in: cubic-bezier(0, 0, .2, 1); --e-out: cubic-bezier(.4, 0, 1, 1); --e-pop: cubic-bezier(.3, .7, .4, 1.5);
   --t-fast: 160ms; --t-base: 220ms; --t-slow: 400ms;
 }

@@ -14,7 +14,7 @@
 .track-B .lesson.fold.quiet { background: transparent; box-shadow: none; border: 2px dashed var(--rule); } .track-B .lesson.fold.quiet .lhead .ico { opacity: .75; }
 /* B2: Before you start. A soft header (an ear, a mouth, a book in the accent colour), three plain rows, the button docked at the bottom */
 .promise.promise-b { display: flex; flex-direction: column; min-height: 100dvh; padding: 0 0 calc(22px + env(safe-area-inset-bottom, 0px)); margin: 0 -16px -32px; text-align: left; background: var(--paper); }
-.promise-b .pb-head { position: relative; height: 270px; overflow: hidden; background: linear-gradient(#14585A, #3C8F8E 70%, #9FD2CC); color: #fff; display: grid; place-items: center; }
+.promise-b .pb-head { position: relative; height: 270px; overflow: hidden; background: linear-gradient(#1E5A14, #488F3C 70%, #A6D29F); color: #fff; display: grid; place-items: center; }
 .promise-b .pb-head .scene { position: absolute; inset: 0; }
 .promise-b .pb-badges { position: relative; display: flex; gap: 14px; margin-top: 20px; }
 .promise-b .pb-badges span { width: 84px; height: 84px; border-radius: 28px; background: #fff; color: var(--primary); display: grid; place-items: center; box-shadow: 0 5px 0 rgba(10, 60, 60, .3), var(--e2); }

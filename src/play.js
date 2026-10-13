@@ -2,7 +2,7 @@
 // URL: #/play  #/play/lesson/L2.04  #/play/practice  #/play/sound-it-out  #/play/grown-ups   (see router.js)
 // Back button: one logical step back, the same table the Android build uses (so/app/src/native.js backAction): a screen's own Back control,
 // the grown-ups sum closes, a guide topic goes to the guide list, everything else goes Home; on Home the Back button leaves to the landing page.
-let booted = null;
+let booted = null, deepUsed = false;
 
 function parse(rest) {
   const m = /^\/lesson\/(L\d\.\d\d)$/.exec(rest || '');
@@ -52,5 +52,21 @@ export async function mount(root, rest) {
     });
   }
   window.__sg.lesson = null;
-  return so.start(root, { deep: parse(rest) });
+  prefetchCore();
+  // a link opens the lesson it names; a reload of the page lands on Home (a half-done sitting is not resumable)
+  const nav = performance.getEntriesByType?.('navigation')?.[0];
+  const reloaded = nav?.type === 'reload' && !deepUsed; deepUsed = true;
+  return so.start(root, { deep: reloaded ? null : parse(rest) });
+}
+
+// Offline: ask the service worker to keep the core clips (the sounds, the spoken instructions, the names): about 3 MB, once, when idle.
+// Word clips and the later levels are cached as they are played.
+async function prefetchCore() {
+  try {
+    if (!import.meta.env.PROD || !navigator.serviceWorker) return;
+    const reg = await navigator.serviceWorker.ready;
+    const { audioIndex } = await import('../so/app/src/content.js');
+    const urls = Object.entries(audioIndex.clips).filter(([k]) => /^(ph|ui|name|t2):/.test(k)).map(([, c]) => `audio/${c.id}.ogg`);
+    (window.requestIdleCallback || setTimeout)(() => reg.active?.postMessage({ type: 'prefetch', urls }));
+  } catch { /* offline caching is a bonus */ }
 }
