@@ -63,3 +63,5 @@
 .endscreen.track-A .score { margin: 4px 0; } .endscreen.track-A .muted { margin: 2px 0; }
 .endscreen.track-A .dots { display: none; }   /* the score line says it; the dots pushed the buttons off a 844 px screen */
 .endscreen.track-A .cele-box { transform: scale(.85); transform-origin: 50% 0; margin-bottom: -28px; }
+/* Sprig a little bigger beside the question: the critics found the corner mascot too small */
+body .track-A header.hdr .hdr-tilo .tilo.inline, .hdr-tilo .tilo.inline { width: 124px; }

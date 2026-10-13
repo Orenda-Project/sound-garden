@@ -17,8 +17,8 @@ try:
         print('audio clips cached:', n); ok &= n > 200
         ctx.set_offline(True)
         for hsh, sel in [('', '.landing'), ('#/play', '.splash-play, .whocard'), ('#/teach', '.teachpage')]:
-            pg.goto(base + '?fast=1' + hsh); pg.reload()
-            try: pg.wait_for_selector(sel, timeout=15000); print('offline ok', hsh or '#/')
+            q = ctx.new_page(); q.goto(base + '?fast=1' + hsh)   # a fresh page per route, network cut: everything must come from the service worker cache
+            try: q.wait_for_selector(sel, timeout=15000); print('offline ok', hsh or '#/')
             except Exception as e: print('OFFLINE FAIL', hsh, str(e)[:80]); ok = False
         b.close()
 finally:

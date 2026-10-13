@@ -24,3 +24,4 @@
 .tp-pdf:focus-visible, .tp-btn:focus-visible, .tp-back:focus-visible, .tp-level summary:focus-visible { outline: 3px solid #12330F; outline-offset: 2px; }
 code { background: #EFEBDD; padding: 1px 6px; border-radius: 6px; font-size: .9em; }
 body { margin: 0; background: #1E2B1A; }
+.tp-dd { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; } .tp-dd h3 { margin: 6px 0 0; font: 800 17px/1.2 var(--font); } @media (max-width: 440px) { .tp-dd { grid-template-columns: 1fr; } }
