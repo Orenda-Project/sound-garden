@@ -12,16 +12,16 @@ export const LEVEL_NAME = { 1: 'First sounds', 2: 'Sounds together', 3: 'Long vo
 // labels: the sound(s) a lesson teaches, from its sittings ('' = review or practice lesson, drawn with the speaker icon)
 export function lessonLabel(l) {
   const g = (l.sittings || []).flatMap(s => s.new || []);
-  return g.length ? [...new Set(g)].slice(0, 2).join('').replace(/_/g, '') : '';
+  return g.length ? g[0].replace(/_/g, '-') : '';   // one sound per plant: the first the lesson teaches (a_e shows as a-e)
 }
 
 // back row small, front row big. Lessons fill front to back, so the garden grows away from you.
 export function slots(n) {
-  const per = n <= 8 ? 4 : n <= 15 ? 5 : 6;
+  const per = n <= 8 ? 4 : 5;
   const rows = Math.ceil(n / per), out = [];
   for (let r = 0; r < rows; r++) {
     const t = rows === 1 ? 1 : r / (rows - 1);                        // 0 = front row, 1 = back row
-    const y = 452 - t * (rows > 3 ? 230 : 200), s = +(0.98 - t * 0.5).toFixed(2);
+    const y = 452 - t * (rows > 3 ? 230 : 200), s = +(0.9 - t * 0.42).toFixed(2);
     const inRow = Math.min(per, n - r * per);
     for (let i = 0; i < inRow; i++) {
       const span = 330, x = 30 + span * ((i + 0.5 + (r % 2 ? 0.28 : 0)) / (per + 0.28));
@@ -77,3 +77,6 @@ export function endPlant(lid, st, passed) {
   el.innerHTML = `${defs()}<svg viewBox="-60 -110 120 170" aria-hidden="true">${plant({ x: 0, y: 0, s: 1, stage, label: p.label, color: PLANT_COLORS[(parseInt(lid.slice(-2), 10) || 0) % PLANT_COLORS.length], hit: false })}</svg><p>${txt}</p>`;
   return el;
 }
+
+// Sprig grows as lessons are checked: seed-sprout (0-2), leafy (3-8), budding (9-19), blooming (20+). Never shrinks: lessons are never un-checked.
+export const growthStage = (prog) => { const n = Object.values(prog.lessons || {}).filter(x => x.state === 'checked').length; return n >= 20 ? 4 : n >= 9 ? 3 : n >= 3 ? 2 : 1; };

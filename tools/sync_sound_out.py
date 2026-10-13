@@ -77,6 +77,18 @@ PATCH_LIST = [
     ('privacy.js', "'Sound Out works completely offline.", "'Sound Garden works offline once it has loaded.", ),
 ]
 
+import hashlib
+REPLACED = ['main.js', 'home.js', 'tilo.js', 'tilo-look.js']      # upstream files whose whole content an overlay file replaces
+def sha(p): return hashlib.sha1(pathlib.Path(p).read_bytes()).hexdigest()[:12]
+def upstream_check(record=False):
+    f = ROOT / 'so-overlay/UPSTREAM.json'; cur = {n: sha(SO / 'app/src' / n) for n in REPLACED}
+    if record: f.write_text(json.dumps(cur, indent=1)); print('recorded upstream hashes'); return
+    old = json.loads(f.read_text()) if f.exists() else {}
+    for n in REPLACED:
+        if old.get(n) != cur[n]: print(f'WARNING: Sound Out changed app/src/{n} since so-overlay/{n} was written: diff them and port the change, then run --record')
+
 if __name__ == '__main__':
+    if '--record' in sys.argv: upstream_check(record=True); sys.exit(0)
+    if '--pull' in sys.argv: upstream_check()
     if '--pull' in sys.argv: pull()
     apply()

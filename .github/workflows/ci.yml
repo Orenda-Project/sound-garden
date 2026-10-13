@@ -12,5 +12,8 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: node tools/size_budget.mjs
-      - run: python3 tools/build_content.py --check
+      - run: python3 tools/check_decodable.py
+      - run: python3 tools/check_finch.py
+      - run: python3 tools/so-compat/tools/check_ph_keys.py
+      - run: python3 tools/so-compat/tools/check_practice_links.py
       - run: npx vitest run

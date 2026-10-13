@@ -15,7 +15,7 @@ import { wait, isFast, mark } from './audio.js';
 import { avatarById } from './avatars.js';
 import { applyLook } from './tilo-look.js';
 import { skyKind } from './homescene.js';
-import { gardenYard, plotsFor, LEVEL_NAME as GARDEN_LEVEL, lessonLabel } from './garden-scene.js';
+import { growthStage, gardenYard, plotsFor, LEVEL_NAME as GARDEN_LEVEL, lessonLabel } from './garden-scene.js';
 import { play } from './audio.js';
 import './living.css';
 import './bhome.css';
@@ -151,7 +151,7 @@ export async function home(app, profile) {
   app.mount(s);
   if (track === 'A') {
     const slot = s.querySelector('.scene-tilo .tilo-slot');
-    tilo.dock(slot); applyLook(profile.tiloLook?.scarf); tilo.setStage(Math.min(4, 1 + Math.floor(Object.values(prog.lessons || {}).filter(x => x.state === 'checked').length / 3))); tilo.arrive(); if (newItems && !isCalm()) tilo.emote('celebrating', null, 1700);
+    tilo.dock(slot); applyLook(profile.tiloLook?.scarf); tilo.setStage(growthStage(prog)); tilo.arrive(); if (newItems && !isCalm()) tilo.emote('celebrating', null, 1700);
   }
   if (animate) unlockSequence(s, st, fresh, track);
   if (track === 'B') { const c = s.querySelector('.b-hero .count'); if (c) countUp(c, readWords(prog).length, 700); }

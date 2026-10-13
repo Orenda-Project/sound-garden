@@ -8,6 +8,7 @@ import { stop } from './audio.js';
 import { initNative } from './native.js';
 import { teacher } from './teacher.js';
 import { tilo } from './tilo.js';
+import { growthStage } from './garden-scene.js';
 import { privacyScreen } from './privacy.js';
 import { guideHub, guideSection } from './guide.js';
 import { initMotion } from './motion.js';
@@ -43,6 +44,7 @@ const app = {
     profile = id ? await db.get('profiles', id) : null;
     if (!profile) { tilo.setTrack(null); return onboarding(app); }
     teacher.track(profile.track);
+    tilo.setStage(growthStage(await db.progress(profile.id)));
     const d = app.deep; app.deep = null;
     if (d?.lesson) { const k = states(await db.progress(profile.id), profile.track).find(x => x.lessonId === d.lesson && x.state === 'open'); if (k) return app.sitting(k.key); }
     if (d?.screen === 'practice') return app.practice();

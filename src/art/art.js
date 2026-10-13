@@ -66,7 +66,7 @@ export const defs = () => `<svg width="0" height="0" style="position:absolute" a
 export const PLANT_COLORS = ['#FFC21A', '#4FA3E8', '#FFFDF6', '#F29B73', '#B06AD6', '#E4572E', '#FFD84A', '#7AD3C4', '#F78FB3', '#9BE06E', '#C98CF0', '#F4A261'];
 // One plant: wood box with stake letter, soil lip, stage symbol. stage 1-4, or 'zz' (dozing). label '' = sound icon.
 export function plant({ x, y, s = 1, stage = 1, label = '', color, id, glow = false, ring = false, hit = true }) {
-  const t = label ? `<text x="0" y="31" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="${label.length > 1 ? 24 : 32}" fill="#12330F">${label}</text>` : '<g color="#12330F" transform="translate(-13 6)"><use href="#spk" width="26" height="26"/></g>';
+  const t = label ? `<text x="0" y="31" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="${label.length > 2 ? 17 : label.length > 1 ? 24 : 32}" fill="#12330F">${label}</text>` : '<g color="#12330F" transform="translate(-13 6)"><use href="#spk" width="26" height="26"/></g>';
   return `<g class="pl${glow ? ' glow' : ''}" data-plant="${id}" data-stage="${stage}" ${hit ? 'tabindex="0" role="button"' : ''} aria-label="${label || 'First sound'} plant, ${stage === 'zz' ? 'resting' : 'stage ' + stage}" style="--pc:${color || PLANT_COLORS[0]}" transform="translate(${x} ${y}) scale(${s})">
 <g class="pi"><ellipse cx="0" cy="48" rx="34" ry="6" fill="#12330F" opacity=".2"/>${glow || ring ? `<ellipse class="gl" cx="0" cy="-8" rx="50" ry="62" fill="#FFE98F" opacity="${ring ? .5 : 0}"/>` : ''}
 <use href="#pl${stage === 'zz' ? 'z' : stage}" x="-40" y="-80" width="80" height="80"/>

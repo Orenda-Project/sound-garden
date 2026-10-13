@@ -17,8 +17,9 @@ function walk(f) {
   for (const m of src.matchAll(/["'`]\.\/(landing-[^"'`]+\.js)["'`]/g)) walk(join(dirname(f), m[1]));
   for (const m of src.matchAll(/["']([^"']*assets\/[^"']+\.css)["']/g)) { /* vite css preload map */ }
 }
-// css pulled in by the entry's preload map: include any css the landing route needs
-for (const f of readdirSync(join(DIST, 'assets'))) if (f.endsWith('.css') && !set.has('assets/' + f)) set.add('assets/' + f);
+// css the landing page needs = the css its entry chunk imports (the app's stylesheet loads only after the tap, with the app chunk)
+const entry = [...set].find((f) => /assets\/main-.*\.js$/.test(f));
+if (entry) { const m = readFileSync(join(DIST, entry), 'utf8').match(/assets\/(?:main|landing|sprig)-[\w-]+\.css/g) || []; for (const c of m) if (/main-|landing-|sprig-/.test(c)) set.add(c); }
 let total = 0, fonts = [];
 console.log('Pre-tap files (gzip bytes):');
 for (const f of [...set].sort()) {
