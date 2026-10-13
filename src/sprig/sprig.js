@@ -1,145 +1,242 @@
-// Sprig rig: dependency-free. SVG drawn from design/A (seed body, big eyes, leaf), WAAPI on transform + opacity only.
-// Animated nodes (12): shadow root body pupils lids mouth mouthO plant leafL leafR fxa fxb.
-const E_STD = 'cubic-bezier(0.4,0,0.2,1)', E_DEC = 'cubic-bezier(0,0,0.2,1)', E_ACC = 'cubic-bezier(0.4,0,1,1)';
-const E_POP = 'cubic-bezier(0.35,1.8,0.4,1)', E_LIN = 'linear', E_STEP = 'steps(1,end)';
+// Sprig, the seed friend: a spring-driven mascot. Every part (squash, tilt, leaves, eyes, mouth, shadow, thought bubble) is a spring, nothing is a canned clip.
+//   idle: breathing, random blinks, eye glances, plant sway     pointer: eyes follow while dragging, a poke squashes and tilts it and sends hearts
+//   moods: idle happy cheer sleepy thinking oops listening speaking surprise      one-shots: hop (with a shadow that answers it), wave, stars, hearts, petals, puffs, drops, zzz
+// API (the same names Sound Out's mascot code already calls): createSprig(el,{stage,identityColor}) -> {setState, setStage, lookAt, setCalm, destroy}
+import { Sp, addActor, removeActor, clamp, rnd, NS, isCalm } from '../motion/engine.js';
+
 export const STAGES = ['seed', 'sprout', 'leafy', 'budding', 'bloom'];
-export const NODES = ['shadow', 'root', 'body', 'pupils', 'lids', 'mouth', 'mouthO', 'plant', 'leafL', 'leafR', 'fxa', 'fxb'];
+const STAGE_SCALE = [0, 0.55, 0.85, 1, 1];
+const f2 = (v) => v.toFixed(2);
 
-// frame: [offset, transform, opacity]
-const K = (a) => a.map(([offset, t, o]) => { const f = { offset }; if (t != null) f.transform = t; if (o != null) f.opacity = o; return f; });
-const BLINK = K([[0, 'scaleY(0)'], [0.93, 'scaleY(0)'], [0.96, 'scaleY(1)'], [1, 'scaleY(0)']]);
-const BREATH = K([[0, 'scale(1,1)'], [0.3, 'scale(1.025,0.968)'], [0.6, 'scale(1,1)'], [1, 'scale(1,1)']]);
-const SWAY = K([[0, 'rotate(-3deg)'], [0.3, 'rotate(4.5deg)'], [0.6, 'rotate(-3deg)'], [1, 'rotate(-3deg)']]);
-const HOLD = (t, o) => K([[0, t, o], [1, t, o]]);
-const SPARK = K([[0, 'scale(0.3)', 0], [0.4, 'scale(1)', 1], [1, 'scale(1.25)', 0]]);
-const WAVE = (d) => K([[0, 'rotate(0)'], [0.15, `rotate(${d * 35}deg)`], [0.3, `rotate(${d * -10}deg)`], [0.45, `rotate(${d * 35}deg)`], [0.6, `rotate(${d * -10}deg)`], [0.75, `rotate(${d * 25}deg)`], [1, 'rotate(0)']]);
-const POINT = (deg, s = 1.12) => K([[0, 'rotate(0) scale(1)'], [0.25, `rotate(${deg}deg) scale(${s})`], [0.8, `rotate(${deg}deg) scale(${s})`], [1, 'rotate(0) scale(1)']]);
-const HAPPY = K([[0, 'scaleY(0)'], [0.2, 'scaleY(0.14)'], [0.8, 'scaleY(0.14)'], [1, 'scaleY(0)']]);   // eyes stay wide open: the 0.45 lid read as sleepy/sad in blind critic round 1
+// mood targets: eh = happy eyes, sl = sleepy lids, mw/mc/mo = mouth half width / curve / openness, lL lR = leaf angles, tilt, th = thought bubble, br = brow angle (0 none)
+const MOODS = {
+  idle: { eh: 0, sl: 0, mw: 9, mc: 8, mo: 0, lL: 0, lR: 0, tilt: 0, th: 0, br: 0, wide: 0 },
+  happy: { eh: 1, sl: 0, mw: 13, mc: 11, mo: 0.9, lL: 22, lR: -22, tilt: 0, th: 0, br: 0, wide: 0 },
+  cheer: { eh: 1, sl: 0, mw: 15, mc: 12, mo: 1, lL: 36, lR: -36, tilt: 0, th: 0, br: 0, wide: 0 },
+  sleepy: { eh: 0, sl: 1, mw: 4, mc: 0, mo: 0.35, lL: -22, lR: 22, tilt: -6, th: 0, br: 0, wide: 0 },
+  thinking: { eh: 0, sl: 0, mw: 6, mc: -1, mo: 0, lL: 0, lR: -36, tilt: 5, th: 1, br: 0.6, wide: 0 },
+  oops: { eh: 0, sl: 0.18, mw: 7, mc: -3, mo: 0, lL: -18, lR: 18, tilt: 6, th: 0, br: 1, wide: 0 },
+  listening: { eh: 0, sl: 0, mw: 8, mc: 6, mo: 0, lL: 16, lR: -16, tilt: 6, th: 0, br: 0, wide: 1 },
+  speaking: { eh: 0, sl: 0, mw: 10, mc: 7, mo: 0.4, lL: 4, lR: -4, tilt: 0, th: 0, br: 0, wide: 0 },
+  surprise: { eh: 0, sl: 0, mw: 7, mc: 6, mo: 0.9, lL: 28, lR: -28, tilt: 0, th: 0, br: -0.6, wide: 1 },
+};
 
-// Each state: (d, o) => {loop, dur, ease, pose, fx, tracks: {node: frames | [frames, dur, ease]}}. d = +1 right / -1 left.
-export const STATES = {
-  'idle': () => ({ loop: 1, dur: 3000, pose: 0, tracks: { body: BREATH, plant: SWAY, lids: [BLINK, 4000], leafL: K([[0, 'rotate(0)'], [0.3, 'rotate(-3deg)'], [0.6, 'rotate(0)'], [1, 'rotate(0)']]) } }),
-  'idle-lesson': () => ({ loop: 1, dur: 5000, pose: 0, tracks: { lids: BLINK } }),
-  'wake': () => ({ dur: 600, ease: E_POP, pose: 1, tracks: { root: K([[0, 'translateY(40px) scale(0.6)', 0], [0.6, 'translateY(-6px) scale(1.06)', 1], [1, 'none', 1]]), shadow: K([[0, 'scaleX(0.3)', 0], [1, 'scaleX(1)', 1]]) } }),
-  'greet': (d) => ({ dur: 1200, pose: 0.3, tracks: { [d < 0 ? 'leafL' : 'leafR']: WAVE(-d), lids: HAPPY, root: K([[0, 'rotate(0)'], [0.5, `rotate(${d * 4}deg)`], [1, 'rotate(0)']]) } }),
-  'listening': (d) => ({ loop: 1, dur: 2400, ease: E_STD, pose: 0, tracks: { root: HOLD(`rotate(${d * 6}deg) translateY(-2px)`), leafL: K([[0, 'rotate(18deg) scale(1.1)'], [0.5, 'rotate(24deg) scale(1.15)'], [1, 'rotate(18deg) scale(1.1)']]), leafR: K([[0, 'rotate(-18deg) scale(1.1)'], [0.5, 'rotate(-24deg) scale(1.15)'], [1, 'rotate(-18deg) scale(1.1)']]), lids: [BLINK, 4000] } }),
-  'thinking': (d) => ({ loop: 1, dur: 1500, pose: 0.25, tracks: { root: K([[0, 'rotate(0)'], [0.25, `rotate(${d * -7}deg)`], [0.5, `rotate(${d * -5}deg)`], [0.75, `rotate(${d * -7}deg)`], [1, 'rotate(0)']]), pupils: HOLD('translate(-3px,-4px)'), mouth: HOLD('scaleX(0.7)') } }),
-  'speaking': () => ({ loop: 1, dur: 600, ease: E_STEP, pose: 0.3, tracks: { mouth: K([[0, null, 1], [0.25, null, 0], [0.5, null, 1], [0.75, null, 0], [1, null, 1]]), mouthO: K([[0, null, 0], [0.25, null, 1], [0.5, null, 0], [0.75, null, 1], [1, null, 0]]), body: [K([[0, 'translateY(0)'], [0.5, 'translateY(-2px)'], [1, 'translateY(0)']]), 1200, E_STD] } }),
-  'pointing': (d) => ({ dur: 1000, pose: 0.5, tracks: { [d < 0 ? 'leafL' : 'leafR']: POINT(d * 38), root: K([[0, 'rotate(0)'], [0.25, `rotate(${d * 5}deg)`], [0.8, `rotate(${d * 5}deg)`], [1, 'rotate(0)']]), pupils: K([[0, 'translate(0,0)'], [0.25, `translate(${d * 5}px,2px)`], [0.8, `translate(${d * 5}px,2px)`], [1, 'translate(0,0)']]) } }),
-  'tap-react': (d, o) => {
-    const v = o.variant == null ? 0 : o.variant % 3;
-    return { dur: 500, ease: v === 2 ? E_LIN : E_POP, pose: 0.5, tracks: [
-      { root: K([[0, 'rotate(0)'], [0.2, 'rotate(-7deg)'], [0.4, 'rotate(7deg)'], [0.6, 'rotate(-5deg)'], [0.8, 'rotate(3deg)'], [1, 'rotate(0)']]), lids: HAPPY, mouthO: K([[0, null, 0], [0.1, null, 1], [0.9, null, 1], [1, null, 0]]) },
-      { body: K([[0, 'scale(1,1)'], [0.3, 'scale(1.18,0.78)'], [0.6, 'scale(0.94,1.1)'], [1, 'scale(1,1)']]), root: K([[0, 'translateY(0)'], [0.55, 'translateY(-8px)'], [1, 'translateY(0)']]) },
-      { root: K([[0, 'rotate(0)'], [1, 'rotate(360deg)']]), shadow: K([[0, 'scaleX(1)'], [0.5, 'scaleX(0.8)'], [1, 'scaleX(1)']]) }][v] };
-  },
-  'look-at': () => ({ loop: 1, dur: 4000, pose: 0, tracks: { lids: BLINK, body: [BREATH, 3000] } }),
-  'correct-small': () => ({ dur: 600, pose: 0.6, fx: '', tracks: { root: K([[0, 'translateY(0)'], [0.3, 'translateY(5px)'], [0.6, 'translateY(-6px)'], [1, 'translateY(0)']]), fxa: SPARK, lids: HAPPY } }),
-  'correct-streak': () => ({ dur: 1000, ease: E_POP, pose: 0.4, tracks: { plant: K([[0, 'scale(1)'], [0.4, 'scale(1.18)'], [0.7, 'scale(1.05)'], [1, 'scale(1)']]), leafL: K([[0, 'rotate(0) scale(1)'], [0.4, 'rotate(-14deg) scale(1.3)'], [1, 'rotate(0) scale(1)']]), leafR: K([[0, 'rotate(0) scale(1)'], [0.4, 'rotate(14deg) scale(1.3)'], [1, 'rotate(0) scale(1)']]), fxa: SPARK, lids: HAPPY } }),
-  'celebrate': () => ({ dur: 1500, pose: 0.15, fx: 'petals', tracks: { root: K([[0, 'translateY(0) scale(1,1)'], [0.08, 'translateY(0) scale(1.08,0.88)'], [0.22, 'translateY(-26px) scale(0.96,1.06)'], [0.38, 'translateY(0) scale(1.06,0.92)'], [0.55, 'translateY(-14px)'], [0.72, 'translateY(0)'], [0.85, 'translateY(-5px)'], [1, 'translateY(0)']]), plant: WAVE(1), mouthO: K([[0, null, 0], [0.1, null, 1], [0.7, null, 1], [0.8, null, 0], [1, null, 0]]), fxa: [K([[0, 'scale(0.3)', 0], [0.25, 'scale(1)', 1], [0.7, 'scale(1.2)', 1], [1, 'scale(1.3)', 0]]), 1500], fxb: K([[0, 'translateY(-20px)', 0], [0.2, null, 1], [1, 'translateY(40px)', 0]]), lids: HAPPY } }),
-  'level-up': (d, o) => ({ dur: 2500, ease: E_STD, pose: 0.7, fx: '', swapAt: 0.4, tracks: { root: K([[0, 'scale(1,1)'], [0.15, 'scale(1.1,0.88)'], [0.3, 'scale(0.9,0.84)'], [0.5, 'translateY(-30px) scale(1.06,1.18)'], [0.7, 'translateY(0) scale(1.12,0.92)'], [0.85, 'scale(0.98,1.03)'], [1, 'scale(1,1)']]), plant: K([[0, 'scale(1)', 1], [0.36, 'scale(0.2)', 0], [0.4, 'scale(0.2)', 0], [0.7, 'scale(1.25)', 1], [0.85, 'scale(0.95)'], [1, 'scale(1)', 1]]), fxa: [K([[0, 'scale(0.3)', 0], [0.5, 'scale(0.9)', 1], [0.8, 'scale(1.3)', 0.9], [1, 'scale(1.6)', 0]]), 2500], shadow: K([[0, 'scaleX(1)'], [0.5, 'scaleX(0.7)'], [0.7, 'scaleX(1.15)'], [1, 'scaleX(1)']]), lids: HAPPY } }),
-  'wrong-soft': (d) => ({ dur: 500, pose: 0.6, tracks: { root: K([[0, 'rotate(0)'], [0.4, `rotate(${d * 9}deg)`], [0.8, `rotate(${d * 9}deg)`], [1, 'rotate(0)']]), [d < 0 ? 'leafL' : 'leafR']: POINT(d * 34, 1.08), pupils: K([[0, 'translate(0,0)'], [0.4, `translate(${d * 5}px,2px)`], [0.8, `translate(${d * 5}px,2px)`], [1, 'translate(0,0)']]), mouth: K([[0, 'scaleX(1)'], [0.4, 'scaleX(0.65)'], [0.8, 'scaleX(0.65)'], [1, 'scaleX(1)']]) } }),
-  'try-again': (d) => ({ dur: 900, pose: 0.5, tracks: { root: K([[0, 'translateX(0) rotate(0)'], [0.35, `translateX(${d * 6}px) rotate(${d * 5}deg)`], [0.8, `translateX(${d * 6}px) rotate(${d * 5}deg)`], [1, 'translateX(0) rotate(0)']]), [d < 0 ? 'leafL' : 'leafR']: POINT(d * 38), pupils: K([[0, 'translate(0,0)'], [0.35, `translate(${d * 5}px,1px)`], [0.8, `translate(${d * 5}px,1px)`], [1, 'translate(0,0)']]) } }),
-  'encourage': () => ({ dur: 1400, pose: 0.4, tracks: { body: K([[0, 'scale(1,1)'], [0.2, 'scale(1.05,0.95)'], [0.4, 'scale(1,1.03)'], [0.6, 'scale(1.05,0.95)'], [0.8, 'scale(1,1)'], [1, 'scale(1,1)']]), leafL: K([[0, 'rotate(0)'], [0.3, 'rotate(-14deg)'], [0.8, 'rotate(-14deg)'], [1, 'rotate(0)']]), leafR: K([[0, 'rotate(0)'], [0.3, 'rotate(14deg)'], [0.8, 'rotate(14deg)'], [1, 'rotate(0)']]), lids: HAPPY, fxa: K([[0, 'scale(0.4)', 0], [0.5, 'scale(0.9)', 0.7], [1, 'scale(1)', 0]]) } }),
-  'hint': (d) => ({ dur: 1000, ease: E_POP, pose: 0.5, fx: 'bulb', tracks: { fxb: K([[0, 'translateY(6px) scale(0.3)', 0], [0.3, 'translateY(0) scale(1.1)', 1], [0.8, 'scale(1)', 1], [1, 'scale(1)', 0]]), [d < 0 ? 'leafL' : 'leafR']: POINT(d * 30, 1.08) } }),
-  'stuck-wait': (d) => ({ loop: 1, dur: 5000, pose: 0, tracks: { body: [BREATH, 5000], plant: [SWAY, 5000], pupils: K([[0, 'translate(0,0)'], [0.3, `translate(${d * 4}px,0)`], [0.5, `translate(${d * 4}px,0)`], [0.8, 'translate(0,0)'], [1, 'translate(0,0)']]), lids: [BLINK, 4000] } }),
-  'sleepy-return': () => ({ dur: 3000, pose: 0.9, fx: 'drops', tracks: { body: K([[0, 'scale(1,0.9)'], [0.45, 'scale(1,0.9)'], [0.65, 'scale(1.04,1.05)'], [1, 'scale(1,1)']]), plant: K([[0, 'rotate(22deg)'], [0.45, 'rotate(22deg)'], [0.65, 'rotate(-6deg)'], [0.8, 'rotate(4deg)'], [1, 'rotate(0)']]), lids: K([[0, 'scaleY(0.7)'], [0.45, 'scaleY(0.7)'], [0.6, 'scaleY(0)'], [1, 'scaleY(0)']]), fxb: K([[0, 'translateY(-20px)', 0], [0.45, 'translateY(-20px)', 0], [0.55, 'translateY(-8px)', 1], [0.85, 'translateY(14px)', 0], [1, 'translateY(14px)', 0]]) } }),
-  'sleep': () => ({ loop: 1, dur: 4000, pose: 0, fx: 'zzz', tracks: { lids: HOLD('scaleY(1)'), body: [K([[0, 'scale(1,1)'], [0.5, 'scale(1.02,0.97)'], [1, 'scale(1,1)']]), 4000, E_STD], plant: HOLD('rotate(12deg)'), fxb: K([[0, 'translate(0,6px)', 0], [0.5, 'translate(8px,-8px)', 1], [1, 'translate(14px,-20px)', 0]]) } }),
-  'water': () => ({ dur: 2000, pose: 0.8, fx: 'drops', tracks: { fxb: K([[0, 'translateY(-24px)', 0], [0.2, null, 1], [0.7, 'translateY(8px)', 1], [0.85, 'translateY(10px)', 0], [1, null, 0]]), plant: K([[0, 'scale(1)'], [0.6, 'scale(1)'], [0.8, 'scale(1.12)'], [1, 'scale(1)']]), body: K([[0, 'scale(1,1)'], [0.7, 'scale(1,1)'], [0.8, 'scale(1.06,0.94)'], [1, 'scale(1,1)']]), lids: HAPPY } }),
-  'surprise': () => ({ dur: 700, ease: E_POP, pose: 0.3, tracks: { root: K([[0, 'translateY(0) scale(1)'], [0.3, 'translateY(-10px) scale(1.1,1.12)'], [1, 'translateY(0) scale(1)']]), pupils: K([[0, 'scale(1)'], [0.2, 'scale(0.72)'], [0.85, 'scale(0.72)'], [1, 'scale(1)']]), mouth: K([[0, null, 1], [0.1, null, 0], [0.9, null, 0], [1, null, 1]]), mouthO: K([[0, null, 0], [0.1, null, 1], [0.9, null, 1], [1, null, 0]]), leafL: K([[0, 'rotate(0)'], [0.3, 'rotate(-16deg)'], [1, 'rotate(0)']]), leafR: K([[0, 'rotate(0)'], [0.3, 'rotate(16deg)'], [1, 'rotate(0)']]) } }),
-  'proud': () => ({ dur: 1800, pose: 0.4, tracks: { root: K([[0, 'scale(1,1)'], [0.3, 'scale(0.96,1.08)'], [0.8, 'scale(0.96,1.08)'], [1, 'scale(1,1)']]), plant: K([[0, 'scale(1)'], [0.3, 'scale(1.1)'], [0.8, 'scale(1.1)'], [1, 'scale(1)']]), lids: HAPPY, fxa: [K([[0, 'scale(0.4)', 0], [0.4, 'scale(1)', 1], [0.8, 'scale(1)', 1], [1, 'scale(1.1)', 0]]), 1800] } }),
-  'goodbye': () => ({ dur: 1800, pose: 0.9, tracks: { leafR: K([[0, 'rotate(0)'], [0.1, 'rotate(-35deg)'], [0.2, 'rotate(10deg)'], [0.3, 'rotate(-35deg)'], [0.4, 'rotate(10deg)'], [0.6, 'rotate(0)'], [0.8, 'rotate(-45deg)'], [1, 'rotate(-45deg)']]), leafL: K([[0, 'rotate(0)'], [0.6, 'rotate(0)'], [0.8, 'rotate(45deg)'], [1, 'rotate(45deg)']]), root: K([[0, 'translateY(0)'], [0.6, 'translateY(0)'], [0.75, 'translateY(4px)'], [1, 'translateY(4px)']]), lids: K([[0, 'scaleY(0)'], [0.6, 'scaleY(0.45)'], [1, 'scaleY(0.7)']]) } }),
-  'error-offline': (d) => ({ dur: 800, pose: 0.4, tracks: { root: K([[0, 'scaleY(1)'], [0.3, 'scale(1.03,0.94)'], [0.7, 'scale(1.03,0.94)'], [1, 'scaleY(1)']]), leafL: K([[0, 'rotate(0)'], [0.3, 'rotate(-26deg)'], [0.7, 'rotate(-26deg)'], [1, 'rotate(0)']]), leafR: K([[0, 'rotate(0)'], [0.3, 'rotate(26deg)'], [0.7, 'rotate(26deg)'], [1, 'rotate(0)']]), mouth: K([[0, 'scaleX(1)'], [0.3, 'scaleX(0.6)'], [0.7, 'scaleX(0.6)'], [1, 'scaleX(1)']]), pupils: K([[0, 'translate(0,0)'], [0.3, `translate(${d * 4}px,-3px)`], [0.7, `translate(${d * 4}px,-3px)`], [1, 'translate(0,0)']]) } }),
+// Sound Out's pose names -> a mood, how long it lasts (ms, 0 = stays), and what happens when it starts. c = the rig.
+const STATES = {
+  'idle': { m: 'idle', base: 1 }, 'idle-lesson': { m: 'idle', base: 1 }, 'look-at': { m: 'idle', base: 1 }, 'stuck-wait': { m: 'idle', base: 1 },
+  'wake': { m: 'idle', base: 1, go: (c) => c.emerge() },
+  'greet': { m: 'happy', ms: 1500, go: (c, d) => { c.wave(d); c.later(() => c.hop(260), 120); c.hearts(1); } },
+  'listening': { m: 'listening', base: 1 },
+  'thinking': { m: 'thinking', base: 1 },
+  'speaking': { m: 'speaking', base: 1 },
+  'pointing': { m: 'idle', ms: 1000, go: (c, d) => c.point(d, 1000) },
+  'tap-react': { m: 'happy', ms: 900, go: (c) => c.poke() },
+  'correct-small': { m: 'happy', ms: 800, go: (c) => { c.hop(300); c.burst(4); } },
+  'correct-streak': { m: 'cheer', ms: 1100, go: (c) => { c.hop(380); c.burst(9); } },
+  'celebrate': { m: 'cheer', ms: 1900, go: (c) => c.party(1700) },
+  'cheer': { m: 'cheer', ms: 1900, go: (c) => c.party(1700) },
+  'level-up': { m: 'cheer', ms: 2400, go: (c, d, o) => { c.hop(560); c.burst(16); c.petals(10); if (o.toStage != null) c.later(() => c.setStage(o.toStage, true), 420); c.party(2000); } },
+  'wrong-soft': { m: 'oops', ms: 1000, go: (c) => c.droop() },
+  'oops-soft': { m: 'oops', ms: 1000, go: (c) => c.droop() },
+  'try-again': { m: 'oops', ms: 1000, go: (c) => c.droop() },
+  'error-offline': { m: 'oops', ms: 1400, go: (c) => c.droop() },
+  'encourage': { m: 'happy', ms: 1500, go: (c) => { c.hearts(2); c.burst(3); } },
+  'hint': { m: 'thinking', ms: 1100, go: (c) => c.burst(2) },
+  'sleepy-return': { m: 'sleepy', ms: 1400, go: (c) => c.later(() => { c.emerge(); }, 1300) },
+  'sleep': { m: 'sleepy', base: 1 }, 'sleepy': { m: 'sleepy', base: 1 },
+  'water': { m: 'happy', ms: 1800, go: (c) => c.rain(1600) },
+  'surprise': { m: 'surprise', ms: 800, go: (c) => c.hop(240) },
+  'proud': { m: 'happy', ms: 1800, go: (c) => { c.burst(6); c.hearts(2); } },
+  'goodbye': { m: 'sleepy', base: 1, go: (c, d) => c.wave(d) },
 };
 export const STATE_NAMES = Object.keys(STATES);
-
-/** Frames of a state as one flat list per track (used by tests and by the player). */
-export function stateSpec(name, dir = 1, opts = {}) {
-  const fn = STATES[name]; if (!fn) throw new Error('unknown sprig state: ' + name);
-  const s = fn(dir, opts);
-  return { ...s, variants: Array.isArray(s.tracks) ? s.tracks : [s.tracks] };
-}
+export const MOOD_NAMES = Object.keys(MOODS);
+export const STATE_TABLE = STATES;
 
 const eyeW = (cx) => `<ellipse cx="${cx}" cy="73" rx="17" ry="20" fill="#FFFDF6" stroke="#2A1A0A" stroke-width="3"/>`;
-const eyeP = (cx) => `<ellipse cx="${cx - 2}" cy="76" rx="10.5" ry="13" fill="#1E1408"/><circle cx="${cx - 6}" cy="70" r="4.2" fill="#fff"/><circle cx="${cx + 2}" cy="82" r="2" fill="#fff"/>`;
-const LEAF = (s) => `<path class="lf1" d="M0 0 C-8 -22 -34 -26 -46 -14 C-40 4 -16 8 0 0Z" stroke="#2F7D32" stroke-width="3.4" stroke-linejoin="round" transform="scale(${s})"/>`;
-const LEAFR = (s) => `<path class="lf2" d="M0 0 C10 -26 36 -32 50 -20 C44 0 18 8 0 0Z" stroke="#2F7D32" stroke-width="3.4" stroke-linejoin="round" transform="scale(${s})"/>`;
+const eyeP = (cx) => `<g class="sp-pu" data-cx="${cx}"><ellipse cx="${cx - 2}" cy="76" rx="10.5" ry="13" fill="#1E1408"/><circle cx="${cx - 6}" cy="70" r="4.2" fill="#fff"/><circle cx="${cx + 2}" cy="82" r="2" fill="#fff"/></g>`;
+const LEAF = '<path class="lf1" d="M0 0 C-8 -22 -34 -26 -46 -14 C-40 4 -16 8 0 0Z" stroke="#2F7D32" stroke-width="3.4" stroke-linejoin="round"/>';
+const LEAFR = '<path class="lf2" d="M0 0 C10 -26 36 -32 50 -20 C44 0 18 8 0 0Z" stroke="#2F7D32" stroke-width="3.4" stroke-linejoin="round"/>';
 const svgMarkup = () => `<svg viewBox="-30 -62 180 200" aria-hidden="true" focusable="false">
-<ellipse class="sp-shadow" cx="60" cy="124" rx="44" ry="7" fill="#12330F" opacity=".22"/>
-<g class="sp-root"><g class="sp-body">
+<ellipse class="sp-sh" cx="60" cy="124" rx="44" ry="7" fill="#12330F" opacity=".22"/>
+<g class="sp-rig"><g class="sp-body">
 <path d="M60 28 C92 30 106 66 101 94 C97 116 79 123 60 123 C41 123 23 116 19 94 C14 66 28 30 60 28Z" fill="#EFCB8A" stroke="#7A4B16" stroke-width="3.8" stroke-linejoin="round"/>
 <path d="M30 100 C34 114 48 120 62 120 C80 120 94 112 98 96 C88 108 70 112 54 108 C42 105 34 103 30 100Z" fill="#D5A25A" opacity=".75"/>
 <path d="M32 54 C38 40 50 33 62 33 C50 38 42 46 38 60Z" fill="#FBE8BB" opacity=".9"/>
-<ellipse cx="29" cy="92" rx="8" ry="5.5" fill="#F29B73" opacity=".6"/><ellipse cx="91" cy="92" rx="8" ry="5.5" fill="#F29B73" opacity=".6"/>
-${eyeW(43)}${eyeW(77)}<g class="sp-pupils">${eyeP(43)}${eyeP(77)}</g>
-<g class="sp-lids"><ellipse cx="43" cy="73" rx="18.5" ry="21.5" fill="#EFCB8A"/><ellipse cx="77" cy="73" rx="18.5" ry="21.5" fill="#EFCB8A"/></g>
-<path class="sp-mouth" d="M51 93 Q60 101 69 93" fill="none" stroke="#2A1A0A" stroke-width="3.4" stroke-linecap="round"/>
-<ellipse class="sp-mouthO" cx="60" cy="96" rx="6" ry="7" fill="#7A2E1B" stroke="#2A1A0A" stroke-width="2.6"/>
+<g class="sp-face"><ellipse class="sp-chL" cx="29" cy="92" rx="8" ry="5.5" fill="#F29B73" opacity=".6"/><ellipse class="sp-chR" cx="91" cy="92" rx="8" ry="5.5" fill="#F29B73" opacity=".6"/>
+${eyeW(43)}${eyeW(77)}${eyeP(43)}${eyeP(77)}
+<ellipse class="sp-lidL" cx="43" cy="73" rx="18.5" ry="21.5" fill="#EFCB8A"/><ellipse class="sp-lidR" cx="77" cy="73" rx="18.5" ry="21.5" fill="#EFCB8A"/>
+<path class="sp-arcL" d="M28 78 Q43 58 58 78" fill="none" stroke="#2A1A0A" stroke-width="4.6" stroke-linecap="round" opacity="0"/><path class="sp-arcR" d="M62 78 Q77 58 92 78" fill="none" stroke="#2A1A0A" stroke-width="4.6" stroke-linecap="round" opacity="0"/>
+<path class="sp-brL" d="M30 50 L54 47" stroke="#7A4B16" stroke-width="4" stroke-linecap="round" opacity="0"/><path class="sp-brR" d="M66 47 L90 50" stroke="#7A4B16" stroke-width="4" stroke-linecap="round" opacity="0"/>
+<path class="sp-mo" d="" fill="#7A2E1B" stroke="#2A1A0A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/></g>
 <g class="sp-plant"><g class="x0"><path d="M60 30 q-1 -7 5 -10" fill="none" stroke="#2F7D32" stroke-width="4" stroke-linecap="round"/></g>
 <g class="lv" data-s><path d="M60 34 C60 22 60 16 60 8" fill="none" stroke="#2F7D32" stroke-width="5" stroke-linecap="round"/>
 <g class="x2"><g transform="translate(60 26) rotate(-38) scale(.55)"><path class="lf2" d="M0 0 C-8 -22 -34 -26 -46 -14 C-40 4 -16 8 0 0Z" stroke="#2F7D32" stroke-width="3.4"/></g><g transform="translate(60 26) rotate(38) scale(.55)"><path class="lf1" d="M0 0 C10 -26 36 -32 50 -20 C44 0 18 8 0 0Z" stroke="#2F7D32" stroke-width="3.4"/></g></g>
 <g class="x3"><ellipse cx="60" cy="-2" rx="7" ry="11" fill="#F29B73" stroke="#A84A07" stroke-width="3"/></g>
 <g class="x4"><g fill="#FFD84A" stroke="#B87800" stroke-width="2.6"><circle cx="60" cy="-12" r="8"/><circle cx="70" cy="-4" r="8"/><circle cx="66" cy="8" r="8"/><circle cx="54" cy="8" r="8"/><circle cx="50" cy="-4" r="8"/></g><circle cx="60" cy="-1" r="6" fill="#F29B73" stroke="#A84A07" stroke-width="2.4"/></g>
-<g transform="translate(60 12)"><g class="sp-leafL">${LEAF(1)}</g><g class="sp-leafR">${LEAFR(1)}</g></g></g></g>
-</g></g>
-<g class="sp-fxa" fill="#F5B301" stroke="#B87800" stroke-width="1.6"><path d="M-6 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/><path d="M128 6l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z"/><path d="M134 66l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M-10 78l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></g>
-<g class="sp-fxb fxb"><g class="drops" fill="#6EC5FF" stroke="#2A74B8" stroke-width="2"><path d="M30 -20q5 8 0 11q-5 -3 0 -11z"/><path d="M60 -30q5 8 0 11q-5 -3 0 -11z"/><path d="M90 -20q5 8 0 11q-5 -3 0 -11z"/></g>
-<g class="zzz" fill="#2A74B8" font-family="system-ui,sans-serif" font-weight="800"><text x="96" y="24" font-size="22">z</text><text x="112" y="6" font-size="16">z</text></g>
-<g class="bulb"><circle cx="104" cy="2" r="11" fill="#FFE98F" stroke="#B87800" stroke-width="3"/><rect x="99" y="13" width="10" height="6" rx="2" fill="#B87800"/></g>
-<g class="petals" fill="#F29B73"><circle cx="10" cy="-10" r="4"/><circle cx="50" cy="-30" r="4"/><circle cx="100" cy="-14" r="4"/><circle cx="124" cy="20" r="4"/><circle cx="-4" cy="26" r="4"/></g></g>
-</svg>`;
-const STAGE_SCALE = [0, 0.55, 0.85, 1, 1];
+<g transform="translate(60 12)"><g class="sp-lL">${LEAF}</g><g class="sp-lR">${LEAFR}</g></g></g></g>
+</g>
+<g class="sp-th" opacity="0"><circle cx="112" cy="26" r="3" fill="#fff" stroke="#8A8372" stroke-width="1.4"/><circle cx="122" cy="10" r="4.6" fill="#fff" stroke="#8A8372" stroke-width="1.4"/><ellipse cx="140" cy="-12" rx="24" ry="16" fill="#fff" stroke="#8A8372" stroke-width="1.6"/><circle class="sp-t1" cx="129" cy="-12" r="3" fill="#5B574E"/><circle class="sp-t2" cx="140" cy="-12" r="3" fill="#5B574E"/><circle class="sp-t3" cx="151" cy="-12" r="3" fill="#5B574E"/></g>
+</g><g class="sp-fx"></g></svg>`;
 
 export function createSprig(el, { stage = 1, identityColor } = {}) {
   el.classList.add('sprig'); el.innerHTML = svgMarkup();
   if (identityColor) el.style.setProperty('--sp-leaf', identityColor);
-  const q = (n) => el.querySelector('.sp-' + n), nodes = Object.fromEntries(NODES.map((n) => [n, q(n)]));
-  const lv = el.querySelector('.lv'), mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
-  let anims = [], base = 'idle', cur = 'idle', calm = false, token = 0, timer = 0, errCount = 0, tapN = 0, look = [0, 0], curStage = 0, dead = false;
-  const reduced = () => calm || !!(mq && mq.matches);
-  const clear = () => { anims.forEach((a) => a.cancel()); anims = []; clearTimeout(timer); for (const n of NODES) { nodes[n].style.transform = ''; nodes[n].style.opacity = ''; } };
-  const applyLook = () => { nodes.pupils.style.transform = `translate(${look[0]}px,${look[1]}px)`; };
-  const still = (s) => {
-    const t = Array.isArray(s.tracks) ? s.tracks[0] : s.tracks;
-    for (const n in t) { const fr = Array.isArray(t[n][0]) ? t[n][0] : t[n]; const f = fr.reduce((a, b) => (Math.abs(b.offset - s.pose) < Math.abs(a.offset - s.pose) ? b : a)); if (f.transform) nodes[n].style.transform = f.transform; if (f.opacity != null) nodes[n].style.opacity = f.opacity; }
-    nodes.root.animate([{ opacity: 0.55 }, { opacity: 1 }], { duration: 150, easing: E_STD });
+  const q = (n) => el.querySelector('.sp-' + n);
+  const N = {};
+  ['sh', 'rig', 'body', 'face', 'chL', 'chR', 'lidL', 'lidR', 'arcL', 'arcR', 'brL', 'brR', 'mo', 'plant', 'lL', 'lR', 'th', 't1', 't2', 't3', 'fx'].forEach((k) => { N[k] = q(k); });
+  const pus = el.querySelectorAll('.sp-pu'), lv = el.querySelector('.lv');
+  const S = (x, k, d) => new Sp(x, k, d);
+  const sp = { sy: S(1, 230, 11), tilt: S(0, 130, 9), lx: S(0, 170, 16), ly: S(0, 170, 16), blink: S(0, 700, 50), eh: S(0, 300, 28), sl: S(0, 200, 24), wide: S(0, 260, 20),
+    mw: S(9, 200, 18), mc: S(8, 180, 15), mo: S(0, 230, 19), lL: S(0, 180, 10), lR: S(0, 180, 10), cheek: S(1, 220, 12), th: S(0, 160, 16), pop: S(1, 190, 11), br: S(0, 240, 18), stg: S(STAGE_SCALE[clamp(stage, 0, 4)] || 1, 150, 9) };
+  const c = { mood: 'idle', base: 'idle', tok: 0, timers: [], hy: 0, hv: 0, sq: 0, breath: 0, follow: false, pokes: 0, nextBlink: 1.2, nextGlance: 2, accZ: 0, accP: 0, parts: [], active: false, dead: false, visible: true, curStage: 0, state: 'idle', talk: 0, waving: null, pointing: null, partyEnd: 0, rainEnd: 0, nextHop: 0, ft: 0, dir: 1, tkn: 0 };
+  c.curStage = clamp(stage | 0, 0, 4); el.dataset.stage = c.curStage;
+  const put = (node, attr, val) => { const key = '_' + attr; if (node[key] !== val) { node[key] = val; node.setAttribute(attr, val); } };
+
+  // ---- the rig methods (called by state handlers) ----
+  c.later = (fn, ms) => { const t = c.tok; const id = setTimeout(() => { if (t === c.tok && !c.dead) fn(); }, isCalm() ? Math.min(ms, 60) : ms); c.timers.push(id); };
+  c.setMood = (m, base) => {
+    c.tok++; c.timers.forEach(clearTimeout); c.timers = []; c.mood = m; if (base) c.base = m;
+    const t = MOODS[m] || MOODS.idle;
+    sp.eh.t = t.eh; sp.sl.t = t.sl; sp.mw.t = t.mw; sp.mc.t = t.mc; sp.mo.t = t.mo; sp.lL.t = t.lL; sp.lR.t = t.lR; sp.th.t = t.th; sp.br.t = t.br; sp.wide.t = t.wide; c.baseTilt = t.tilt; c.mouthBase = t;
+    if (m === 'thinking') { sp.lx.t = -0.9; sp.ly.t = -0.8; } else if (m === 'oops') { sp.lx.t = -0.4; sp.ly.t = 0.7; } else if (!c.follow) { sp.lx.t = 0; sp.ly.t = 0; }
   };
-  function play(name, dir, o) {
-    const s = STATES[name](dir, o), tracks = Array.isArray(s.tracks) ? s.tracks[o.variant == null ? 0 : o.variant % 3] : s.tracks;
-    const sp = { ...s, tracks }; clear(); const my = ++token; cur = name; el.dataset.state = name; el.dataset.fx = s.fx || '';
-    if (name === 'look-at') applyLook();
-    if (name === 'error-offline' && ++errCount > 1) { nodes.root.style.opacity = '0'; return; }
-    const r = reduced();
-    if (r) { still(sp); if (o.toStage != null) setStage(o.toStage); if (!s.loop) timer = setTimeout(() => { if (my === token && !dead) { clear(); el.dataset.fx = ''; go(base, 1, {}); } }, 600); return; }
-    let longest = null;
-    for (const n in tracks) {
-      const v = tracks[n], frames = Array.isArray(v[0]) ? v[0] : v, dur = Array.isArray(v[0]) ? (v[1] || s.dur) : s.dur, ease = Array.isArray(v[0]) && v[2] ? v[2] : (s.ease || E_STD);
-      const a = nodes[n].animate(frames, { duration: dur, iterations: s.loop ? Infinity : 1, easing: ease, fill: 'none' }); anims.push(a);
-      if (!s.loop && (!longest || dur > longest.d)) longest = { a, d: dur };
+  c.revert = (ms) => c.later(() => c.setMood(c.base), ms);
+  c.hop = (power = 400) => { if (isCalm()) return; c.sq = -0.2; c.later(() => { c.sq = 0; c.hv = power; c.hy = 0.01; }, 130); };
+  c.droop = () => { sp.sy.x = 0.9; sp.tilt.kick(40); sp.lL.kick(-120); sp.lR.kick(120); };
+  c.wave = (d = 1) => { c.waving = { t: 0, dur: 1.2, d: d < 0 ? -1 : 1 }; };
+  c.point = (d, ms) => { c.pointing = { d: d < 0 ? -1 : 1, until: performance.now() + ms }; sp.lx.t = d < 0 ? -1 : 1; sp.ly.t = 0.3; c.later(() => { c.pointing = null; sp.lx.t = 0; sp.ly.t = 0; }, ms); };
+  c.party = (ms) => { c.partyEnd = performance.now() + ms; c.nextHop = 0; c.hearts(0); };
+  c.rain = (ms) => { c.rainEnd = performance.now() + ms; };
+  c.emerge = () => { if (isCalm()) { sp.pop.x = sp.pop.t = 1; return; } sp.pop.x = 0.35; sp.pop.t = 1; sp.sy.x = 1.35; sp.sy.v = 0; c.burst(8); };
+  c.poke = () => {
+    c.pokes++; sp.sy.x = 0.7; sp.sy.v = 0; sp.tilt.kick(Math.random() < 0.5 ? 90 : -90); sp.lL.kick(-260); sp.lR.kick(260); sp.cheek.x = 1.4; sp.mo.x = 1; sp.eh.x = 1; c.hearts(2);
+    if (c.mood === 'sleepy') c.setMood('idle');
+  };
+  c.lookAt = (cx, cy) => {
+    const r = el.getBoundingClientRect(); if (!r.width) return;
+    sp.lx.t = clamp((cx - (r.left + r.width * 0.5)) / (r.width * 0.5), -1, 1); sp.ly.t = clamp((cy - (r.top + r.height * 0.4)) / (r.height * 0.5), -1, 1);
+    c.follow = true; clearTimeout(c.ft); c.ft = setTimeout(() => { c.follow = false; if (c.mood !== 'thinking') { sp.lx.t = 0; sp.ly.t = 0; } }, 1100);
+  };
+  c.burst = (n = 6) => { for (let i = 0; i < n; i++) spawn('star', 60 + rnd(-45, 45), rnd(20, 90), { vx: rnd(-50, 50), vy: rnd(-130, -50), g: 90, life: rnd(0.8, 1.3), size: rnd(5, 10) }); };
+  c.hearts = (n = 2) => { for (let i = 0; i < n; i++) spawn('heart', 60 + rnd(-30, 40), 30 + rnd(-10, 10), { vx: rnd(-30, 40), vy: rnd(-90, -60), g: 0, life: 1.1, size: rnd(7, 11) }); };
+  c.petals = (n = 8) => { for (let i = 0; i < n; i++) spawn('petal', 60 + rnd(-20, 20), -10 + rnd(-10, 10), { vx: rnd(-70, 70), vy: rnd(-120, -40), g: 120, life: rnd(1.2, 1.9), size: rnd(4, 7) }); };
+  c.setStage = (n, pop) => {
+    c.curStage = clamp(n | 0, 0, 4); el.dataset.stage = c.curStage; sp.stg.t = STAGE_SCALE[c.curStage] || 1;
+    if (pop && !isCalm()) { sp.stg.x = (STAGE_SCALE[c.curStage] || 1) * 0.3; }
+    el.setAttribute('aria-label', 'Sprig, ' + STAGES[c.curStage]);
+  };
+
+  // ---- particles (stars, hearts, petals, puffs, drops, zzz), SVG, capped ----
+  function spawn(type, x, y, o) {
+    if (isCalm() || c.parts.length > 40) return; let n;
+    if (type === 'star') { n = document.createElementNS(NS, 'path'); n.setAttribute('d', 'M0 -1 L.28 -.28 L1 0 L.28 .28 L0 1 L-.28 .28 L-1 0 L-.28 -.28Z'); n.setAttribute('fill', ['#FFC21A', '#FFFFFF', '#F78FB3', '#7FE0D6'][Math.floor(rnd(0, 4))]); }
+    else if (type === 'heart') { n = document.createElementNS(NS, 'path'); n.setAttribute('d', 'M0 .8 C-1.3 -.1 -.9 -1 -.3 -1 C0 -1 0 -.6 0 -.5 C0 -.6 0 -1 .3 -1 C.9 -1 1.3 -.1 0 .8Z'); n.setAttribute('fill', '#F2708F'); }
+    else if (type === 'petal') { n = document.createElementNS(NS, 'ellipse'); n.setAttribute('rx', '.6'); n.setAttribute('ry', '1'); n.setAttribute('fill', ['#F29B73', '#F78FB3', '#FFD84A', '#fff'][Math.floor(rnd(0, 4))]); }
+    else if (type === 'drop') { n = document.createElementNS(NS, 'path'); n.setAttribute('d', 'M0 -1 C.7 0 .8 .5 0 .9 C-.8 .5 -.7 0 0 -1Z'); n.setAttribute('fill', '#6EC5FF'); }
+    else if (type === 'puff') { n = document.createElementNS(NS, 'circle'); n.setAttribute('r', '1'); n.setAttribute('fill', '#fff'); }
+    else { n = document.createElementNS(NS, 'text'); n.textContent = 'z'; n.setAttribute('font-family', 'Fredoka,system-ui,sans-serif'); n.setAttribute('font-weight', '700'); n.setAttribute('font-size', '1'); n.setAttribute('fill', '#2A74B8'); n.setAttribute('text-anchor', 'middle'); }
+    N.fx.appendChild(n); c.parts.push({ n, type, x, y, vx: 0, vy: 0, g: 0, age: 0, life: 1, size: 8, rot: 0, vr: rnd(-2, 2), ...o });
+  }
+  function stepParts(dt) {
+    for (let i = c.parts.length - 1; i >= 0; i--) {
+      const p = c.parts[i]; p.age += dt; const u = p.age / p.life; if (u >= 1) { p.n.remove(); c.parts.splice(i, 1); continue; }
+      p.vy += p.g * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt * 57; let sc = p.size, op = 1;
+      if (p.type === 'star') sc = p.size * Math.sin(Math.PI * Math.min(1, u * 1.1));
+      else if (p.type === 'heart') { sc = p.size * (u < 0.2 ? u * 5 : 1); op = 1 - Math.max(0, (u - 0.6) / 0.4); }
+      else if (p.type === 'puff') { sc = p.size * (1 + u * 1.6); op = 0.75 * (1 - u); }
+      else if (p.type === 'zzz') { sc = p.size * (0.5 + u * 0.8); op = Math.sin(Math.PI * u); }
+      else if (p.type === 'petal' || p.type === 'drop') op = 1 - Math.max(0, (u - 0.7) / 0.3);
+      p.n.setAttribute('transform', `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${p.type === 'zzz' ? -12 : p.rot.toFixed(0)}) scale(${sc.toFixed(2)})`); p.n.setAttribute('opacity', op.toFixed(2));
     }
-    if (o.toStage != null && s.swapAt != null) timer = setTimeout(() => setStage(o.toStage), s.dur * s.swapAt);
-    if (longest) longest.a.onfinish = () => { if (my !== token || dead) return; if (name === 'sleep') return; clear(); el.dataset.fx = ''; go(base, 1, {}); };
-    else if (!s.loop) go(base, 1, {});
   }
-  function go(name, dir, o) { if (dead) return; if (STATES[name](dir, o).loop) base = name; play(name, dir, o); }
-  function setStage(n) {
-    curStage = Math.max(0, Math.min(4, n | 0)); el.dataset.stage = curStage;
-    const k = STAGE_SCALE[curStage]; lv.setAttribute('transform', `translate(60 30) scale(${k || 1}) translate(-60 -30)`);
-    el.setAttribute('aria-label', 'Sprig, ' + STAGES[curStage]);
-  }
-  setStage(stage); go('idle', 1, {});
-  const onMq = () => { if (!dead) play(cur, 1, {}); };
-  if (mq && mq.addEventListener) mq.addEventListener('change', onMq);
-  return {
-    setState(name, o = {}) {
-      if (!STATES[name]) throw new Error('unknown sprig state: ' + name);
-      const dir = o.point === 'left' ? -1 : 1; if (name === 'tap-react' && o.variant == null) o = { ...o, variant: tapN++ };
-      go(name, dir, o);
+
+  // ---- per frame ----
+  const actor = {
+    get active() { return c.active && c.visible && !c.dead; },
+    update(dt, h, n, now) {
+      const m = c.mood, calm = isCalm(), tnow = performance.now();
+      if (!calm) {
+        c.breath = Math.sin(now * (m === 'sleepy' ? 1.4 : 2.4)) * (m === 'sleepy' ? 0.034 : 0.02);
+        if (m !== 'sleepy') {
+          if (now > c.nextBlink) { sp.blink.t = 1; c.blinkAt = now; c.nextBlink = now + rnd(2, 5); if (Math.random() < 0.22) c.nextBlink = now + 0.32; }
+          if (c.blinkAt && now > c.blinkAt + 0.11) { sp.blink.t = 0; c.blinkAt = 0; }
+          if (!c.follow && !c.pointing && m === 'idle' && now > c.nextGlance) { if (Math.random() < 0.4) { sp.lx.t = 0; sp.ly.t = 0; c.nextGlance = now + rnd(0.6, 1.4); } else { sp.lx.t = rnd(-1, 1); sp.ly.t = rnd(-0.5, 0.5); c.nextGlance = now + rnd(1.2, 2.8); } }
+        }
+        // leaves: a little life of their own, a wave overrides the swing
+        const t = c.mouthBase || MOODS.idle;
+        sp.lL.t = t.lL + Math.sin(now * 1.9) * 2.4; sp.lR.t = t.lR + Math.sin(now * 1.7 + 1) * 2.4;
+        if (m === 'cheer' || m === 'happy') { sp.lL.t = t.lL + 14 * Math.sin(now * 13); sp.lR.t = t.lR - 14 * Math.sin(now * 13 + 1); }
+        if (c.waving) { c.waving.t += dt; const w = c.waving; if (w.t > w.dur) c.waving = null; else { const a = 30 + 24 * Math.sin(w.t * 17); if (w.d > 0) sp.lR.t = -a; else sp.lL.t = a; } }
+        if (c.pointing) { if (c.pointing.d > 0) sp.lR.t = -62; else sp.lL.t = 62; }
+        if (m === 'speaking') { c.talk += dt; if (c.talk > 0.11) { c.talk = 0; sp.mo.t = rnd(0.05, 0.95); sp.mw.t = rnd(7, 12); } }
+        if (m === 'sleepy') { c.accZ += dt; if (c.accZ > 1.25) { c.accZ = 0; spawn('zzz', 96, 40, { vx: 14, vy: -26, size: rnd(15, 20), life: 2 }); } }
+        if (tnow < c.partyEnd) { if (tnow > c.nextHop) { c.nextHop = tnow + 520; c.hop(430); c.burst(5); c.petals(4); } }
+        if (tnow < c.rainEnd) { c.accP += dt; if (c.accP > 0.09) { c.accP = 0; spawn('drop', 60 + rnd(-40, 40), -26, { vx: 0, vy: rnd(60, 100), g: 260, size: rnd(4, 6), life: 0.9 }); } }
+      }
+      sp.tilt.t = c.baseTilt + (c.follow ? sp.lx.t * 3.5 : 0);
+      const air = c.hy > 0 ? Math.min(0.15, Math.abs(c.hv) / 2600) : 0;
+      sp.sy.t = 1 + c.breath + c.sq + air;
+      for (let i = 0; i < n; i++) {
+        for (const k in sp) sp[k].step(h);
+        if (c.hy > 0 || c.hv > 0) { c.hv -= 1500 * h; c.hy += c.hv * h; if (c.hy <= 0) { const imp = -c.hv; c.hy = 0; c.hv = 0; if (imp > 120) { sp.sy.x = 1 - Math.min(0.3, imp / 1500); sp.sy.v = 0; sp.lL.kick(-120); sp.lR.kick(120); sp.cheek.x = 1.2; } } }
+      }
+      stepParts(dt); apply(now);
+      if (calm && !c.parts.length && !c.hy) c.active = false;   // calm: draw once, then sleep
     },
-    setStage,
-    lookAt(x, y) { look = [Math.max(-4.5, Math.min(4.5, x * 4.5)), Math.max(-4.5, Math.min(4.5, y * 4.5))]; if (cur === 'look-at') applyLook(); },
-    setCalm(v) { calm = !!v; play(cur, 1, {}); },
-    get stage() { return curStage; }, get state() { return cur; },
-    destroy() { dead = true; clear(); if (mq && mq.removeEventListener) mq.removeEventListener('change', onMq); el.innerHTML = ''; el.classList.remove('sprig'); },
+  };
+  function apply(now = 0) {
+    const sy = sp.sy.x, sx = clamp(1 / Math.sqrt(Math.max(0.4, sy)), 0.75, 1.35), pop = sp.pop.x;
+    put(N.rig, 'transform', `translate(0 ${f2(-c.hy)})`);
+    put(N.body, 'transform', `translate(60 123) rotate(${f2(sp.tilt.x)}) scale(${(sx * pop).toFixed(3)} ${(sy * pop).toFixed(3)}) translate(-60 -123)`);
+    put(N.sh, 'rx', f2(44 * (1 - c.hy / 260) * (0.4 + 0.6 * clamp(pop, 0, 1)))); put(N.sh, 'opacity', f2(0.22 * (1 - c.hy / 200)));
+    const lx = sp.lx.x, ly = sp.ly.x, eh = clamp(sp.eh.x, 0, 1), sl = sp.sl.x, bl = sp.blink.x;
+    put(N.face, 'transform', `translate(${f2(lx * 3.5)} ${f2(ly * 2.4)})`);
+    pus.forEach((p) => put(p, 'transform', `translate(${f2(lx * 3.2)} ${f2(ly * 3)}) scale(${f2(1 + sp.wide.x * 0.1)})`));
+    const lid = clamp(Math.max(bl, sl * 0.72, eh), 0, 1);
+    ['L', 'R'].forEach((s) => { put(N['lid' + s], 'transform', `translate(0 51.5) scale(1 ${Math.max(0.001, lid).toFixed(3)}) translate(0 -51.5)`); put(N['arc' + s], 'opacity', f2(eh)); });
+    const b = sp.br.x, bo = Math.min(1, Math.abs(b) * 1.4);
+    put(N.brL, 'opacity', f2(bo)); put(N.brR, 'opacity', f2(bo));
+    put(N.brL, 'transform', `rotate(${f2(-b * 16)} 42 48)`); put(N.brR, 'transform', `rotate(${f2(b * 16)} 78 48)`);
+    const w = sp.mw.x, mcv = sp.mc.x, mov = clamp(sp.mo.x, 0, 1.2), y = 93;
+    put(N.mo, 'd', `M${f2(60 - w)} ${y} Q60 ${f2(y + mcv)} ${f2(60 + w)} ${y} Q60 ${f2(y + mcv + mov * 20)} ${f2(60 - w)} ${y}Z`);
+    const ch = sp.cheek.x; put(N.chL, 'transform', `translate(29 92) scale(${f2(ch)}) translate(-29 -92)`); put(N.chR, 'transform', `translate(91 92) scale(${f2(ch)}) translate(-91 -92)`);
+    put(N.lL, 'transform', `rotate(${f2(sp.lL.x)})`); put(N.lR, 'transform', `rotate(${f2(sp.lR.x)})`);
+    put(N.plant, 'transform', `rotate(${f2(sp.tilt.x * -0.3 + Math.sin(now * 1.3) * 1.2)} 60 30)`);
+    lv.setAttribute('transform', `translate(60 30) scale(${(sp.stg.x || 0.01).toFixed(3)}) translate(-60 -30)`);
+    const th = sp.th.x; put(N.th, 'opacity', f2(clamp(th, 0, 1)));
+    if (th > 0.05) ['t1', 't2', 't3'].forEach((id, i) => put(N[id], 'r', f2(2.4 + 1.3 * (0.5 + 0.5 * Math.sin(now * 4 - i * 1.1)))));
+  }
+
+  // ---- pointer: poke on press, eyes follow while dragging ----
+  let dragging = false;
+  const onDown = (e) => { c.poke(); c.lookAt(e.clientX, e.clientY); dragging = true; c.active = true; addActor(actor); try { el.setPointerCapture(e.pointerId); } catch { /* ignore */ } };
+  const onMove = (e) => { if (dragging) c.lookAt(e.clientX, e.clientY); };
+  const onUp = () => { dragging = false; };
+  el.addEventListener('pointerdown', onDown); el.addEventListener('pointermove', onMove); el.addEventListener('pointerup', onUp); el.addEventListener('pointercancel', onUp);
+
+  // ---- visibility: no frames for a mascot nobody can see ----
+  let io = null;
+  if ('IntersectionObserver' in window) { io = new IntersectionObserver((es) => { c.visible = es[es.length - 1].isIntersecting; if (c.visible && !c.dead) { c.active = true; addActor(actor); } }); io.observe(el); }
+
+  function go(name, dir, o = {}) {
+    if (c.dead) return; const s = STATES[name] || STATES.idle; c.state = name; el.dataset.state = name;
+    c.setMood(s.m, !!s.base); c.active = true; addActor(actor);
+    s.go && s.go(c, dir, o);
+    if (s.ms) c.revert(s.ms);
+    if (isCalm()) { for (const k in sp) { sp[k].x = sp[k].t; sp[k].v = 0; } apply(0); }
+  }
+  c.setStage(c.curStage); lv.setAttribute('transform', `translate(60 30) scale(${(sp.stg.t || 1).toFixed(3)}) translate(-60 -30)`);
+  apply(0); go('idle', 1);
+  return {
+    setState(name, o = {}) { const dir = o.point === 'left' ? -1 : 1; go(name, dir, o); },
+    setStage(n) { c.setStage(n, true); c.active = true; addActor(actor); },
+    lookAt(x, y) { sp.lx.t = clamp(x, -1, 1); sp.ly.t = clamp(y, -1, 1); c.follow = true; clearTimeout(c.ft); c.ft = setTimeout(() => { c.follow = false; if (c.mood !== 'thinking') { sp.lx.t = 0; sp.ly.t = 0; } }, 1100); c.active = true; addActor(actor); },
+    lookAtClient(cx, cy) { c.lookAt(cx, cy); c.active = true; addActor(actor); },
+    setCalm(v) { if (v) { for (const k in sp) { sp[k].x = sp[k].t; sp[k].v = 0; } apply(0); } else { c.active = true; addActor(actor); } },
+    wave(d = 1) { c.wave(d); c.active = true; addActor(actor); },
+    hop(p) { c.hop(p); }, burst: (n) => c.burst(n), hearts: (n) => c.hearts(n), petals: (n) => c.petals(n),
+    get stage() { return c.curStage; }, get state() { return c.state; }, get mood() { return c.mood; }, springs: sp,
+    destroy() { c.dead = true; c.timers.forEach(clearTimeout); removeActor(actor); io && io.disconnect(); el.removeEventListener('pointerdown', onDown); el.removeEventListener('pointermove', onMove); el.innerHTML = ''; el.classList.remove('sprig'); },
   };
 }
