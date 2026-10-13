@@ -49,12 +49,12 @@ Only transforms and opacity move; big art is static and the swaying parts are ti
 
 `so/` is a copy of Sound Out's `app/src` and `content/`. `so-overlay/` replaces a few files (Sprig for Tilo, the garden Home, boot code, skin) and
 `tools/sync_sound_out.py` applies the overlay and a short list of patches, so `python3 tools/sync_sound_out.py --pull` brings Sound Out fixes in.
-`src/` is the Sound Garden shell: router, landing page, teacher page, Sprig rig, art. See `plan/PORT-PLAN.md` and `plan/PORT-VERDICT.md`.
+`src/` is the Sound Garden shell: router, landing page, teacher page, Sprig rig, art. See `plan/PORT-PLAN.md`, `plan/PORT-VERDICT.md` (the port) and `plan/SITE-VERDICT.md` (the website and motion pass, with the critic results).
 
 ```
 npm ci && npm run dev        # http://localhost:5390
 npm run build                # dist/  (deployable as is)
-npm run preview              # serve dist/ locally on :4173
+npm run preview              # serve dist/ locally on :5390
 npm test                     # unit tests (spring engine, Sprig states)
 npm run gates                # content gates: decodable words, Finch rules, sound keys
 node tools/size_budget.mjs   # landing page weight, static: limit 300 KB gzip (today about 97 KB)

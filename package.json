@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 4173 --strictPort",
+    "preview": "vite preview --port 5390 --strictPort",
     "test": "vitest run",
     "budget": "python3 tools/landing_budget.py",
     "gates": "python3 tools/check_finch.py && python3 tools/check_decodable.py && python3 tools/so-compat/tools/check_ph_keys.py"
