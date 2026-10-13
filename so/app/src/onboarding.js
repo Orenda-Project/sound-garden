@@ -18,6 +18,7 @@ import { FACES, AVATARS, avatarById } from './avatars.js';
 import { allSittings } from './path.js';
 import { lessonById } from './content.js';
 import { LOOKS, FAVS, applyLook, lookArt } from './tilo-look.js';
+import { hatchSplash } from './hatch.js';
 
 // A round Back arrow, top left (the ear is top right). The hardware Back button presses it (native.js), so the two can never disagree.
 const backBtn = onclick => h('button', { class: 'onb-back', type: 'button', 'aria-label': 'Back', html: ICON.arrow, onclick: () => { stop(); onclick(); } });
@@ -39,7 +40,7 @@ export async function onboarding(app) {
   // test hook for the drivers that are about the lessons, not about onboarding (shoot_tilo, shoot_pictures, drive_levels ...): a profile and straight into the first sitting
   so.demoDone = async track => { const p = { id: 'demo' + Date.now().toString(36), track, createdAt: Date.now(), name: 'Demo' }; await db.put('profiles', p); await db.setting('active', p.id); await app.start(p); finish(app, p, {}); return true; };   // review shots: the first celebration at real speed
   so.quickStart = async track => { const all = await db.all('profiles'); const p = { id: 'p' + Date.now().toString(36), track, createdAt: Date.now(), name: `${track === 'A' ? 'Child' : 'Grown-up'} ${all.filter(x => x.track === track).length + 1}` }; await db.put('profiles', p); await db.setting('active', p.id); so.homeVisited = true; app.firstSitting(p); return true; };   // not awaited: a sitting runs until it ends and page.evaluate would wait for it
-  if (fresh) await splash(app);
+  if (fresh) await hatchSplash(app);   // Sound Garden: the seed hatch (so-overlay/hatch.js)
   return who(app, profiles);
 }
 

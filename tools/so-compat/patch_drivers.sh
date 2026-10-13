@@ -5,3 +5,4 @@ for f in drive drive_levels drive_practice drive_sayit drive_session drive_teach
   grep -q so_compat $f.py || sed -i '0,/^import /s//import so_compat  # Sound Garden: the app is at #\/play\nimport /' $f.py
   sed -i 's/endswith("Sound Out")/endswith("Sound Garden")/; s/endswith(.Sound Out.)/endswith("Sound Garden")/' $f.py
 done
+python3 "$(dirname "$0")/patch_hatch.py"

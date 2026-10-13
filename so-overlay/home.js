@@ -21,6 +21,7 @@ import './living.css';
 import './bhome.css';
 import { sayItTile } from './sayit.js';   // Sound it out entry
 import { practiceTile } from './practice-hub.js';   // Practice hub entry
+import { homeFx } from './fx.js';
 
 export async function home(app, profile) {
   const prog = await db.progress(profile.id);
@@ -50,6 +51,7 @@ export async function home(app, profile) {
     const plots = plotsFor(level, st, LESSONS);
     const grown = plots.filter(p => p.stage === 4).length, started = plots.filter(p => p.stage > 0).length;
     const wasSeen = prog.gardenSeen2 || {}; const freshId = (plots.find(p => p.stage === 4 && wasSeen[p.id] !== 4) || {}).id;
+    s.dataset.freshPlant = freshId || '';
     if (plots.some(p => wasSeen[p.id] !== p.stage)) { prog.gardenSeen2 = Object.fromEntries(plots.map(p => [p.id, p.stage])); db.saveProgress(prog); }
     const back0 = days > 0 && !window.__so.homeVisited;
     const hello = h('button', { class: 'tilo-says home-bubble', type: 'button', 'aria-label': 'Hear it again', onclick: () => teacher.seq([go]) }, !started && !days ? 'This is my garden!' : freshId ? 'Look, it bloomed!' : back0 ? 'Welcome back!' : "Let's grow!");
@@ -153,6 +155,7 @@ export async function home(app, profile) {
     const slot = s.querySelector('.scene-tilo .tilo-slot');
     tilo.dock(slot); applyLook(profile.tiloLook?.scarf); tilo.setStage(growthStage(prog)); tilo.arrive(); if (newItems && !isCalm()) tilo.emote('celebrating', null, 1700);
   }
+  if (track === 'A') homeFx(s, { prog });
   if (animate) unlockSequence(s, st, fresh, track);
   if (track === 'B') { const c = s.querySelector('.b-hero .count'); if (c) countUp(c, readWords(prog).length, 700); }
   // Home speaks: "Welcome back" on a return visit, then which node to tap; a stall points at that node

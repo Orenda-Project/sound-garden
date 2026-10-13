@@ -24,7 +24,10 @@ def _wait_trace(page, step, secs=20, **kw):
 
 def pass_splash(page):
     """The splash waits for a tap on its big Play button (the drivers' ?fast pages move on by themselves)."""
-    page.wait_for_selector(".splash-play, .whocard", timeout=15000)
+    page.wait_for_selector(".hatch-seed, .splash-play, .whocard", timeout=15000)
+    try:
+        if page.locator(".hatch-seed").count(): page.click(".hatch-seed", force=True, timeout=1500); time.sleep(2.2)
+    except Exception: pass   # a ?fast page hatches by itself
     if page.locator(".splash-play").count():
         try: page.click(".splash-play", force=True, timeout=1500)
         except Exception: pass   # a ?fast page moves on by itself after 150 ms: the button may be gone already

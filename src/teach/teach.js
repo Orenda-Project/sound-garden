@@ -36,7 +36,7 @@ export async function mount(el) {
       <li>Tap <b>Play</b>. Let the voice do the teaching. You only listen, smile and point.</li>
       <li>One sitting is about five minutes. Stop when the learner stops. Come back tomorrow.</li></ol>
     <div class="tp-dd"><div><h3>Do</h3><ul class="tp-list"><li>Let them tap, even a wrong answer. The app says the right one.</li><li>Say the sound, not the letter name: <i>sss</i>, not <i>ess</i>.</li><li>Celebrate trying. Ask them to read the word again, out loud.</li></ul></div>
-      <div><h3>Don't</h3><ul class="tp-list"><li>Don't tell them the answer before they tap.</li><li>Don't add "uh" to sounds (say <i>mmm</i>, not <i>muh</i>).</li><li>Don't hurry. There is no clock for children.</li></ul></div></div></section>
+      <div><h3>Don't</h3><ul class="tp-list"><li>Don't tell them the answer before they tap.</li><li>Don't add "uh" to sounds (say <i>mmm</i>, not <i>muh</i>).</li><li>Take your time. There is no clock for children.</li></ul></div></div></section>
 
   <section class="tp-card"><h2>Print practice pages</h2>
     <p>One or two pages per lesson, made for A4 or Letter. They print in black and white and match the order in the app.</p>

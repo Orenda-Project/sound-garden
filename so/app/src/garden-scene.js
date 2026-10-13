@@ -6,6 +6,7 @@
 import { defs, plant, mound, PLANT_COLORS, seedShape } from '../../../src/art/art.js';
 import { lessonById } from './content.js';
 import { h } from './ui.js';
+import { growEnd } from './fx.js';
 
 export const LEVEL_NAME = { 1: 'First sounds', 2: 'Sounds together', 3: 'Long vowels', 4: 'Longer words', 5: 'Reading practice', 6: 'Reading practice', 7: 'Reading practice' };
 
@@ -75,6 +76,7 @@ export function endPlant(lid, st, passed) {
   const bloom = stage === 4, txt = bloom ? 'It is in bloom!' : passed ? 'Your seed is growing.' : 'Your seed is waiting for you.';
   const el = h('div', { class: 'endplant', role: 'img', 'aria-label': `${p.label ? 'Sound ' + p.label : 'Lesson ' + lid.slice(1)} plant. ${txt}` });
   el.innerHTML = `${defs()}<svg viewBox="-60 -110 120 170" aria-hidden="true">${plant({ x: 0, y: 0, s: 1, stage, label: p.label, color: PLANT_COLORS[(parseInt(lid.slice(-2), 10) || 0) % PLANT_COLORS.length], hit: false })}</svg><p>${txt}</p>`;
+  setTimeout(() => growEnd(el, passed ? Math.max(1, stage - 1) : stage, stage, passed), 400);   // seed -> sprout -> bloom, played once the screen is up
   return el;
 }
 

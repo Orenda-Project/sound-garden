@@ -36,7 +36,7 @@
 .garden-yard .pop { animation: sgpop .5s ease-out; transform-box: fill-box; transform-origin: 50% 100%; }
 @keyframes sgpop { 40% { transform: scale(1.14); } }
 @media (prefers-reduced-motion: reduce) { .garden-yard .pop { animation: none; } }
-.garden-home .scene-tilo { left: auto; right: 10px; bottom: -22px; width: 104px; z-index: 6; }   /* Sprig stands on the edge of the Play card */
+.garden-home .scene-tilo { left: auto; right: 6px; bottom: -26px; width: 132px; z-index: 6; }   /* Sprig stands on the edge of the Play card */
 .garden-home .home-bubble { z-index: 4; }
 
 /* ---- reward screens: leaf green ground (was teal), the lesson's plant instead of a village ---- */
@@ -65,3 +65,47 @@
 .endscreen.track-A .cele-box { transform: scale(.85); transform-origin: 50% 0; margin-bottom: -28px; }
 /* Sprig a little bigger beside the question: the critics found the corner mascot too small */
 body .track-A header.hdr .hdr-tilo .tilo.inline, .hdr-tilo .tilo.inline { width: 124px; }
+
+/* ---- spring motion layer (fx.js, src/motion/engine.js) ---- */
+.confetti { display: none !important; }   /* the paper confetti is a canvas now (engine.js confetti) */
+/* bloom count with a ring */
+.garden-home .garden-sub.with-ring { display: flex; align-items: center; gap: 8px; }
+.gring { width: 34px; height: 34px; flex: none; overflow: visible; }
+.gring circle.gr-t { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 5; }
+.gring circle.gr-a { fill: none; stroke: #2F7D32; stroke-width: 5; stroke-linecap: round; }
+.garden-sub .gn { display: inline-block; min-width: .7em; font-variant-numeric: tabular-nums; }
+/* level chips with a sliding pill */
+.garden-levels { position: relative; }
+.garden-levels .lvpill { position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 50%; background: #4CB82B; box-shadow: 0 3px 0 #2F7D32; will-change: transform; z-index: 0; pointer-events: none; }
+.garden-levels.has-pill .lvchip { position: relative; z-index: 1; }
+.garden-levels.has-pill .lvchip.on { background: transparent; box-shadow: none; }
+/* butterflies over the garden */
+.hbf { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.hbf span { position: absolute; left: 0; top: 58%; width: 30px; animation: hbfly 26s ease-in-out infinite; will-change: transform; }
+.hbf .b2 { top: 66%; width: 24px; animation-duration: 34s; animation-delay: -14s; }
+.hbf svg { display: block; width: 100%; } .hbf .wings { transform-box: fill-box; transform-origin: 50% 50%; animation: hbflap .3s ease-in-out infinite alternate; }
+@keyframes hbflap { from { transform: scaleX(1); } to { transform: scaleX(.35); } }
+@keyframes hbfly { 0% { transform: translate3d(-8vw, 0, 0) rotate(4deg); } 25% { transform: translate3d(30vw, -50px, 0) rotate(-8deg); } 50% { transform: translate3d(58vw, 20px, 0) rotate(6deg); } 75% { transform: translate3d(86vw, -40px, 0) rotate(-4deg); } 100% { transform: translate3d(112vw, 0, 0) rotate(4deg); } }
+html.calm .hbf { display: none; }
+/* clouds drift (transform only) */
+.scene-area svg .cloud { animation: sgdrift 90s linear infinite alternate; }
+@keyframes sgdrift { from { transform: translate3d(-22px, 0, 0); } to { transform: translate3d(34px, 0, 0); } }
+html.calm .scene-area svg .cloud { animation: none; }
+.daysline { order: 5; color: #fff; font: 700 18px/1.2 var(--display); margin: 2px 0; } .daysline b { display: inline-block; min-width: .6em; font-variant-numeric: tabular-nums; color: #FFD84A; }
+/* mini-check seeds */
+.endscreen.track-A .dots { display: flex; margin: 2px 0; gap: 6px; }
+.endscreen.track-A .dots i { width: 14px; height: 14px; }
+/* Sprig is bigger on lesson screens */
+body .track-A header.hdr .hdr-tilo .tilo.inline, .hdr-tilo .tilo.inline { width: 156px; }
+body .sitting.track-A .beat .tilo-slot, body .sitting.track-A .beat .tilo.inline, body .track-A .beat .tilo.inline { width: 170px; }
+
+/* ---- the first-run hatch (hatch.js) ---- */
+.hatch .hatch-stage { left: 50%; width: min(300px, 80%); margin-left: calc(min(300px, 80%) / -2); bottom: 56px; }
+.hatch-seed { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.hatch-seed svg { display: block; width: 100%; overflow: visible; }
+.hatch-seed:focus-visible { outline: 4px solid #12330F; outline-offset: 6px; border-radius: 40px; }
+.hatch-sprig { position: absolute; inset: 0; pointer-events: none; opacity: 0; } .hatch-sprig.on { pointer-events: auto; }
+.hatch-sprig .sprig { width: 100%; }
+.hatch-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 4; padding: 12px 22px; border-radius: 99px; border: 3px solid #2F7D32; background: #FFFDF6; color: #12330F; font: 700 20px/1 var(--display); box-shadow: 0 5px 0 #1F5C24; animation: hatchbob 1.6s ease-in-out infinite; cursor: pointer; }
+@keyframes hatchbob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-9px); } }
+html.calm .hatch-hint { animation: none; }

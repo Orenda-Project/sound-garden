@@ -74,6 +74,8 @@ PATCH_LIST = [
     ('onboarding.js', "h('h1', { class: 'title scene-title' }, 'Sound Out')", "h('h1', { class: 'title scene-title' }, 'Sound Garden')"),
     ('onboarding.js', "{ class: 'scene-title', 'aria-hidden': 'true' }, 'Sound Out')", "{ class: 'scene-title', 'aria-hidden': 'true' }, 'Sound Garden')"),
     ('a11y.js', "const BRAND = 'Sound Out';", "const BRAND = 'Sound Garden';"),
+    ('onboarding.js', "  if (fresh) await splash(app);", "  if (fresh) await hatchSplash(app);   // Sound Garden: the seed hatch (so-overlay/hatch.js)"),
+    ('onboarding.js', "import { LOOKS, FAVS, applyLook, lookArt } from './tilo-look.js';", "import { LOOKS, FAVS, applyLook, lookArt } from './tilo-look.js';\nimport { hatchSplash } from './hatch.js';"),
     ('privacy.js', "'Sound Out works completely offline.", "'Sound Garden works offline once it has loaded.", ),
 ]
 

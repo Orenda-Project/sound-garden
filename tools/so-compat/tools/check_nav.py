@@ -150,13 +150,16 @@ def run(br, track):
     page.set_default_timeout(15000)
     # --- splash (real timing: it waits for a tap) ---
     page.goto(f"http://localhost:{PORT}/?still")
-    page.wait_for_selector(".splash-play, .whocard"); time.sleep(0.8)
+    page.wait_for_selector(".hatch-seed, .splash-play, .whocard"); time.sleep(0.8)
+    try:
+        if page.locator(".hatch-seed").count(): page.click(".hatch-seed", force=True, timeout=1500); time.sleep(2.2)
+    except Exception: pass   # a ?fast page hatches by itself
     if page.locator("#teacher-start button").count():     # autoplay blocked: one big tap-to-start sits over the splash (it has exactly one control, and it leaves)
         ok(page.locator("#teacher-start button").count() == 1, f"[{track}] tap-to-start overlay offers one big way on"); page.click("#teacher-start button")
     if where(page) == "splash": visit(page, track, "splash", "00-splash"); page.click(".splash-play", force=True)
     ok(settle(page, "who", 20), f"[{track}] splash -> Who is reading? by tapping Play")
     page.goto(f"http://localhost:{PORT}/?fast")      # the rest at test speed (the first load already made nothing: still no profile)
-    page.wait_for_selector(".splash-play, .whocard"); settle(page, "who", 20)
+    page.wait_for_selector(".hatch-seed, .splash-play, .whocard"); settle(page, "who", 20)
     visit(page, track, "who", "01-who-first")
     ok(page.evaluate("window.__so.backAction()") == "exit", f"[{track}] first Who is reading? has nothing behind it: Back leaves the app")
     ok(page.locator(".onb-back").count() == 0, f"[{track}] first Who is reading? shows no Back arrow (nothing to go back to)")
