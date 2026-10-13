@@ -1,0 +1,7 @@
+{
+ "note": "Clips of Levels 2-4 still without audio in content/audio_index.json (rewritten by tools/gen_audio_hard.py still). pseudo = made-up words, chunk = syllable chunks, word = real words that failed the local Whisper gate AND every free re-roll. chars = new ElevenLabs characters (River, eleven_v4, fixed settings; shared requests counted once). To render: gen_audio_hard.py plan2 / render / build.",
+ "by_group": {},
+ "total_clips": 0,
+ "total_chars": 0,
+ "clips": []
+}

@@ -1,0 +1,40 @@
+/* Sound Garden skin over Sound Out's stylesheets (loaded last). Palette = Sound Garden research/02-colour.md: leaf green hero on cream,
+   sky band, right = teal, wrong = brown-orange (never red), muted inside a lesson, saturated outside. */
+:root, .track-A {
+  --paper: #FBF6EA; --sheet: #FFFDF6; --card: #FFFFFF; --card-soft: #F3EEDC;
+  --line: #8A8372; --rule: #E6DCC2;
+  --ink: #2B2A26; --muted: #5B574E;
+  --primary: #2F7D32; --primary-hi: #3E9A3F; --primary-edge: #1F5C24; --primary-ink: #FFFFFF; --primary-tint: #E1F1DB;
+  --tap: #4CB82B; --tap-hi: #6FD149; --tap-edge: #2F7D32; --tap-ink: #12330F;
+  --tan: #D9A25E; --tan-deep: #8A5A1E;
+  --good: #1F9E8F; --good-hi: #3CC0B0; --good-edge: #0F766E; --good-tint: #DDF1EE; --good-text: #0F766E;
+  --oops: #A84A07; --oops-tint: #FBE9D6; --oops-text: #8F3F05;
+  --sky: #8ED2F5;
+}
+.track-B {
+  --paper: #F4F6EE; --sheet: #FFFFFF; --card: #FFFFFF; --card-soft: #EAEFE0;
+  --line: #66705C; --rule: #DCE3CF; --ink: #1F2A1C; --muted: #4C5A46;
+  --primary: #2F7D32; --primary-hi: #3E9A3F; --primary-edge: #1F5C24; --primary-ink: #FFFFFF; --primary-tint: #E1F1DB;
+  --tap: #2F7D32; --tap-hi: #3E9A3F; --tap-edge: #1F5C24; --tap-ink: #FFFFFF;
+  --good: #0F766E; --good-hi: #1F9E8F; --good-edge: #0B5A54; --good-tint: #DDF1EE; --good-text: #0B5A54;
+  --oops: #A84A07; --oops-tint: #FBE9D6; --oops-text: #8F3F05;
+}
+
+/* ---- Home: the garden (Track A) ---- */
+.garden-home .scene-area { min-height: 600px; }
+.garden-home .garden-title { position: relative; z-index: 2; margin: 0; padding: 20px 20px 0; font: 700 34px/1 var(--display); color: #12330F; text-shadow: 0 2px 0 rgba(255,255,255,.55); }
+.garden-home .garden-sub { position: relative; z-index: 2; margin: 6px 20px 0; font: 700 17px/1.2 var(--display); color: #12330F; }
+.garden-levels { position: relative; z-index: 2; display: flex; gap: 8px; margin: 12px 20px 0; }
+.lvchip { width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--hero-edge, #2F7D32); background: #FFFDF6; color: #12330F; font: 800 17px/1 var(--display); cursor: pointer; }
+.lvchip.on { background: #4CB82B; box-shadow: 0 3px 0 #2F7D32; }
+.lvchip.shut { opacity: .55; border-style: dashed; }
+.garden-yard { position: absolute; z-index: 1; left: 0; right: 0; top: 140px; bottom: 56px; }
+.garden-yard svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.garden-yard .pl, .garden-yard .plot { cursor: pointer; }
+.garden-yard .plot.shut { opacity: .5; }
+.garden-yard .pl:focus-visible, .garden-yard .plot:focus-visible { outline: 3px solid #12330F; outline-offset: 2px; }
+.garden-yard .pop { animation: sgpop .5s ease-out; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes sgpop { 40% { transform: scale(1.14); } }
+@media (prefers-reduced-motion: reduce) { .garden-yard .pop { animation: none; } }
+.garden-home .scene-tilo { left: auto; right: 10px; bottom: -22px; width: 104px; z-index: 6; }   /* Sprig stands on the edge of the Play card */
+.garden-home .home-bubble { z-index: 4; }

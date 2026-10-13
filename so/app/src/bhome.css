@@ -1,0 +1,25 @@
+/* ---------- G5: Track B warmth. First lesson card is the hero, finished lessons fold to one line, the words you can read are the reward. No mascot. ---------- */
+.b-hero .num.soon { font: 600 32px/1.12 var(--display); letter-spacing: 0; max-width: 270px; margin-top: 4px; text-wrap: balance; }
+.track-B .b-up.hero { height: 128px; padding: 0 20px 0 18px; gap: 16px; background: linear-gradient(var(--primary-hi), var(--primary)); color: #fff; box-shadow: 0 5px 0 var(--primary-edge), 0 18px 30px -12px rgba(15, 79, 78, .55), inset 0 2px 0 rgba(255, 255, 255, .25); }
+.track-B .b-up.hero .ring { width: 72px; height: 72px; border-radius: 50%; background: #fff; display: grid; place-items: center; } .track-B .b-up.hero .ring > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.track-B .b-up.hero .ring b { color: var(--ink); } .b-up .pg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--primary); } .b-up .pg svg { width: 30px; height: 30px; position: static; margin-left: 3px; }
+.track-B .b-up.hero.first .ring > svg { display: none; }
+.track-B .b-up.hero .k { color: rgba(255, 255, 255, .9); font-size: 15px; } .track-B .b-up.hero .t { font-size: 26px; text-wrap: balance; line-height: 1.1; color: #fff; }
+.track-B .b-up.hero .go { width: 60px; height: 60px; background: #fff; color: var(--primary); box-shadow: 0 4px 0 rgba(10, 60, 60, .35); } .b-up.hero .go svg { width: 30px; height: 30px; }
+.track-B .lesson.fold { padding: 8px 16px; margin: 8px 0; } .track-B .lesson.fold > :not(h3) { display: none; }
+.track-B .lesson.fold .lhead { margin: 0; gap: 12px; } .track-B .lesson.fold .lhead .ico { width: 40px; height: 40px; } .track-B .lesson.fold .lhead .ico svg { width: 22px; height: 22px; } .track-B .lesson.fold .lhead .ico span { font-size: 11px; }
+.track-B .lesson.fold .lhead .bar, .track-B .lesson.fold .lhead em, .track-B .lesson.fold .lhead .badge { display: none; }
+.track-B .lesson.fold .lt b { margin: 0; font-size: 17px; } .track-B .lesson.fold .lt .sub { margin: 0; }
+.track-B .lesson.fold.done .lt b::after { content: ' done'; color: var(--good-text); }
+.track-B .lesson.fold.quiet { background: transparent; box-shadow: none; border: 2px dashed var(--rule); } .track-B .lesson.fold.quiet .lhead .ico { opacity: .75; }
+/* B2: Before you start. A soft header (an ear, a mouth, a book in the accent colour), three plain rows, the button docked at the bottom */
+.promise.promise-b { display: flex; flex-direction: column; min-height: 100dvh; padding: 0 0 calc(22px + env(safe-area-inset-bottom, 0px)); margin: 0 -16px -32px; text-align: left; background: var(--paper); }
+.promise-b .pb-head { position: relative; height: 270px; overflow: hidden; background: linear-gradient(#14585A, #3C8F8E 70%, #9FD2CC); color: #fff; display: grid; place-items: center; }
+.promise-b .pb-head .scene { position: absolute; inset: 0; }
+.promise-b .pb-badges { position: relative; display: flex; gap: 14px; margin-top: 20px; }
+.promise-b .pb-badges span { width: 84px; height: 84px; border-radius: 28px; background: #fff; color: var(--primary); display: grid; place-items: center; box-shadow: 0 5px 0 rgba(10, 60, 60, .3), var(--e2); }
+.promise-b .pb-badges span:nth-child(2) { transform: translateY(-14px); } .promise-b .pb-badges svg { width: 46px; height: 46px; }
+.promise-b .pb-body { padding: 24px 24px 0; } .promise-b h1 { margin: 0 0 4px; font: 600 34px/1.1 var(--display); color: var(--ink); } .promise-b .pb-sub { margin: 0 0 18px; font: 700 18px var(--ui); color: var(--muted); }
+.promise-b ul { margin: 0; gap: 10px; } .promise-b li { background: #fff; border-radius: 20px; padding: 14px 16px; box-shadow: var(--e1); font-size: 1.05rem; }
+.promise-b li .icon { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--primary-tint); color: var(--primary); display: grid; place-items: center; } .promise-b li .icon svg { width: 24px; height: 24px; color: var(--primary); }
+.promise-b .btn.primary { margin: auto 24px 0; width: calc(100% - 48px); height: 68px; font-size: 22px; }

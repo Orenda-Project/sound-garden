@@ -1,0 +1,34 @@
+/* ================= Phase 4: the grown-up guide (guide.js) ================= */
+.guide { padding-bottom: 36px; }
+.guide h1 { font-size: 1.6rem; margin: .3em 0 .2em; }
+.guide .gd-hdr { padding-right: 0; }
+.guide .gd-back .bi { transform: scaleX(-1); }
+.gd-intro { font-size: 1.1rem; line-height: 1.5; margin: 6px 0 16px; }
+.gd-topics { display: grid; gap: 12px; }
+.gd-topic { position: relative; display: grid; gap: 2px; text-align: left; padding: 14px 52px 16px 16px; border: 0; border-radius: var(--radius); background: var(--card); min-height: 64px; }
+.gd-topic.gd-first { background: var(--primary-tint); --lip: var(--primary-edge); }
+.gd-t { font-weight: 750; font-size: 1.08rem; } .gd-t em { font-style: normal; font-size: .78rem; font-weight: 700; background: var(--primary); color: #fff; padding: 2px 8px; border-radius: 99px; margin-left: 8px; vertical-align: middle; }
+.gd-b { color: var(--muted); font-size: .95rem; line-height: 1.35; }
+.gd-go { position: absolute; right: 14px; top: 50%; margin-top: -14px; color: var(--primary); } .gd-go svg { width: 28px; height: 28px; display: block; }
+.gd-badge { display: inline-block; margin: 0 0 6px; padding: 3px 10px; border-radius: 99px; background: var(--primary); color: #fff; font-size: .85rem; font-weight: 700; }
+.gd-h { text-align: left; font-size: 1.15rem; margin: 1.3em 0 .5em; }
+.gd-list { margin: 8px 0; padding-left: 1.3em; display: grid; gap: 10px; font-size: 1.08rem; line-height: 1.5; }
+.gd-steps { padding-left: 1.5em; } .gd-steps li::marker { font-weight: 800; color: var(--primary); }
+.gd-do { list-style: none; padding: 0; } .gd-dont { list-style: none; padding: 0; }
+.gd-do li, .gd-dont li { padding: 10px 12px 10px 40px; border-radius: 14px; position: relative; }
+.gd-do li { background: var(--good-tint); } .gd-dont li { background: var(--oops-tint); }
+.gd-do li::before, .gd-dont li::before { position: absolute; left: 12px; top: 9px; font-weight: 800; }
+.gd-do li::before { content: '\2713'; color: var(--good-text); } .gd-dont li::before { content: '\2715'; color: var(--oops-text); }
+.gd-card { background: var(--card); border-radius: var(--radius); padding: 12px 14px; margin: 10px 0; box-shadow: 0 0 0 2px var(--rule); }
+.gd-card p { margin: .3em 0; font-size: 1.05rem; line-height: 1.45; }
+.gd-when { color: var(--muted); font-weight: 650; font-size: .92rem !important; text-transform: none; } .gd-say { font-size: 1.15rem !important; font-weight: 650; }
+.gd-note { color: var(--muted); font-size: .98rem !important; }
+.guide > .gd-note { font-size: 1.02rem; margin-top: 14px; }
+.gd-level { background: var(--band, var(--band-1)); border-radius: var(--radius); padding: 4px 16px 12px; margin: 12px 0; }
+.gd-level .gd-h { margin-top: .8em; } .gd-level p { margin: .5em 0; line-height: 1.45; }
+.gd-sound { display: flex; align-items: center; justify-content: space-between; }
+.gd-letter { font: 700 1.6rem var(--read); }
+.gd-sp { width: 52px; height: 52px; } .gd-sp svg { width: 26px; height: 26px; }
+.gd-q { background: var(--card); border-radius: var(--radius); box-shadow: 0 0 0 2px var(--rule); padding: 0 14px; margin: 10px 0; }
+.gd-q summary { font-weight: 700; padding: 14px 0; cursor: pointer; font-size: 1.05rem; min-height: 48px; } .gd-q p { margin: 0 0 14px; line-height: 1.5; font-size: 1.05rem; }
+.guide .row { margin-top: 22px; }

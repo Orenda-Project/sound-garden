@@ -1,0 +1,61 @@
+/* Sound Out design tokens, premium system v2 (plan/design/premium/SYSTEM.md).
+   Track A (child, Tilo) = "Riverbank": warm brown ink, teal hero, ONE gold primary per screen, green for correct / done / pick.
+   Track B (grown-up) = "Lagoon Dusk": the same bones, cooler and calmer, no mascot.
+   The class goes on <html> (teacher.js setTheme) so the page itself changes, not just a card.
+   Contrast: tools/check_contrast.py reads THIS file and fails below 4.5:1 for text or 3:1 for UI parts.
+   Names kept from the old sheet: --accent is the MAIN ACTION colour (teal), --bad is the oops coral. */
+@font-face { font-family: 'Fredoka'; font-weight: 400 700; font-style: normal; font-display: swap; src: url(./fonts/Fredoka-var.woff2) format('woff2'); }
+@font-face { font-family: 'Nunito'; font-weight: 400 800; font-style: normal; font-display: swap; src: url(./fonts/Nunito-var.woff2) format('woff2'); }
+@font-face { font-family: 'Andika'; font-weight: 400; font-style: normal; font-display: swap; src: url(./fonts/Andika-400.woff2) format('woff2'); }
+@font-face { font-family: 'Andika'; font-weight: 700; font-style: normal; font-display: swap; src: url(./fonts/Andika-700.woff2) format('woff2'); }
+:root, .track-A {
+  /* surfaces */
+  --paper: #FFF8EA; --sheet: #FFFBF3; --card: #FFFFFF; --card-soft: #FFF9DF;
+  --line: #7A6A5C;          /* the few interactive outlines that must stay visible (dashed slots): 4.9:1 on the page */
+  --rule: #DCE6E0;          /* empty tracks and dividers: teal-tinted, never grey */
+  /* ink: warm brown, never black */
+  --ink: #3A2619; --muted: #6B5646;
+  /* brand */
+  --primary: #0E7C7B; --primary-hi: #17958F; --primary-edge: #0A5F5E; --primary-ink: #FFFFFF; --primary-tint: #D9F0EE;
+  --tap: #F2A93B; --tap-hi: #FFCB61; --tap-edge: #B97110; --tap-ink: #3A2619;   /* the one gold action */
+  --tan: #E1A263; --tan-deep: #9A5A1E;
+  --accent: var(--primary); --accent-ink: var(--primary-ink);
+  /* feedback: never colour alone (icon + sound ride along); coral, never red */
+  --good: #36B454; --good-hi: #5BD173; --good-edge: #1F8A3B; --good-tint: #E3F6E8; --good-text: #176B38;
+  --oops: #C2432F; --oops-tint: #FFE8E0; --oops-text: #A63A22; --bad: var(--oops);
+  --violet: #6A4CC4;        /* with teal and coral: only to tell the three answer tiles apart */
+  --star: #F2A900;          /* only on a dark or white chip, never as text on the page */
+  --hl: #FFE08A; --heart: #D9483B;
+  --locked-fill: #E5EBF1; --locked-ink: #4A5E74;
+  --sky: #BFE6F2;
+  /* radius, elevation (teal-tinted, never grey) */
+  --r-sm: 14px; --r-md: 20px; --r-lg: 28px; --r-xl: 36px; --radius: 20px; --press: 5px;
+  --e1: 0 1px 0 rgba(20, 64, 62, .06), 0 6px 14px -4px rgba(20, 64, 62, .16);
+  --e2: 0 2px 0 rgba(20, 64, 62, .06), 0 16px 30px -10px rgba(20, 64, 62, .28);
+  --e-up: 0 -10px 30px -8px rgba(20, 64, 62, .22);
+  --shadow: var(--e1);
+  /* motion */
+  --t-press: 80ms; --t-rel: 250ms; --ease-rel: cubic-bezier(.3, .7, .4, 1.5);
+}
+/* Track B: Lagoon Dusk. Same shapes, cooler colour; "next" is the teal primary (no gold). */
+.track-B {
+  --paper: #F3F7F6; --sheet: #FFFFFF; --card: #FFFFFF; --card-soft: #EAF2F1;
+  --line: #5F7776; --rule: #D8E4E3;
+  --ink: #16302F; --muted: #4F6867;
+  --primary: #176B6A; --primary-hi: #2A8584; --primary-edge: #0F4F4E; --primary-ink: #FFFFFF; --primary-tint: #DCEBEA;
+  --tap: #176B6A; --tap-hi: #2A8584; --tap-edge: #0F4F4E; --tap-ink: #FFFFFF;
+  --tan: #176B6A; --tan-deep: #176B6A; --accent-warm: #E39A4A;
+  --good: #2D7A4D; --good-hi: #3E9A63; --good-edge: #1F6039; --good-tint: #E4F2E8; --good-text: #1F6039;
+  --oops: #B0432C; --oops-tint: #FBE9E4; --oops-text: #9C3B26;
+  --hl: #FFE08A;
+  --locked-fill: #E3EBEA; --locked-ink: #4F6867;
+  --t-rel: 160ms; --ease-rel: cubic-bezier(.4, 0, .2, 1);
+}
+/* seven pastel level bands (ink on every one passes 11:1); shared by both tracks */
+:root {
+  --band-1: #BFE6F2; --band-2: #CFEBB5; --band-3: #FFE08A; --band-4: #FFD3C7; --band-5: #E3D5F7; --band-6: #BFEBDD; --band-7: #F2D3A8;
+  --e-std: cubic-bezier(.4, 0, .2, 1); --e-in: cubic-bezier(0, 0, .2, 1); --e-out: cubic-bezier(.4, 0, 1, 1); --e-pop: cubic-bezier(.3, .7, .4, 1.5);
+  --t-fast: 160ms; --t-base: 220ms; --t-slow: 400ms;
+}
+[data-level="1"] { --band: var(--band-1); } [data-level="2"] { --band: var(--band-2); } [data-level="3"] { --band: var(--band-3); } [data-level="4"] { --band: var(--band-4); }
+[data-level="5"] { --band: var(--band-5); } [data-level="6"] { --band: var(--band-6); } [data-level="7"] { --band: var(--band-7); }

@@ -1,4 +1,3 @@
-import { unlock } from '../audio.js';
 import { scene, mound, seedShape, speaker, logoMark } from '../art/art.js';
 
 export function mount(el) {
@@ -14,11 +13,9 @@ export function mount(el) {
     </div>
     <div class="blocks" aria-hidden="true"><i>s</i><i>a</i><i>t</i></div>
   </div>
-  <footer><p>Free. No account. No ads. No cookies.</p><button class="linkbtn" data-code>I have a garden code</button></footer></main>`;
+  <footer><p>Free. No account. No ads. No cookies.</p><a class="linkbtn" href="#/teach">For parents and teachers</a></footer></main>`;
   el.querySelector('.seed').addEventListener('click', () => {
-    unlock();                                   // AudioContext.resume() inside the gesture
     window.__sg.tapAt = performance.now();
-    location.hash = '#/lesson/L1.01';
+    location.hash = '#/play';          // the tap is the user gesture the browser wants before it lets the first sound play
   }, { once: true });
-  el.querySelector('[data-code]').addEventListener('click', () => { location.hash = '#/code'; });
 }

@@ -1,0 +1,1455 @@
+{
+ "L1.01": {
+  "z": [
+   3
+  ],
+  "file": "practice/L1.01.pdf",
+  "bytes": 126796,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -175.9
+  ]
+ },
+ "L1.02": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L1.02.pdf",
+  "bytes": 143430,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -104.4,
+   -19.7
+  ]
+ },
+ "L1.03": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L1.03.pdf",
+  "bytes": 166064,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -40.3,
+   -30.0
+  ]
+ },
+ "L1.04": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L1.04.pdf",
+  "bytes": 161933,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -66.9,
+   -30.0
+  ]
+ },
+ "L1.05": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L1.05.pdf",
+  "bytes": 152605,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -14.4
+  ]
+ },
+ "L1.06": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L1.06.pdf",
+  "bytes": 160411,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -55.2,
+   -14.4
+  ]
+ },
+ "L1.07": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L1.07.pdf",
+  "bytes": 155614,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -14.4
+  ]
+ },
+ "L1.08": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L1.08.pdf",
+  "bytes": 155326,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -66.9,
+   -30.0
+  ]
+ },
+ "L1.09": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L1.09.pdf",
+  "bytes": 164665,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -40.3,
+   -14.4
+  ]
+ },
+ "L1.10": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L1.10.pdf",
+  "bytes": 170677,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -82.2,
+   -14.4
+  ]
+ },
+ "L1.11": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L1.11.pdf",
+  "bytes": 169428,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -55.2,
+   -30.0
+  ]
+ },
+ "L1.12": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L1.12.pdf",
+  "bytes": 172359,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -55.2,
+   -14.4
+  ]
+ },
+ "L1.13": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L1.13.pdf",
+  "bytes": 168729,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -170.5,
+   -44.6
+  ]
+ },
+ "L1.14": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L1.14.pdf",
+  "bytes": 179489,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -162.1,
+   -6.0
+  ]
+ },
+ "L2.01": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L2.01.pdf",
+  "bytes": 152229,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -14.4
+  ]
+ },
+ "L2.02": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L2.02.pdf",
+  "bytes": 156588,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -52.0,
+   -61.8
+  ]
+ },
+ "L2.03": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L2.03.pdf",
+  "bytes": 147831,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -61.8
+  ]
+ },
+ "L2.04": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L2.04.pdf",
+  "bytes": 150688,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -4.2
+  ]
+ },
+ "L2.05": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L2.05.pdf",
+  "bytes": 150191,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -52.0,
+   -3.0
+  ]
+ },
+ "L2.06": {
+  "z": [
+   2,
+   1
+  ],
+  "file": "practice/L2.06.pdf",
+  "bytes": 184949,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -3.4,
+   -54.8
+  ]
+ },
+ "L2.07": {
+  "z": [
+   1,
+   2
+  ],
+  "file": "practice/L2.07.pdf",
+  "bytes": 181969,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -48.6,
+   -3.0
+  ]
+ },
+ "L2.08": {
+  "z": [
+   2,
+   1
+  ],
+  "file": "practice/L2.08.pdf",
+  "bytes": 159525,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -23.0,
+   -3.0
+  ]
+ },
+ "L2.09": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L2.09.pdf",
+  "bytes": 141453,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -102.5,
+   -14.4
+  ]
+ },
+ "L2.10": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L2.10.pdf",
+  "bytes": 144965,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -110.9,
+   -3.0
+  ]
+ },
+ "L2.11": {
+  "z": [
+   1,
+   1
+  ],
+  "file": "practice/L2.11.pdf",
+  "bytes": 168667,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -91.4,
+   -3.0
+  ]
+ },
+ "L2.12": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L2.12.pdf",
+  "bytes": 172186,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -16.5,
+   -3.0
+  ]
+ },
+ "L2.13": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L2.13.pdf",
+  "bytes": 177709,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -45.1,
+   -106.6
+  ]
+ },
+ "L2.14": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L2.14.pdf",
+  "bytes": 177887,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -52.9,
+   -22.9
+  ]
+ },
+ "L3.01": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L3.01.pdf",
+  "bytes": 158375,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.8,
+   -14.4
+  ]
+ },
+ "L3.02": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L3.02.pdf",
+  "bytes": 161167,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.8,
+   -14.4
+  ]
+ },
+ "L3.03": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L3.03.pdf",
+  "bytes": 170172,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -82.1,
+   -4.2
+  ]
+ },
+ "L3.04": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.04.pdf",
+  "bytes": 176282,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -178.3,
+   -3.0
+  ]
+ },
+ "L3.05": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.05.pdf",
+  "bytes": 181509,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -55.8,
+   -3.0
+  ]
+ },
+ "L3.06": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.06.pdf",
+  "bytes": 148814,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -4.4
+  ]
+ },
+ "L3.07": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.07.pdf",
+  "bytes": 178088,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -19.7,
+   -3.0
+  ]
+ },
+ "L3.08": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L3.08.pdf",
+  "bytes": 147006,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -14.4
+  ]
+ },
+ "L3.09": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L3.09.pdf",
+  "bytes": 155127,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -129.0,
+   -6.0
+  ]
+ },
+ "L3.10": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.10.pdf",
+  "bytes": 153624,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -52.0,
+   -21.7
+  ]
+ },
+ "L3.11": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L3.11.pdf",
+  "bytes": 156801,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -52.0,
+   -67.5
+  ]
+ },
+ "L3.12": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.12.pdf",
+  "bytes": 158760,
+  "pages": 2,
+  "dens": 3,
+  "overflow": [
+   -192.4,
+   -32.5
+  ]
+ },
+ "L3.13": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L3.13.pdf",
+  "bytes": 151689,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -52.0,
+   -67.5
+  ]
+ },
+ "L3.14": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.14.pdf",
+  "bytes": 165681,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -82.2,
+   -20.3
+  ]
+ },
+ "L3.15": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.15.pdf",
+  "bytes": 148484,
+  "pages": 2,
+  "dens": 3,
+  "overflow": [
+   -177.1,
+   -32.5
+  ]
+ },
+ "L3.16": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L3.16.pdf",
+  "bytes": 168001,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -240.5,
+   -1.2
+  ]
+ },
+ "L3.17": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L3.17.pdf",
+  "bytes": 171628,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -170.5,
+   -24.1
+  ]
+ },
+ "L3.18": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L3.18.pdf",
+  "bytes": 168178,
+  "pages": 2,
+  "dens": 3,
+  "overflow": [
+   -272.4,
+   -34.9
+  ]
+ },
+ "L4.01": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L4.01.pdf",
+  "bytes": 176258,
+  "pages": 2,
+  "dens": 1,
+  "overflow": [
+   -178.3,
+   -6.0
+  ]
+ },
+ "L4.02": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L4.02.pdf",
+  "bytes": 171242,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -162.1,
+   -20.3
+  ]
+ },
+ "L4.03": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L4.03.pdf",
+  "bytes": 154955,
+  "pages": 2,
+  "dens": 3,
+  "overflow": [
+   -162.2,
+   -32.5
+  ]
+ },
+ "L4.04": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L4.04.pdf",
+  "bytes": 182992,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -11.6,
+   -1.2
+  ]
+ },
+ "L4.05": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L4.05.pdf",
+  "bytes": 154610,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -66.9,
+   -24.1
+  ]
+ },
+ "L4.06": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L4.06.pdf",
+  "bytes": 162171,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -73.8,
+   -34.9
+  ]
+ },
+ "L4.07": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L4.07.pdf",
+  "bytes": 173236,
+  "pages": 2,
+  "dens": 2,
+  "overflow": [
+   -58.9,
+   -24.1
+  ]
+ },
+ "L4.08": {
+  "z": [
+   3,
+   2
+  ],
+  "file": "practice/L4.08.pdf",
+  "bytes": 164909,
+  "pages": 2,
+  "dens": 3,
+  "overflow": [
+   -133.6,
+   -32.5
+  ]
+ },
+ "L4.09": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L4.09.pdf",
+  "bytes": 161526,
+  "pages": 2,
+  "dens": 3,
+  "overflow": [
+   -177.5,
+   -34.9
+  ]
+ },
+ "L4.10": {
+  "z": [
+   3,
+   1
+  ],
+  "file": "practice/L4.10.pdf",
+  "bytes": 145956,
+  "pages": 2,
+  "dens": 3,
+  "overflow": [
+   -177.1,
+   -34.9
+  ]
+ },
+ "L4.11": {
+  "z": [
+   1,
+   3
+  ],
+  "file": "practice/L4.11.pdf",
+  "bytes": 151093,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -95.6,
+   -101.5
+  ]
+ },
+ "L4.12": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L4.12.pdf",
+  "bytes": 175299,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -112.8,
+   -101.5
+  ]
+ },
+ "L4.13": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L4.13.pdf",
+  "bytes": 175657,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -112.8,
+   -37.0
+  ]
+ },
+ "L4.14": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L4.14.pdf",
+  "bytes": 161927,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -380.3,
+   -37.0
+  ]
+ },
+ "L4.15": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L4.15.pdf",
+  "bytes": 175394,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -36.7,
+   -101.5
+  ]
+ },
+ "L4.16": {
+  "z": [
+   3,
+   3
+  ],
+  "file": "practice/L4.16.pdf",
+  "bytes": 177789,
+  "pages": 2,
+  "dens": 0,
+  "overflow": [
+   -36.7,
+   -118.1
+  ]
+ },
+ "L5.01": {
+  "z": [
+   2
+  ],
+  "file": "practice/L5.01.pdf",
+  "bytes": 101160,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -14.9
+  ]
+ },
+ "L5.02": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.02.pdf",
+  "bytes": 108392,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -15.8
+  ]
+ },
+ "L5.03": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.03.pdf",
+  "bytes": 105077,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.04": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.04.pdf",
+  "bytes": 105161,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.05": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.05.pdf",
+  "bytes": 108758,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.06": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.06.pdf",
+  "bytes": 105970,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.07": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.07.pdf",
+  "bytes": 105495,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.08": {
+  "z": [
+   2
+  ],
+  "file": "practice/L5.08.pdf",
+  "bytes": 108270,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -5.9
+  ]
+ },
+ "L5.09": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.09.pdf",
+  "bytes": 105116,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.10": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.10.pdf",
+  "bytes": 108378,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.11": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.11.pdf",
+  "bytes": 108775,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -8.0
+  ]
+ },
+ "L5.12": {
+  "z": [
+   1
+  ],
+  "file": "practice/L5.12.pdf",
+  "bytes": 105723,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -6.5
+  ]
+ },
+ "L5.13": {
+  "z": [
+   2
+  ],
+  "file": "practice/L5.13.pdf",
+  "bytes": 105300,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -13.8
+  ]
+ },
+ "L5.14": {
+  "z": [
+   1
+  ],
+  "file": "practice/L5.14.pdf",
+  "bytes": 109583,
+  "pages": 1,
+  "dens": 5,
+  "overflow": [
+   -6.5
+  ]
+ },
+ "L5.15": {
+  "z": [
+   3
+  ],
+  "file": "practice/L5.15.pdf",
+  "bytes": 94584,
+  "pages": 1,
+  "dens": 3,
+  "overflow": [
+   -38.6
+  ]
+ },
+ "L5.16": {
+  "z": [
+   2
+  ],
+  "file": "practice/L5.16.pdf",
+  "bytes": 101592,
+  "pages": 1,
+  "dens": 3,
+  "overflow": [
+   -3.3
+  ]
+ },
+ "L6.01": {
+  "z": [
+   2
+  ],
+  "file": "practice/L6.01.pdf",
+  "bytes": 101538,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -16.3
+  ]
+ },
+ "L6.02": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.02.pdf",
+  "bytes": 98441,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -21.7
+  ]
+ },
+ "L6.03": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.03.pdf",
+  "bytes": 99055,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -5.7
+  ]
+ },
+ "L6.04": {
+  "z": [
+   2
+  ],
+  "file": "practice/L6.04.pdf",
+  "bytes": 103000,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -19.8
+  ]
+ },
+ "L6.05": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.05.pdf",
+  "bytes": 97607,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -37.3
+  ]
+ },
+ "L6.06": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.06.pdf",
+  "bytes": 98289,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -21.7
+  ]
+ },
+ "L6.07": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.07.pdf",
+  "bytes": 97493,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -21.7
+  ]
+ },
+ "L6.08": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.08.pdf",
+  "bytes": 99302,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -5.7
+  ]
+ },
+ "L6.09": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.09.pdf",
+  "bytes": 98809,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -5.7
+  ]
+ },
+ "L6.10": {
+  "z": [
+   3
+  ],
+  "file": "practice/L6.10.pdf",
+  "bytes": 96586,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -7.3
+  ]
+ },
+ "L6.11": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.11.pdf",
+  "bytes": 97546,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -8.2
+  ]
+ },
+ "L6.12": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.12.pdf",
+  "bytes": 97474,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -8.2
+  ]
+ },
+ "L6.13": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.13.pdf",
+  "bytes": 99247,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -7.8
+  ]
+ },
+ "L6.14": {
+  "z": [
+   2
+  ],
+  "file": "practice/L6.14.pdf",
+  "bytes": 97520,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -15.1
+  ]
+ },
+ "L6.15": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.15.pdf",
+  "bytes": 102819,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -36.7
+  ]
+ },
+ "L6.16": {
+  "z": [
+   1
+  ],
+  "file": "practice/L6.16.pdf",
+  "bytes": 103321,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -20.7
+  ]
+ },
+ "L7.01": {
+  "z": [
+   3
+  ],
+  "file": "practice/L7.01.pdf",
+  "bytes": 96683,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -7.3
+  ]
+ },
+ "L7.02": {
+  "z": [
+   2
+  ],
+  "file": "practice/L7.02.pdf",
+  "bytes": 102128,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -2.1
+  ]
+ },
+ "L7.03": {
+  "z": [
+   2
+  ],
+  "file": "practice/L7.03.pdf",
+  "bytes": 103460,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -19.8
+  ]
+ },
+ "L7.04": {
+  "z": [
+   3
+  ],
+  "file": "practice/L7.04.pdf",
+  "bytes": 96313,
+  "pages": 1,
+  "dens": 3,
+  "overflow": [
+   -40.1
+  ]
+ },
+ "L7.05": {
+  "z": [
+   2
+  ],
+  "file": "practice/L7.05.pdf",
+  "bytes": 97711,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -10.8
+  ]
+ },
+ "L7.06": {
+  "z": [
+   3
+  ],
+  "file": "practice/L7.06.pdf",
+  "bytes": 95417,
+  "pages": 1,
+  "dens": 3,
+  "overflow": [
+   -14.9
+  ]
+ },
+ "L7.07": {
+  "z": [
+   1
+  ],
+  "file": "practice/L7.07.pdf",
+  "bytes": 96375,
+  "pages": 1,
+  "dens": 3,
+  "overflow": [
+   -7.1
+  ]
+ },
+ "L7.08": {
+  "z": [
+   3
+  ],
+  "file": "practice/L7.08.pdf",
+  "bytes": 97939,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -7.3
+  ]
+ },
+ "L7.09": {
+  "z": [
+   1
+  ],
+  "file": "practice/L7.09.pdf",
+  "bytes": 98692,
+  "pages": 1,
+  "dens": 1,
+  "overflow": [
+   -7.8
+  ]
+ },
+ "L7.10": {
+  "z": [
+   3
+  ],
+  "file": "practice/L7.10.pdf",
+  "bytes": 97676,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -7.3
+  ]
+ },
+ "L7.11": {
+  "z": [
+   1
+  ],
+  "file": "practice/L7.11.pdf",
+  "bytes": 102852,
+  "pages": 1,
+  "dens": 0,
+  "overflow": [
+   -13.4
+  ]
+ },
+ "L7.12": {
+  "z": [
+   3
+  ],
+  "file": "practice/L7.12.pdf",
+  "bytes": 97321,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -7.3
+  ]
+ },
+ "L7.13": {
+  "z": [
+   2
+  ],
+  "file": "practice/L7.13.pdf",
+  "bytes": 97218,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -18.3
+  ]
+ },
+ "L7.14": {
+  "z": [
+   1
+  ],
+  "file": "practice/L7.14.pdf",
+  "bytes": 97766,
+  "pages": 1,
+  "dens": 2,
+  "overflow": [
+   -9.8
+  ]
+ },
+ "level-1": {
+  "file": "practice/level-1-all.pdf",
+  "bytes": 1181136,
+  "pages": 27
+ },
+ "level-2": {
+  "file": "practice/level-2-all.pdf",
+  "bytes": 1148468,
+  "pages": 28
+ },
+ "level-3": {
+  "file": "practice/level-3-all.pdf",
+  "bytes": 1445068,
+  "pages": 36
+ },
+ "level-4": {
+  "file": "practice/level-4-all.pdf",
+  "bytes": 1408511,
+  "pages": 32
+ },
+ "level-5": {
+  "file": "practice/level-5-all.pdf",
+  "bytes": 904914,
+  "pages": 16
+ },
+ "level-6": {
+  "file": "practice/level-6-all.pdf",
+  "bytes": 895334,
+  "pages": 16
+ },
+ "level-7": {
+  "file": "practice/level-7-all.pdf",
+  "bytes": 768475,
+  "pages": 14
+ }
+}

@@ -1,4 +1,4 @@
-:root {
+.landing {
   --bg: #FBF6EA; --card: #FFFDF6; --text: #2B2A26; --muted: #5B574E; --line: #E6DCC2; --border: #8A8372;
   --leaf: #2F7D32; --leaf-text: #2A7230; --hero: #4CB82B; --hero-edge: #2F7D32; --hero-ink: #12330F;
   --sky: #2FA8F2; --sky-ink: #0B5A8A; --right: #0F766E; --wrong: #A84A07; --sun: #FFC21A;

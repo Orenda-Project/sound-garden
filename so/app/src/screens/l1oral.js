@@ -1,0 +1,166 @@
+// L1.01 "Sounds in Words": oral phonemic awareness, NO letters on screen (real pictures, none for ambiguous words),
+// except the 60-second preview of s and a at the very end. Words come from the course lesson (§2a-c).
+import { play, wait, mark, has, stop } from '../audio.js';
+import { h, btn, icon, safePicture, picture, hasPicture, isAmbiguous, speaker, ICON } from '../ui.js';
+import { entry, g2p, lexicon } from '../content.js';
+import { buildSet } from '../optionset.js';
+import { choose, choice, shuffle, sounds } from './l1steps.js';
+import { teacher } from '../teacher.js';
+
+const FIRST = ['sun', 'top', 'mat', 'pig', 'dog'];          // a) first sound
+const BLEND = ['at', 'sat', 'it', 'on', 'mat'];               // b) blending
+const SEGMENT = ['up', 'at', 'sat', 'dog'];                   // c) segmenting
+const CHECK = ['sat', 'top', 'pig', 'dog', 'mat'];            // check: hear the sounds, pick the word
+const ph = w => entry(w).p.map(p => `ph:${p}`);
+const pic = (w, i) => safePicture(w, { n: i });                // the real picture, never the printed word; null for ambiguous words (at, it, on, up, sat)
+
+// What the option builder may use: real pictures that are clear, whole-word clips that exist, real words from the lexicon.
+const UNIVERSE = Object.keys(lexicon).filter(w => lexicon[w].kind === 'real');
+const optionEnv = {
+  hasPic: hasPicture, isAmb: isAmbiguous, hasClip: w => has(`w:${w}`),
+  phones: w => entry(w)?.p || null, isReal: w => entry(w)?.kind === 'real',
+  level1: w => (lexicon[w].lessons || []).some(l => l.startsWith('L1.')), universe: UNIVERSE,
+};
+export const optionsFor = (target, pool, test = false) => buildSet(target, pool, optionEnv, { seed: `${test ? 't' : 'b'}:${target}` });
+// a card's picture; an ambiguous word keeps its picture and carries the small printed word underneath
+// function words (at, it, on, up) cannot be drawn honestly: a word-only card, never a misleading scene (the .picture class and data-key stay, so counts and drivers see a card)
+const FUNC = new Set(['at', 'it', 'on', 'up']);
+const wordCard = (w, i) => h('div', { class: 'picture wordonly', 'data-key': w, 'data-chunk': i }, h('b', { class: 'pic-big' }, w));
+const card = (w, i, labelled) => { if (FUNC.has(w)) return wordCard(w, i); const p = picture(w, { n: i }); return labelled && p ? h('div', { class: 'pic-lab' }, p, h('span', { class: 'pic-word' }, w)) : p; };
+
+function stageFor(ctx, step) { ctx.step = step; mark('step', { key: ctx.sitting.key, step }); return ctx.stage(); }
+
+async function firstSound(ctx, w, i) {
+  const s = stageFor(ctx, 'oral-first');
+  s.append(h('h2', {}, 'What sound does it start with?'), ...(pic(w, i) ? [h('div', { class: 'pics one' }, pic(w, i))] : []), speaker(`w:${w}`, { big: true, label: 'Hear the word' }));
+  const t = entry(w).p[0];
+  const others = shuffle(['s', 'a', 't', 'p', 'i', 'n', 'm', 'd', 'g', 'o'].filter(p => p !== t)).slice(0, 2);
+  const c = choice(s, shuffle([t, ...others]).map(p => ({ key: `ph:${p}`, ok: p === t, id: p })), { cls: 'three', model: [`ph:${t}`] });   // mounted hidden: no reflow when the voice ends
+  await ctx.instruct('ui:l1OralFirst', { stim: () => play(`w:${w}`), nudge: 'ui:idlePick' });
+  const r = await c.start();
+  await ctx.record(`oral:first:${w}`, 'oral', r);
+}
+
+async function blendWord(ctx, w, pool, { test = false } = {}) {
+  const s = stageFor(ctx, test ? 'oral-check' : 'oral-blend');
+  s.append(h('h2', {}, 'Which word do the sounds make?'), speaker(null, { big: true, label: 'Hear the sounds again', onplay: () => sounds(ph(w)) }));
+  // Pictures are the rule: bad distractors (no picture, ambiguous, no clip) are swapped in code, deterministically per item (see optionset.js).
+  // Speaker-only is the last resort. An ambiguous target keeps its picture with the small word under it, on every card of the set.
+  const set = optionsFor(w, pool, test); const opts = set.words; mark('oral-set', { target: w, words: opts, speakerOnly: set.speakerOnly, swapped: set.swapped, labelled: set.labelled });
+  const c = choice(s, opts.map((o, i) => ({ key: `w:${o}`, body: set.speakerOnly ? null : card(o, i, set.labelled), ok: o === w, id: o })), { cls: set.speakerOnly ? 'three speaker-only' : 'three', test, model: [...ph(w), `w:${w}`] });
+  await ctx.instruct(test ? 'ui:l1OralCheck' : 'ui:l1OralBlend', { stim: () => sounds(ph(w)), nudge: 'ui:idlePick' });
+  const r = await c.start();
+  await ctx.record(`oral:blend:${w}`, 'oral', r);
+  return r;
+}
+
+async function segment(ctx, w) {
+  const s = stageFor(ctx, 'oral-count');
+  const n = entry(w).p.length;
+  const dots = h('div', { class: 'dots big' }, ...Array.from({ length: n }, () => h('i')));
+  s.append(h('h2', {}, 'How many sounds?'), speaker(`w:${w}`, { big: true, label: 'Hear the word' }));
+  await ctx.instruct('ui:l1OralCount', { stim: () => play(`w:${w}`), nudge: 'ui:idlePick' });
+  const r = await choose(s, [2, 3, 4].map(k => ({ body: h('div', { class: 'dots' }, ...Array.from({ length: k }, () => h('i', { class: 'on' }))), label: 'This many', ok: k === n, id: String(k) })), { cls: 'three', autoplay: false, model: [`w:${w}`] });
+  // show it: one dot lights per sound
+  s.append(dots);
+  const ds = [...dots.children];
+  for (let i = 0; i < n; i++) { ds[i].classList.add('on'); await play(`ph:${entry(w).p[i]}`); await wait(300); }
+  await ctx.record(`oral:count:${w}`, 'oral', r);
+}
+
+// Worked example (first / blend / count). The REAL answer cards are on screen, not ghosts. While the teacher talks nothing is tappable;
+// then Tilo "picks": the right card gets the tick and a glow, the others dim, "Your turn" is said and the screen WAITS for one big
+// "My turn" tap (Track B: "Try one"). It never auto-advances: a vanishing screen read as a bug (owner, 2026-10-11, the socks).
+// The speakers and the cards' play buttons wake up once the narration ends (the speaker replays the stimulus).
+function demoCards(s, defs) {
+  const row = h('div', { class: 'options l1-opts three demo', 'data-demo': '1' }, ...defs.map((d, i) => {
+    const play1 = d.key
+      ? h('button', { class: `opt-play${d.body ? ' pic-play' : ''}`, 'aria-label': `Option ${i + 1}: play`, onclick: () => play(d.key) }, d.body || icon('speaker'), d.body ? h('span', { class: 'pic-glyph', html: ICON.speaker }) : null)
+      : d.body;
+    const el = h('div', { class: 'opt', 'data-demo-ok': d.ok ? '1' : null }, play1, btn('This one', 'check', { class: 'opt-pick', disabled: true, 'aria-label': `This one, option ${i + 1}` }));
+    el.setAttribute('role', 'group'); el.setAttribute('aria-label', `Option ${i + 1}`);
+    return el;
+  }));
+  row.inert = true; s.append(row); return row;
+}
+const lockDemo = s => s.querySelectorAll('.speaker').forEach(b => { b.inert = true; b.classList.add('demo-off'); });
+
+// after the narration: Tilo picks the right card, then the learner decides when to start
+async function finishDemo(ctx, s, row, type) {
+  const cards = [...row.querySelectorAll('.opt')];
+  const ok = row.querySelector('[data-demo-ok]');
+  cards.forEach(c => { if (c !== ok) c.classList.add('off'); });
+  ok.classList.add('right', 'glow'); ok.querySelector('.opt-pick').classList.add('ticked'); teacher.point(ok.querySelector('.opt-pick'));
+  mark('oral-demo-pick', { demo: type });
+  await teacher.say('ui:yourTurn');
+  teacher.clearHints?.();
+  row.inert = false; s.querySelectorAll('.speaker').forEach(b => { b.inert = false; b.classList.remove('demo-off'); });   // the demo can be heard again
+  const go = btn(ctx.track === 'A' ? 'My turn' : 'Try one', 'play', { class: 'btn primary demo-go', say: 'ui:yourTurn' });
+  s.append(go); mark('oral-demo-ready', { demo: type });
+  teacher.setIdle({ nudge: 'ui:idleTap', hint: () => teacher.point(go) });
+  await new Promise(r => go.addEventListener('click', r, { once: true }));
+  stop(); mark('oral-demo-go', { demo: type });
+}
+
+async function worked(ctx, type) {
+  const s = stageFor(ctx, type === 'first' ? 'oral-first' : type === 'count' ? 'oral-count' : 'oral-blend');
+  let row;
+  if (type === 'count') {
+    const w = 'pig', n = entry(w).p.length;
+    const dots = h('div', { class: 'dots big' }, ...Array.from({ length: n }, () => h('i')));
+    s.append(h('h2', {}, 'How many sounds?'), speaker(`w:${w}`, { big: true, label: 'Hear the word' }), dots);
+    row = demoCards(s, [2, 3, 4].map(k => ({ body: h('div', { class: 'dots' }, ...Array.from({ length: k }, () => h('i', { class: 'on' }))), ok: k === n })));
+    lockDemo(s); mark('oral-demo', { demo: type });
+    await ctx.instruct(['ui:letsDoOne'], { stim: async () => { if ((await play(`w:${w}`)) === false) return false; await wait(300); for (let i = 0; i < n; i++) { dots.children[i].classList.add('on'); if ((await play(`ph:${entry(w).p[i]}`)) === false) return false; await wait(300); } return true; }, nudge: 'ui:idleTap' });
+  } else if (type === 'first') {
+    s.append(h('h2', {}, 'What sound does it start with?'), ...(pic('sock', 0) ? [h('div', { class: 'pics one' }, pic('sock', 0))] : []), speaker('w:sock', { big: true, label: 'Hear the word' }));
+    row = demoCards(s, shuffle(['s', 't', 'm']).map(p => ({ key: `ph:${p}`, ok: p === 's' })));   // s and two sounds the learner meets in the real items
+    lockDemo(s); mark('oral-demo', { demo: type });
+    await ctx.instruct(['ui:letsDoOne', 'w:sock', 'ph:s'], { nudge: 'ui:idleTap' });
+  } else {
+    s.append(h('h2', {}, 'Which word do the sounds make?'), speaker(null, { big: true, label: 'Hear the sounds', onplay: () => sounds(ph('dog')) }));
+    const set = optionsFor('dog', BLEND.concat(FIRST));   // the demo's real option words
+    row = demoCards(s, set.words.map((o, i) => ({ key: `w:${o}`, body: set.speakerOnly ? null : card(o, i, set.labelled), ok: o === 'dog' })));
+    lockDemo(s); mark('oral-demo', { demo: type });
+    await ctx.instruct(['ui:letsDoOne'], { stim: async () => { if ((await sounds(ph('dog'))) === false) return false; await wait(300); return play('w:dog'); }, nudge: 'ui:idleTap' });
+  }
+  await finishDemo(ctx, s, row, type);
+}
+
+export async function oral(ctx) {
+  await worked(ctx, 'first');
+  for (const [i, w] of FIRST.entries()) await firstSound(ctx, w, i);
+  await worked(ctx, 'blend');
+  for (const w of BLEND) await blendWord(ctx, w, BLEND.concat(FIRST));
+  await worked(ctx, 'count');
+  for (const w of SEGMENT) await segment(ctx, w);
+  // the only letters in L1.01: a preview of s and a (taught properly in L1.02)
+  const s = stageFor(ctx, 'preview');
+  let tapped = 0;
+  const card = l => { const b = h('button', { class: 'lettercard small', 'data-letter': l }, l); b.addEventListener('click', async () => { tapped++; await play(`ph:${g2p[l]}`); ctx.enableNext(); }); return b; };
+  s.append(h('h2', {}, 'Two letters for next time'), h('div', { class: 'row' }, card('s'), card('a')),
+    h('p', { class: 'muted' }, 'Tap a letter to hear its sound. You will learn them properly in the next lesson.'));
+  await ctx.instruct('ui:l1OralPreview', { stim: async () => { if ((await play('ph:s')) === false) return false; await wait(300); return play('ph:a'); }, nudge: 'ui:idleTap', hint: () => teacher.point(...s.querySelectorAll('button.lettercard')) });
+  await ctx.next({ disabledUntil: () => tapped > 0 });
+}
+
+// Show what you know for L1.01: hear the sounds, pick the word. Bar from the lesson JSON (4/5).
+export async function oralCheck(ctx) {
+  const bar = ctx.lesson.check?.bar?.pass ? { pass: ctx.lesson.check.bar.pass, of: ctx.lesson.check.bar.of } : { pass: 4, of: 5 };
+  const s0 = stageFor(ctx, 'oral-check');
+  s0.append(h('h2', {}, 'Show what you know'), h('p', { class: 'prompt' }, 'Listen to the sounds. Pick the word they make.'));
+  await ctx.instruct('ui:l1OralCheck', { nudge: 'ui:idleArrow' }); await ctx.next();
+  let correct = 0, judged = 0;
+  ctx.test = true;
+  for (const w of CHECK) { if (judged) await teacher.nextItem(); const r = await blendWord(ctx, w, CHECK.concat(BLEND), { test: true }); judged++; if (r.correct) correct++; }
+  ctx.test = false;
+  const result = correct / judged >= bar.pass / bar.of ? 'checked' : 'miss';
+  mark('check-end', { result, correct, judged, bar });
+  const s = ctx.stage();
+  s.append(h('h2', {}, result === 'checked' ? 'Checked by tapping' : 'Show what you know'),
+    h('div', { class: 'dots' }, ...Array.from({ length: judged }, (_, i) => h('i', { class: i < correct ? 'on' : '' }))),
+    h('p', { class: 'score' }, `${correct} of ${judged} on the first try · bar ${bar.pass}/${bar.of}`));
+  await ctx.instruct(result === 'checked' ? 'ui:checkPass' : 'ui:miniMiss', { nudge: 'ui:idleArrow' });
+  await ctx.next();
+  return { result, correct, judged, bar };
+}

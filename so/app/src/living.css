@@ -1,0 +1,38 @@
+/* ---------- G2: Tilo's living home. Items arrive one per finished sitting and never leave. ---------- */
+.living { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.living svg { width: 100%; height: 100%; display: block; }
+.living .li { transform-box: fill-box; transform-origin: 50% 100%; }
+.living .li.new { animation: li-pop .6s var(--e-pop) .5s both; }
+@keyframes li-pop { 0% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.18); opacity: 1; } 100% { transform: scale(1); } }
+.living .flap { transform-box: fill-box; transform-origin: 100% 60%; animation: li-flap .5s ease-in-out infinite alternate; }
+@keyframes li-flap { to { transform: scaleY(.55); } }
+.living .li:nth-child(3n) .flap { animation-duration: .65s; }
+.sky-tint { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.sky-tint.morning { background: linear-gradient(rgba(255, 190, 140, .5), rgba(255, 214, 170, .22) 38%, rgba(255, 214, 170, 0) 62%); }
+.sky-tint.evening { background: linear-gradient(rgba(255, 128, 92, .5), rgba(255, 158, 104, .26) 40%, rgba(255, 158, 104, 0) 66%); }
+@media (prefers-reduced-motion: reduce) { .living .li.new, .living .flap { animation: none; } }
+.calm .living .li.new, .calm .living .flap { animation: none; }
+
+/* ---------- G4: my garden, a flower per practised day (in the Home sheet) ---------- */
+.daygarden { margin-top: 20px; padding: 10px 12px 10px; flex-wrap: wrap; border-radius: 22px; background: linear-gradient(#DDF3D6, #C4E7B4); box-shadow: inset 0 -5px 0 rgba(31, 138, 59, .22), var(--e1); display: flex; align-items: flex-end; gap: 8px; min-height: 76px; }
+.dg-flowers { display: flex; flex-wrap: wrap; gap: 2px 3px; align-items: flex-end; flex: 1; }
+.dg-f { width: 28px; height: 36px; flex: none; display: block; }
+.dg-f.new { transform-box: fill-box; transform-origin: 50% 100%; animation: li-pop .7s var(--e-pop) .6s both; }
+.dg-n { flex: none; font: 600 22px var(--display); color: var(--good-text); background: #fff; border-radius: 999px; padding: 2px 12px; box-shadow: var(--e1); }
+.daygarden.empty { align-items: center; justify-content: center; } .dg-hint { font: 600 17px var(--display); color: var(--good-text); }
+@media (prefers-reduced-motion: reduce) { .dg-f.new { animation: none; } }
+.calm .dg-f.new { animation: none; }
+.dg-cap { flex: 1 0 100%; font: 600 15px var(--display); color: var(--good-text); }
+
+.living .gift { animation: gift-bob 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes gift-bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-5px) rotate(2deg); } }
+.living .gift .spark { animation: gift-spark 1.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; } @keyframes gift-spark { 50% { transform: scale(1.5) rotate(20deg); opacity: .5; } }
+.dg-next { opacity: .85; }
+@media (prefers-reduced-motion: reduce) { .living .gift, .living .gift .spark { animation: none; } } .calm .living .gift, .calm .living .gift .spark { animation: none; }
+
+/* ---------- lesson screens (Track A): a meadow under the answer cards, a bigger Tilo, and a flower waiting at the end of the progress bar ---------- */
+body .track-A.sitting, body .track-A.onb-lesson { background:
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 300' preserveAspectRatio='none'><path d='M0 120Q90 40 200 100T390 70V300H0Z' fill='%23A9DCA4'/><path d='M0 170Q110 90 250 150T390 130V300H0Z' fill='%238ED66F'/><path d='M0 230Q80 180 180 215T390 205V300H0Z' fill='%236CC85F'/><g transform='translate(34 176)'><path d='M0 0Q-2 -12 0 -24' stroke='%232E9E5B' stroke-width='3' fill='none'/><circle cx='0' cy='-26' r='8' fill='%23FF8FB1'/><circle cx='0' cy='-26' r='3.500' fill='%23FFD54A'/></g><g transform='translate(350 168)'><path d='M0 0Q-2 -12 0 -24' stroke='%232E9E5B' stroke-width='3' fill='none'/><circle cx='0' cy='-26' r='8' fill='%23B79CFF'/><circle cx='0' cy='-26' r='3.500' fill='%23FFD54A'/></g><g transform='translate(196 214)'><path d='M0 0Q-2 -12 0 -24' stroke='%232E9E5B' stroke-width='3' fill='none'/><circle cx='0' cy='-26' r='8' fill='%23FFB347'/><circle cx='0' cy='-26' r='3.500' fill='%23FFF3B0'/></g></svg>") bottom center / 100% 300px no-repeat,
+  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 420'><g fill='white' opacity='.92'><ellipse cx='318' cy='222' rx='38' ry='11'/><circle cx='305' cy='212' r='13'/><circle cx='324' cy='205' r='17'/><circle cx='343' cy='214' r='11'/><ellipse cx='62' cy='300' rx='30' ry='9'/><circle cx='52' cy='292' r='10'/><circle cx='68' cy='286' r='13'/></g></svg>") top center / 100% auto no-repeat, var(--sky-fade); background-attachment: fixed, scroll, scroll; }
+body .track-A header.hdr .hdr-tilo .tilo.inline { width: 136px; }
+body .track-A header.hdr::after { content: ''; position: absolute; right: 62px; top: 6px; width: 38px; height: 38px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-16 -34 32 38'><path d='M0 0Q-2 -12 0 -26' stroke='%232E9E5B' stroke-width='3' fill='none' stroke-linecap='round'/><path d='M0 -8Q-10 -12 -12 -20Q-2 -18 0 -8Z' fill='%2343B368'/><circle cx='0' cy='-26' r='7.500' fill='%23FF8FB1'/><circle cx='-8' cy='-22' r='7' fill='%23FF8FB1'/><circle cx='8' cy='-22' r='7' fill='%23FF8FB1'/><circle cx='-5' cy='-32' r='7' fill='%23FF8FB1'/><circle cx='5' cy='-32' r='7' fill='%23FF8FB1'/><circle cx='0' cy='-26' r='5.500' fill='%23FFD54A'/></svg>") center / contain no-repeat; pointer-events: none; }

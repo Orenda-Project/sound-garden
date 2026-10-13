@@ -1,17 +1,19 @@
-const app = () => document.getElementById('app');
-export const TEST = new URLSearchParams(location.search).get('test') === '1';
-export const DEMO = new URLSearchParams(location.search).get('demo') === '1';
-window.__sg = window.__sg || { tapAt: null, wateredAt: null };
+// Hash router. Every screen has a shareable URL:
+//   #/                      landing (tap the seed)
+//   #/play                  the app (onboarding the first time, then the garden home)
+//   #/play/lesson/L2.04     straight into that lesson's next open sitting (needs a profile; locked lessons stay locked)
+//   #/play/practice         the Practice area      #/play/sound-it-out   Sound it out      #/play/grown-ups   the grown-ups guide
+//   #/teach                 parents and teachers: the Teach guide and the printable practice pages (PDF), no sum gate
+const el = () => document.getElementById('app');
 let leave = [];
-export const onLeave = (fn) => leave.push(fn);   // screens register cleanup (Sprig listeners, timers)
+export const onLeave = (fn) => leave.push(fn);
 export async function route() {
   leave.forEach((f) => { try { f(); } catch { /* already gone */ } }); leave = [];
   const h = (location.hash || '#/').split('?')[0];
-  const el = app(); el.replaceChildren(); window.scrollTo(0, 0);
-  if (h.startsWith('#/lesson/')) (await import('./ui/lesson.js')).mount(el, h.slice(9));
-  else if (h.startsWith('#/sprout/')) (await import('./ui/sprout.js')).mount(el, h.slice(9));
-  else if (h === '#/remind') (await import('./ui/sprout.js')).remind(el);
-  else if (h === '#/home') (await import('./ui/home.js')).mount(el);
-  else if (h === '#/code') (await import('./ui/home.js')).code(el);
-  else (await import('./ui/landing.js')).mount(el);
+  const root = el();
+  document.documentElement.classList.toggle('sg-play', h.startsWith('#/play'));
+  if (h.startsWith('#/play')) { const m = await import('./play.js'); return m.mount(root, h.slice(6)); }
+  root.replaceChildren(); window.scrollTo(0, 0);
+  if (h === '#/teach') return (await import('./teach/teach.js')).mount(root);
+  (await import('./ui/landing.js')).mount(root);
 }

@@ -1,0 +1,44 @@
+/* Meet a sound (screens/meetsound.js): premium tokens only (tokens.css), raised controls from style.css, the My-turn pill from premium.css. */
+.sm { gap: 4px; }
+.sm-dots { display: flex; gap: 8px; justify-content: center; margin: 4px 0 0; }
+.sm-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--rule); transition: transform var(--t-base) var(--e-pop), background var(--t-base); }
+.sm-dots i.done { background: var(--good); } .sm-dots i.now { background: var(--tap-hi); box-shadow: 0 0 0 3px rgba(255, 209, 77, .45); transform: scale(1.25); }
+.sm-ear { display: flex; justify-content: center; }
+.sm-card { position: relative; border: 0; background: var(--card); border-radius: var(--r-xl); padding: 14px 14px 62px; width: min(300px, 100%); margin: 8px auto; box-shadow: 0 var(--press) 0 var(--lip), var(--e2), inset 0 2px 0 var(--hi); --lip: rgba(20, 64, 62, .16); --hi: rgba(255, 255, 255, .75); transition: transform var(--t-fast); }
+.sm-card.pop { transform: scale(1.03); }
+.sm-card .picture { width: 100%; max-width: 220px; margin: 0 auto; } .sm-card .picture img { border-radius: var(--r-lg); }
+.sm-bigword { font: 600 3.4rem/1.2 var(--read); padding: 40px 0; text-align: center; }
+.sm-chip { position: absolute; left: 16px; top: 16px; min-width: 64px; height: 64px; padding: 0 12px 6px; border-radius: 22px; display: grid; place-items: center; font: 700 2.6rem/1 var(--read); background: linear-gradient(var(--tap-hi), var(--tap)); color: var(--tap-ink); box-shadow: 0 4px 0 var(--tap-edge); }
+.sm-cap { position: absolute; left: 0; right: 0; bottom: 14px; font: 600 1.65rem/1.2 var(--read); text-align: center; color: var(--ink); } .sm-cap b { color: var(--primary); }
+.sm-ring { position: relative; width: 190px; height: 190px; margin: 10px auto 2px; border-radius: 50%; display: grid; place-items: center; background: var(--card); box-shadow: var(--e2); cursor: pointer; }
+.sm-ring span { font: 700 6.4rem/1 var(--read); padding-bottom: 12px; color: var(--ink); }
+.sm-ring::before, .sm-ring::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 4px solid var(--primary-hi); opacity: 0; }
+.sm-ring.on::before { animation: smring 1s ease-out infinite; } .sm-ring.on::after { animation: smring 1s .35s ease-out infinite; }
+@keyframes smring { from { transform: scale(1); opacity: .7; } to { transform: scale(1.38); opacity: 0; } }
+.sm-cue { display: flex; gap: 12px; align-items: center; text-align: left; font-weight: 700; }
+.sm-lips { flex: none; width: 52px; color: var(--oops); } .sm-lips svg { width: 100%; display: block; }
+.sm-word { display: flex; justify-content: center; gap: 6px; margin: 24px 0 8px; cursor: pointer; }
+.sm-l { font: 700 4.6rem/1.1 var(--read); min-width: 52px; text-align: center; padding: 6px 4px 14px; border-radius: var(--r-md); background: var(--card); box-shadow: var(--e1); }
+.sm-l.hl { background: var(--hl); box-shadow: 0 4px 0 var(--tap-edge), var(--e1); }
+.sm-word.on .sm-l.hl { animation: pulse .8s ease-in-out infinite; }
+.sm-sub { margin: 4px 0; text-align: center; }
+.sm-big { font: 700 7rem/1 var(--read); margin: 6px 0 0; color: var(--primary); }
+.sm-wave { display: flex; gap: 6px; align-items: center; justify-content: center; height: 34px; margin: 2px 0 8px; } .sm-wave i { width: 8px; height: 10px; border-radius: 4px; background: var(--primary-hi); opacity: .35; }
+.sm-pill { pointer-events: none; } .sm-pill .bi svg { width: 32px; height: 32px; }
+.sm-pill.listening { animation: pulse 1s ease-in-out infinite; } .sm-pill.listening ~ .sm-sub { color: var(--good-text); }
+.sm:has(.sm-pill.listening) .sm-wave i { animation: smbar .7s ease-in-out infinite alternate; opacity: .9; }
+.sm-wave i:nth-child(2) { animation-delay: .1s; } .sm-wave i:nth-child(3) { animation-delay: .2s; } .sm-wave i:nth-child(4) { animation-delay: .3s; } .sm-wave i:nth-child(5) { animation-delay: .4s; }
+@keyframes smbar { from { height: 8px; } to { height: 30px; } }
+.sm-tick.ticked { background: var(--good-tint); color: var(--good-text); }
+.sm-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; margin: 14px 0; }
+.sm-opt { border: 0; border-radius: var(--r-xl); min-height: 170px; background: var(--card); font: 700 5.6rem/1 var(--read); padding-bottom: 14px; box-shadow: 0 var(--press) 0 rgba(20, 64, 62, .16), var(--e1), inset 0 2px 0 rgba(255, 255, 255, .75); }
+.sm-opt.right { background: var(--good-tint); box-shadow: 0 0 0 4px var(--good), 0 5px 0 4px var(--good-edge); }
+.sm-opt.wrong { background: var(--oops-tint); box-shadow: 0 0 0 4px var(--oops); opacity: .8; }
+.sm-opt.glow { box-shadow: 0 0 0 4px var(--tap-hi), 0 0 18px rgba(255, 209, 77, .6); }
+@media (max-height: 700px) { .sm-ring { width: 150px; height: 150px; } .sm-ring span { font-size: 5rem; } .sm-big { font-size: 5rem; } .sm-opt { min-height: 130px; font-size: 4.4rem; } .sm-l { font-size: 3.6rem; } }
+@media (prefers-reduced-motion: reduce) { .sm-ring.on::before, .sm-ring.on::after, .sm-wave i, .sm-pill.listening { animation: none; } }
+/* the near hills (premium.css) fill the lower third: lift the card content clear of them and give the cards the same soft ground shadow as Tilo */
+.track-A .sm { padding-bottom: 70px; }
+.sm-card::after, .sm-ring::after { }
+.sm-card { background: linear-gradient(#fff, #FFFBF0); }
+.smb-turn .sm-big { font-size: 4.2rem; margin: 0; } .smb-turn .sm-wave { height: 22px; margin: 0 0 4px; } .smb-turn .sm-pill { height: 64px; margin-top: 4px; font-size: 26px; } .smb-turn .row { margin: 8px 0; } .smb-turn .sm-cue { margin: 4px 0; padding: 8px 12px; } .smb-turn h2 { margin: .3em 0; }

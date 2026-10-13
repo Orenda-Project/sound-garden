@@ -1,0 +1,118 @@
+{
+ "id": "L3.04",
+ "level": 3,
+ "contentVersion": "2026.10.proto",
+ "source": "course/level-3/lessons/L3.04-vce-drop-e.md",
+ "title": "VCe + the Drop-e Rule",
+ "goal": "Apply the drop-e spelling rule when adding a vowel suffix (-ing, -ed, -er) to a VCe word: hope→hoping.",
+ "newToday": "drop-e rule (spelling rule, no new grapheme)",
+ "review": "a_e, i_e, o_e, u_e, e_e; -ing/-ed/-er suffixes (Level 2, no-base-change words)",
+ "heartLine": "busy, people (review: great, eye)",
+ "time": "25–30 min",
+ "blendList": {
+  "real": [
+   "hope",
+   "hoping",
+   "ride",
+   "riding",
+   "make",
+   "making",
+   "smile",
+   "smiling",
+   "drive",
+   "driving",
+   "hide",
+   "hiding",
+   "close",
+   "closing",
+   "save",
+   "saving",
+   "joke",
+   "joking",
+   "skate",
+   "skating"
+  ],
+  "pseudo": [
+   "grape",
+   "zime",
+   "ziming",
+   "flobe",
+   "flobing"
+  ]
+ },
+ "spell": {
+  "words": [
+   "first"
+  ],
+  "sentence": "Jane is making a cake."
+ },
+ "listen": {
+  "title": null,
+  "passage": "A shopkeeper's closing routine matters because a rushed close can leave a door unlocked or cash uncounted. A careful routine, done the same way every night, reduces the chance of a costly mistake.",
+  "tier2": [
+   {
+    "word": "routine",
+    "def": "a set of steps you do the same way, again and again.",
+    "full": "a set of steps you do the same way, again and again."
+   }
+  ],
+  "questions": [
+   "Why does a careful closing routine matter?",
+   "What's a routine you never skip?"
+  ]
+ },
+ "check": {
+  "real": [
+   "hoping",
+   "saving",
+   "closing",
+   "riding",
+   "making"
+  ],
+  "dictation": [
+   "hoping",
+   "saving",
+   "closing",
+   "riding",
+   "making"
+  ],
+  "bar": {
+   "pass": 9,
+   "of": 10,
+   "source": "lesson",
+   "raw": "9/10 across writing+reading"
+  },
+  "firstAttemptOnly": true,
+  "note": "learner writes the -ing form (dictation) and reads it (tap gate)"
+ },
+ "heart": [
+  {
+   "word": "busy",
+   "note": null
+  },
+  {
+   "word": "people",
+   "note": null
+  }
+ ],
+ "read": {
+  "A": {
+   "text": "Sam is making a kite. / He is using tape and a stick. / Every bit has to be just so. / Sam is smiling at his plan. / Once it is done, Sam is hoping for a fine time. / He is saving his kite for the big game. / \"I made this alone,\" said Sam, very glad.",
+   "title": null
+  },
+  "B": {
+   "text": "At the end of every shift, Kate is closing the shop at nine. / She is checking the till and saving the cash. / Once the till is closed, she is locking every gate. / Kate is not rushing — she likes taking her time. / \"I am making it safe,\" she said, smiling at her plan for a safe close.",
+   "title": null
+  }
+ },
+ "blocksFound": [
+  "blendList",
+  "heart",
+  "read",
+  "listen",
+  "check",
+  "trackB",
+  "tier2"
+ ],
+ "appSittings": null
+}

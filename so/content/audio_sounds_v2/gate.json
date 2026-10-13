@@ -1,0 +1,1715 @@
+{
+ "s": {
+  "pure": {
+   "active_ms": 1030,
+   "bursts": 1,
+   "peak": -7.5,
+   "tp": -7.5,
+   "lufs": -18.0,
+   "lead_ms": 40,
+   "trail_ms": 80,
+   "fade_db": -0.8,
+   "burst_ms": [
+    1030
+   ],
+   "measure_ms": 1030,
+   "ref_ms": 1000,
+   "ratio": 1.03,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1710,
+   "bursts": 3,
+   "peak": -3.0,
+   "tp": -3.0,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 100,
+   "heard": "Ssssss, snake.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1080,
+   "bursts": 1,
+   "peak": -3.5,
+   "tp": -3.5,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "Son.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "sh": {
+  "pure": {
+   "active_ms": 960,
+   "bursts": 1,
+   "peak": -8.2,
+   "tp": -7.1,
+   "lufs": -18.2,
+   "lead_ms": 40,
+   "trail_ms": 70,
+   "fade_db": -3.6,
+   "burst_ms": [
+    960
+   ],
+   "measure_ms": 960,
+   "ref_ms": 909,
+   "ratio": 1.06,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1880,
+   "bursts": 3,
+   "peak": -3.1,
+   "tp": -3.0,
+   "lufs": -18.4,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "Shhh...ship.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1090,
+   "bursts": 1,
+   "peak": -4.1,
+   "tp": -4.0,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 130,
+   "heard": "Shell",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "f": {
+  "pure": {
+   "active_ms": 470,
+   "bursts": 1,
+   "peak": -5.7,
+   "tp": -5.7,
+   "lufs": -18.3,
+   "lead_ms": 40,
+   "trail_ms": 70,
+   "fade_db": 2.3,
+   "burst_ms": [
+    470
+   ],
+   "measure_ms": 470,
+   "ref_ms": 469,
+   "ratio": 1.0,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1550,
+   "bursts": 1,
+   "peak": -3.0,
+   "tp": -2.8,
+   "lufs": -18.3,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "Fish.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 860,
+   "bursts": 1,
+   "peak": -3.3,
+   "tp": -3.1,
+   "lufs": -18.2,
+   "lead_ms": 70,
+   "trail_ms": 110,
+   "heard": "fan",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "th": {
+  "pure": {
+   "active_ms": 1770,
+   "bursts": 1,
+   "peak": -7.5,
+   "tp": -6.8,
+   "lufs": -18.0,
+   "lead_ms": 50,
+   "trail_ms": 70,
+   "fade_db": 0.5,
+   "burst_ms": [
+    1770
+   ],
+   "measure_ms": 1770,
+   "ref_ms": 1750,
+   "ratio": 1.01,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1630,
+   "bursts": 2,
+   "peak": -2.6,
+   "tp": -2.6,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 130,
+   "heard": "Th... Thumb.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1580,
+   "bursts": 2,
+   "peak": -2.2,
+   "tp": -2.2,
+   "lufs": -18.3,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "Th-Thin.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "dh": {
+  "pure": {
+   "active_ms": 700,
+   "bursts": 1,
+   "peak": -3.8,
+   "tp": -3.5,
+   "lufs": -18.2,
+   "lead_ms": 40,
+   "trail_ms": 70,
+   "fade_db": -3.4,
+   "ref_ms": null,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2590,
+   "bursts": 3,
+   "peak": -3.1,
+   "tp": -3.1,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "D. H. This.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1160,
+   "bursts": 1,
+   "peak": -4.2,
+   "tp": -4.1,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 130,
+   "heard": "This.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "h": {
+  "pure": {
+   "active_ms": 580,
+   "bursts": 3,
+   "peak": -4.2,
+   "tp": -3.3,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "H.",
+   "burst_ms": [
+    140,
+    140,
+    60
+   ],
+   "measure_ms": 580,
+   "ref_ms": 369,
+   "ratio": 1.57,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2360,
+   "bursts": 4,
+   "peak": -3.1,
+   "tp": -3.1,
+   "lufs": -18.6,
+   "lead_ms": 50,
+   "trail_ms": 90,
+   "heard": "H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H-H",
+   "heard_tail": "HORSE",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1170,
+   "bursts": 2,
+   "peak": -2.3,
+   "tp": -2.2,
+   "lufs": -18.4,
+   "lead_ms": 60,
+   "trail_ms": 100,
+   "heard": "A hat.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "m": {
+  "pure": {
+   "active_ms": 580,
+   "bursts": 1,
+   "peak": -6.5,
+   "tp": -6.5,
+   "lufs": -18.0,
+   "lead_ms": 50,
+   "trail_ms": 70,
+   "fade_db": 0.8,
+   "burst_ms": [
+    580
+   ],
+   "measure_ms": 580,
+   "ref_ms": 589,
+   "ratio": 0.98,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1780,
+   "bursts": 3,
+   "peak": -3.1,
+   "tp": -3.1,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 110,
+   "heard": "Mmm... Mountain.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1130,
+   "bursts": 2,
+   "peak": -3.6,
+   "tp": -3.5,
+   "lufs": -17.8,
+   "lead_ms": 50,
+   "trail_ms": 130,
+   "heard": "Mmm, mope.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "n": {
+  "pure": {
+   "active_ms": 980,
+   "bursts": 1,
+   "peak": -8.7,
+   "tp": -8.6,
+   "lufs": -18.1,
+   "lead_ms": 40,
+   "trail_ms": 60,
+   "fade_db": 3.7,
+   "burst_ms": [
+    980
+   ],
+   "measure_ms": 980,
+   "ref_ms": 929,
+   "ratio": 1.05,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1710,
+   "bursts": 4,
+   "peak": -2.9,
+   "tp": -2.8,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 130,
+   "heard": "N-n-net.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 870,
+   "bursts": 2,
+   "peak": -2.6,
+   "tp": -2.6,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "NUT",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "z": {
+  "pure": {
+   "active_ms": 900,
+   "bursts": 1,
+   "peak": -5.4,
+   "tp": -5.1,
+   "lufs": -18.0,
+   "lead_ms": 50,
+   "trail_ms": 70,
+   "fade_db": -5.8,
+   "burst_ms": [
+    900
+   ],
+   "measure_ms": 900,
+   "ref_ms": 879,
+   "ratio": 1.02,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1850,
+   "bursts": 2,
+   "peak": -3.3,
+   "tp": -3.2,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "Zz... Zebra.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 990,
+   "bursts": 1,
+   "peak": -3.2,
+   "tp": -3.1,
+   "lufs": -17.9,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "Zebra.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "v": {
+  "pure": {
+   "active_ms": 620,
+   "bursts": 1,
+   "peak": -5.8,
+   "tp": -5.8,
+   "lufs": -18.0,
+   "lead_ms": 40,
+   "trail_ms": 60,
+   "fade_db": -3.8,
+   "burst_ms": [
+    620
+   ],
+   "measure_ms": 620,
+   "ref_ms": 629,
+   "ratio": 0.99,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1830,
+   "bursts": 2,
+   "peak": -2.7,
+   "tp": -2.7,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "V... Van.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 980,
+   "bursts": 2,
+   "peak": -2.8,
+   "tp": -2.8,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 100,
+   "heard": "...Vet.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "r": {
+  "pure": {
+   "active_ms": 680,
+   "bursts": 1,
+   "peak": -3.1,
+   "tp": -3.1,
+   "lufs": -18.0,
+   "lead_ms": 40,
+   "trail_ms": 70,
+   "fade_db": -2.9,
+   "burst_ms": [
+    680
+   ],
+   "measure_ms": 680,
+   "ref_ms": 689,
+   "ratio": 0.99,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1620,
+   "bursts": 3,
+   "peak": -2.8,
+   "tp": -2.8,
+   "lufs": -18.4,
+   "lead_ms": 50,
+   "trail_ms": 90,
+   "heard": "Rrrr. Rabbit.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 820,
+   "bursts": 1,
+   "peak": -2.8,
+   "tp": -2.7,
+   "lufs": -18.3,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "Rrrrrug.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "l": {
+  "pure": {
+   "active_ms": 650,
+   "bursts": 1,
+   "peak": -8.6,
+   "tp": -8.6,
+   "lufs": -18.2,
+   "lead_ms": 40,
+   "trail_ms": 70,
+   "fade_db": -0.0,
+   "burst_ms": [
+    650
+   ],
+   "measure_ms": 650,
+   "ref_ms": 639,
+   "ratio": 1.02,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1210,
+   "bursts": 2,
+   "peak": -2.4,
+   "tp": -2.4,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "Lea-leg.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 660,
+   "bursts": 2,
+   "peak": -3.9,
+   "tp": -3.8,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "lip",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ng": {
+  "pure": {
+   "active_ms": 720,
+   "bursts": 1,
+   "peak": -9.8,
+   "tp": -9.8,
+   "lufs": -18.3,
+   "lead_ms": 40,
+   "trail_ms": 80,
+   "fade_db": 3.7,
+   "burst_ms": [
+    720
+   ],
+   "measure_ms": 720,
+   "ref_ms": 719,
+   "ratio": 1.0,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2430,
+   "bursts": 3,
+   "peak": -2.9,
+   "tp": -2.9,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 130,
+   "heard": "Ring. Mmm. Mmm.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1010,
+   "bursts": 1,
+   "peak": -5.1,
+   "tp": -5.0,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 110,
+   "heard": "RING!",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "t": {
+  "pure": {
+   "active_ms": 610,
+   "bursts": 3,
+   "peak": -2.6,
+   "tp": -2.5,
+   "lufs": -18.4,
+   "lead_ms": 50,
+   "trail_ms": 60,
+   "heard": "T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T-T",
+   "burst_ms": [
+    100,
+    90,
+    120
+   ],
+   "measure_ms": 610,
+   "ref_ms": 349,
+   "ratio": 1.75,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1700,
+   "bursts": 4,
+   "peak": -2.8,
+   "tp": -2.8,
+   "lufs": -17.6,
+   "lead_ms": 60,
+   "trail_ms": 130,
+   "heard": "T-T-T-T-Tower.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 840,
+   "bursts": 4,
+   "peak": -1.9,
+   "tp": -1.9,
+   "lufs": -18.4,
+   "lead_ms": 70,
+   "trail_ms": 100,
+   "heard": "T-top.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "p": {
+  "pure": {
+   "active_ms": 620,
+   "bursts": 3,
+   "peak": -3.3,
+   "tp": -3.3,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "Peep, peep, peep.",
+   "burst_ms": [
+    120,
+    120,
+    120
+   ],
+   "measure_ms": 620,
+   "ref_ms": 329,
+   "ratio": 1.88,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2370,
+   "bursts": 6,
+   "peak": -1.8,
+   "tp": -1.8,
+   "lufs": -18.7,
+   "lead_ms": 60,
+   "trail_ms": 90,
+   "heard": "Pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-pee-",
+   "heard_tail": "PIG.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1200,
+   "bursts": 3,
+   "peak": -2.7,
+   "tp": -2.7,
+   "lufs": -18.4,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "The... Pen.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "k": {
+  "pure": {
+   "active_ms": 650,
+   "bursts": 3,
+   "peak": -2.3,
+   "tp": -2.3,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 60,
+   "heard": "C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C-C",
+   "burst_ms": [
+    120,
+    110,
+    140
+   ],
+   "measure_ms": 650,
+   "ref_ms": 299,
+   "ratio": 2.17,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1930,
+   "bursts": 5,
+   "peak": -4.5,
+   "tp": -4.5,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "K-K-K-Kangaroo",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1030,
+   "bursts": 3,
+   "peak": -2.1,
+   "tp": -2.0,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 100,
+   "heard": "C-C-Cat.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ch": {
+  "pure": {
+   "active_ms": 730,
+   "bursts": 3,
+   "peak": -4.5,
+   "tp": -3.8,
+   "lufs": -18.1,
+   "lead_ms": 60,
+   "trail_ms": 60,
+   "heard": "Ch-ch-ch-ch!",
+   "burst_ms": [
+    110,
+    140,
+    160
+   ],
+   "measure_ms": 730,
+   "ref_ms": 350,
+   "ratio": 2.09,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2210,
+   "bursts": 4,
+   "peak": -2.8,
+   "tp": -2.7,
+   "lufs": -18.1,
+   "lead_ms": 70,
+   "trail_ms": 130,
+   "heard": "Ch-ch-ch-cherry.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1260,
+   "bursts": 3,
+   "peak": -3.2,
+   "tp": -2.7,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "Tch, in.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ks": {
+  "pure": {
+   "active_ms": 820,
+   "bursts": 3,
+   "peak": -4.7,
+   "tp": -4.7,
+   "lufs": -18.0,
+   "lead_ms": 50,
+   "trail_ms": 60,
+   "heard": "X-X-X-X.",
+   "burst_ms": [
+    190,
+    200,
+    190
+   ],
+   "measure_ms": 820,
+   "ref_ms": 539,
+   "ratio": 1.52,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2590,
+   "bursts": 5,
+   "peak": -2.7,
+   "tp": -2.6,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 90,
+   "heard": "X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X",
+   "heard_tail": "box.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1420,
+   "bursts": 2,
+   "peak": -3.1,
+   "tp": -3.0,
+   "lufs": -18.3,
+   "lead_ms": 60,
+   "trail_ms": 100,
+   "heard": "Bo. X.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "kw": {
+  "pure": {
+   "active_ms": 800,
+   "bursts": 3,
+   "peak": -2.9,
+   "tp": -2.9,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 70,
+   "heard": "C-c-c-c-c-",
+   "burst_ms": [
+    180,
+    180,
+    180
+   ],
+   "measure_ms": 800,
+   "ref_ms": 389,
+   "ratio": 2.06,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2200,
+   "bursts": 4,
+   "peak": -2.9,
+   "tp": -2.9,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 110,
+   "heard": "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",
+   "heard_tail": "QUEEN",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1140,
+   "bursts": 5,
+   "peak": -2.5,
+   "tp": -2.4,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 110,
+   "heard": "Qu-Qu-Qu-Quilt.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ng-k": {
+  "pure": {
+   "active_ms": 740,
+   "bursts": 3,
+   "peak": -3.5,
+   "tp": -3.4,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "Thank you.",
+   "burst_ms": [
+    140,
+    160,
+    150
+   ],
+   "measure_ms": 740,
+   "ref_ms": 759,
+   "ratio": 0.97,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2870,
+   "bursts": 7,
+   "peak": -2.3,
+   "tp": -2.3,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 90,
+   "heard": "Nk, nk, nk, nk, pink.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1730,
+   "bursts": 5,
+   "peak": -2.3,
+   "tp": -2.1,
+   "lufs": -18.4,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "pink",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "b": {
+  "pure": {
+   "active_ms": 670,
+   "bursts": 3,
+   "peak": -2.8,
+   "tp": -2.8,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 60,
+   "heard": "B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B-B",
+   "burst_ms": [
+    140,
+    110,
+    140
+   ],
+   "measure_ms": 670,
+   "ref_ms": 359,
+   "ratio": 1.87,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2100,
+   "bursts": 5,
+   "peak": -2.5,
+   "tp": -2.4,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 100,
+   "heard": "B-b-b-boot!",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1260,
+   "bursts": 2,
+   "peak": -2.8,
+   "tp": -2.7,
+   "lufs": -18.6,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "B. A. G.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "d": {
+  "pure": {
+   "active_ms": 670,
+   "bursts": 3,
+   "peak": -3.6,
+   "tp": -3.5,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D-D",
+   "burst_ms": [
+    150,
+    150,
+    120
+   ],
+   "measure_ms": 670,
+   "ref_ms": 399,
+   "ratio": 1.68,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1800,
+   "bursts": 3,
+   "peak": -2.4,
+   "tp": -1.9,
+   "lufs": -19.5,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "D-D-D-Duck.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1280,
+   "bursts": 2,
+   "peak": -2.4,
+   "tp": -2.3,
+   "lufs": -18.3,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "D- I-G.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "g": {
+  "pure": {
+   "active_ms": 700,
+   "bursts": 3,
+   "peak": -3.9,
+   "tp": -3.6,
+   "lufs": -18.3,
+   "lead_ms": 40,
+   "trail_ms": 70,
+   "heard": "N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N-N",
+   "burst_ms": [
+    150,
+    140,
+    150
+   ],
+   "measure_ms": 700,
+   "ref_ms": 369,
+   "ratio": 1.9,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1900,
+   "bursts": 3,
+   "peak": -2.5,
+   "tp": -2.5,
+   "lufs": -18.4,
+   "lead_ms": 50,
+   "trail_ms": 110,
+   "heard": "G-G-G-G-G-G-G-G-G-G-G-G-G-GIRL",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1230,
+   "bursts": 3,
+   "peak": -2.7,
+   "tp": -2.5,
+   "lufs": -18.9,
+   "lead_ms": 60,
+   "trail_ms": 100,
+   "heard": "G. App.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "j": {
+  "pure": {
+   "active_ms": 750,
+   "bursts": 3,
+   "peak": -3.7,
+   "tp": -3.7,
+   "lufs": -18.3,
+   "lead_ms": 40,
+   "trail_ms": 70,
+   "heard": "J-J-J-J-",
+   "burst_ms": [
+    180,
+    160,
+    160
+   ],
+   "measure_ms": 750,
+   "ref_ms": 359,
+   "ratio": 2.09,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2960,
+   "bursts": 4,
+   "peak": -2.9,
+   "tp": -2.5,
+   "lufs": -18.3,
+   "lead_ms": 60,
+   "trail_ms": 110,
+   "heard": "J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J-J",
+   "heard_tail": "JAM",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1300,
+   "bursts": 3,
+   "peak": -2.5,
+   "tp": -2.3,
+   "lufs": -18.4,
+   "lead_ms": 50,
+   "trail_ms": 90,
+   "heard": "J-E-T",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "w": {
+  "pure": {
+   "active_ms": 370,
+   "bursts": 1,
+   "peak": -8.2,
+   "tp": -8.1,
+   "lufs": -18.0,
+   "lead_ms": 50,
+   "trail_ms": 60,
+   "burst_ms": [
+    370
+   ],
+   "measure_ms": 370,
+   "ref_ms": 379,
+   "ratio": 0.98,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1910,
+   "bursts": 2,
+   "peak": -2.4,
+   "tp": -2.4,
+   "lufs": -18.4,
+   "lead_ms": 50,
+   "trail_ms": 90,
+   "heard": "Web.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 960,
+   "bursts": 1,
+   "peak": -3.1,
+   "tp": -3.0,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 100,
+   "heard": "Web.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "y": {
+  "pure": {
+   "active_ms": 360,
+   "bursts": 1,
+   "peak": -7.2,
+   "tp": -7.2,
+   "lufs": -18.0,
+   "lead_ms": 50,
+   "trail_ms": 60,
+   "burst_ms": [
+    360
+   ],
+   "measure_ms": 360,
+   "ref_ms": 359,
+   "ratio": 1.0,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2740,
+   "bursts": 2,
+   "peak": -2.6,
+   "tp": -2.6,
+   "lufs": -18.5,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "Y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y-y",
+   "heard_tail": "Y-yellow.",
+   "flags": [],
+   "pass": true
+  },
+  "stretch": {
+   "active_ms": 1130,
+   "bursts": 2,
+   "peak": -2.0,
+   "tp": -1.9,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "Y-y-yes.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "a": {
+  "pure": {
+   "active_ms": 330,
+   "bursts": 1,
+   "peak": -3.2,
+   "tp": -3.1,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 70,
+   "fade_db": -5.6,
+   "burst_ms": [
+    330
+   ],
+   "measure_ms": 330,
+   "ref_ms": 389,
+   "ratio": 0.85,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2460,
+   "bursts": 5,
+   "peak": -2.5,
+   "tp": -2.4,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "I, I, I, Apple.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "e": {
+  "pure": {
+   "active_ms": 330,
+   "bursts": 1,
+   "peak": -4.9,
+   "tp": -4.8,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 80,
+   "fade_db": -4.4,
+   "burst_ms": [
+    330
+   ],
+   "measure_ms": 330,
+   "ref_ms": 389,
+   "ratio": 0.85,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2210,
+   "bursts": 4,
+   "peak": -2.3,
+   "tp": -2.2,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 110,
+   "heard": "E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E",
+   "heard_tail": "Egg",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "i": {
+  "pure": {
+   "active_ms": 300,
+   "bursts": 1,
+   "peak": -4.9,
+   "tp": -4.8,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 80,
+   "fade_db": -4.1,
+   "burst_ms": [
+    300
+   ],
+   "measure_ms": 300,
+   "ref_ms": 380,
+   "ratio": 0.79,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2410,
+   "bursts": 6,
+   "peak": -2.7,
+   "tp": -2.6,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 90,
+   "heard": "i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i-i",
+   "heard_tail": "insect.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "o": {
+  "pure": {
+   "active_ms": 320,
+   "bursts": 1,
+   "peak": -3.5,
+   "tp": -3.4,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 70,
+   "fade_db": -5.0,
+   "burst_ms": [
+    320
+   ],
+   "measure_ms": 320,
+   "ref_ms": 329,
+   "ratio": 0.97,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2890,
+   "bursts": 5,
+   "peak": -3.2,
+   "tp": -3.1,
+   "lufs": -19.3,
+   "lead_ms": 50,
+   "trail_ms": 80,
+   "heard": "Uh, uh, uh, uh, octopus!",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "u": {
+  "pure": {
+   "active_ms": 340,
+   "bursts": 1,
+   "peak": -4.5,
+   "tp": -4.5,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 70,
+   "fade_db": -1.7,
+   "burst_ms": [
+    340
+   ],
+   "measure_ms": 340,
+   "ref_ms": 340,
+   "ratio": 1.0,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2580,
+   "bursts": 4,
+   "peak": -2.8,
+   "tp": -2.7,
+   "lufs": -18.4,
+   "lead_ms": 60,
+   "trail_ms": 100,
+   "heard": "Uh, uh, Umbrella.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ey": {
+  "pure": {
+   "active_ms": 350,
+   "bursts": 1,
+   "peak": -4.8,
+   "tp": -4.8,
+   "lufs": -17.9,
+   "lead_ms": 70,
+   "trail_ms": 70,
+   "fade_db": -3.2,
+   "burst_ms": [
+    350
+   ],
+   "measure_ms": 350,
+   "ref_ms": 459,
+   "ratio": 0.76,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2350,
+   "bursts": 2,
+   "peak": -2.5,
+   "tp": -2.5,
+   "lufs": -18.4,
+   "lead_ms": 40,
+   "trail_ms": 120,
+   "heard": "I... I... Rain.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "iy": {
+  "pure": {
+   "active_ms": 510,
+   "bursts": 1,
+   "peak": -5.6,
+   "tp": -5.5,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 70,
+   "fade_db": -2.7,
+   "burst_ms": [
+    510
+   ],
+   "measure_ms": 510,
+   "ref_ms": 379,
+   "ratio": 1.35,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 1970,
+   "bursts": 3,
+   "peak": -3.0,
+   "tp": -3.0,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 130,
+   "heard": "E E tree.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ay": {
+  "pure": {
+   "active_ms": 420,
+   "bursts": 1,
+   "peak": -3.7,
+   "tp": -3.6,
+   "lufs": -18.1,
+   "lead_ms": 60,
+   "trail_ms": 80,
+   "fade_db": -5.1,
+   "burst_ms": [
+    420
+   ],
+   "measure_ms": 420,
+   "ref_ms": 469,
+   "ratio": 0.9,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2570,
+   "bursts": 4,
+   "peak": -2.5,
+   "tp": -2.5,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 110,
+   "heard": "I. I. Kite.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ow": {
+  "pure": {
+   "active_ms": 370,
+   "bursts": 1,
+   "peak": -4.0,
+   "tp": -4.0,
+   "lufs": -18.0,
+   "lead_ms": 70,
+   "trail_ms": 80,
+   "fade_db": -1.6,
+   "burst_ms": [
+    370
+   ],
+   "measure_ms": 370,
+   "ref_ms": 509,
+   "ratio": 0.73,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2550,
+   "bursts": 3,
+   "peak": -2.3,
+   "tp": -2.3,
+   "lufs": -18.3,
+   "lead_ms": 40,
+   "trail_ms": 80,
+   "heard": "Oh, oh, boat.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "aw": {
+  "pure": {
+   "active_ms": 610,
+   "bursts": 1,
+   "peak": -6.2,
+   "tp": -6.1,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 80,
+   "fade_db": -1.7,
+   "burst_ms": [
+    610
+   ],
+   "measure_ms": 610,
+   "ref_ms": 619,
+   "ratio": 0.99,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2470,
+   "bursts": 3,
+   "peak": -2.5,
+   "tp": -2.5,
+   "lufs": -18.3,
+   "lead_ms": 60,
+   "trail_ms": 120,
+   "heard": "Ow, ow, cow.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "uw": {
+  "pure": {
+   "active_ms": 560,
+   "bursts": 1,
+   "peak": -3.4,
+   "tp": -3.4,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 80,
+   "fade_db": -1.2,
+   "burst_ms": [
+    560
+   ],
+   "measure_ms": 560,
+   "ref_ms": 689,
+   "ratio": 0.81,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2170,
+   "bursts": 3,
+   "peak": -3.8,
+   "tp": -3.7,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 110,
+   "heard": "Ooo, ooo, moon.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "uh": {
+  "pure": {
+   "active_ms": 410,
+   "bursts": 1,
+   "peak": -6.4,
+   "tp": -6.2,
+   "lufs": -18.0,
+   "lead_ms": 40,
+   "trail_ms": 80,
+   "fade_db": -0.1,
+   "burst_ms": [
+    410
+   ],
+   "measure_ms": 410,
+   "ref_ms": 519,
+   "ratio": 0.79,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2150,
+   "bursts": 3,
+   "peak": -2.5,
+   "tp": -2.5,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 90,
+   "heard": "Ooh, ooh, book.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "ao": {
+  "pure": {
+   "active_ms": 520,
+   "bursts": 1,
+   "peak": -4.8,
+   "tp": -4.7,
+   "lufs": -18.0,
+   "lead_ms": 60,
+   "trail_ms": 80,
+   "fade_db": 0.6,
+   "burst_ms": [
+    520
+   ],
+   "measure_ms": 520,
+   "ref_ms": 420,
+   "ratio": 1.24,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2700,
+   "bursts": 5,
+   "peak": -2.6,
+   "tp": -2.6,
+   "lufs": -18.2,
+   "lead_ms": 50,
+   "trail_ms": 100,
+   "heard": "or... or... fork.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "er": {
+  "pure": {
+   "active_ms": 450,
+   "bursts": 1,
+   "peak": -3.0,
+   "tp": -2.9,
+   "lufs": -18.3,
+   "lead_ms": 70,
+   "trail_ms": 80,
+   "fade_db": -3.8,
+   "burst_ms": [
+    450
+   ],
+   "measure_ms": 450,
+   "ref_ms": 530,
+   "ratio": 0.85,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2340,
+   "bursts": 3,
+   "peak": -2.2,
+   "tp": -2.2,
+   "lufs": -18.2,
+   "lead_ms": 60,
+   "trail_ms": 130,
+   "heard": "Uh, uh, bird.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "oy": {
+  "pure": {
+   "active_ms": 440,
+   "bursts": 1,
+   "peak": -5.5,
+   "tp": -5.5,
+   "lufs": -17.9,
+   "lead_ms": 60,
+   "trail_ms": 70,
+   "fade_db": -3.8,
+   "burst_ms": [
+    440
+   ],
+   "measure_ms": 440,
+   "ref_ms": 430,
+   "ratio": 1.02,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2680,
+   "bursts": 3,
+   "peak": -2.9,
+   "tp": -2.8,
+   "lufs": -18.3,
+   "lead_ms": 40,
+   "trail_ms": 110,
+   "heard": "Oi, oi, boy.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "aa-r": {
+  "pure": {
+   "active_ms": 580,
+   "bursts": 1,
+   "peak": -3.3,
+   "tp": -3.3,
+   "lufs": -18.3,
+   "lead_ms": 40,
+   "trail_ms": 80,
+   "fade_db": -3.9,
+   "burst_ms": [
+    580
+   ],
+   "measure_ms": 580,
+   "ref_ms": 649,
+   "ratio": 0.89,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2380,
+   "bursts": 3,
+   "peak": -2.4,
+   "tp": -2.4,
+   "lufs": -18.3,
+   "lead_ms": 50,
+   "trail_ms": 110,
+   "heard": "our car.",
+   "flags": [],
+   "pass": true
+  }
+ },
+ "eh-r": {
+  "pure": {
+   "active_ms": 570,
+   "bursts": 1,
+   "peak": -3.1,
+   "tp": -2.9,
+   "lufs": -18.0,
+   "lead_ms": 40,
+   "trail_ms": 80,
+   "fade_db": -2.6,
+   "burst_ms": [
+    570
+   ],
+   "measure_ms": 570,
+   "ref_ms": 689,
+   "ratio": 0.83,
+   "flags": [],
+   "pass": true
+  },
+  "anchor": {
+   "active_ms": 2590,
+   "bursts": 3,
+   "peak": -2.5,
+   "tp": -2.4,
+   "lufs": -18.1,
+   "lead_ms": 50,
+   "trail_ms": 120,
+   "heard": "Air. Air. Chair.",
+   "flags": [],
+   "pass": true
+  }
+ }
+}

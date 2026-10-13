@@ -1,0 +1,6 @@
+/* Print practice: link buttons and the picker in the grown-up guide. Kept apart from guide.css / home restyling. */
+a.print-practice { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 18px; }
+.print-card { margin-top: 20px; }
+.print-card .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.print-card select { min-height: 48px; font: inherit; padding: 0 12px; border-radius: 12px; margin-top: 10px; max-width: 100%; }
+.lesson > a.print-practice { margin: 6px 0 2px; }

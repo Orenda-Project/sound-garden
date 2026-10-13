@@ -1,0 +1,36 @@
+/* ---------- G3: the bigger celebration. Specificity is raised with .cele-plus so it wins over premium.css whatever the import order. ---------- */
+/* Track A: twelve broad sun rays turning slowly, a hot glow behind Tilo, stars in an arc, a big sticker with a glint and its book of dots */
+.cele-plus.onb-done.track-A::before, .cele-plus.endscreen.track-A::before { background: repeating-conic-gradient(from 0deg at 50% 40%, rgba(255, 224, 110, .36) 0 12deg, rgba(255, 224, 110, 0) 12deg 30deg); animation-duration: 90s; }
+.cele-plus.onb-done.track-A::after, .cele-plus.endscreen.track-A::after { background: radial-gradient(circle at 50% 40%, rgba(255, 238, 150, .85), rgba(255, 238, 150, 0) 46%); }
+.cele-plus.onb-done.track-A .tilo-slot, .cele-plus.endscreen.track-A .tilo-slot { width: min(300px, 80%); }
+.cele-plus.track-A .star:nth-child(1) { translate: 14px 16px; } .cele-plus.track-A .star:nth-child(3) { translate: -14px 16px; }
+.cele-plus.track-A .star:nth-child(2) svg { width: 96px; height: 96px; } .cele-plus.track-A .star svg { width: 70px; height: 70px; }
+.cele-plus.onb-done.track-A .sticker, .cele-plus.endscreen.track-A .sticker { width: 132px; height: 142px; margin: -132px 6px 4px 0; font-size: 4.6rem; position: relative; overflow: hidden; animation: sticker-big .9s var(--e-pop) .7s both; }
+@keyframes sticker-big { 0% { transform: translateY(-120px) scale(1.5) rotate(-8deg); opacity: 0; } 55% { transform: translateY(0) scale(1.05) rotate(5deg); opacity: 1; } 70% { transform: rotate(-4deg); } 85% { transform: rotate(3deg); } 100% { transform: none; opacity: 1; } }
+.sticker .glint { position: absolute; top: -10%; bottom: -10%; width: 34%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .95), transparent); transform: skewX(-18deg); animation: glint 1s ease-out 1.9s 1 both; }
+@keyframes glint { to { left: 130%; } }
+.sticker-book { order: 4; align-self: flex-end; display: flex; gap: 5px; margin: 6px 14px 4px 0; padding: 7px 11px; border-radius: 999px; background: rgba(255, 255, 255, .22); }
+.sticker-book i { width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 255, 255, .45); }
+.sticker-book i.on { background: #FFD54A; box-shadow: 0 0 0 1.5px #fff; } .sticker-book i.last { animation: dot-pop .5s var(--e-pop) 1.4s both; }
+@keyframes dot-pop { from { transform: scale(0); } 60% { transform: scale(1.8); } }
+.cele-plus.track-A h2 { font-size: clamp(44px, 14vw, 58px); }
+.confetti i:nth-child(4n+1) { width: 8px; height: 8px; border-radius: 50%; } .confetti i:nth-child(5n) { width: 12px; height: 18px; }
+@media (max-height: 700px) { .cele-plus.onb-done.track-A .tilo-slot, .cele-plus.endscreen.track-A .tilo-slot { width: 220px; } .cele-plus.onb-done.track-A .sticker, .cele-plus.endscreen.track-A .sticker { width: 100px; height: 110px; margin-top: -96px; font-size: 3.4rem; } .cele-plus.track-A .star:nth-child(2) svg { width: 76px; height: 76px; } .cele-plus.track-A .star svg { width: 54px; height: 54px; } }
+/* Track B: calm. The ring draws itself, then the tick, then a sage wash breathes once. */
+.ring-draw { width: 112px; height: 112px; flex: none; margin-bottom: 8px; }
+.ring-draw svg { width: 100%; height: 100%; display: block; }
+.rg-track { fill: #fff; stroke: var(--rule); stroke-width: 7; }
+.rg-arc { fill: none; stroke: var(--primary); stroke-width: 7; stroke-linecap: round; stroke-dasharray: 264; stroke-dashoffset: 264; transform: rotate(-90deg); transform-origin: 50% 50%; animation: rg-draw .9s cubic-bezier(.4, 0, .2, 1) .15s forwards; }
+.rg-tick { fill: none; stroke: var(--primary); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: rg-draw .45s ease-out .85s forwards; }
+@keyframes rg-draw { to { stroke-dashoffset: 0; } }
+.sage-pulse { position: relative; isolation: isolate; }
+.sage-pulse::before { content: ''; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 22%, rgba(120, 190, 176, .5), rgba(120, 190, 176, 0) 60%); animation: sage-pulse 2.4s ease-in-out 1 both; }
+@keyframes sage-pulse { 0% { opacity: 0; } 35% { opacity: 1; } 100% { opacity: .5; } }
+.endscreen.track-B .ring-draw + h2 { margin-top: 0; }
+@media (prefers-reduced-motion: reduce) { .cele-plus.onb-done.track-A .sticker, .cele-plus.endscreen.track-A .sticker, .sticker .glint, .sticker-book i.last, .rg-arc, .rg-tick, .sage-pulse::before { animation: none; } .rg-arc, .rg-tick { stroke-dashoffset: 0; } .sticker .glint { display: none; } }
+.calm .cele-plus.onb-done.track-A .sticker, .calm .cele-plus.endscreen.track-A .sticker, .calm .sticker .glint, .calm .sticker-book i.last, .calm .rg-arc, .calm .rg-tick, .calm .sage-pulse::before { animation: none; }
+.calm .rg-arc, .calm .rg-tick { stroke-dashoffset: 0; } .calm .sticker .glint { display: none; }
+.cele-plus.endscreen.track-A .hook { order: 8; margin: 10px 0 0; font: 700 18px var(--ui); color: #fff; opacity: .95; }
+/* the Go on button is never covered: confetti fades out before the button zone, and the lines over the rays get a dark edge */
+.confetti { -webkit-mask-image: linear-gradient(#000 0, #000 calc(100% - 150px), transparent calc(100% - 96px)); mask-image: linear-gradient(#000 0, #000 calc(100% - 150px), transparent calc(100% - 96px)); }
+.cele-plus.track-A .cele-line, .cele-plus.track-A .muted, .cele-plus.track-A .score, .cele-plus.track-A .prompt { text-shadow: 0 2px 0 rgba(3, 50, 50, .55), 0 0 12px rgba(3, 50, 50, .35); }

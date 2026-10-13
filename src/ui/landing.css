@@ -1,0 +1,37 @@
+/* Landing page only (everything is scoped under .landing so it cannot touch the Sound Out screens). */
+.landing svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.landing .disp { font-family: var(--disp); font-weight: 800; letter-spacing: -.01em; }
+.landing :focus-visible { outline: 3px solid #12330F; outline-offset: 3px; }
+/* hero button: forward moves only; hand-cut corners, lip underneath */
+.landing .btn { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 62px; width: 100%; border: 3px solid var(--hero-edge);
+  border-bottom-width: 7px; background: var(--hero); color: var(--hero-ink); font: 800 19px/1 var(--font); letter-spacing: .04em; text-transform: uppercase;
+  border-radius: 22px 26px 22px 28px / 26px 22px 28px 22px; box-shadow: inset 0 3px 0 rgba(255,255,255,.28); text-decoration: none; padding: 0 20px; }
+.landing .btn:active { transform: translateY(3px); }
+.landing .btn[hidden] { display: flex; visibility: hidden; }
+.landing .ghost { background: var(--card); color: var(--sky-ink); border-color: var(--sky); box-shadow: none; }
+.landing .linkbtn { background: none; border: 0; color: var(--leaf-text); font: 700 15px/1 var(--font); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; padding: 14px; min-height: 48px; }
+
+/* S1 seed */
+.landing { position: relative; min-height: 100dvh; display: flex; flex-direction: column; isolation: isolate; }
+.landing .brand { position: relative; z-index: 1; margin: 0; padding: 34px 0 0; display: flex; gap: 10px; align-items: center; justify-content: center; font: 800 24px/1 var(--font); color: var(--hero-ink); letter-spacing: -.01em; }
+.landing .stack { position: relative; z-index: 1; margin-top: auto; display: flex; flex-direction: column; align-items: center; padding-bottom: 14px; }
+.landing .sign { position: relative; transform: rotate(-2.2deg); background: linear-gradient(#E9B872, #D9A25E); border: 4px solid #8A5A1E; border-radius: 6px; padding: 14px 22px; color: #12330F; box-shadow: 0 4px 0 rgba(74,47,20,.35); margin-bottom: 52px; }
+.landing .sign span { display: flex; gap: 10px; align-items: center; font: 800 22px/1 var(--font); }
+.landing .sign b { font-weight: 800; }
+.landing .sign::before, .landing .sign::after { content: ""; position: absolute; top: 7px; width: 6px; height: 6px; border-radius: 50%; background: #5A3810; } .sign::before { left: 7px; } .sign::after { right: 7px; }
+.landing .post { position: absolute; left: 50%; top: 100%; width: 18px; height: 46px; margin-left: -9px; background: #B9793B; border: 3px solid #8A5A1E; border-top: 0; }
+.landing .seedwrap { position: relative; width: min(58vw, 230px); }
+.landing .seed { all: unset; display: block; width: 100%; cursor: pointer; touch-action: manipulation; }
+.landing .seed svg { display: block; width: 100%; height: auto; overflow: visible; }
+.landing .seed:focus-visible { outline: 3px solid #12330F; outline-offset: 4px; border-radius: 24px; }
+.landing .ring { transform-box: fill-box; transform-origin: 50% 50%; animation: ring 2.4s ease-in-out infinite; }
+@keyframes ring { 0%, 100% { opacity: .2; transform: scale(.94); } 50% { opacity: .9; transform: scale(1.06); } }
+.landing .cloud { animation: drift 28s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: translateX(-14px); } to { transform: translateX(70px); } }
+.landing .blocks { display: flex; gap: 14px; margin-top: 22px; }
+.landing .blocks i { font: 800 56px/1 var(--font); font-style: normal; width: 78px; height: 78px; display: grid; place-items: center; color: #12330F; border: 4px solid #8A5A1E; border-radius: 8px;
+  background: repeating-linear-gradient(176deg, #E9B872 0 9px, #E2AC66 9px 10px); box-shadow: inset 0 3px 0 rgba(255,255,255,.35), 0 5px 0 #8A5A1E; }
+.landing footer { position: relative; z-index: 1; background: var(--bg); text-align: center; padding: 20px 20px 12px; border-radius: 40% 40% 0 0 / 14px 14px 0 0; font-size: 16px; font-weight: 600; }
+.landing footer p { margin: 0 0 6px; }
+
+/* S4 lesson: muted. Only the sky strip, one state tint and the leaf underline carry colour. */
