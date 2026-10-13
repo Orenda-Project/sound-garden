@@ -5,9 +5,9 @@ import { scene as sgScene } from '../../../src/art/art.js';
 export function gardenScene({ h = 560, kind = 'day', sun = true } = {}) {
   const el = document.createElement('div'); el.className = `scene scene-${kind}`; el.setAttribute('aria-hidden', 'true');
   const hill = Math.max(200, h - 250);
-  let svg = sgScene('day', { hill, sunAt: [316, Math.round(h * 0.2), 36], clouds: kind !== 'cool', flowers: kind === 'day' });
+  let svg = sgScene('day', { hill, sunAt: [322, Math.round(h * 0.3), 34], clouds: kind !== 'cool', flowers: kind === 'day' });
   svg = svg.replace('viewBox="0 0 390 844" preserveAspectRatio="xMidYMid slice"', `viewBox="0 0 390 ${h}" preserveAspectRatio="xMidYMax slice"`);
-  if (!sun) svg = svg.replace(/<circle cx="316"[^>]*\/>/g, '');
+  if (!sun) svg = svg.replace(/<circle cx="322"[^>]*\/>/g, '');
   el.innerHTML = svg;
   return el;
 }

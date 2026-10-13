@@ -14,7 +14,7 @@ const HOLD = (t, o) => K([[0, t, o], [1, t, o]]);
 const SPARK = K([[0, 'scale(0.3)', 0], [0.4, 'scale(1)', 1], [1, 'scale(1.25)', 0]]);
 const WAVE = (d) => K([[0, 'rotate(0)'], [0.15, `rotate(${d * 35}deg)`], [0.3, `rotate(${d * -10}deg)`], [0.45, `rotate(${d * 35}deg)`], [0.6, `rotate(${d * -10}deg)`], [0.75, `rotate(${d * 25}deg)`], [1, 'rotate(0)']]);
 const POINT = (deg, s = 1.12) => K([[0, 'rotate(0) scale(1)'], [0.25, `rotate(${deg}deg) scale(${s})`], [0.8, `rotate(${deg}deg) scale(${s})`], [1, 'rotate(0) scale(1)']]);
-const HAPPY = K([[0, 'scaleY(0)'], [0.2, 'scaleY(0.45)'], [0.8, 'scaleY(0.45)'], [1, 'scaleY(0)']]);
+const HAPPY = K([[0, 'scaleY(0)'], [0.2, 'scaleY(0.14)'], [0.8, 'scaleY(0.14)'], [1, 'scaleY(0)']]);   // eyes stay wide open: the 0.45 lid read as sleepy/sad in blind critic round 1
 
 // Each state: (d, o) => {loop, dur, ease, pose, fx, tracks: {node: frames | [frames, dur, ease]}}. d = +1 right / -1 left.
 export const STATES = {

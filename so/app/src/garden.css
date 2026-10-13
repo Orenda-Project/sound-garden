@@ -45,3 +45,21 @@
 .endplant { order: 5; width: 100%; max-width: 340px; display: flex; align-items: center; gap: 14px; justify-content: center; margin: 8px 0 4px; padding: 6px 12px; background: rgba(255,255,255,.16); border-radius: 22px; }
 .endplant svg { width: 96px; height: 130px; flex: none; overflow: visible; }
 .endplant p { margin: 0; font: 700 19px/1.2 var(--display); color: #fff; text-align: left; }
+
+/* ---- critic round 1 fixes ---- */
+/* the forward button inside a lesson sits on green hills: sun gold there (green on green had no contrast); Home keeps the green hero button on its cream card */
+.sitting, .onb-lesson, .onboard, .meet, .endscreen, .onb-done { --tap: #FFC21A; --tap-hi: #FFD84A; --tap-edge: #B87800; --tap-ink: #3A2200; }
+.track-B .sitting, .track-B.sitting { --tap: #2F7D32; --tap-hi: #3E9A3F; --tap-edge: #1F5C24; --tap-ink: #fff; }
+/* the reward screens must show their buttons without scrolling at 390x844 */
+.endscreen.track-A { padding-top: 40px; }
+.endscreen.track-A .tilo-slot { width: min(200px, 56%); }
+.endscreen.track-A .sticker { transform: scale(.8); margin: -18px 0 0; }
+.endplant { padding: 2px 12px; margin: 4px 0 2px; }
+.endplant svg { width: 70px; height: 96px; }
+.endplant p { font-size: 17px; }
+.endscreen.track-A { padding-top: 28px; padding-bottom: 14px; }
+.endscreen.track-A .tilo-slot { width: min(150px, 44%); margin-bottom: 4px; }
+.endscreen.track-A .sticker { transform: scale(.55); margin: -34px 0 -34px 90px; }
+.endscreen.track-A .score { margin: 4px 0; } .endscreen.track-A .muted { margin: 2px 0; }
+.endscreen.track-A .dots { display: none; }   /* the score line says it; the dots pushed the buttons off a 844 px screen */
+.endscreen.track-A .cele-box { transform: scale(.85); transform-origin: 50% 0; margin-bottom: -28px; }
