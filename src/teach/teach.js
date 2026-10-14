@@ -1,5 +1,5 @@
 // #/teach: the page for parents and teachers. Outside the app, no sum gate (it is plain information, nothing here is a child's screen).
-// The Teach guide and every practice page are the same PDFs Sound Out ships (public/practice/*.pdf), so they print offline once the page has loaded.
+// The Teach guide and every practice page are the same PDFs the course ships (public/practice/*.pdf), so they print offline once the page has loaded.
 import './teach.css';
 import { scene } from '../art/art.js';
 import { stagger } from '../motion/engine.js';
@@ -19,9 +19,9 @@ export async function mount(el) {
   <header class="tp-head"><a class="tp-back" href="#/" aria-label="Back to the garden">‹ Garden</a><h1>For parents and teachers</h1>
     <p>Sound Garden teaches reading with the sounds first. No sign-up, no ads, nothing to buy. You do not need to know phonics.</p></header>
 
-  <section class="tp-card tp-hero"><h2>Teach with Sound Out</h2>
+  <section class="tp-card tp-hero"><h2>Teach with Sound Garden</h2>
     <p>An 8-page guide for a parent or teacher: how a lesson runs, what to say, what to do when a child gets stuck, and how to tell it is working.</p>
-    <a class="tp-btn" id="tp-guide" href="./practice/guide-teach.pdf" download="teach-with-sound-out.pdf">Download the guide (PDF)</a>
+    <a class="tp-btn" id="tp-guide" href="./practice/guide-teach.pdf" download="teach-with-sound-garden.pdf">Download the guide (PDF)</a>
     <a class="tp-btn ghost" href="#/play/grown-ups">Read the grown-up guide in the app</a></section>
 
   <section class="tp-card"><h2>How a lesson goes</h2>

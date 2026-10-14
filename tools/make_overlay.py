@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""One-off generator for content-overlay/*.json from existing sound-out options+audio (no new audio,
+"""One-off generator for content-overlay/*.json from existing options+audio (no new audio,
 no gen_options.py needed: every gap was fillable from existing options.json entries)."""
 import json, os
-SO = os.environ.get("SOUND_OUT", "/home/oye/Documents/free_work/sound-out"); C = SO + "/content"
+SO = os.environ["SG_COURSE_SOURCE"]; C = SO + "/content"   # a course-data checkout
 J = lambda p: json.load(open(p))
 O = J(f"{C}/options.json"); CL = J(f"{C}/audio_index.json")["clips"]; LEX = J(f"{C}/lexicon.json")
 LES = {n: J(f"{C}/lessons/L1.{n:02d}.json") for n in range(1, 15)}
@@ -15,7 +15,7 @@ def item(w):
     opts = [dict(w=x["w"], ipa=x["ipa"], cell=x["cell"], key="ipa:" + x["ipa"], ok=(i == 0)) for i, x in enumerate([o["target"]] + o["foils"])]
     return dict(kind=o["kind"], word=w, options=opts)
 def base(n):
-    c = LES[n]["check"]; return c.get("real", []) + c.get("pseudo", []) + c.get("dictation", [])  # slots, repeats counted like sound-out
+    c = LES[n]["check"]; return c.get("real", []) + c.get("pseudo", []) + c.get("dictation", [])  # slots, repeats counted as in the source
 def pool(n, kind):
     out = []
     for m in range(n, 1, -1):

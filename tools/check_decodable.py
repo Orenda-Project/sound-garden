@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Decodability gate (Levels 1-4): every word a learner is asked to blend or spell in a sitting is made only of graphemes already taught
 by that sitting (taught = every earlier lesson + this lesson's sittings up to and including this one). Heart (tricky) words are exempt: they
-are taught whole. Reads so/content (the Sound Out data bundled in the app). Exit 1 on a miss; --warn prints without failing."""
+are taught whole. Reads engine/content (the course data bundled in the app). Exit 1 on a miss; --warn prints without failing."""
 import json, glob, pathlib, sys
-C = pathlib.Path(__file__).resolve().parent.parent / 'so/content'
+C = pathlib.Path(__file__).resolve().parent.parent / 'engine/content'
 lex = json.load(open(C / 'lexicon.json'))
 lessons = [json.load(open(f)) for f in sorted(glob.glob(str(C / 'lessons/L1.*.json')))]
 for f in sorted(glob.glob(str(C / 'levels/L*.json'))):
@@ -34,7 +34,7 @@ for l in lessons:
             if miss: bad.append(f"{l['id']}:{s['id']} word '{w}' uses untaught {miss}")
     for s in sit: taught |= set(s.get('new') or [])
     taught |= set(l.get('newToday') if isinstance(l.get('newToday'), list) else [])
-KNOWN = pathlib.Path(__file__).resolve().parent.parent / 'plan/decodable-known.txt'   # misses inherited from Sound Out's content, reviewed once; new ones fail
+KNOWN = pathlib.Path(__file__).resolve().parent.parent / 'plan/decodable-known.txt'   # misses inherited from the engine's content, reviewed once; new ones fail
 known = set(KNOWN.read_text().split('\n')) if KNOWN.exists() else set()
 if '--baseline' in sys.argv: KNOWN.write_text('\n'.join(sorted(bad)) + '\n'); print('baseline written', len(bad)); sys.exit(0)
 new = [b for b in bad if b not in known]

@@ -4,7 +4,7 @@ Measures requestAnimationFrame intervals for 5 s on the landing hero, while scro
 Pass (a 30 fps floor at 4x slower CPU, which is what this laptop-with-no-GPU test can honestly show; 60 fps on a real phone GPU is NOT demonstrated here):
 hero and garden Home >= 30 fps, scroll and celebration >= 25 fps. For reference the Cookling prototype scores about 49 fps in the same run."""
 import sys, time, pathlib, statistics
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent)); sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / 'so-compat/tools'))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent)); sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / 'engine-compat/tools'))
 import sg_lib, _onb
 from playwright.sync_api import sync_playwright
 base = next((a for a in sys.argv[1:] if a.startswith('http')), sg_lib.BASE); cpu = int(sys.argv[sys.argv.index('--cpu') + 1]) if '--cpu' in sys.argv else 4
@@ -25,7 +25,7 @@ with sync_playwright() as p:
     pg.goto(base + '?fast=1#/play'); _onb.walk(pg, 'A'); pg.wait_for_selector('.home'); sg_lib.seed_to(pg, 'L1.05'); pg.wait_for_timeout(2500)
     cdp.send('Emulation.setCPUThrottlingRate', {'rate': cpu})
     f = report(f'garden Home (cpu x{cpu})', pg.evaluate(JS, 5000)); bad |= f < 30
-    pg.evaluate("window.__so.endDemo('L1.05:A:A', {passed:true})"); pg.wait_for_timeout(600)
+    pg.evaluate("window.__engine.endDemo('L1.05:A:A', {passed:true})"); pg.wait_for_timeout(600)
     f = report(f'celebration (cpu x{cpu})', pg.evaluate(JS, 4000)); bad |= f < 25
     b.close()
 print('FPS CHECK', 'RED' if bad else 'GREEN'); sys.exit(1 if bad else 0)

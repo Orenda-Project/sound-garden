@@ -13,7 +13,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 ARG = lambda k, d=None: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else d
 STAGE = pathlib.Path(ARG('--stage', '/tmp/sg-artifact'))
 MAX = int(ARG('--max-files', '500'))
-C = ROOT / 'so/content'
+C = ROOT / 'engine/content'
 idxf = json.load(open(C / 'audio_index.json')); cl = idxf['clips']
 lex = json.load(open(C / 'lexicon.json')); opts = json.load(open(C / 'options.json'))
 pics = json.load(open(ROOT / 'public/img/words/pictures.json'))

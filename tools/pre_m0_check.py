@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Pre-M0 checks A/B/C against $SOUND_OUT/content (read-only). Exit 1 on any FAIL."""
+"""Pre-M0 checks A/B/C against $SG_COURSE_SOURCE/content (read-only). Exit 1 on any FAIL."""
 import json, os, re, sys
-SO = os.environ.get("SOUND_OUT", "/home/oye/Documents/free_work/sound-out")
+SO = os.environ["SG_COURSE_SOURCE"]
 C = f"{SO}/content"
 J = lambda p: json.load(open(p))
 O = J(f"{C}/options.json"); CL = J(f"{C}/audio_index.json")["clips"]

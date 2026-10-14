@@ -6,13 +6,13 @@
         seed_to(pg, "L2.03")              # every sitting before L2.03 passed, lessons marked checked, back on Home
 """
 import sys, time, pathlib
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / "so-compat/tools"))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / "engine-compat/tools"))
 import _onb  # noqa: E402
 
 BASE = "http://localhost:5390/"
 SHOTS = pathlib.Path("/tmp/sgshots")
 SEED = """async ([keys]) => {
-  const d = await new Promise((res, rej) => { const r = indexedDB.open('sound-out', 1); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+  const d = await new Promise((res, rej) => { const r = indexedDB.open('sound-garden', 1); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
   const get = (st, k) => new Promise(res => { const r = d.transaction(st).objectStore(st).get(k); r.onsuccess = () => res(r.result); });
   const pid = (await get('settings', 'active')).value;
   const p = (await get('progress', pid)) || { id: pid, sittings: {}, lessons: {}, stickers: [], village: [], days: [], sittingCount: 0 };
@@ -34,7 +34,7 @@ def app(p, track="A", vp=(390, 844), base=BASE, query="?fast=1&still=1", walk=Tr
 
 
 def home(pg):
-    pg.evaluate("window.__so.app.home()"); pg.wait_for_selector(".home"); time.sleep(0.5)
+    pg.evaluate("window.__engine.app.home()"); pg.wait_for_selector(".home"); time.sleep(0.5)
 
 
 def plan(pg):

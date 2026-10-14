@@ -19,7 +19,7 @@ CSP = ("default-src 'none'; script-src 'unsafe-inline' https://cdnjs.cloudflare.
 PRE, POST = '<!doctype html><html><head><meta charset=utf8></head><body>', '</body></html>'
 MANIFEST = json.load(open(STAGE / 'manifest.json'))
 SHIPPED = set(MANIFEST['files'])
-sys.path.insert(0, str(ROOT / 'tools/so-compat/tools'))
+sys.path.insert(0, str(ROOT / 'tools/engine-compat/tools'))
 
 
 class H(http.server.BaseHTTPRequestHandler):
@@ -87,14 +87,14 @@ def run():
                 _onb.walk(page, 'A', shot=lambda n: page.screenshot(path=str(SHOTS / f'{name}-onb-{n}.png')), problems=problems)
                 check(page.locator('.home .node.open').count() > 0, f'[{name}] onboarding finishes on the garden Home')
                 page.screenshot(path=str(SHOTS / f'{name}-home.png'))
-                page.evaluate('window.__so.trace.length = 0'); n0 = len(audio_ok)
+                page.evaluate('window.__engine.trace.length = 0'); n0 = len(audio_ok)
                 page.click('.home .node.open'); page.wait_for_selector('.sitting', timeout=30000)
                 end = time.time() + 90
                 while time.time() < end and len(audio_ok) - n0 < 3: time.sleep(0.5)
-                played = page.evaluate("window.__so.trace.filter(e=>e.type==='audio').length")
+                played = page.evaluate("window.__engine.trace.filter(e=>e.type==='audio').length")
                 check(played > 0 and len(audio_ok) - n0 >= 1, f'[{name}] a lesson plays: {played} clips played, {len(audio_ok) - n0} audio files fetched OK in the lesson')
                 page.screenshot(path=str(SHOTS / f'{name}-lesson.png'))
-                miss = page.evaluate('window.__so.missing')
+                miss = page.evaluate('window.__engine.missing')
                 check(not [m for m in miss if m.split(' ')[0] in {k for k in MANIFEST.get('keys', [])}], f'[{name}] no shipped clip reported missing (all missing keys: {len(miss)})')
                 notes.append(f'[{name}] clips not shipped (404 by design): {len(set(audio_404))}')
                 # a link-driven route inside the app: grown-ups guide via Home button is app-internal; also test the landing -> teach click route below

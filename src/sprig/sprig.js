@@ -1,7 +1,7 @@
 // Sprig, the seed friend: a spring-driven mascot. Every part (squash, tilt, leaves, eyes, mouth, shadow, thought bubble) is a spring, nothing is a canned clip.
 //   idle: breathing, random blinks, eye glances, plant sway     pointer: eyes follow while dragging, a poke squashes and tilts it and sends hearts
 //   moods: idle happy cheer sleepy thinking oops listening speaking surprise      one-shots: hop (with a shadow that answers it), wave, stars, hearts, petals, puffs, drops, zzz
-// API (the same names Sound Out's mascot code already calls): createSprig(el,{stage,identityColor}) -> {setState, setStage, lookAt, setCalm, destroy}
+// API (the same names the engine's mascot code already calls): createSprig(el,{stage,identityColor}) -> {setState, setStage, lookAt, setCalm, destroy}
 import { Sp, addActor, removeActor, clamp, rnd, NS, isCalm } from '../motion/engine.js';
 
 export const STAGES = ['seed', 'sprout', 'leafy', 'budding', 'bloom'];
@@ -21,7 +21,7 @@ const MOODS = {
   surprise: { eh: 0, sl: 0, mw: 7, mc: 6, mo: 0.9, lL: 28, lR: -28, tilt: 0, th: 0, br: -0.6, wide: 1 },
 };
 
-// Sound Out's pose names -> a mood, how long it lasts (ms, 0 = stays), and what happens when it starts. c = the rig.
+// the engine's pose names -> a mood, how long it lasts (ms, 0 = stays), and what happens when it starts. c = the rig.
 const STATES = {
   'idle': { m: 'idle', base: 1 }, 'idle-lesson': { m: 'idle', base: 1 }, 'look-at': { m: 'idle', base: 1 }, 'stuck-wait': { m: 'idle', base: 1 },
   'wake': { m: 'idle', base: 1, go: (c) => c.emerge() },

@@ -13,6 +13,6 @@ with sync_playwright() as p:
     pg, errs = app(p, 'A', query='?fast=1&still=1', scale=1)
     seed_to(pg, 'L1.05'); time.sleep(1.5); shot(pg, 'app-home'); save('app-home')
     pg.click('.play-big'); time.sleep(3); shot(pg, 'app-hear'); save('app-hear')
-    pg.evaluate('window.__so.app.home()'); time.sleep(0.8)
-    pg.evaluate("window.__so.endDemo('L1.05:A:A', {passed:true})"); time.sleep(6); shot(pg, 'app-done'); save('app-done')
+    pg.evaluate('window.__engine.app.home()'); time.sleep(0.8)
+    pg.evaluate("window.__engine.endDemo('L1.05:A:A', {passed:true})"); time.sleep(6); shot(pg, 'app-done'); save('app-done')
     print(errs[:3])

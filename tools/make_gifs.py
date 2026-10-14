@@ -3,7 +3,7 @@
 hero.gif (landing, 1280 wide scaled to 640), hatch.gif (first run), home.gif (garden Home), celebrate.gif (end of a lesson).
 Playwright records a real video of each scene (about 25 frames per second) and ffmpeg turns the useful seconds into a GIF (15 fps, 96 colours)."""
 import sys, time, pathlib, subprocess, tempfile, shutil
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent)); sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / 'so-compat/tools'))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent)); sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / 'engine-compat/tools'))
 import sg_lib, _onb
 from playwright.sync_api import sync_playwright
 out = pathlib.Path(sys.argv[1]); out.mkdir(parents=True, exist_ok=True)
@@ -28,20 +28,20 @@ with sync_playwright() as p:
     gif(finish(ctx, pg, d), 'hatch.gif', max(0, ts - 0.9), 4.6, 260)
     # garden Home and the celebration: build a profile quickly in a normal context first, then record in a fresh context that shares the storage
     pg0, _e = sg_lib.app(p, 'A', query='?fast=1', scale=1); sg_lib.seed_to(pg0, 'L1.05')
-    idb = pg0.evaluate("(async () => { const d = await new Promise(r => { const q = indexedDB.open('sound-out', 1); q.onsuccess = () => r(q.result); }); const all = (s) => new Promise(r => { const q = d.transaction(s).objectStore(s).getAll(); q.onsuccess = () => r(q.result); }); return { settings: await all('settings'), profiles: await all('profiles'), progress: await all('progress') }; })()")
+    idb = pg0.evaluate("(async () => { const d = await new Promise(r => { const q = indexedDB.open('sound-garden', 1); q.onsuccess = () => r(q.result); }); const all = (s) => new Promise(r => { const q = d.transaction(s).objectStore(s).getAll(); q.onsuccess = () => r(q.result); }); return { settings: await all('settings'), profiles: await all('profiles'), progress: await all('progress') }; })()")
     pg0.context.close()
     import json
-    SET = "async (data) => { const d = await new Promise(r => { const q = indexedDB.open('sound-out', 1); q.onupgradeneeded = () => { for (const s of ['settings','profiles','progress']) if (!q.result.objectStoreNames.contains(s)) q.result.createObjectStore(s, { keyPath: s === 'settings' ? 'key' : 'id' }); }; q.onsuccess = () => r(q.result); }); for (const s of ['settings','profiles','progress']) await new Promise(r => { const t = d.transaction(s, 'readwrite'); for (const v of data[s]) t.objectStore(s).put(v); t.oncomplete = r; }); }"
+    SET = "async (data) => { const d = await new Promise(r => { const q = indexedDB.open('sound-garden', 1); q.onupgradeneeded = () => { for (const s of ['settings','profiles','progress']) if (!q.result.objectStoreNames.contains(s)) q.result.createObjectStore(s, { keyPath: s === 'settings' ? 'key' : 'id' }); }; q.onsuccess = () => r(q.result); }); for (const s of ['settings','profiles','progress']) await new Promise(r => { const t = d.transaction(s, 'readwrite'); for (const v of data[s]) t.objectStore(s).put(v); t.oncomplete = r; }); }"
     ctx, d = newctx(b, 390, 844); pg = ctx.new_page(); pg.goto(base + '?fast=1#/play'); pg.wait_for_timeout(800)
     try: pg.evaluate(SET, idb); pg.goto(base + '#/play'); pg.wait_for_selector('.home', timeout=30000)
     except Exception as e: print('state restore failed, falling back to a fresh walk', str(e)[:80])
     pg.wait_for_timeout(2600)
-    ts = time.time() - T['t0']; pg.evaluate("window.__so.app.home()"); pg.wait_for_timeout(3600)
+    ts = time.time() - T['t0']; pg.evaluate("window.__engine.app.home()"); pg.wait_for_timeout(3600)
     gif(finish(ctx, pg, d), 'home.gif', max(0, ts - 0.2), 3.6, 260)
     ctx, d = newctx(b, 390, 844); pg = ctx.new_page(); pg.goto(base + '?fast=1#/play'); pg.wait_for_timeout(800)
     try: pg.evaluate(SET, idb); pg.goto(base + '#/play'); pg.wait_for_selector('.home', timeout=30000)
     except Exception as e: print('state restore failed', str(e)[:80])
-    pg.wait_for_timeout(1500); ts = time.time() - T['t0']; pg.evaluate("window.__so.endDemo('L1.05:A:A', {passed:true})"); pg.wait_for_timeout(5200)
+    pg.wait_for_timeout(1500); ts = time.time() - T['t0']; pg.evaluate("window.__engine.endDemo('L1.05:A:A', {passed:true})"); pg.wait_for_timeout(5200)
     gif(finish(ctx, pg, d), 'celebrate.gif', max(0, ts - 0.2), 5.0, 260)
     b.close()
 shutil.rmtree(tmp, ignore_errors=True)

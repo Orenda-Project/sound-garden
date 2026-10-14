@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build blind side-by-side pairs for the critics.
   python3 tools/critic_pairs.py OUTDIR  ours1.png=theirs1.png  ours2.png=theirs2.png ...
-Writes OUTDIR/order1/pair_NN.png (A = ours, B = Sound Out) and OUTDIR/order2/pair_NN.png (A = Sound Out, B = ours), labels are just 'A' and 'B',
+Writes OUTDIR/order1/pair_NN.png (A = ours, B = reference) and OUTDIR/order2/pair_NN.png (A = reference, B = ours), labels are just 'A' and 'B',
 plus OUTDIR/key.json (which side is ours in which order, never shown to the critic) and OUTDIR/bar.png (a contact sheet of the look references)."""
-import sys, json, pathlib
+import sys, json, pathlib, os
 from PIL import Image, ImageDraw, ImageFont
 out = pathlib.Path(sys.argv[1]); pairs = [a.split('=') for a in sys.argv[2:]]
 H = 760
@@ -21,7 +21,7 @@ for o in (1, 2):
         side(*( (ours, theirs) if o == 1 else (theirs, ours) )).save(out / f'order{o}' / f'pair_{i:02d}.png')
         key[f'order{o}/pair_{i:02d}'] = {'ours': 'A' if o == 1 else 'B', 'names': [ours, theirs]}
 (out / 'key.json').write_text(json.dumps(key, indent=1))
-refs = pathlib.Path.home() / 'Documents/free_work/sound-out/plan/design/research/refs'
+refs = pathlib.Path(os.environ.get('SG_REFS', 'research/refs'))   # optional folder of look references (<name>/shotN.jpg)
 files = [refs / d / f'shot{n}.jpg' for d in ('finch', 'duolingo', 'teach-your-monster') for n in (1, 2, 3, 4)]
 tiles = [Image.open(f).convert('RGB') for f in files if f.exists()]
 h = 520; tiles = [t.resize((int(t.width * h / t.height), h)) for t in tiles]

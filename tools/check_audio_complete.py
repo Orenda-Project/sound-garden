@@ -5,7 +5,7 @@
 
 1. Collect EVERY audio key the content and the app can request (UI lines, isolated sounds in all three forms, letter names, words,
    option words, Level 2-4 bundle keys, Level 1 lesson clips, Level 5-7 session clips, every key literal in the source).
-2. Each must resolve in so/content/audio_index.json (ph:<x>:pure|anchor|stretch may fall back to the v1 ph:<x>, as audio.js does),
+2. Each must resolve in engine/content/audio_index.json (ph:<x>:pure|anchor|stretch may fall back to the v1 ph:<x>, as audio.js does),
    its .ogg must exist in dist/audio, be non-empty, look like Ogg and decode (ffmpeg). Every clip in the index is decoded too.
 3. Runtime: serve dist/ and walk L1.01-L1.04 (Track A and B), the first-run mini-lesson, meet-a-sound, the Practice hub and Sound it out with
    the course drivers, recording every /audio/ response: any 404 or failed request is a failure.
@@ -19,7 +19,7 @@ ARG = lambda k, d=None: sys.argv[sys.argv.index(k) + 1] if k in sys.argv else d
 DIST = ROOT / ARG('--dist', 'dist')
 PORT = int(ARG('--port', '5395'))
 OUT = ROOT / ARG('--out', 'plan/audio-complete.json')
-C = ROOT / 'so/content'
+C = ROOT / 'engine/content'
 IDXF = json.load(open(C / 'audio_index.json'))
 idx = IDXF['clips']
 problems = []
@@ -75,7 +75,7 @@ def collect():
             for n, _ in enumerate(ps.get('paragraphs') or []): add(f'ss:{i}:text:{j}:{n}')
             for n, _ in enumerate(ps.get('questions') or []): add(f'ss:{i}:text:{j}:q{n}')
     lit = re.compile(r"""['"`]((?:ui|ph|w|name|ipa|syl|lt|q|t2|rule|ex|exw|read):[A-Za-z0-9_.\-]+)['"`]""")
-    for f in list((ROOT / 'so/app/src').rglob('*.js')) + list((ROOT / 'src').rglob('*.js')) + list((ROOT / 'so-overlay').glob('*.js')):
+    for f in list((ROOT / 'engine/app/src').rglob('*.js')) + list((ROOT / 'src').rglob('*.js')) + list((ROOT / 'engine-overlay').glob('*.js')):
         for k in lit.findall(f.read_text()): keys['src-literal'].add(k)
     return keys
 
@@ -141,7 +141,7 @@ def runtime_check():
         for _ in range(40):
             if port_open(PORT): break
             time.sleep(0.25)
-    drv = ROOT / 'tools/so-compat/tools'
+    drv = ROOT / 'tools/engine-compat/tools'
     sys.path.insert(0, str(drv)); os.chdir(drv)
     runs = [('walk L1.01-L1.04 Track A and B (first run, meet-a-sound sittings)', 'drive.py', ['--until', 'L1.04', '--no-sessions']),
             ('Practice hub', 'drive_practice.py', []), ('Sound it out', 'drive_sayit.py', [])]

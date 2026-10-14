@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Finch rules gate (static): no account/login, no age question, no paywall/subscription, no loss-framed streaks/hearts/lives, no visible countdown,
 no network call to anything but this site, and no text input reachable by a child (Track A) outside Sound it out's typed-word box for grown-ups.
-Scans the shipped sources (so/app/src, src, public/*.js, index.html). Comments are skipped. Exit 1 on a hit."""
+Scans the shipped sources (engine/app/src, src, public/*.js, index.html). Comments are skipped. Exit 1 on a hit."""
 import re, pathlib, sys
 R = pathlib.Path(__file__).resolve().parent.parent
-files = [R / f'so/content/{n}.json' for n in ('ui_lines', 'teacher_lines', 'guide')] + [p for d in ('so/app/src', 'src') for p in (R / d).rglob('*.js')] + [R / 'public/sw.js', R / 'index.html']
+files = [R / f'engine/content/{n}.json' for n in ('ui_lines', 'teacher_lines', 'guide')] + [p for d in ('engine/app/src', 'src') for p in (R / d).rglob('*.js')] + [R / 'public/sw.js', R / 'index.html']
 RULES = [
     ('account / login', r"\b(sign[ -]?up|sign[ -]?in|log[ -]?in|create an account|password|e-?mail address)\b"),
     ('age question', r"\b(how old|your age|date of birth|birthday)\b"),

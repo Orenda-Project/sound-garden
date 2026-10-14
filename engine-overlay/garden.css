@@ -1,0 +1,127 @@
+/* Sound Garden skin over the engine's stylesheets (loaded last). Palette = Sound Garden research/02-colour.md: leaf green hero on cream,
+   sky band, right = teal, wrong = brown-orange (never red), muted inside a lesson, saturated outside. */
+:root, .track-A {
+  --paper: #FBF6EA; --sheet: #FFFDF6; --card: #FFFFFF; --card-soft: #F3EEDC;
+  --line: #8A8372; --rule: #E6DCC2;
+  --ink: #2B2A26; --muted: #5B574E;
+  --primary: #2F7D32; --primary-hi: #3E9A3F; --primary-edge: #1F5C24; --primary-ink: #FFFFFF; --primary-tint: #E1F1DB;
+  --tap: #4CB82B; --tap-hi: #6FD149; --tap-edge: #2F7D32; --tap-ink: #12330F;
+  --tan: #D9A25E; --tan-deep: #8A5A1E;
+  --good: #1F9E8F; --good-hi: #3CC0B0; --good-edge: #0F766E; --good-tint: #DDF1EE; --good-text: #0F766E;
+  --oops: #A84A07; --oops-tint: #FBE9D6; --oops-text: #8F3F05;
+  --sky: #8ED2F5;
+}
+.track-B {
+  --paper: #F4F6EE; --sheet: #FFFFFF; --card: #FFFFFF; --card-soft: #EAEFE0;
+  --line: #66705C; --rule: #DCE3CF; --ink: #1F2A1C; --muted: #4C5A46;
+  --primary: #2F7D32; --primary-hi: #3E9A3F; --primary-edge: #1F5C24; --primary-ink: #FFFFFF; --primary-tint: #E1F1DB;
+  --tap: #2F7D32; --tap-hi: #3E9A3F; --tap-edge: #1F5C24; --tap-ink: #FFFFFF;
+  --good: #0F766E; --good-hi: #1F9E8F; --good-edge: #0B5A54; --good-tint: #DDF1EE; --good-text: #0B5A54;
+  --oops: #A84A07; --oops-tint: #FBE9D6; --oops-text: #8F3F05;
+}
+
+/* ---- Home: the garden (Track A) ---- */
+.garden-home .scene-area { min-height: 600px; }
+.garden-home .garden-title { position: relative; z-index: 2; margin: 0; padding: 20px 20px 0; font: 700 34px/1 var(--display); color: #12330F; text-shadow: 0 2px 0 rgba(255,255,255,.55); }
+.garden-home .garden-sub { position: relative; z-index: 2; margin: 6px 20px 0; font: 700 17px/1.2 var(--display); color: #12330F; }
+.garden-levels { position: relative; z-index: 2; display: flex; gap: 8px; margin: 12px 20px 0; }
+.lvchip { width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--hero-edge, #2F7D32); background: #FFFDF6; color: #12330F; font: 800 17px/1 var(--display); cursor: pointer; }
+.lvchip.on { background: #4CB82B; box-shadow: 0 3px 0 #2F7D32; }
+.lvchip.shut { opacity: .55; border-style: dashed; }
+.garden-yard { position: absolute; z-index: 1; left: 0; right: 0; top: 140px; bottom: 56px; }
+.garden-yard svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.garden-yard .pl, .garden-yard .plot { cursor: pointer; }
+.garden-yard .plot.shut { opacity: .5; }
+.garden-yard .pl:focus-visible, .garden-yard .plot:focus-visible { outline: 3px solid #12330F; outline-offset: 2px; }
+.garden-yard .pop { animation: sgpop .5s ease-out; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes sgpop { 40% { transform: scale(1.14); } }
+@media (prefers-reduced-motion: reduce) { .garden-yard .pop { animation: none; } }
+.garden-home .scene-buddy { left: auto; right: 2px; bottom: 44px; width: 168px; z-index: 6; }   /* Sprig stands on the edge of the Play card */
+.garden-home .home-bubble { z-index: 4; }
+
+/* ---- reward screens: leaf green ground (was teal), the lesson's plant instead of a village ---- */
+.onb-done.track-A, .endscreen.track-A { background: radial-gradient(circle at 50% 38%, #3FA133, #1F5C24 82%); }
+.onb-done.track-A h2, .endscreen.track-A h2 { text-shadow: 0 4px 0 #12330F; }
+.endplant { order: 5; width: 100%; max-width: 340px; display: flex; align-items: center; gap: 14px; justify-content: center; margin: 8px 0 4px; padding: 6px 12px; background: rgba(255,255,255,.16); border-radius: 22px; }
+.endplant svg { width: 96px; height: 130px; flex: none; overflow: visible; }
+.endplant p { margin: 0; font: 700 19px/1.2 var(--display); color: #fff; text-align: left; }
+
+/* ---- critic round 1 fixes ---- */
+/* the forward button inside a lesson sits on green hills: sun gold there (green on green had no contrast); Home keeps the green hero button on its cream card */
+.sitting, .onb-lesson, .onboard, .meet, .endscreen, .onb-done { --tap: #FFC21A; --tap-hi: #FFD84A; --tap-edge: #B87800; --tap-ink: #3A2200; }
+.track-B .sitting, .track-B.sitting { --tap: #2F7D32; --tap-hi: #3E9A3F; --tap-edge: #1F5C24; --tap-ink: #fff; }
+/* the reward screens must show their buttons without scrolling at 390x844 */
+.endscreen.track-A { padding-top: 40px; }
+.endscreen.track-A .buddy-slot { width: min(200px, 56%); }
+.endscreen.track-A .sticker { transform: scale(.8); margin: -18px 0 0; }
+.endplant { padding: 2px 12px; margin: 4px 0 2px; }
+.endplant svg { width: 70px; height: 96px; }
+.endplant p { font-size: 17px; }
+.endscreen.track-A { padding-top: 28px; padding-bottom: 14px; }
+.endscreen.track-A .buddy-slot { width: min(150px, 44%); margin-bottom: 4px; }
+.endscreen.track-A .sticker { transform: scale(.55); margin: -34px 0 -34px 90px; }
+.endscreen.track-A .score { margin: 4px 0; } .endscreen.track-A .muted { margin: 2px 0; }
+.endscreen.track-A .dots { display: none; }   /* the score line says it; the dots pushed the buttons off a 844 px screen */
+.endscreen.track-A .cele-box { transform: scale(.85); transform-origin: 50% 0; margin-bottom: -28px; }
+/* Sprig a little bigger beside the question: the critics found the corner mascot too small */
+body .track-A header.hdr .hdr-buddy .buddy.inline, .hdr-buddy .buddy.inline { width: 124px; }
+
+/* ---- spring motion layer (fx.js, src/motion/engine.js) ---- */
+.confetti { display: none !important; }   /* the paper confetti is a canvas now (engine.js confetti) */
+/* bloom count with a ring */
+.garden-home .garden-sub.with-ring { display: flex; align-items: center; gap: 8px; }
+.gring { width: 34px; height: 34px; flex: none; overflow: visible; }
+.gring circle.gr-t { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 5; }
+.gring circle.gr-a { fill: none; stroke: #2F7D32; stroke-width: 5; stroke-linecap: round; }
+.garden-sub .gn { display: inline-block; min-width: .7em; font-variant-numeric: tabular-nums; }
+/* level chips with a sliding pill */
+.garden-levels { position: relative; }
+.garden-levels .lvpill { position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 50%; background: #4CB82B; box-shadow: 0 3px 0 #2F7D32; will-change: transform; z-index: 0; pointer-events: none; }
+.garden-levels.has-pill .lvchip { position: relative; z-index: 1; }
+.garden-levels.has-pill .lvchip.on { background: transparent; box-shadow: none; }
+/* butterflies over the garden */
+.hbf { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.hbf span { position: absolute; left: 0; top: 58%; width: 30px; animation: hbfly 26s ease-in-out infinite; will-change: transform; }
+.hbf .b2 { top: 66%; width: 24px; animation-duration: 34s; animation-delay: -14s; }
+.hbf svg { display: block; width: 100%; } .hbf .wings { transform-box: fill-box; transform-origin: 50% 50%; animation: hbflap .3s ease-in-out infinite alternate; }
+@keyframes hbflap { from { transform: scaleX(1); } to { transform: scaleX(.35); } }
+@keyframes hbfly { 0% { transform: translate3d(-8vw, 0, 0) rotate(4deg); } 25% { transform: translate3d(30vw, -50px, 0) rotate(-8deg); } 50% { transform: translate3d(58vw, 20px, 0) rotate(6deg); } 75% { transform: translate3d(86vw, -40px, 0) rotate(-4deg); } 100% { transform: translate3d(112vw, 0, 0) rotate(4deg); } }
+html.calm .hbf { display: none; }
+/* clouds drift (transform only) */
+.garden-home .scene-area svg .cloud { display: none; }   /* moving a shape inside the big scene svg repaints all of it every frame: the clouds are HTML elements now (.hclouds) */
+.hclouds { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.hclouds span { position: absolute; left: 0; will-change: transform; animation: sgdrift 40s ease-in-out infinite alternate; }
+.hclouds .c1 { top: 22%; } .hclouds .c2 { top: 34%; animation-duration: 55s; animation-delay: -20s; opacity: .85; }
+@keyframes sgdrift { from { transform: translate3d(-80px, 0, 0); } to { transform: translate3d(calc(100vw - 60px), 0, 0); } }
+html.calm .hclouds span { animation: none; transform: translate3d(14vw, 0, 0); }
+.daysline { order: 5; color: #fff; font: 700 18px/1.2 var(--display); margin: 2px 0; } .daysline b { display: inline-block; min-width: .6em; font-variant-numeric: tabular-nums; color: #FFD84A; }
+/* mini-check seeds */
+.endscreen.track-A .dots { display: flex; margin: 2px 0; gap: 6px; }
+.endscreen.track-A .dots i { width: 14px; height: 14px; }
+/* Sprig is bigger on lesson screens */
+body .track-A header.hdr .hdr-buddy .buddy.inline, .hdr-buddy .buddy.inline { width: 156px; }
+body .sitting.track-A .beat .buddy-slot, body .sitting.track-A .beat .buddy.inline, body .track-A .beat .buddy.inline { width: 190px; }
+
+/* ---- the first-run hatch (hatch.js) ---- */
+.hatch .hatch-stage { left: 50%; width: min(300px, 80%); margin-left: calc(min(300px, 80%) / -2); bottom: 56px; }
+.hatch-seed { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.hatch-seed svg { display: block; width: 100%; overflow: visible; }
+.hatch-seed:focus-visible { outline: 4px solid #12330F; outline-offset: 6px; border-radius: 40px; }
+.hatch-sprig { position: absolute; inset: 0; pointer-events: none; opacity: 0; } .hatch-sprig.on { pointer-events: auto; }
+.hatch-sprig .sprig { width: 100%; }
+.hatch-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 4; padding: 12px 22px; border-radius: 99px; border: 3px solid #2F7D32; background: #FFFDF6; color: #12330F; font: 700 20px/1 var(--display); box-shadow: 0 5px 0 #1F5C24; animation: hatchbob 1.6s ease-in-out infinite; cursor: pointer; }
+@keyframes hatchbob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-9px); } }
+html.calm .hatch-hint { animation: none; }
+.endscreen.track-A .cele-line.hook { display: none; }
+
+/* ---- lesson screens: a living lower edge (fx.js meadowIn) ---- */
+.sitting, .onb-lesson { isolation: isolate; }
+.sg-meadow-wrap { position: fixed; left: 0; right: 0; bottom: 0; height: 130px; z-index: -1; pointer-events: none; overflow: hidden; }
+.sg-meadow-wrap .sg-meadow { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sg-meadow-wrap .hbf span { top: 20%; }
+.sw { transform-box: fill-box; transform-origin: 50% 100%; animation: sgsway 4.2s ease-in-out infinite; animation-delay: var(--d, 0s); }
+@keyframes sgsway { 0%, 100% { transform: rotate(calc(var(--a) * -1)); } 50% { transform: rotate(var(--a)); } }
+html.calm .sw { animation: none; }
+
+/* Home is a long page: sections below the first screen are not painted until they scroll near (the garden above animates every frame; this halves its paint cost) */
+.home .lesson, .home .level-card, .home .stickers, .home .helpcard, .home .foot-note { content-visibility: auto; contain-intrinsic-size: auto 260px; }

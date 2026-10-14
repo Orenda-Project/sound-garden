@@ -117,7 +117,7 @@ export function mount(el) {
 <footer class="foot"><div class="stars" aria-hidden="true"></div>
   <div class="wrap fcta"><span class="sprigspot" id="footSprig" aria-hidden="true"></span><h2>Ready to plant the first seed?</h2><button class="seed start big" type="button">Start <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 16h18M17 8l8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
   <div class="wrap flinks"><a href="#/teach">For parents and teachers</a><a href="#/play/grown-ups">Privacy</a><button type="button" id="calm" aria-pressed="false">Calm motion: <b>off</b></button></div>
-  <p class="wrap legal">Sound Garden is the web edition of Sound Out. Free. No account. No ads. No cookies.</p></footer></div>`;
+  <p class="wrap legal">Sound Garden is free. No account. No ads. No cookies.</p></footer></div>`;
   wire(el);
 }
 

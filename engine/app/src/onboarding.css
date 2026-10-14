@@ -1,0 +1,94 @@
+/* ================= Phase 3: first-run onboarding (A0-A5 child, B1-B5 grown-up) ================= */
+/* A2 pick a friend (optional) */
+.avatars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 22px 0 14px; }
+.avatar { border: 0; border-radius: 50%; aspect-ratio: 1; padding: 4px; background: var(--band, var(--band-1)); }
+.avatar svg { width: 100%; height: 100%; display: block; }
+.avatar.picked { --lip: var(--good-edge); animation: avatar-pop .4s var(--e-pop); }
+@keyframes avatar-pop { 40% { transform: scale(1.12); } }
+.calm .avatar.picked { animation: none; }
+.skip-pic { width: 76px; height: 76px; border-radius: 50%; border: 0; background: var(--card); color: var(--primary); display: grid; place-items: center; margin: 0 auto; }
+.skip-pic svg { width: 36px; height: 36px; }
+
+.homehdr .me { width: 44px; height: 44px; border-radius: 50%; flex: none; overflow: hidden; box-shadow: var(--e1); background: var(--band, var(--band-1)); }
+.homehdr .me svg { width: 100%; height: 100%; display: block; }
+
+/* B2: one calm screen, three plain lines */
+.promise { text-align: left; padding-top: 10vh; }
+.promise h1 { text-align: left; }
+.promise ul { list-style: none; padding: 0; margin: 18px 0 26px; display: grid; gap: 12px; }
+.promise li { display: flex; gap: 12px; align-items: center; font-size: 1.15rem; font-weight: 600; }
+.promise li .icon svg { width: 28px; height: 28px; color: var(--good); }
+.promise .btn { width: 100%; }
+
+/* A3 / B4 the first-sound mini-lesson (can't be failed) */
+.onb-lesson { display: flex; flex-direction: column; min-height: 100dvh; }
+.onb-lesson header.hdr { min-height: 66px; }   /* Track B has no Sprig in the row: keep the heading clear of the fixed ear button */
+.onb-lesson .dots { margin: 2px 0 0; } .onb-lesson .dots i { width: 14px; height: 14px; }
+.onb-skip { display: flex; justify-content: center; padding: 6px 0 2px; }
+.onb-skip .btn { min-height: 48px; }
+/* A4 / B5 the first celebration */
+.onb-done { text-align: center; display: grid; justify-items: center; gap: 8px; padding-top: 4vh; }
+.onb-done .buddy-slot { display: grid; place-items: center; } .onb-done .buddy.inline { width: 150px; }
+.onb-done h2 { margin: 4px 0 0; }
+.onb-done .count { font-size: 2.6rem; font-weight: 800; color: var(--good-text); line-height: 1; }
+.onb-done .next-up { background: var(--card); border-radius: var(--radius); padding: 12px 16px; box-shadow: var(--e1); max-width: 360px; }
+.onb-done .row { margin-top: 10px; }
+.onb-done .check-big { width: 76px; height: 76px; border-radius: 50%; background: var(--good); color: #fff; display: grid; place-items: center; }
+.onb-done .check-big svg { width: 44px; height: 44px; }
+
+/* the 2-second hold on the grown-ups corner */
+.holdbtn { position: relative; overflow: hidden; }
+.holdbtn .fill { position: absolute; inset: 0; background: var(--primary-tint); transform: scaleX(0); transform-origin: 0 50%; z-index: 0; pointer-events: none; }
+.holdbtn.holding .fill { transform: scaleX(1); transition: transform 2s linear; }
+.holdbtn > :not(.fill) { position: relative; z-index: 1; }
+.hold-wrap { display: grid; justify-items: center; gap: 4px; }
+.hold-hint { text-align: center; margin: 0; min-height: 1.4em; }
+
+/* the one-time "Helping a child?" card: small, quiet, below the child's focus */
+.helpcard { display: flex; align-items: center; gap: 10px; background: var(--card); border-radius: var(--radius); box-shadow: var(--e1); padding: 8px 8px 8px 14px; margin: 10px 0; }
+.helpcard p { margin: 0; flex: 1; font-size: .95rem; font-weight: 650; line-height: 1.3; }
+.helpcard .btn { min-height: 48px; padding: 8px 14px; font-size: .9rem; flex: none; }
+.helpcard .x { width: 48px; height: 48px; border: 0; background: transparent; color: var(--muted); font-size: 1.4rem; flex: none; }
+
+/* ================= G1 pet bond: pick Sprig's colour, then his favourite sound (A2b, A2c) ================= */
+.meet .scene-buddy { left: 50%; transform: translateX(-50%); bottom: 44px; width: min(230px, 62%); }
+.meet .meet-bubble { left: 50%; transform: translateX(-50%); top: 22px; max-width: 340px; padding: 12px 22px 12px 14px; white-space: nowrap; }
+.meet .meet-bubble::after { left: 50%; top: auto; bottom: -8px; margin-left: -10px; }
+.meet .sheet { padding-top: 34px; }
+.swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.swatch { position: relative; height: 104px; min-height: 48px; border: 0; border-radius: 28px; background: #fff; box-shadow: var(--e2), 0 5px 0 rgba(20, 64, 62, .12); display: grid; place-items: center; overflow: hidden; transition: transform var(--t-rel) var(--ease-rel), box-shadow var(--t-fast); }
+.swatch::before { content: ''; position: absolute; inset: 0; background: var(--c); opacity: .22; }
+.sw-art { position: relative; width: 100%; height: 100%; background-repeat: no-repeat; background-size: 200%; background-position: 18% 84%; }
+.swatch:active { transform: translateY(4px); }
+.swatch.on { transform: translateY(-3px) scale(1.04); box-shadow: 0 0 0 5px var(--tap), var(--e2); }
+.swatch.on::before { opacity: .42; }
+.sw-ck { position: absolute; right: 8px; top: 8px; width: 30px; height: 30px; border-radius: 50%; background: var(--good); color: #fff; display: none; place-items: center; box-shadow: var(--e1); }
+.sw-ck svg { width: 18px; height: 18px; } .swatch.on .sw-ck { display: grid; animation: avatar-pop .4s var(--e-pop); }
+.favs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.favcard { position: relative; height: 150px; border: 5px solid #fff; border-radius: 28px; background: #fff; box-shadow: var(--e2), 0 5px 0 rgba(20, 64, 62, .12); display: grid; place-items: center; padding: 0; overflow: hidden; transition: transform var(--t-rel) var(--ease-rel); }
+.favcard .pic, .favcard img { width: 86%; height: 86%; object-fit: contain; display: block; margin: -10px auto 0; }
+.favcard .fav-spk { position: absolute; left: 50%; bottom: 8px; width: 44px; height: 44px; margin-left: -22px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; }
+.favcard .fav-spk svg { width: 26px; height: 26px; }
+.favcard.on { box-shadow: 0 0 0 5px var(--tap), 0 0 26px 6px rgba(255, 203, 97, .7), var(--e2); background: #FFF9DF; border-color: #FFF9DF; transform: translateY(-4px); }
+.favs:has(.on) .favcard:not(.on) { opacity: .66; }
+.meet-actions { display: flex; align-items: center; justify-content: center; gap: 22px; margin-top: 20px; min-height: 80px; }
+.meet-next { width: 120px; height: 72px; padding: 0; border-radius: 999px; display: grid; place-items: center; } .meet-next svg { width: 38px; height: 38px; }
+.meet-next[hidden] { display: none; }
+.meet-skip { margin: 0; }
+@media (max-height: 700px) { .swatch { height: 84px; } .favcard { height: 120px; } .meet .scene-buddy { width: 170px; } }
+@media (prefers-reduced-motion: reduce) { .swatch.on, .favcard.on { transform: none; } }
+.calm .swatch.on, .calm .favcard.on { transform: none; }
+
+/* Back arrow on the first-run steps (who / avatar / promise): round, top left, the mirror of the ear button top right */
+.onb-back { position: fixed; z-index: 41; top: calc(8px + env(safe-area-inset-top, 0px)); left: max(10px, calc((100vw - 480px) / 2 + 10px)); width: 52px; height: 52px; border-radius: 50%; border: 0; display: grid; place-items: center; background: rgba(255, 255, 255, .94); color: var(--primary, #236B17); box-shadow: 0 3px 0 rgba(0, 0, 0, .12), 0 6px 14px rgba(0, 0, 0, .14); cursor: pointer; }
+.onb-back svg { width: 26px; height: 26px; transform: scaleX(-1); }
+.onb-back:active { transform: scale(.94); }
+
+/* "Or carry on as:" learner cards on Who is reading? (only when a learner already exists) */
+.existing { width: 100%; }
+.existing .muted { margin: 0 0 2px; font: 600 15px var(--display, inherit); }
+.carry { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 60px; padding: 6px 14px 6px 8px; border: 0; border-radius: 18px; background: #fff; color: var(--ink, #2B2118); font: 600 19px var(--display, inherit); text-align: left; box-shadow: 0 3px 0 rgba(20, 64, 62, .14), 0 0 0 2px rgba(20, 64, 62, .06) inset; cursor: pointer; }
+.carry .mini-face { flex: none; width: 46px; height: 46px; border-radius: 50%; overflow: hidden; background: #FFF3C9; display: grid; place-items: center; } .carry .mini-face svg, .carry .mini-face img { width: 46px; height: 46px; display: block; }
+.carry .cn { flex: 1; } .carry .go { flex: none; width: 24px; height: 24px; color: var(--primary, #1D7C0E); } .carry .go svg { width: 24px; height: 24px; }
+.carry .cnow { flex: none; font: 700 13px var(--display, inherit); color: var(--primary, #1D7C0E); background: var(--primary-tint, #DCF0D9); padding: 4px 10px; border-radius: 999px; }
+.carry.now { box-shadow: 0 3px 0 rgba(14, 124, 123, .35), 0 0 0 2px var(--primary, #1D7C0E) inset; }

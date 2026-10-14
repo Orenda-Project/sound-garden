@@ -10,7 +10,7 @@
     "preview": "vite preview --port 5390 --strictPort",
     "test": "vitest run",
     "budget": "python3 tools/landing_budget.py",
-    "gates": "python3 tools/check_finch.py && python3 tools/check_decodable.py && python3 tools/so-compat/tools/check_ph_keys.py"
+    "gates": "python3 tools/check_finch.py && python3 tools/check_decodable.py && python3 tools/engine-compat/tools/check_ph_keys.py"
   },
   "devDependencies": {
     "vite": "^8.3.4",

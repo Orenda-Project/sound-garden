@@ -1,0 +1,231 @@
+/* ================= Premium look layer (plan/design/premium/SYSTEM.md). Imported LAST from main.js. =================
+   Scenes, answer tiles, speech bubbles, home, who, celebration. Tokens live in tokens.css, base components in style.css. */
+
+/* speech bubble (Sprig's short prompt): white, radius 24, soft lift, a rotated-square tail */
+.buddy-bubble { border: 0; border-radius: 24px; box-shadow: var(--e2); font-family: var(--display); font-weight: 600; }
+.buddy-bubble::before { border: 0; border-radius: 4px; }
+
+/* ---------- the scene kit (ui.js scene()): sky, sun, hills, trees; Sprig always stands on ground with a contact shadow ---------- */
+:root { --spk-disc: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M4 9.5v5h3.5l4.5 4V5.5l-4.5 4z' fill='white'/><path d='M15 8.5a5 5 0 0 1 0 7M17.5 6a8.5 8.5 0 0 1 0 12' stroke='white' stroke-width='2.2' fill='none' stroke-linecap='round'/></svg>"); }
+.scene { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.scene svg { display: block; width: 100%; height: 100%; }
+.scene-screen { position: relative; display: flex; flex-direction: column; min-height: 100dvh; margin: 0 -16px -32px; padding: 0; overflow: hidden; text-align: center; }
+.scene-area { position: relative; flex: 1 1 auto; min-height: 340px; }
+.scene-title { position: absolute; left: 0; right: 0; top: 28px; z-index: 2; margin: 0; padding: 0; font: 600 34px/1.1 var(--display); letter-spacing: -.005em; color: #fff; text-shadow: 0 3px 0 rgba(10, 70, 90, .45); }
+.scene-buddy { position: absolute; left: 24px; bottom: 58px; width: min(214px, 56%); z-index: 2; }
+.scene-buddy .buddy-slot { display: block; position: relative; z-index: 1; } .scene-buddy .buddy.inline { width: 100%; }
+.gshadow { position: absolute; left: 6%; right: 6%; bottom: -8px; height: 34px; border-radius: 50%; background: radial-gradient(closest-side, rgba(20, 64, 62, .38), rgba(20, 64, 62, 0)); pointer-events: none; }
+/* a bubble: white, radius 24, a rotated-square tail, a teal speaker disc that opens the line (the words are a caption for grown-ups and screen readers) */
+.buddy-says { position: absolute; z-index: 3; background: #fff; border-radius: 24px; padding: 12px 18px 12px 12px; box-shadow: var(--e2); font: 600 22px/1.15 var(--display); color: var(--ink); text-align: left; display: flex; align-items: center; gap: 8px; }
+.buddy-says::before { content: ''; flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--primary) var(--spk-disc) center / 20px no-repeat; }
+.buddy-says::after { content: ''; position: absolute; width: 20px; height: 20px; background: #fff; border-radius: 4px; transform: rotate(45deg); left: -8px; top: 34px; z-index: -1; }
+.buddy-says h1 { margin: 0; font: inherit; }
+.who-bubble { right: 18px; top: 120px; max-width: 176px; }
+/* the bottom sheet: --sheet, radius 36 36 0 0, lifted, with a grabber */
+.sheet { position: relative; z-index: 3; margin-top: -30px; background: var(--sheet); border-radius: 36px 36px 0 0; box-shadow: var(--e-up); padding: 30px 20px calc(26px + env(safe-area-inset-bottom, 0px)); text-align: center; }
+.sheet::before { content: ''; position: absolute; left: 50%; top: 10px; width: 44px; height: 5px; margin-left: -22px; border-radius: 3px; background: rgba(20, 64, 62, .18); }
+
+/* ---------- splash and who ---------- */
+.splash-play.big { width: 100%; min-height: 80px; height: 80px; font-size: 34px; gap: 12px; }
+.splash-play.big .bi svg { width: 34px; height: 34px; }
+.whocard { display: flex; align-items: center; gap: 14px; width: 100%; height: 148px; min-height: 0; border: 0; border-radius: var(--r-lg); padding: 0 22px 0 18px; margin: 0 0 20px; text-align: left; font: 600 23px var(--display); color: var(--ink); }
+.whocard.child { background: linear-gradient(#FFE58A, #FFD14D); --lip: #C98A18; --hi: rgba(255, 255, 255, .6); }
+.whocard.adult { background: linear-gradient(#E6F0E4, #C9DDC6); --lip: #A1BA9D; }
+.whocard .face { flex: none; width: 100px; height: 100px; border-radius: 50%; background: #fff; display: grid; place-items: center; overflow: hidden; box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .9), 0 4px 10px -2px rgba(20, 64, 62, .25); }
+.whocard.child .face { background: radial-gradient(#FFF6CC, #FFE07A); } .whocard.adult .face { background: #fff; }
+.whocard .face img { width: 94px; height: 94px; margin-top: 8px; display: block; } .whocard .face svg { width: 100px; height: 100px; }
+.whocard .lab { flex: 1; white-space: nowrap; }
+.whocard .go { flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--ink); box-shadow: var(--e1); } .whocard .go svg { width: 26px; height: 26px; }
+.sheet .existing { margin-top: 0; }
+@media (max-height: 700px) { .whocard { height: 112px; margin-bottom: 14px; } .whocard .face { width: 84px; height: 84px; } .whocard .face img { width: 80px; height: 80px; } .whocard .face svg { width: 84px; height: 84px; } .scene-buddy { width: 150px; bottom: 50px; } .who-bubble { top: 80px; } }
+@media (prefers-reduced-motion: reduce) { .scene * { animation: none !important; } }
+
+/* ---------- Track A home: a scene, a sheet with ONE Play button, a short path, a garden that only grows ---------- */
+.scene-home { padding: 0; }
+.home-top { position: relative; display: flex; flex-direction: column; min-height: min(100dvh, 920px); margin: 0 -16px; }
+.home-top .scene-area { text-align: left; }
+.track-A .homehdr { position: absolute; z-index: 6; top: 0; left: 0; right: 0; flex-wrap: nowrap; gap: 10px; padding: 16px 78px 0 16px; background: none; }
+.track-A .homehdr .brand { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.track-A .homehdr .me { width: 48px; height: 48px; box-shadow: var(--e1); }
+.track-A .homehdr .days { position: static; width: auto; height: 48px; clip: auto; clip-path: none; margin: 0; overflow: visible; display: flex; align-items: center; gap: 6px; padding: 0 16px 0 10px; border-radius: 999px; background: rgba(255, 255, 255, .94); box-shadow: var(--e1); font: 600 20px var(--display); color: var(--ink); }
+.track-A .homehdr .days b { font-size: 20px; } .track-A .homehdr .days .fl svg { width: 28px; height: 28px; }
+.track-A .homehdr .days .dl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.track-A .homehdr .btn.ghost { margin-left: auto; width: 48px; height: 48px; padding: 0; opacity: 1; background: rgba(255, 255, 255, .94); color: var(--muted); box-shadow: var(--e1); }
+.home-top .scene-buddy { left: 40px; bottom: 96px; width: min(196px, 52%); }
+.home-bubble { right: 26px; top: 36%; border: 0; cursor: pointer; font: 600 22px var(--display); padding: 10px 18px 10px 12px; }
+.home-bubble::after { left: auto; right: 18px; top: auto; bottom: -8px; }
+.garden { position: absolute; left: 0; right: 0; bottom: 34px; height: 60px; z-index: 2; pointer-events: none; } .garden svg { width: 100%; height: 100%; display: block; }
+.home-sheet { text-align: left; flex: none; }
+.home-sheet .tag { display: inline-block; font: 600 17px var(--display); color: var(--ink); background: var(--primary-tint); border-radius: 999px; padding: 5px 14px; }
+.play-big { display: flex; width: 100%; height: 80px; margin-top: 14px; font-size: 34px; gap: 12px; } .play-big .bi svg { width: 34px; height: 34px; }
+.mini-path { display: flex; align-items: center; justify-content: center; margin-top: 30px; }
+.mini-path .pn { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+.mini-path .pn svg { width: 24px; height: 24px; }
+.mini-path .pn.done { background: linear-gradient(var(--good-hi), var(--good)); color: var(--ink); box-shadow: 0 4px 0 var(--good-edge); }
+.mini-path .pn.now { width: 64px; height: 64px; background: #fff; color: var(--ink); box-shadow: 0 0 0 5px var(--tap-hi), 0 0 0 10px rgba(255, 209, 77, .35), var(--e1); }
+.mini-path .pn.now .ltr { font: 700 1.7rem var(--read); } .mini-path .pn.now .gl svg { width: 36px; height: 36px; }
+.mini-path .pn.locked { background: var(--locked-fill); color: var(--locked-ink); box-shadow: inset 0 3px 0 rgba(20, 64, 62, .06); } .mini-path .pn.locked svg { width: 22px; height: 22px; }
+.mini-path .d { width: 12px; height: 6px; border-radius: 3px; background: var(--good); opacity: .9; margin: 0 2px; flex: none; } .mini-path .d.off { background: #C9D5E0; }
+.allsounds { text-align: left; font: 600 1.1rem var(--display); color: var(--muted); margin: 26px 2px 2px; }
+/* the full map below the fold: quiet white cards, green done nodes, one gold open node */
+.track-A .lesson, .track-B .lesson { border-left: 0; background: var(--card); box-shadow: 0 2px 0 rgba(20, 64, 62, .05), var(--e1); }
+.track-A .lesson h3 { font-size: 1rem; color: var(--muted); }
+.track-A .path .node.done { background: linear-gradient(var(--good-hi), var(--good)); color: var(--ink); --lip: var(--good-edge); }
+.track-A .path .node.done .icon { background: #fff; color: var(--good-text); }
+.stand { grid-template-columns: auto; grid-template-areas: "node" "label"; }
+.openlabel { box-shadow: var(--e1); font-family: var(--display); font-weight: 600; }
+@media (max-height: 700px) { .home-top .scene-buddy { width: 140px; bottom: 90px; } .home-bubble { top: 28%; } .play-big { height: 68px; } .mini-path { margin-top: 18px; } }
+
+/* ---------- question screens (Track A): sky fade, the top bar, Sprig and his question bubble, the picture card, the worked example ---------- */
+.track-A.sitting, .track-A.onb-lesson { --sky-fade: linear-gradient(#87D67A 0, #D2EECD 40%, #FFF8EA 68%); margin: 0 -16px -32px; padding: 0 16px 32px; background: var(--sky-fade); }
+.track-A.sitting:has(.sm), .track-A.sitting:has(.demo-go), .track-A.sitting:has(.options.demo) { background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 260' preserveAspectRatio='none'><defs><linearGradient id='a' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%23A9DCA4'/><stop offset='1' stop-color='%238CCB93'/></linearGradient><linearGradient id='b' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%238ED66F'/><stop offset='1' stop-color='%2362BC5E'/></linearGradient><linearGradient id='c' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%236CC85F'/><stop offset='1' stop-color='%233F9F54'/></linearGradient></defs><path d='M0 70Q80 10 190 56T390 30V260H0Z' fill='url(%23a)'/><path d='M0 110Q110 40 250 100T390 80V260H0Z' fill='url(%23b)'/><path d='M0 160Q60 110 170 144T390 126V260H0Z' fill='url(%23c)'/></svg>") bottom / 100% 260px no-repeat, var(--sky-fade); }
+.track-A header.hdr { flex-wrap: wrap; row-gap: 0; padding: 16px 78px 0 0; }
+.track-A header.hdr .progress { min-width: 0; }
+.track-A header.hdr .hdr-buddy { order: 3; flex: 0 0 100%; display: block; margin-top: 2px; } .track-A header.hdr .hdr-buddy .buddy.inline { width: 96px; }
+.track-A:not(.has-beat) .screen > h2:first-child { margin: -92px 0 12px 112px; min-height: 76px; position: relative; display: flex; align-items: center; gap: 8px; text-align: left; background: #fff; border-radius: 24px; box-shadow: var(--e2); padding: 10px 16px 10px 12px; font-size: 1.3rem; }
+.track-A:not(.has-beat) .screen > h2:first-child::before { content: ''; flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--primary) var(--spk-disc) center / 20px no-repeat; }
+.track-A:not(.has-beat) .screen > h2:first-child::after { content: ''; position: absolute; left: -7px; top: 30px; width: 18px; height: 18px; background: #fff; border-radius: 4px; transform: rotate(45deg); z-index: -1; }
+.track-A:not(.has-beat):has(.screen > h2:first-child) .buddy-bubble { display: none; }
+.track-A .beat .buddy-bubble { border-radius: 24px; font-size: 1.2rem; box-shadow: var(--e2); }
+.track-A .screen > h2 { color: var(--ink); }
+/* the picture card: white, 5px white border, radius 40, lifted */
+.pics.one .picture, .pics.scene .picture, .intro-hero .picture { background: linear-gradient(#fff, #FFF6E1); border: 5px solid #fff; border-radius: 40px; padding: 14px; box-shadow: 0 6px 0 rgba(20, 64, 62, .10), var(--e2); }
+.picture img { background: transparent; border-radius: 0; }
+.intro-hero .picture img { border-radius: 24px; box-shadow: none; }
+.l1-opts .picture, .pic-play .picture, .opt .picture { background: transparent; border: 0; padding: 0; box-shadow: none; }
+.opt .picture img { border-radius: 14px; }
+.options .opt:has(> .opt-play:not(.pic-play)) { min-height: 196px; justify-content: space-between; }
+.track-A .pips i.on { background: var(--tap); }
+/* My turn: one big green pill with a mic. It waits for a tap (Track B says "Try one" in teal). */
+.btn.primary.demo-go, .btn.myturn { display: flex; width: 100%; max-width: 360px; height: 72px; margin: 14px auto 0; font-size: 30px; gap: 10px; background: linear-gradient(var(--good-hi), var(--good)); color: var(--tap-ink); --lip: var(--good-edge); --hi: rgba(255, 255, 255, .45); --glow: 0 14px 22px -8px rgba(31, 138, 59, .5); }
+.track-A .btn.demo-go .bi svg, .btn.myturn .bi svg { display: none; }
+.track-A .btn.demo-go .bi::before, .btn.myturn .bi::before { content: ''; display: block; width: 34px; height: 34px; background: currentColor; -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3'/><path d='M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/></svg>") center / contain no-repeat; mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='9' y='3' width='6' height='11' rx='3'/><path d='M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3' stroke='black' stroke-width='2.2' fill='none' stroke-linecap='round'/></svg>") center / contain no-repeat; }
+.track-B .btn.primary.demo-go { height: 56px; font-size: 1.2rem; background: linear-gradient(var(--primary-hi), var(--primary)); color: #fff; --lip: var(--primary-edge); }
+.options.demo .opt.glow { box-shadow: 0 0 0 5px var(--tap-hi), 0 5px 0 5px var(--tap-edge), var(--e2); }
+.beat .buddy.inline { width: 124px; }
+.pics.one { width: min(156px, 100%); } .pics.one .picture { padding: 10px; border-radius: 34px; }
+.screen:has(> .options.demo) > .speaker.big { width: 64px; height: 64px; margin: 6px auto; } .screen:has(> .options.demo) > .speaker.big svg { width: 30px; height: 30px; }
+.options.demo { margin-bottom: 4px; } .options.demo .opt { min-height: 0 !important; padding: 12px 8px 10px; } .options.demo .opt > .opt-play { width: 64px !important; height: 64px !important; }
+.options.demo .opt-pick { min-height: 48px; }
+.demo-go { margin-bottom: 12px; }
+.track-A.onb-lesson > .dots { display: none; }   /* the progress bar already says it (these dots were aria-hidden) */
+.track-A.sitting, .track-A.onb-lesson { min-height: 100dvh !important; }
+.pics.one { width: min(224px, 62%); } .screen:has(> .options.demo) .pics.one { width: min(150px, 100%); }
+
+/* ---------- celebration (Track A): teal sunburst, big Sprig with arms up, gold stars, a tilted sticker card, a gold Go on ---------- */
+.onb-done.track-A, .endscreen.track-A { position: relative; display: flex; flex-direction: column; align-items: center; justify-items: normal; gap: 0; margin: 0 -16px -32px; padding: 64px 20px 32px; min-height: 100dvh; overflow: hidden; color: #fff; background: radial-gradient(circle at 50% 38%, #2D9A1B, #165F0A 82%); isolation: isolate; }
+.onb-done.track-A::before, .endscreen.track-A::before { content: ''; position: absolute; z-index: -1; inset: -40%; background: repeating-conic-gradient(from 0deg at 50% 41%, rgba(255, 255, 255, .13) 0 10deg, transparent 10deg 20deg); animation: rays-turn 60s linear infinite; }
+.onb-done.track-A::after, .endscreen.track-A::after { content: ''; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle at 50% 38%, rgba(255, 243, 176, .55), rgba(255, 243, 176, 0) 52%); }
+@keyframes rays-turn { to { transform: rotate(360deg); } }
+.onb-done.track-A h2, .endscreen.track-A h2 { order: 1; margin: 0; font: 600 clamp(38px, 13vw, 52px)/1.05 var(--display); color: #fff; text-shadow: 0 4px 0 #0F4806; }
+.onb-done.track-A .cele, .endscreen.track-A .cele-box { order: 2; display: flex; justify-content: center; margin-top: 6px; }
+.onb-done.track-A .buddy-slot, .endscreen.track-A .buddy-slot { order: 3; position: relative; display: block; width: min(300px, 80%); margin: 0 0 12px; }
+.onb-done.track-A .buddy-slot::after, .endscreen.track-A .buddy-slot::after { content: ''; position: absolute; left: 8%; right: 8%; bottom: -10px; height: 38px; border-radius: 50%; background: radial-gradient(closest-side, rgba(3, 40, 40, .45), rgba(3, 40, 40, 0)); z-index: -1; }
+.onb-done.track-A .buddy.inline, .endscreen.track-A .buddy.inline { width: 100%; }
+.onb-done.track-A .cele .stars, .endscreen.track-A .cele .stars { gap: 4px; align-items: flex-end; }
+.onb-done.track-A .star, .endscreen.track-A .star { width: auto; height: auto; background: none; color: #FFC81F; filter: drop-shadow(0 5px 0 #B57A00); border-radius: 0; }
+.onb-done.track-A .star svg, .endscreen.track-A .star svg { width: 64px; height: 64px; }
+.onb-done.track-A .star:nth-child(2) svg, .endscreen.track-A .star:nth-child(2) svg { width: 84px; height: 84px; }
+.onb-done.track-A .star:nth-child(1), .endscreen.track-A .star:nth-child(1) { rotate: -12deg; } .onb-done.track-A .star:nth-child(3), .endscreen.track-A .star:nth-child(3) { rotate: 12deg; } .onb-done.track-A .star:nth-child(2), .endscreen.track-A .star:nth-child(2) { translate: 0 -14px; }
+.onb-done.track-A .star.empty, .endscreen.track-A .star.empty { color: rgba(255, 255, 255, .4); filter: none; }
+.onb-done.track-A .cele-line, .endscreen.track-A .score, .endscreen.track-A .prompt, .onb-done.track-A .muted, .endscreen.track-A .muted { order: 5; color: #fff; font: 700 21px var(--ui); margin: 6px 0 0; text-shadow: 0 1px 0 rgba(3, 40, 40, .4); text-align: center; }
+.endscreen.track-A .dots { order: 5; margin: 4px 0; } .endscreen.track-A .dots i { background: rgba(255, 255, 255, .35); } .endscreen.track-A .dots i.on { background: #7BE08F; }
+.endscreen.track-A .village { order: 5; background: rgba(255, 255, 255, .16); box-shadow: none; width: 100%; max-width: 340px; }
+.onb-done.track-A .sticker, .endscreen.track-A .sticker { order: 4; align-self: flex-end; margin: -104px 10px 8px 0; width: 112px; height: 124px; border-radius: 26px; background: #fff; color: var(--tan-deep); font-size: 3.4rem; rotate: 7deg; box-shadow: 0 0 0 6px #fff, 0 6px 0 6px #D2E3CF, 0 18px 30px -8px rgba(0, 0, 0, .45); }
+.onb-done.track-A .row, .endscreen.track-A .row { order: 9; margin: auto 0 0; width: 100%; max-width: 420px; flex-wrap: nowrap; padding-top: 16px; }
+.onb-done.track-A .row .btn.primary, .endscreen.track-A .row .btn.primary { flex: 1; height: 72px; font-size: 30px; }
+.endscreen.track-A .row .btn.ghost { color: #fff; background: rgba(255, 255, 255, .16); min-height: 56px; }
+.onb-done.track-A .row .btn .bi svg, .endscreen.track-A .row .btn .bi svg { width: 30px; height: 30px; }
+.onb-done.track-A .row .btn.next { flex-direction: row; } 
+.confetti i { width: 10px; height: 16px; } .confetti i:nth-child(3n) { width: 10px; height: 10px; border-radius: 50%; }
+@media (prefers-reduced-motion: reduce) { .onb-done.track-A::before, .endscreen.track-A::before { animation: none; } }
+.calm .onb-done.track-A::before, .calm .endscreen.track-A::before { animation: none; }
+@media (max-height: 700px) { .onb-done.track-A, .endscreen.track-A { padding-top: 56px; } .onb-done.track-A .buddy-slot, .endscreen.track-A .buddy-slot { width: 190px; } .onb-done.track-A .sticker, .endscreen.track-A .sticker { margin-top: -70px; width: 92px; height: 100px; } }
+
+/* ---------- celebration (Track B): calm. A check ring, the count in the display face, a soft sage wash, no mascot, no confetti ---------- */
+.onb-done.track-B, .endscreen.track-B { min-height: 100dvh; margin: 0 -16px -32px; padding: 14vh 20px 32px; background: linear-gradient(#DEEBDC, #F4F7F3 55%); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.onb-done.track-B .check-big { width: 96px; height: 96px; background: #fff; color: var(--primary); box-shadow: inset 0 0 0 7px var(--primary), var(--e2); }
+.onb-done.track-B .check-big svg { width: 52px; height: 52px; }
+.onb-done.track-B .count-wrap { font: 600 1.6rem var(--display); } .onb-done.track-B .count { font: 600 88px/1 var(--display); color: var(--primary); display: block; }
+.onb-done.track-B .next-up { background: #fff; box-shadow: var(--e1); font-weight: 700; }
+.onb-done.track-B .row, .endscreen.track-B .row { margin-top: auto; width: 100%; max-width: 420px; } .onb-done.track-B .row .btn { flex: 1; }
+.endscreen.track-B .stars .star { background: var(--primary); color: #fff; }
+
+/* ---------- Track B home ("Lagoon Dusk"): a teal landscape header, the big numeral and word chips, an Up-next card, lesson rows with progress. No mascot. ---------- */
+.b-home { padding-top: 0; }
+.b-head { position: relative; margin: 0 -16px; height: 372px; color: #fff; overflow: hidden; }
+.b-head .homehdr { position: absolute; z-index: 2; top: 0; left: 0; right: 0; flex-wrap: nowrap; padding: 18px 78px 0 24px; }
+.track-B .b-head .brand { color: #fff; font: 600 22px var(--display); text-shadow: 0 2px 0 rgba(0, 0, 0, .18); }
+.track-B .b-head .days { color: rgba(255, 255, 255, .92); font-size: .8rem; display: none; }
+.track-B .b-head .btn.ghost { color: #fff; background: rgba(255, 255, 255, .2); min-height: 44px; padding: 6px 14px; }
+.b-hero { position: absolute; z-index: 2; left: 24px; right: 24px; top: 80px; text-shadow: 0 2px 0 rgba(10, 40, 60, .22); }
+.b-hero .eyebrow { font: 800 17px var(--ui); }
+.b-hero .num { font: 600 88px/1 var(--display); margin: 0 0 10px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.b-hero .chips { display: flex; flex-wrap: wrap; gap: 8px; text-shadow: none; }
+.b-hero .chips span { background: #fff; color: var(--ink); font: 700 22px var(--read); padding: 6px 16px; border-radius: 999px; box-shadow: 0 3px 0 rgba(10, 50, 70, .28); }
+.b-hero .chips .more { background: rgba(255, 255, 255, .28); color: #fff; box-shadow: none; font-family: var(--ui); text-shadow: 0 1px 0 rgba(0, 0, 0, .2); }
+.b-up { position: relative; z-index: 3; display: flex; align-items: center; gap: 14px; width: 100%; height: 104px; margin: -20px 0 0; padding: 0 18px 0 16px; border: 0; border-radius: var(--r-lg); background: #fff; box-shadow: 0 4px 0 rgba(20, 64, 62, .08), var(--e2); text-align: left; font: inherit; color: var(--ink); cursor: pointer; }
+.b-up .ring { position: relative; flex: none; width: 64px; height: 64px; } .b-up .ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 15px var(--ui); }
+.b-up .ct { flex: 1; display: grid; } .b-up .k { font: 800 14px var(--ui); color: var(--muted); } .b-up .t { font: 600 22px/1.15 var(--display); margin-top: 2px; }
+.b-up .go { flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: linear-gradient(var(--primary-hi), var(--primary)); box-shadow: 0 4px 0 var(--primary-edge), inset 0 2px 0 rgba(255, 255, 255, .35); } .b-up .go svg { width: 26px; height: 26px; }
+.b-up:active .go { transform: translateY(3px); box-shadow: 0 1px 0 var(--primary-edge); }
+.lessons-title { text-align: left; font: 600 1.5rem var(--display); margin: 22px 2px 4px; }
+.track-B .lesson { padding: 14px 16px 16px; border-radius: var(--radius); margin: 12px 0; }
+.track-B .lhead { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin: 0 0 12px; font-size: 1rem; }
+.lhead .ico { flex: none; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: linear-gradient(#57A74A, var(--primary)); box-shadow: inset 0 3px 0 rgba(255, 255, 255, .35), 0 3px 0 rgba(20, 64, 62, .15); }
+.lhead .ico span { font: 700 14px var(--read); letter-spacing: .06em; text-align: center; line-height: 1.1; padding: 0 4px; }
+.lhead .ico.ok { background: linear-gradient(#5BD19A, #2E9A62); } .lhead .ico svg { width: 30px; height: 30px; }
+.lhead .lt { flex: 1; min-width: 0; } .lhead .lt b { display: block; font: 600 19px/1.2 var(--display); margin-bottom: 9px; }
+.lhead .bar { display: block; height: 12px; border-radius: 6px; background: var(--rule); overflow: hidden; } .lhead .bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(#57A74A, var(--primary)); box-shadow: inset 0 3px 0 rgba(255, 255, 255, .35); }
+.lhead em { font: 800 15px var(--ui); font-style: normal; color: var(--muted); min-width: 40px; text-align: right; }
+.track-B .list { display: flex; flex-wrap: wrap; gap: 8px; }
+.track-B .list .nodewrap { display: inline-block; }
+.track-B .list .node { min-height: 48px; padding: 8px 16px; border-radius: 999px; font: 700 .95rem var(--ui); background: var(--card-soft); --glow: none; --lip: rgba(20, 64, 62, .12); }
+.track-B .list .node.done { background: var(--good-tint); color: var(--good-text); --lip: rgba(31, 96, 57, .25); }
+.track-B .list .node.locked { background: var(--locked-fill); color: var(--locked-ink); --lip: transparent; }
+.track-B .list .node.open { background: linear-gradient(var(--primary-hi), var(--primary)); color: #fff; }
+.track-B .lesson .badge { order: 9; }
+.track-B .b-head .btn.ghost { white-space: nowrap; font-size: .9rem; padding: 6px 12px; } .track-B .b-head .btn.ghost .bl { white-space: nowrap; }
+
+/* ---------- round 2 polish (blind gauntlet vs the mockups) ---------- */
+.ear { width: 52px; height: 52px; }
+.ear .ear-ic svg { width: 30px; height: 30px; }
+.mini-path .pn.now img { width: 44px; height: 44px; object-fit: contain; display: block; background: none; } .mini-path .pn.now .picture { width: 44px; margin: 0; padding: 0; border: 0; box-shadow: none; background: none; }
+/* Track B header: the grown-ups' switch is a small round icon, so the title and the ear button have room */
+.track-B .b-head .btn.ghost { width: 44px; min-width: 44px; padding: 0; margin-left: auto; justify-content: center; }
+.track-B .b-head .btn.ghost .bl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lhead .lt .sub { display: block; font: 700 14px var(--ui); color: var(--muted); margin: -4px 0 8px; }
+.lhead .lt b { margin-bottom: 4px; }
+.track-B .list .node { padding: 6px 14px; font-size: .9rem; } .track-B .list .node.done .icon { display: none; }
+/* bigger Sprig and bubble on question screens, clouds in the sky, readable (not washed-out) dimmed tiles */
+.track-A header.hdr .hdr-buddy .buddy.inline { width: 116px; }
+.track-A:not(.has-beat) .screen > h2:first-child { margin: -118px 0 12px 132px; min-height: 84px; font-size: 1.35rem; }
+.track-A.sitting, .track-A.onb-lesson { background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 420'><g fill='white' opacity='.92'><ellipse cx='318' cy='222' rx='38' ry='11'/><circle cx='305' cy='212' r='13'/><circle cx='324' cy='205' r='17'/><circle cx='343' cy='214' r='11'/><ellipse cx='62' cy='300' rx='30' ry='9'/><circle cx='52' cy='292' r='10'/><circle cx='68' cy='286' r='13'/></g></svg>") top center / 100% auto no-repeat, var(--sky-fade); }
+.options.demo .opt.off { opacity: .66; filter: none; }
+.options.demo .opt.off > .opt-play { opacity: .75; }
+/* the sticker: a gold star on a white card */
+.onb-done.track-A .sticker, .endscreen.track-A .sticker { color: #F2A900; text-shadow: 0 4px 0 #B57A00; font-size: 4.2rem; }
+
+/* ---------- worked example (Track A): Sprig is the hero, big on the left, beside the picture he is demonstrating ---------- */
+.track-A .screen:has(> .options.demo) { display: grid; grid-template-columns: 188px 1fr; grid-template-areas: "beat pics" "beat spk" "ttl ttl" "opts opts" "go go"; align-items: center; justify-items: center; column-gap: 6px; }
+.track-A .screen:has(> .options.demo) > .beat { grid-area: beat; width: 100%; margin: 0; align-self: end; display: block; }
+.track-A .screen:has(> .options.demo) .beat .buddy-slot { display: block; } .track-A .screen:has(> .options.demo) .beat .buddy.inline { width: 188px; }
+.track-A .screen:has(> .options.demo) .beat .buddy-bubble { display: none; }
+.track-A .screen:has(> .options.demo) > .pics { grid-area: pics; align-self: end; width: 150px; margin: 8px 0 0; }
+.track-A .screen:has(> .options.demo) > .speaker.big { grid-area: spk; align-self: start; }
+.track-A .screen:has(> .options.demo) > h2 { grid-area: ttl; justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px 0 8px; padding: 10px 16px; background: #fff; border-radius: 24px; box-shadow: var(--e2); font-size: 1.3rem; }
+.track-A .screen:has(> .options.demo) > h2::before { content: ''; flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--primary) var(--spk-disc) center / 20px no-repeat; }
+.track-A .screen:has(> .options.demo) > .options { grid-area: opts; margin: 0 0 6px; }
+.track-A .screen:has(> .options.demo) > .demo-go { grid-area: go; margin-top: 8px; }
+/* Track B: the open chip is light teal, not a dark slab */
+.track-B .list .node.open { background: var(--primary-tint); color: var(--primary-edge); --lip: #A2C59C; box-shadow: 0 var(--press) 0 var(--lip), inset 0 0 0 2px var(--primary); }
+/* the sticker: a gold star on a pale sun disc */
+.onb-done.track-A .sticker, .endscreen.track-A .sticker { background: radial-gradient(circle at 50% 46%, #FFF1A8 0 40%, #fff 41%); }
+/* Track B home: state is colour AND shape (green check, teal tile, amber in progress, grey lock); the ear button goes glass on the teal header */
+.lhead .ico.prog { background: linear-gradient(#F4B466, #E39A4A); color: var(--ink); }
+.lhead .ico.lock { background: var(--locked-fill); color: var(--locked-ink); box-shadow: inset 0 3px 0 rgba(20, 64, 62, .06); }
+.track-B .list .node.done { background: #fff; box-shadow: 0 var(--press) 0 var(--lip), inset 0 0 0 2px #BFE0C9; }
+html.track-B:has(.b-home) .ear { background: rgba(255, 255, 255, .22); color: #fff; --lip: transparent; --glow: none; --hi: transparent; box-shadow: none; }
+.track-B .b-head .btn.ghost { background: rgba(255, 255, 255, .22); box-shadow: none; --lip: transparent; --glow: none; --hi: transparent; color: #fff; }
+.track-B .b-head .btn.ghost .bi svg { width: 24px; height: 24px; }
+.track-B .b-head .brand { flex: 0 0 auto; margin-right: 6px; } .track-B .b-head .btn.ghost { margin-left: 0; }

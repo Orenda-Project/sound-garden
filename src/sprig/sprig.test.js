@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { STATE_NAMES, STATE_TABLE, MOOD_NAMES, STAGES } from './sprig.js';
 import { Sp } from '../motion/engine.js';
 
-// the pose names Sound Out's mascot code (tilo.js, session, home) and the demo ask for
+// the pose names the engine's mascot code (buddy.js, session, home) and the demo ask for
 const NEEDED = ['idle', 'idle-lesson', 'wake', 'greet', 'listening', 'thinking', 'speaking', 'pointing', 'tap-react', 'look-at', 'correct-small', 'correct-streak', 'celebrate', 'level-up', 'wrong-soft', 'try-again', 'encourage', 'hint', 'stuck-wait', 'sleepy-return', 'sleep', 'water', 'surprise', 'proud', 'goodbye', 'error-offline'];
 const NEW = ['cheer', 'oops-soft', 'sleepy'];
 

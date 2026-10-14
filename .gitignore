@@ -2,7 +2,7 @@ node_modules
 dist
 __pycache__
 *.pyc
-tools/so-compat/app/shots/
+tools/engine-compat/app/shots/
 # working captures for the critic rounds (the verdict keeps the results; final/ keeps the README media)
 shots/site/bars/
 shots/site/bars2/

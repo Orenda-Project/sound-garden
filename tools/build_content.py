@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build public/data/{L1,shared,audio-map}.json + public/audio/L1/*.ogg + content-report.md.
-   python3 tools/build_content.py          needs $SOUND_OUT (pinned in .sound-out-commit)
+   python3 tools/build_content.py          needs $SG_COURSE_SOURCE (a course-data checkout, pinned in engine/VERSION)
    python3 tools/build_content.py --check  validates committed public/data only (CI-safe)"""
 import json, os, shutil, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,11 +28,13 @@ def check():
     return 1 if fails else 0
 
 def build():
-    SO = os.environ.get("SOUND_OUT", "/home/oye/Documents/free_work/sound-out"); C = SO + "/content"
-    pinned = open(".sound-out-commit").read().strip()
+    SO = os.environ.get("SG_COURSE_SOURCE")
+    if not SO: print("FAIL set SG_COURSE_SOURCE to a course-data checkout"); return 1
+    C = SO + "/content"
+    pinned = open("engine/VERSION").read().strip()
     import subprocess
     head = subprocess.run(["git", "-C", SO, "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip()
-    if head != pinned: print(f"FAIL sound-out is at {head}, pinned {pinned}"); return 1
+    if head != pinned: print(f"FAIL source is at {head}, pinned {pinned}"); return 1
     O = J(f"{C}/options.json"); LEX = J(f"{C}/lexicon.json"); GPC = J(f"{C}/gpc.json"); AI = J(f"{C}/audio_index.json")
     CL = AI["clips"]; missing = set(AI.get("missing", []))
     lessons, before, rows = {}, {}, []
@@ -54,7 +56,7 @@ def build():
         ov = f"content-overlay/{lid}.json"
         if os.path.exists(ov): items += J(ov)["addItems"]
         raw = c["bar"].get("raw", "")
-        l["gate"] = dict(items=items, bar=dict(pass_=PASS, of=12), soundOutBar=raw)
+        l["gate"] = dict(items=items, bar=dict(pass_=PASS, of=12), engineBar=raw)
         # slim: drop heavy listen/read text not needed by the M0 player
         for k in ("listen", "read", "sittings", "heart", "appSittings"): l.pop(k, None)
         lessons[lid] = l
@@ -79,16 +81,16 @@ def build():
     used = {it["word"].lower() for l in lessons.values() for it in l["gate"]["items"]}
     shared = dict(gpc=GPC, lexicon={w: e for w, e in LEX.items() if w in used or w in "".join([]) })
     os.makedirs(D, exist_ok=True)
-    json.dump(dict(soundOutCommit=pinned, lessons=lessons), open(f"{D}/L1.json", "w"), ensure_ascii=False, separators=(",", ":"))
+    json.dump(dict(sourceCommit=pinned, lessons=lessons), open(f"{D}/L1.json", "w"), ensure_ascii=False, separators=(",", ":"))
     json.dump(shared, open(f"{D}/shared.json", "w"), ensure_ascii=False, separators=(",", ":"))
     json.dump(AM, open(f"{D}/audio-map.json", "w"), separators=(",", ":"))
     with open("content-report.md", "w") as r:
-        r.write(f"# Content report\n\nsound-out commit: `{pinned}`\n\n")
-        r.write("| lesson | slots before overlay (3+ opts) | after overlay | sound-out bar | overlay bar |\n|---|---|---|---|---|\n")
+        r.write(f"# Content report\n\nsource commit: `{pinned}`\n\n")
+        r.write("| lesson | slots before overlay (3+ opts) | after overlay | source bar | overlay bar |\n|---|---|---|---|---|\n")
         for lid, l in lessons.items():
-            r.write(f"| {lid} | {before[lid]} | {len(l['gate']['items'])} | {l['gate']['soundOutBar'] or 'free response'} | {PASS}/12 |\n")
+            r.write(f"| {lid} | {before[lid]} | {len(l['gate']['items'])} | {l['gate']['engineBar'] or 'free response'} | {PASS}/12 |\n")
         r.write(f"\nDe-duplicated audio: {len(ids)} files, {total:,} bytes ({total/1e6:.2f} MB) in `public/audio/L1/`, {len(AM)} keys.\n")
-        r.write("sound-out as a whole holds 2,898 .ogg (14.6 MB counting copies); its app set is 898 files, 6.2 MB. L1.02-L1.13 slots keep sound-out's repeated words (e.g. L1.02 has `at`, `sat` twice).\n")
+        r.write("The source holds 2,898 .ogg (14.6 MB counting copies); the app set is 898 files, 6.2 MB. L1.02-L1.13 slots keep the source's repeated words (e.g. L1.02 has `at`, `sat` twice).\n")
         r.write("Dropped (no options entry): `qov`, `tio` (L1.13 pseudo words).\n")
     for lid, l in lessons.items(): print(lid, before[lid], "->", len(l["gate"]["items"]))
     if bad: print("FAIL placeholder audio:", bad); return 1

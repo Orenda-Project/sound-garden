@@ -3,7 +3,7 @@
 Starts the first sitting after L1.04 (not ?fast, autoplay allowed), grabs 8 frames over 4 s, then taps the forward arrow twice and grabs 4 more."""
 import sys, time, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-import sg_lib; sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / 'so-compat/tools'))
+import sg_lib; sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / 'engine-compat/tools'))
 from playwright.sync_api import sync_playwright
 from PIL import Image
 out = pathlib.Path(sys.argv[1]); out.mkdir(parents=True, exist_ok=True)
@@ -19,7 +19,7 @@ with sync_playwright() as p:
     import _onb; _onb.walk(pg, 'A'); pg.wait_for_selector('.home', timeout=30000)
     pg.goto(sg_lib.BASE + '#/play'); time.sleep(3)
     pg.evaluate(sg_lib.SEED, [[k for k in pg.evaluate("[...document.querySelectorAll('.home .node[data-key]')].map(b => b.dataset.key)") if k < 'L1.04'][:8]])
-    pg.evaluate('window.__so.app.home()'); time.sleep(1.2)
+    pg.evaluate('window.__engine.app.home()'); time.sleep(1.2)
     pg.click('.play-big'); fs = []
     for i in range(8): f = out / f'les-{i}.png'; pg.screenshot(path=str(f)); fs.append(f); time.sleep(0.5)
     for n in range(2):

@@ -18,10 +18,10 @@ with sync_playwright() as p:
     ok(hsh(pg).startswith("#/play/lesson/L"), f"a sitting has a lesson URL ({hsh(pg)})")
     pg.go_back(); time.sleep(1.2); ok(pg.locator(".home").count() == 1, "browser Back from a sitting lands on Home")
     ok(hsh(pg) == "#/play", f"... and the URL is #/play again ({hsh(pg)})")
-    pg.evaluate("window.__so.app.practice()"); pg.wait_for_selector(".ph"); time.sleep(0.4); ok(hsh(pg) == "#/play/practice", f"Practice URL ({hsh(pg)})")
+    pg.evaluate("window.__engine.app.practice()"); pg.wait_for_selector(".ph"); time.sleep(0.4); ok(hsh(pg) == "#/play/practice", f"Practice URL ({hsh(pg)})")
     pg.go_back(); time.sleep(1.2); ok(pg.locator(".home").count() == 1, "browser Back from Practice lands on Home")
     seed_to(pg, "L1.03")   # Sound it out opens after L1.02
-    pg.evaluate("window.__so.app.sayIt()"); pg.wait_for_selector(".sayit", timeout=10000); time.sleep(0.5); ok(hsh(pg) == "#/play/sound-it-out", f"Sound it out URL ({hsh(pg)})")
+    pg.evaluate("window.__engine.app.sayIt()"); pg.wait_for_selector(".sayit", timeout=10000); time.sleep(0.5); ok(hsh(pg) == "#/play/sound-it-out", f"Sound it out URL ({hsh(pg)})")
     pg.go_back(); time.sleep(1.2); ok(pg.locator(".home").count() == 1, "browser Back from Sound it out lands on Home")
     # a shared link, same browser (profile exists)
     seed_to(pg, "L1.03")

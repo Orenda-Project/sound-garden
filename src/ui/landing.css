@@ -1,7 +1,7 @@
-/* The Sound Garden website (landing). Everything is scoped under .landing so it cannot touch the Sound Out screens.
+/* The Sound Garden website (landing). Everything is scoped under .landing so it cannot touch the course screens.
    Motion: transform + opacity only. html.calm (Calm motion switch or prefers-reduced-motion) freezes all of it and shows the finished state. */
-@font-face { font-family: 'Fredoka'; font-weight: 400 700; font-style: normal; font-display: swap; src: url(../../so/app/src/fonts/Fredoka-var.woff2) format('woff2'); }
-@font-face { font-family: 'Nunito'; font-weight: 400 800; font-style: normal; font-display: swap; src: url(../../so/app/src/fonts/Nunito-var.woff2) format('woff2'); }
+@font-face { font-family: 'Fredoka'; font-weight: 400 700; font-style: normal; font-display: swap; src: url(../../engine/app/src/fonts/Fredoka-var.woff2) format('woff2'); }
+@font-face { font-family: 'Nunito'; font-weight: 400 800; font-style: normal; font-display: swap; src: url(../../engine/app/src/fonts/Nunito-var.woff2) format('woff2'); }
 
 .landing {
   --cream: #FBF6EA; --paper: #FFFDF6; --ink: #12330F; --text: #2B2A26; --muted: #5B574E; --line: #E6DCC2;
