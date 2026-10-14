@@ -3,7 +3,7 @@
 import { h } from './ui.js';
 import { stop } from './audio.js';
 
-const TRIES = 'so-gate-tries', LOCK = 'so-gate-lock', LOCK_MS = 30000;
+const TRIES = 'sg-gate-tries', LOCK = 'sg-gate-lock', LOCK_MS = 30000;
 const ls = {
   get: k => { try { return localStorage.getItem(k); } catch { return null; } },
   set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* no storage: lockout lasts this session only */ } },

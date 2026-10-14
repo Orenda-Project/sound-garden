@@ -47,7 +47,7 @@ async function repairSay(box, w) {
 // Model before ask: the first tap gate a learner ever meets is shown first on ANOTHER word they can already read:
 // "Let's do one together", the sounds one at a time under a highlighter, the word, "Now you try". One time per profile.
 async function demo(ctx, w) {
-  const key = `so-gate-demo-${ctx.profile?.id}`;
+  const key = `sg-gate-demo-${ctx.profile?.id}`;
   try { if (localStorage.getItem(key)) return; } catch { /* no storage: demo every time */ }
   const known = new Set(ctx.known());
   const cand = Object.keys(options).find(k => k !== w.toLowerCase() && entry(k)?.kind === 'real' && entry(k).g.every(g => known.has(g)) && has(`w:${k}`));
