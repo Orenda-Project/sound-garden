@@ -23,3 +23,9 @@ Reproduced the blank page: with every dynamic import inlined, Vite left an undef
 * Only 27 word pictures ship; at least one lesson-1 picture slot rendered blank in the preview (picture not shipped). Not investigated which one.
 * The preview has no browser Back, no offline mode, no PDF downloads. Not tested in the real claude.ai viewer (sandbox iframe, IndexedDB behaviour unverified).
 * Step C items listed above still need a run.
+
+## TODO (stopped here; remaining work)
+- Run the rest of step C on the production build: check_urls, check_offline, check_nav, check_finch, check_decodable, check_ph_keys, drive_session, check_failed_check, and the console-error crawl at 390 and 1280 (landing, #/play, #/teach, #/play/practice, #/play/sound-it-out).
+- Find and ship the lesson-1 picture that renders blank in the artifact preview; ship more pictures and clips if the file budget allows.
+- Test the artifact in the real claude.ai viewer (sandboxed iframe, IndexedDB).
+- Remove the upstream project name from existing files (scrub pass).
