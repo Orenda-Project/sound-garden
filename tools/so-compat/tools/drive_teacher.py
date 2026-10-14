@@ -14,7 +14,7 @@
 8. No console errors, no missing audio.
 Exit code 0 = green.
 """
-import so_compat  # Sound Garden: app is at #/play
+import so_compat  # Sound Garden: the app is at #/play
 import json, socket, subprocess, sys, time
 from pathlib import Path
 from playwright.sync_api import sync_playwright

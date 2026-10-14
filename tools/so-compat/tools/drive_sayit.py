@@ -9,7 +9,7 @@ For both tracks: onboarding -> seed L1.02 as passed -> Home tile is open -> Soun
   Track B: type "sat" and "ship" (sh/i/p not taught yet -> all three greyed "not learned yet", still played); a made-up word is flagged as a best guess.
   Before L1.02 the tile is locked. Also: no console errors, no missing clips, every chunk sound exists.
 """
-import so_compat  # Sound Garden: app is at #/play
+import so_compat  # Sound Garden: the app is at #/play
 import sys, time
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from pathlib import Path

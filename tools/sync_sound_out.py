@@ -26,12 +26,13 @@ def pull():
     for f in DRIVERS: shutil.copy(SO / f'tools/{f}.py', ROOT / f'tools/so-compat/tools/{f}.py')   # then re-run tools/so-compat/patch_drivers.sh
     for f in ['pictures.json', 'pictures.meta.json']: shutil.copy(SO / 'app/public/img/words' / f, ROOT / 'so/app/public/img/words' / f)
     ids = {v['id'] for v in json.load(open(SO / 'content/audio_index.json'))['clips'].values()}
-    out = ROOT / 'public/audio'; out.mkdir(parents=True, exist_ok=True)
+    out = ROOT / 'public/audio'; out.mkdir(parents=True, exist_ok=True); changed = 0
     for i in ids:
-        if not (out / f'{i}.ogg').exists(): shutil.copy(SO / f'app/public/audio/{i}.ogg', out / f'{i}.ogg')
+        src, dst = SO / f'app/public/audio/{i}.ogg', out / f'{i}.ogg'
+        if not dst.exists() or dst.read_bytes() != src.read_bytes(): shutil.copy(src, dst); changed += 1   # re-voiced clips keep their id but change bytes
     shutil.rmtree(ROOT / 'public/practice', ignore_errors=True); shutil.copytree(SO / 'app/public/practice', ROOT / 'public/practice')
     shutil.rmtree(ROOT / 'public/img/words', ignore_errors=True); shutil.copytree(SO / 'app/public/img/words', ROOT / 'public/img/words')
-    print('pulled; audio clips', len(ids))
+    print('pulled; audio clips', len(ids), 'copied or replaced', changed)
 
 DRIVERS = ['_onb', 'drive', 'drive_levels', 'drive_practice', 'drive_sayit', 'drive_session', 'drive_teacher', 'check_nav', 'check_failed_check', 'check_ph_keys', 'check_practice_links', 'check_foils']
 # (file, old, new) in PATCH_LIST below: each old must match exactly once, or the sync stops (a changed upstream line is a decision for a human)

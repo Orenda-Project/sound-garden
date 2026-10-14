@@ -9,7 +9,7 @@ Track B, L1.02 (seeded: its teaching sittings passed). The check is answered wro
   3. (reteach simulated as done) try 2 fails -> the check is PARKED + provisional: L1.03 opens, helperFlag is set, and the end screen says so
 Exit 0 = green.
 """
-import so_compat  # Sound Garden: app is at #/play
+import so_compat  # Sound Garden: the app is at #/play
 import json, sys, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))

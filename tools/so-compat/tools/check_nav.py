@@ -16,7 +16,7 @@ On EVERY screen it asserts:
   4. a sitting reopened after a reload (mid-lesson) comes back to Home with its node still open (nothing half-saved)
 Also a static pass: every `app.<fn>(` called in app/src exists on the app object in main.js, and each fn has a UI caller (test-only ones are listed).
 """
-import so_compat  # Sound Garden: app is at #/play
+import so_compat  # Sound Garden: the app is at #/play
 import json, re, socket, subprocess, sys, tempfile, time
 from pathlib import Path
 from playwright.sync_api import sync_playwright

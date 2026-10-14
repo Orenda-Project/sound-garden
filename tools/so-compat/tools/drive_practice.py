@@ -10,7 +10,7 @@ Seed more: "Which word?" runs its rounds with a miss first (no scores, no failur
 (Track A: pictures and no letters; Track B: words), ends with Again / Back.
 Sound it out card, garden / days, print pages (link resolves, 200). No score / timer words, console clean, no missing clips.
 """
-import so_compat  # Sound Garden: app is at #/play
+import so_compat  # Sound Garden: the app is at #/play
 import sys, time, re, urllib.request
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from pathlib import Path

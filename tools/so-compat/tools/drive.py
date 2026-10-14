@@ -11,7 +11,7 @@ Walks onboarding -> L1.02 as a child (Sittings A-D, Read, Listen, Show what you 
   5. a repair (wrong pick -> next attempt) sounds the word out, then plays the whole word once; the option clip never plays
 Exit code 0 = green.
 """
-import so_compat  # Sound Garden: app is at #/play
+import so_compat  # Sound Garden: the app is at #/play
 import json, socket, subprocess, sys, time
 sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from pathlib import Path

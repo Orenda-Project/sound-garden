@@ -18,7 +18,7 @@ gate (blend gates, "Show what you know", the level mastery check). Screenshots: 
   6. the mastery check gates the next level: a missed mastery check keeps L<N+1>.01 locked, a passed one opens it
 Exit code 0 = green.
 """
-import so_compat  # Sound Garden: app is at #/play
+import so_compat  # Sound Garden: the app is at #/play
 import os, json, socket, subprocess, sys, time
 from pathlib import Path
 from playwright.sync_api import sync_playwright, Error as PWError
