@@ -4,7 +4,7 @@ A free website that teaches reading, with a real home page and the whole course 
 No account, no ads, no age question, no timer for children. Your garden grows as you read: a seed is planted when a lesson starts, it sprouts as you go and
 blooms when the lesson is done. Plants never wilt. Sprig the seed friend is the guide.
 
-Sound Garden is the web edition of [Sound Out](https://github.com/oyekamal/sound-out): the same seven-level course, the same teaching engine and the same voiced clips.
+Sound Garden teaches reading in seven levels: 43 letter sounds, blending, words, then short stories, with every line voiced and all of it playable offline.
 
 | Home page (1280) | Home page (390) |
 |---|---|
@@ -69,9 +69,8 @@ Only transforms and opacity move; big art is static and the swaying parts are ti
 
 ## How it is built
 
-`so/` is a copy of Sound Out's `app/src` and `content/`. `so-overlay/` replaces a few files (Sprig for Tilo, the garden Home, boot code, skin) and
-`tools/sync_sound_out.py` applies the overlay and a short list of patches, so `python3 tools/sync_sound_out.py --pull` brings Sound Out fixes in.
-`src/` is the Sound Garden shell: router, landing page, teacher page, Sprig rig, art. See `plan/PORT-PLAN.md`, `plan/PORT-VERDICT.md` (the port) and `plan/SITE-VERDICT.md` (the website and motion pass, with the critic results).
+`so/` holds the course engine and content (lessons, audio index, word lists). `so-overlay/` replaces a few files with the garden look: Sprig, the garden Home, boot code and skin. `tools/` has the build, audio, practice-sheet and verification scripts.
+`src/` is the Sound Garden shell: router, landing page, teacher page, Sprig rig, art. See `plan/` for the plans and the critic results.
 
 ```
 npm ci && npm run dev        # http://localhost:5390
