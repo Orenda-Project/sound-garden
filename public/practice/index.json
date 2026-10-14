@@ -4,11 +4,11 @@
    3
   ],
   "file": "practice/L1.01.pdf",
-  "bytes": 126796,
+  "bytes": 126590,
   "pages": 1,
   "dens": 0,
   "overflow": [
-   -175.9
+   -208.0
   ]
  },
  "L1.02": {
@@ -17,7 +17,7 @@
    3
   ],
   "file": "practice/L1.02.pdf",
-  "bytes": 143430,
+  "bytes": 143209,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -31,12 +31,12 @@
    1
   ],
   "file": "practice/L1.03.pdf",
-  "bytes": 166064,
+  "bytes": 165963,
   "pages": 2,
   "dens": 1,
   "overflow": [
    -40.3,
-   -30.0
+   -32.6
   ]
  },
  "L1.04": {
@@ -45,12 +45,12 @@
    1
   ],
   "file": "practice/L1.04.pdf",
-  "bytes": 161933,
+  "bytes": 161813,
   "pages": 2,
   "dens": 1,
   "overflow": [
    -66.9,
-   -30.0
+   -32.6
   ]
  },
  "L1.05": {
@@ -59,7 +59,7 @@
    3
   ],
   "file": "practice/L1.05.pdf",
-  "bytes": 152605,
+  "bytes": 152384,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -73,7 +73,7 @@
    3
   ],
   "file": "practice/L1.06.pdf",
-  "bytes": 160411,
+  "bytes": 160200,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -87,7 +87,7 @@
    3
   ],
   "file": "practice/L1.07.pdf",
-  "bytes": 155614,
+  "bytes": 155397,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -101,12 +101,12 @@
    1
   ],
   "file": "practice/L1.08.pdf",
-  "bytes": 155326,
+  "bytes": 155239,
   "pages": 2,
   "dens": 1,
   "overflow": [
    -66.9,
-   -30.0
+   -32.6
   ]
  },
  "L1.09": {
@@ -115,7 +115,7 @@
    3
   ],
   "file": "practice/L1.09.pdf",
-  "bytes": 164665,
+  "bytes": 164454,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -129,7 +129,7 @@
    3
   ],
   "file": "practice/L1.10.pdf",
-  "bytes": 170677,
+  "bytes": 170468,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -143,12 +143,12 @@
    1
   ],
   "file": "practice/L1.11.pdf",
-  "bytes": 169428,
+  "bytes": 169319,
   "pages": 2,
   "dens": 1,
   "overflow": [
    -55.2,
-   -30.0
+   -32.6
   ]
  },
  "L1.12": {
@@ -157,7 +157,7 @@
    3
   ],
   "file": "practice/L1.12.pdf",
-  "bytes": 172359,
+  "bytes": 172134,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -171,7 +171,7 @@
    2
   ],
   "file": "practice/L1.13.pdf",
-  "bytes": 168729,
+  "bytes": 168508,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -185,7 +185,7 @@
    1
   ],
   "file": "practice/L1.14.pdf",
-  "bytes": 179489,
+  "bytes": 179326,
   "pages": 2,
   "dens": 1,
   "overflow": [
@@ -199,7 +199,7 @@
    3
   ],
   "file": "practice/L2.01.pdf",
-  "bytes": 152229,
+  "bytes": 152011,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -213,7 +213,7 @@
    2
   ],
   "file": "practice/L2.02.pdf",
-  "bytes": 156588,
+  "bytes": 156366,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -227,7 +227,7 @@
    2
   ],
   "file": "practice/L2.03.pdf",
-  "bytes": 147831,
+  "bytes": 147624,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -241,12 +241,12 @@
    1
   ],
   "file": "practice/L2.04.pdf",
-  "bytes": 150688,
+  "bytes": 150480,
   "pages": 2,
   "dens": 2,
   "overflow": [
    -66.9,
-   -4.2
+   -50.2
   ]
  },
  "L2.05": {
@@ -255,7 +255,7 @@
    2
   ],
   "file": "practice/L2.05.pdf",
-  "bytes": 150191,
+  "bytes": 149966,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -269,12 +269,12 @@
    1
   ],
   "file": "practice/L2.06.pdf",
-  "bytes": 184949,
+  "bytes": 184593,
   "pages": 2,
   "dens": 0,
   "overflow": [
    -3.4,
-   -54.8
+   -57.4
   ]
  },
  "L2.07": {
@@ -283,7 +283,7 @@
    2
   ],
   "file": "practice/L2.07.pdf",
-  "bytes": 181969,
+  "bytes": 181767,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -297,12 +297,12 @@
    1
   ],
   "file": "practice/L2.08.pdf",
-  "bytes": 159525,
+  "bytes": 159402,
   "pages": 2,
   "dens": 0,
   "overflow": [
    -23.0,
-   -3.0
+   -5.6
   ]
  },
  "L2.09": {
@@ -311,7 +311,7 @@
    3
   ],
   "file": "practice/L2.09.pdf",
-  "bytes": 141453,
+  "bytes": 141233,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -325,7 +325,7 @@
    2
   ],
   "file": "practice/L2.10.pdf",
-  "bytes": 144965,
+  "bytes": 144758,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -339,12 +339,12 @@
    1
   ],
   "file": "practice/L2.11.pdf",
-  "bytes": 168667,
+  "bytes": 168542,
   "pages": 2,
   "dens": 0,
   "overflow": [
    -91.4,
-   -3.0
+   -5.6
   ]
  },
  "L2.12": {
@@ -353,7 +353,7 @@
    2
   ],
   "file": "practice/L2.12.pdf",
-  "bytes": 172186,
+  "bytes": 171987,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -367,12 +367,12 @@
    1
   ],
   "file": "practice/L2.13.pdf",
-  "bytes": 177709,
+  "bytes": 177354,
   "pages": 2,
   "dens": 0,
   "overflow": [
    -45.1,
-   -106.6
+   -109.2
   ]
  },
  "L2.14": {
@@ -381,7 +381,7 @@
    1
   ],
   "file": "practice/L2.14.pdf",
-  "bytes": 177887,
+  "bytes": 177715,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -395,7 +395,7 @@
    3
   ],
   "file": "practice/L3.01.pdf",
-  "bytes": 158375,
+  "bytes": 158182,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -409,7 +409,7 @@
    3
   ],
   "file": "practice/L3.02.pdf",
-  "bytes": 161167,
+  "bytes": 160969,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -423,12 +423,12 @@
    1
   ],
   "file": "practice/L3.03.pdf",
-  "bytes": 170172,
+  "bytes": 170260,
   "pages": 2,
   "dens": 2,
   "overflow": [
    -82.1,
-   -4.2
+   -6.8
   ]
  },
  "L3.04": {
@@ -437,7 +437,7 @@
    2
   ],
   "file": "practice/L3.04.pdf",
-  "bytes": 176282,
+  "bytes": 176080,
   "pages": 2,
   "dens": 1,
   "overflow": [
@@ -451,11 +451,11 @@
    2
   ],
   "file": "practice/L3.05.pdf",
-  "bytes": 181509,
+  "bytes": 181289,
   "pages": 2,
   "dens": 1,
   "overflow": [
-   -55.8,
+   -64.2,
    -3.0
   ]
  },
@@ -465,7 +465,7 @@
    2
   ],
   "file": "practice/L3.06.pdf",
-  "bytes": 148814,
+  "bytes": 148605,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -479,7 +479,7 @@
    2
   ],
   "file": "practice/L3.07.pdf",
-  "bytes": 178088,
+  "bytes": 177876,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -493,7 +493,7 @@
    3
   ],
   "file": "practice/L3.08.pdf",
-  "bytes": 147006,
+  "bytes": 146872,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -507,7 +507,7 @@
    1
   ],
   "file": "practice/L3.09.pdf",
-  "bytes": 155127,
+  "bytes": 154955,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -521,7 +521,7 @@
    2
   ],
   "file": "practice/L3.10.pdf",
-  "bytes": 153624,
+  "bytes": 153453,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -535,7 +535,7 @@
    1
   ],
   "file": "practice/L3.11.pdf",
-  "bytes": 156801,
+  "bytes": 156627,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -549,7 +549,7 @@
    2
   ],
   "file": "practice/L3.12.pdf",
-  "bytes": 158760,
+  "bytes": 158587,
   "pages": 2,
   "dens": 3,
   "overflow": [
@@ -563,7 +563,7 @@
    1
   ],
   "file": "practice/L3.13.pdf",
-  "bytes": 151689,
+  "bytes": 151521,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -577,7 +577,7 @@
    2
   ],
   "file": "practice/L3.14.pdf",
-  "bytes": 165681,
+  "bytes": 165511,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -591,7 +591,7 @@
    2
   ],
   "file": "practice/L3.15.pdf",
-  "bytes": 148484,
+  "bytes": 148315,
   "pages": 2,
   "dens": 3,
   "overflow": [
@@ -605,7 +605,7 @@
    2
   ],
   "file": "practice/L3.16.pdf",
-  "bytes": 168001,
+  "bytes": 167908,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -619,7 +619,7 @@
    1
   ],
   "file": "practice/L3.17.pdf",
-  "bytes": 171628,
+  "bytes": 171438,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -633,7 +633,7 @@
    1
   ],
   "file": "practice/L3.18.pdf",
-  "bytes": 168178,
+  "bytes": 167997,
   "pages": 2,
   "dens": 3,
   "overflow": [
@@ -647,11 +647,11 @@
    1
   ],
   "file": "practice/L4.01.pdf",
-  "bytes": 176258,
+  "bytes": 176130,
   "pages": 2,
   "dens": 1,
   "overflow": [
-   -178.3,
+   -186.7,
    -6.0
   ]
  },
@@ -661,7 +661,7 @@
    2
   ],
   "file": "practice/L4.02.pdf",
-  "bytes": 171242,
+  "bytes": 171062,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -675,7 +675,7 @@
    2
   ],
   "file": "practice/L4.03.pdf",
-  "bytes": 154955,
+  "bytes": 154783,
   "pages": 2,
   "dens": 3,
   "overflow": [
@@ -689,7 +689,7 @@
    1
   ],
   "file": "practice/L4.04.pdf",
-  "bytes": 182992,
+  "bytes": 182820,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -703,7 +703,7 @@
    1
   ],
   "file": "practice/L4.05.pdf",
-  "bytes": 154610,
+  "bytes": 154435,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -717,7 +717,7 @@
    1
   ],
   "file": "practice/L4.06.pdf",
-  "bytes": 162171,
+  "bytes": 162072,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -731,7 +731,7 @@
    1
   ],
   "file": "practice/L4.07.pdf",
-  "bytes": 173236,
+  "bytes": 173135,
   "pages": 2,
   "dens": 2,
   "overflow": [
@@ -745,7 +745,7 @@
    2
   ],
   "file": "practice/L4.08.pdf",
-  "bytes": 164909,
+  "bytes": 164737,
   "pages": 2,
   "dens": 3,
   "overflow": [
@@ -759,7 +759,7 @@
    1
   ],
   "file": "practice/L4.09.pdf",
-  "bytes": 161526,
+  "bytes": 161332,
   "pages": 2,
   "dens": 3,
   "overflow": [
@@ -773,7 +773,7 @@
    1
   ],
   "file": "practice/L4.10.pdf",
-  "bytes": 145956,
+  "bytes": 145780,
   "pages": 2,
   "dens": 3,
   "overflow": [
@@ -787,11 +787,11 @@
    3
   ],
   "file": "practice/L4.11.pdf",
-  "bytes": 151093,
+  "bytes": 150882,
   "pages": 2,
   "dens": 0,
   "overflow": [
-   -95.6,
+   -104,
    -101.5
   ]
  },
@@ -801,7 +801,7 @@
    3
   ],
   "file": "practice/L4.12.pdf",
-  "bytes": 175299,
+  "bytes": 175118,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -815,7 +815,7 @@
    3
   ],
   "file": "practice/L4.13.pdf",
-  "bytes": 175657,
+  "bytes": 175472,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -829,7 +829,7 @@
    3
   ],
   "file": "practice/L4.14.pdf",
-  "bytes": 161927,
+  "bytes": 161736,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -843,7 +843,7 @@
    3
   ],
   "file": "practice/L4.15.pdf",
-  "bytes": 175394,
+  "bytes": 175209,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -857,7 +857,7 @@
    3
   ],
   "file": "practice/L4.16.pdf",
-  "bytes": 177789,
+  "bytes": 177118,
   "pages": 2,
   "dens": 0,
   "overflow": [
@@ -870,7 +870,7 @@
    2
   ],
   "file": "practice/L5.01.pdf",
-  "bytes": 101160,
+  "bytes": 100563,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -882,7 +882,7 @@
    3
   ],
   "file": "practice/L5.02.pdf",
-  "bytes": 108392,
+  "bytes": 107811,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -894,7 +894,7 @@
    3
   ],
   "file": "practice/L5.03.pdf",
-  "bytes": 105077,
+  "bytes": 104492,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -906,7 +906,7 @@
    3
   ],
   "file": "practice/L5.04.pdf",
-  "bytes": 105161,
+  "bytes": 104578,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -918,7 +918,7 @@
    3
   ],
   "file": "practice/L5.05.pdf",
-  "bytes": 108758,
+  "bytes": 108171,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -930,7 +930,7 @@
    3
   ],
   "file": "practice/L5.06.pdf",
-  "bytes": 105970,
+  "bytes": 105388,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -942,7 +942,7 @@
    3
   ],
   "file": "practice/L5.07.pdf",
-  "bytes": 105495,
+  "bytes": 104908,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -954,7 +954,7 @@
    2
   ],
   "file": "practice/L5.08.pdf",
-  "bytes": 108270,
+  "bytes": 107688,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -966,7 +966,7 @@
    3
   ],
   "file": "practice/L5.09.pdf",
-  "bytes": 105116,
+  "bytes": 104526,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -978,7 +978,7 @@
    3
   ],
   "file": "practice/L5.10.pdf",
-  "bytes": 108378,
+  "bytes": 107794,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -990,7 +990,7 @@
    3
   ],
   "file": "practice/L5.11.pdf",
-  "bytes": 108775,
+  "bytes": 108193,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -1002,7 +1002,7 @@
    1
   ],
   "file": "practice/L5.12.pdf",
-  "bytes": 105723,
+  "bytes": 105142,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -1014,7 +1014,7 @@
    2
   ],
   "file": "practice/L5.13.pdf",
-  "bytes": 105300,
+  "bytes": 104717,
   "pages": 1,
   "dens": 5,
   "overflow": [
@@ -1023,14 +1023,14 @@
  },
  "L5.14": {
   "z": [
-   1
+   2
   ],
   "file": "practice/L5.14.pdf",
-  "bytes": 109583,
+  "bytes": 108841,
   "pages": 1,
   "dens": 5,
   "overflow": [
-   -6.5
+   -5.9
   ]
  },
  "L5.15": {
@@ -1038,7 +1038,7 @@
    3
   ],
   "file": "practice/L5.15.pdf",
-  "bytes": 94584,
+  "bytes": 94026,
   "pages": 1,
   "dens": 3,
   "overflow": [
@@ -1050,7 +1050,7 @@
    2
   ],
   "file": "practice/L5.16.pdf",
-  "bytes": 101592,
+  "bytes": 101008,
   "pages": 1,
   "dens": 3,
   "overflow": [
@@ -1062,7 +1062,7 @@
    2
   ],
   "file": "practice/L6.01.pdf",
-  "bytes": 101538,
+  "bytes": 101014,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1074,7 +1074,7 @@
    1
   ],
   "file": "practice/L6.02.pdf",
-  "bytes": 98441,
+  "bytes": 97863,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1086,7 +1086,7 @@
    1
   ],
   "file": "practice/L6.03.pdf",
-  "bytes": 99055,
+  "bytes": 98465,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1098,7 +1098,7 @@
    2
   ],
   "file": "practice/L6.04.pdf",
-  "bytes": 103000,
+  "bytes": 102403,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1110,7 +1110,7 @@
    1
   ],
   "file": "practice/L6.05.pdf",
-  "bytes": 97607,
+  "bytes": 97015,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1122,7 +1122,7 @@
    1
   ],
   "file": "practice/L6.06.pdf",
-  "bytes": 98289,
+  "bytes": 97703,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1134,7 +1134,7 @@
    1
   ],
   "file": "practice/L6.07.pdf",
-  "bytes": 97493,
+  "bytes": 96905,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1146,7 +1146,7 @@
    1
   ],
   "file": "practice/L6.08.pdf",
-  "bytes": 99302,
+  "bytes": 98717,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1158,7 +1158,7 @@
    1
   ],
   "file": "practice/L6.09.pdf",
-  "bytes": 98809,
+  "bytes": 98220,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1170,7 +1170,7 @@
    3
   ],
   "file": "practice/L6.10.pdf",
-  "bytes": 96586,
+  "bytes": 95989,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1182,7 +1182,7 @@
    1
   ],
   "file": "practice/L6.11.pdf",
-  "bytes": 97546,
+  "bytes": 96962,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1194,7 +1194,7 @@
    1
   ],
   "file": "practice/L6.12.pdf",
-  "bytes": 97474,
+  "bytes": 96888,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1206,7 +1206,7 @@
    1
   ],
   "file": "practice/L6.13.pdf",
-  "bytes": 99247,
+  "bytes": 98666,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1218,7 +1218,7 @@
    2
   ],
   "file": "practice/L6.14.pdf",
-  "bytes": 97520,
+  "bytes": 96930,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1230,7 +1230,7 @@
    1
   ],
   "file": "practice/L6.15.pdf",
-  "bytes": 102819,
+  "bytes": 102229,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1242,7 +1242,7 @@
    1
   ],
   "file": "practice/L6.16.pdf",
-  "bytes": 103321,
+  "bytes": 102730,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1254,7 +1254,7 @@
    3
   ],
   "file": "practice/L7.01.pdf",
-  "bytes": 96683,
+  "bytes": 96088,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1266,7 +1266,7 @@
    2
   ],
   "file": "practice/L7.02.pdf",
-  "bytes": 102128,
+  "bytes": 101614,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1278,7 +1278,7 @@
    2
   ],
   "file": "practice/L7.03.pdf",
-  "bytes": 103460,
+  "bytes": 102866,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1290,7 +1290,7 @@
    3
   ],
   "file": "practice/L7.04.pdf",
-  "bytes": 96313,
+  "bytes": 95732,
   "pages": 1,
   "dens": 3,
   "overflow": [
@@ -1302,7 +1302,7 @@
    2
   ],
   "file": "practice/L7.05.pdf",
-  "bytes": 97711,
+  "bytes": 97131,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1314,7 +1314,7 @@
    3
   ],
   "file": "practice/L7.06.pdf",
-  "bytes": 95417,
+  "bytes": 94843,
   "pages": 1,
   "dens": 3,
   "overflow": [
@@ -1326,7 +1326,7 @@
    1
   ],
   "file": "practice/L7.07.pdf",
-  "bytes": 96375,
+  "bytes": 95797,
   "pages": 1,
   "dens": 3,
   "overflow": [
@@ -1338,7 +1338,7 @@
    3
   ],
   "file": "practice/L7.08.pdf",
-  "bytes": 97939,
+  "bytes": 97245,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1350,7 +1350,7 @@
    1
   ],
   "file": "practice/L7.09.pdf",
-  "bytes": 98692,
+  "bytes": 98113,
   "pages": 1,
   "dens": 1,
   "overflow": [
@@ -1362,7 +1362,7 @@
    3
   ],
   "file": "practice/L7.10.pdf",
-  "bytes": 97676,
+  "bytes": 97082,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1374,7 +1374,7 @@
    1
   ],
   "file": "practice/L7.11.pdf",
-  "bytes": 102852,
+  "bytes": 102266,
   "pages": 1,
   "dens": 0,
   "overflow": [
@@ -1386,7 +1386,7 @@
    3
   ],
   "file": "practice/L7.12.pdf",
-  "bytes": 97321,
+  "bytes": 96734,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1398,7 +1398,7 @@
    2
   ],
   "file": "practice/L7.13.pdf",
-  "bytes": 97218,
+  "bytes": 96625,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1410,7 +1410,7 @@
    1
   ],
   "file": "practice/L7.14.pdf",
-  "bytes": 97766,
+  "bytes": 97191,
   "pages": 1,
   "dens": 2,
   "overflow": [
@@ -1419,37 +1419,37 @@
  },
  "level-1": {
   "file": "practice/level-1-all.pdf",
-  "bytes": 1181136,
+  "bytes": 1181764,
   "pages": 27
  },
  "level-2": {
   "file": "practice/level-2-all.pdf",
-  "bytes": 1148468,
+  "bytes": 1148235,
   "pages": 28
  },
  "level-3": {
   "file": "practice/level-3-all.pdf",
-  "bytes": 1445068,
+  "bytes": 1445884,
   "pages": 36
  },
  "level-4": {
   "file": "practice/level-4-all.pdf",
-  "bytes": 1408511,
+  "bytes": 1409257,
   "pages": 32
  },
  "level-5": {
   "file": "practice/level-5-all.pdf",
-  "bytes": 904914,
+  "bytes": 904958,
   "pages": 16
  },
  "level-6": {
   "file": "practice/level-6-all.pdf",
-  "bytes": 895334,
+  "bytes": 895259,
   "pages": 16
  },
  "level-7": {
   "file": "practice/level-7-all.pdf",
-  "bytes": 768475,
+  "bytes": 768230,
   "pages": 14
  }
 }
