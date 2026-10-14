@@ -30,11 +30,11 @@ Frame strips (time runs left to right): [hero](shots/site/final/hero-strip.png) 
 
 | Who is reading | Garden home | A lesson | Hear a sound |
 |---|---|---|---|
-| <img src="shots/port/who.png" width="170"> | <img src="shots/port/home1.png" width="170"> | <img src="shots/port/lesson.png" width="170"> | <img src="shots/port/hear.png" width="170"> |
+| <img src="shots/screens/who.png" width="170"> | <img src="shots/screens/home1.png" width="170"> | <img src="shots/screens/lesson.png" width="170"> | <img src="shots/screens/hear.png" width="170"> |
 
 | Blending | Practice | Sound it out | Teacher page |
 |---|---|---|---|
-| <img src="shots/port/blend.png" width="170"> | <img src="shots/port/practiceA.png" width="170"> | <img src="shots/port/sayitA.png" width="170"> | <img src="shots/port/teach.png" width="170"> |
+| <img src="shots/screens/blend.png" width="170"> | <img src="shots/screens/practiceA.png" width="170"> | <img src="shots/screens/sayitA.png" width="170"> | <img src="shots/screens/teach.png" width="170"> |
 
 | Sprig's poses | Lesson frames | Seed hatching |
 |---|---|---|
@@ -54,7 +54,7 @@ Frame strips (time runs left to right): [hero](shots/site/final/hero-strip.png) 
 `src/motion/engine.js` is a tiny spring-physics core (one value, one target, a stiffness and a damping) with one `requestAnimationFrame` loop that sleeps when nothing moves.
 Everything is built on it: `popIn` and `stagger` (cards rise and settle 85 ms apart), `countTo` (numbers spring to their value), `bump`, press-squash springs on every button,
 canvas confetti, a toast. `src/sprig/sprig.js` is Sprig: breathing, random blinks, eye glances, a poke that squashes and sends hearts, moods (idle, happy, cheer, sleepy, thinking,
-oops, listening, speaking, surprise), hops with a shadow that answers them, stars, hearts, petals, drops and zzz. `so-overlay/fx.js` and `so-overlay/hatch.js` carry it into the app.
+oops, listening, speaking, surprise), hops with a shadow that answers them, stars, hearts, petals, drops and zzz. `engine-overlay/fx.js` and `engine-overlay/hatch.js` carry it into the app.
 Only transforms and opacity move; big art is static and the swaying parts are tiny separate elements, so the compositor does the work.
 
 ## What is in it
@@ -69,7 +69,7 @@ Only transforms and opacity move; big art is static and the swaying parts are ti
 
 ## How it is built
 
-`so/` holds the course engine and content (lessons, audio index, word lists). `so-overlay/` replaces a few files with the garden look: Sprig, the garden Home, boot code and skin. `tools/` has the build, audio, practice-sheet and verification scripts.
+`engine/` holds the course engine and content (lessons, audio index, word lists). `engine-overlay/` replaces a few files with the garden look: Sprig, the garden Home, boot code and skin. `tools/` has the build, audio, practice-sheet and verification scripts.
 `src/` is the Sound Garden shell: router, landing page, teacher page, Sprig rig, art. See `plan/` for the plans and the critic results.
 
 ```

@@ -1,9 +1,9 @@
-# Verify report (2026-10-14, branch port-sound-out)
+# Verify report (2026-10-14)
 
 Honest status. Under heavy machine load (load average 30-40) steps were cut short at the owner's request.
 
 ## A. Sync with upstream course (88e82d30)
-PASS. `tools/sync_sound_out.py --pull` ran. No upstream change to the four overlaid files (no overlay conflicts). 430 re-voiced or new clips copied (new ids), 446 stale clips removed, new index, practice PDFs and Teach guide, pictures refreshed. Drivers re-patched. `npm run build` OK, 33 unit tests pass. The sync tool now also replaces clips whose bytes changed. Commit e9317bc.
+PASS. `tools/sync_engine.py --source <path>` ran. No upstream change to the four overlaid files (no overlay conflicts). 430 re-voiced or new clips copied (new ids), 446 stale clips removed, new index, practice PDFs and Teach guide, pictures refreshed. Drivers re-patched. `npm run build` OK, 33 unit tests pass. The sync tool now also replaces clips whose bytes changed. Commit e9317bc.
 
 ## B. Sound completeness (`tools/check_audio_complete.py`, report `plan/audio-complete.json`)
 * Static: 8,549 request keys collected (ui 188, ph 197, name 26, w 2106, ipa 2957, syl 702, ss 1593, lt/q/t2/read/rule/ex ...). All resolve in the index after one collector fix (5 session discussion keys are never requested: the role has no prompt). 7,909 clip files: 0 missing, 0 empty, 0 undecodable (ffmpeg), 0 extra files. PASS.

@@ -1,14 +1,14 @@
 # M0 checklist (grey-box Level 1, spike, deploy, blind test)
 
-Self-contained: a builder can run this next session without reading DESIGN.md or BUILD.md. Work in `/home/oye/Documents/free_work/sound-garden`. Course source is `/home/oye/Documents/free_work/sound-out`, **read-only, never edit it**. Tick each box as you finish. Stop and report if any "STOP" line triggers.
+Self-contained: a builder can run this next session without reading DESIGN.md or BUILD.md. Work in `/home/oye/Documents/free_work/sound-garden`. Course source is the course-data checkout, **read-only, never edit it**. Tick each box as you finish. Stop and report if any "STOP" line triggers.
 
 ## 0. Before anything
 - [ ] **Device name (STOP if missing):** open `plan/spike.md`; it must contain a line `Device: <phone model>, Android <v>, Chrome <v>` written by Kamal. If not, ask Kamal for the model of his own Android phone and wait.  (SKIPPED by instruction: device not yet named)
-- [x] `export SOUND_OUT=/home/oye/Documents/free_work/sound-out`; `git -C $SOUND_OUT rev-parse --short HEAD` must print `3283e35`. Write it to `.sound-out-commit`. (STOP if different, unless Kamal says to accept drift.)
+- [x] `export SG_COURSE_SOURCE=<path to the course-data checkout>`; `git -C $SG_COURSE_SOURCE rev-parse --short HEAD` must print `3283e35`. Write it to `engine/VERSION`. (STOP if different, unless Kamal says to accept drift.)
 - [x] Node 20+, Python 3.10+, `pip install playwright pillow` and `playwright install chromium` work.
 
 ## 1. Pre-M0 checks (write results to `plan/pre-m0.md`)
-Create `tools/pre_m0_check.py` that reads `$SOUND_OUT/content/` and prints PASS/FAIL per check, exit 1 on any FAIL:
+Create `tools/pre_m0_check.py` that reads `$SG_COURSE_SOURCE/content/` and prints PASS/FAIL per check, exit 1 on any FAIL:
 - [x] **A. Audio exists.** For every Level 1 lesson (`content/lessons/L1.01..L1.14.json`) and every word it uses, every option in `content/options.json` (target and foils) has a clip key in `content/audio_index.json` under `clips` (keys look like `w:sat`, `ph:s`), and the file `app/public/audio/<clips[key].id>.ogg` exists.
 - [x] **B. oralCheck options.** Read `app/src/screens/l1oral.js` function `blendWord`: find what it passes as the option `pool`. For each word in `CHECK` (sat, top, pig, dog, mat), `BLEND` (at, it, on) and `FIRST` (sun, top, pig, dog) confirm 3 or more distinct spoken options. Print any item with fewer.
 - [x] **C. Gate counts.** For each of L1.01..L1.14 count gate items with 3+ options. Expected: L1.02-L1.13 have 11 (5 real, 5 pseudo, 1 dictation), L1.01 has none listed (free response, bar 4/5), L1.14 no count. Save the table; this is the "before overlay" column.
@@ -20,13 +20,13 @@ Create `tools/pre_m0_check.py` that reads `$SOUND_OUT/content/` and prints PASS/
 - [x] `src/tokens.css` `:root` tokens: `--bg #FBF6EA`, `--card #FFFCF4`, `--text #2B2A26`, `--muted #5B574E`, `--border #8A8372`, `--leaf #2F7D32`, `--leaf-text #2A7230`, `--hero #4CB82B`, `--hero-edge #2F7D32`, `--hero-ink #12330F`, `--sky #1F6FB2`, `--right #0F766E`, `--wrong #A84A07`, `--sun #F5B301`, tints `#DDF1EE` `#FBE9D6` `#DCEEF9`, sky band `#8ED2F5`-`#BFE6FA`. Buttons: 3 px `--hero-edge` outline, 6 px bottom edge, `--hero-ink` label. System font stack only. Animate only `transform` and `opacity`.
 
 ## 3. Content pipeline (`tools/build_content.py`)
-- [x] Reads `$SOUND_OUT/content/{lessons/L1.*.json,options.json,lexicon.json,gpc.json,audio_index.json}`; strips `source`, `blocksFound`, `contentVersion`; writes `public/data/L1.json` and `public/data/shared.json`.
+- [x] Reads `$SG_COURSE_SOURCE/content/{lessons/L1.*.json,options.json,lexicon.json,gpc.json,audio_index.json}`; strips `source`, `blocksFound`, `contentVersion`; writes `public/data/L1.json` and `public/data/shared.json`.
 - [x] Merges `content-overlay/L1.NN.json` (`{"lesson":"L1.05","addItems":[{"kind":"real","word":"...","options":[...3+...]}]}`). Count only items with 3+ options.
-- [x] **Overlay authoring (time-box one working day):** first pick overlay words that already have an `options.json` entry and audio (from checks A, C). Only if none exist, run `sound-out/tools/gen_options.py` inside a throwaway worktree: `git -C $SOUND_OUT worktree add $SCRATCH/so 3283e35` then `cd $SCRATCH/so && python3 tools/gen_options.py` (it writes `content/options.json` and `options_report.md` there, never in the real sound-out); copy the new entries into `content-overlay/`; remove the worktree.
+- [x] **Overlay authoring (time-box one working day):** first pick overlay words that already have an `options.json` entry and audio (from checks A, C). Only if none exist, run the source's `tools/gen_options.py` inside a throwaway worktree: `git -C $SG_COURSE_SOURCE worktree add $SCRATCH/so 3283e35` then `cd $SCRATCH/so && python3 tools/gen_options.py` (it writes `content/options.json` and `options_report.md` there, never in the real the source); copy the new entries into `content-overlay/`; remove the worktree.
 - [x] **L1.01 oral pool of 12** in `content-overlay/L1.01.json`: blend-and-pick `sat, top, pig, dog, mat` (5) + blends `at, it, on` (3) + first-sound picks `sun, top, pig, dog` (4); each with 3+ spoken options from check B.
 - [x] Exit non-zero if any of the 14 Level 1 gates has fewer than 12 items with 3+ options. Pass mark = 10 of 12.
 - [x] Copies only needed audio to `public/audio/L1/` (dedupe by clip id) and writes `public/data/audio-map.json` (key -> file, `real`|`placeholder`); fail if any Level 1 key is placeholder.
-- [x] Writes `content-report.md`: sound-out commit, **both bars per lesson (sound-out 9/11 or 10/11, and overlay 10/12)**, items before and after overlay, de-duplicated audio count and bytes (sound-out holds 2,898 `.ogg`, 14.6 MB counting copies; the app set is 898 files, 6.2 MB).
+- [x] Writes `content-report.md`: the source commit, **both bars per lesson (the source 9/11 or 10/11, and overlay 10/12)**, items before and after overlay, de-duplicated audio count and bytes (the source holds 2,898 `.ogg`, 14.6 MB counting copies; the app set is 898 files, 6.2 MB).
 - [x] Run: `python3 tools/build_content.py` then `python3 tools/build_content.py --check` (must exit 0).
 
 ## 4. Spike rig (day 1)
@@ -37,7 +37,7 @@ Create `tools/pre_m0_check.py` that reads `$SOUND_OUT/content/` and prints PASS/
 ## 5. Grey-box screens S1 to S5 (grey boxes and plain text; no art)
 Hash router (`#/`, `#/lesson/L1.01`, `#/home`). Sprig is a grey rounded box with its pose name as a label. Add `?test=1` which puts `data-correct="true"` on the right option and exposes `window.__sg = {tapAt, wateredAt}` for the drive script.
 - [x] **S1 landing:** a pre-planted seed in a soil mound is the **one big tap target, no Start button**, plus a small "I have a garden code" link and the footer "Free. No account. No ads. No cookies." Tap = `AudioContext.resume()`, play the first clip, route to `#/lesson/L1.01`, set `__sg.tapAt = performance.now()`. No form fields anywhere.
-- [x] **S4 lesson player** for L1.01 sitting 1: audio prompt, 2x2 spoken option cards (3+ options where needed), thin item-progress bar (`transform: scaleX`), small plant-stage icon in the header. Port the logic of `$SOUND_OUT/app/src/gate.js` (read it first): options spoken not printed, a wrong pick replays and returns after 2 other items. No DOM code is copied, only the logic.
+- [x] **S4 lesson player** for L1.01 sitting 1: audio prompt, 2x2 spoken option cards (3+ options where needed), thin item-progress bar (`transform: scaleX`), small plant-stage icon in the header. Port the logic of `$SG_COURSE_SOURCE/app/src/gate.js` (read it first): options spoken not printed, a wrong pick replays and returns after 2 other items. No DOM code is copied, only the logic.
 - [x] **S4d feedback area** (fixed region above the options, **no bottom sheet, no "N in a row" counter**): Sprig pose label (`correct-small` or `wrong-soft`), word "Yes" or "Try again", sound named, tint layer that fades in by opacity (150 ms). Wrong state shows one example card at most 120 px square and 30% of the area's height on `--card`, no extra hue.
 - [x] **First watering:** on the first correct answer set `__sg.wateredAt = performance.now()` and show **S3p garden peek**: lesson dims by opacity, a soil patch with a swelling seed shows 2 s. It never covers the next item: the next item is already loaded, and **any tap cuts the peek and still lands on the item**.
 - [x] **S5 sitting done:** seed swell, "Sitting 1 of 4 done", under 2 s.
@@ -46,7 +46,7 @@ Hash router (`#/`, `#/lesson/L1.01`, `#/home`). Sprig is a grey rounded box with
 
 ## 6. Budget and CI
 - [x] `tools/size_budget.mjs`: gzip every file requested before the seed tap (HTML, CSS, JS, SVG, manifest, icons); **fail above 90 KB**; also fail if any web font is in that set. Print the breakdown.
-- [x] `.github/workflows/ci.yml` on push: `npm ci`, `npm run build`, `node tools/size_budget.mjs`, `python3 tools/build_content.py --check`, `npx vitest run`. (The sound-out checkout is not on the runner, so keep `public/data` committed and make `--check` validate the committed data only.)
+- [x] `.github/workflows/ci.yml` on push: `npm ci`, `npm run build`, `node tools/size_budget.mjs`, `python3 tools/build_content.py --check`, `npx vitest run`. (The source checkout is not on the runner, so keep `public/data` committed and make `--check` validate the committed data only.)
 
 ## 7. Drive script (`tools/drive_m0.py`, Playwright, mouse only, 390x844)
 - [x] Starts `npm run preview`, opens `/?test=1`; asserts: zero `input, select, textarea` elements; URL stays on one origin with no redirects; no console errors; after clicking the seed an audio request for a `.ogg` is made; clicks the `data-correct` option; asserts `wateredAt - tapAt < 90000` ms (log the real value); the peek does not cover the next item (click during the peek reaches the item); every requested audio key exists in `audio-map.json`.

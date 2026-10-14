@@ -1,7 +1,7 @@
-# Site verdict: Sound Garden as a real website (branch `port-sound-out`)
+# Site verdict: Sound Garden as a real website 
 
-Written honestly, 2026-10-13. The owner's complaint was that the port "does not feel like a proper website" and that the look lagged Sound Out (Sprig smaller and less
-expressive than Tilo). This pass built a home page, a spring-driven motion system, a more expressive Sprig, an animated first run, a garden that grows and a celebration,
+Written honestly, 2026-10-13. The owner's complaint was that the port "does not feel like a proper website" and that the look lagged the course (Sprig smaller and less
+expressive than the old mascot). This pass built a home page, a spring-driven motion system, a more expressive Sprig, an animated first run, a garden that grows and a celebration,
 then judged each slice with blind critics against live bars.
 
 ## What was built
@@ -9,13 +9,13 @@ then judged each slice with blind critics against live bars.
 | Slice | What | Where |
 |---|---|---|
 | Motion engine | Spring physics (one value, target, stiffness, damping), one rAF loop that sleeps, `popIn`/`stagger`/`countTo`/`bump`, press-squash on every button, canvas confetti, toast. Calm motion snaps every spring. | `src/motion/engine.js` |
-| Sprig | Rebuilt as a spring-driven rig (was WAAPI clips). Breathing, random blinks, glances, pointer-follow, poke (squash, tilt, hearts), 9 moods, 29 pose names, hop with a shadow that answers it, stars, hearts, petals, drops, zzz, thought bubble, brows, happy-arc eyes. API unchanged, so Sound Out's mascot code runs on it. | `src/sprig/sprig.js` |
+| Sprig | Rebuilt as a spring-driven rig (was WAAPI clips). Breathing, random blinks, glances, pointer-follow, poke (squash, tilt, hearts), 9 moods, 29 pose names, hop with a shadow that answers it, stars, hearts, petals, drops, zzz, thought bubble, brows, happy-arc eyes. API unchanged, so the course engine's mascot code runs on it. | `src/sprig/sprig.js` |
 | Landing hero | Parallax garden (sky, sun, clouds, 3 hills, ~50 flowers, butterflies) that moves with scroll and pointer; Sprig large, waving, following the finger; headline and buttons spring in; seeds in the meadow pop up when it scrolls into view. | `src/ui/landing.js`, `hero-art.js`, `landing.css` |
 | Landing sections | How it works (hear, say, read, each with a live mini animation), real app screens in phones that lean to the pointer, the course L1-L7 as seven plants that grow in, the 43 sounds with tap-to-hear, practice sheets and teacher guide downloads, privacy and free, FAQ, dusk footer with sleeping Sprig. 360 px to desktop. | same |
-| App motion | Screens slide in on springs, cards pop in 85 ms apart, lesson steps spring in, lesson screens have a living meadow edge, Sprig 190 px in lessons, 168 px on Home. | `so-overlay/fx.js`, `main.js` |
-| First run | Seed on a hill: tap, squash, shake, three cracks draw themselves, flash, shell pieces fly and bounce, Sprig pops out, waves, Play rises in. | `so-overlay/hatch.js` |
-| Garden | Plants grow in on springs and sway, bloom count and ring spring up, level pill slides, butterflies and clouds drift, a newly bloomed plant pops and throws petals, finished steps draw their check with sparks. | `so-overlay/fx.js`, `home.js` |
-| Celebration | Canvas confetti, Sprig cheers and keeps hopping, sticker pops, "N days practised" counts up (never a loss), mini-check seeds pop, the lesson's plant grows seed to sprout to bloom. | `so-overlay/fx.js`, `garden-scene.js` |
+| App motion | Screens slide in on springs, cards pop in 85 ms apart, lesson steps spring in, lesson screens have a living meadow edge, Sprig 190 px in lessons, 168 px on Home. | `engine-overlay/fx.js`, `main.js` |
+| First run | Seed on a hill: tap, squash, shake, three cracks draw themselves, flash, shell pieces fly and bounce, Sprig pops out, waves, Play rises in. | `engine-overlay/hatch.js` |
+| Garden | Plants grow in on springs and sway, bloom count and ring spring up, level pill slides, butterflies and clouds drift, a newly bloomed plant pops and throws petals, finished steps draw their check with sparks. | `engine-overlay/fx.js`, `home.js` |
+| Celebration | Canvas confetti, Sprig cheers and keeps hopping, sticker pops, "N days practised" counts up (never a loss), mini-check seeds pop, the lesson's plant grows seed to sprout to bloom. | `engine-overlay/fx.js`, `garden-scene.js` |
 
 Kept: no account, no age question, no typing for children, no loss-framed streaks, no paywall (`check_finch.py` green). Calm motion (one switch shared by the home page,
 the grown-ups area and the phone's reduce-motion setting).
@@ -67,10 +67,10 @@ in another. **60 fps on a mid phone is not demonstrated.** What is demonstrated:
 ## What is not done, honestly
 
 * **No real phone, no child.** Nothing here replaces a playtest; frame rates are from a throttled laptop. Nobody has listened to the 7,925 clips end to end.
-* **Look gap that remains:** Cookling is still ahead on the hop (landing weight) and Finch and Duolingo are ahead on full-screen illustrated worlds inside lessons: the lesson screens are Sound Out's layouts with a better mascot and a meadow edge, not new art per screen.
+* **Look gap that remains:** Cookling is still ahead on the hop (landing weight) and Finch and Duolingo are ahead on full-screen illustrated worlds inside lessons: the lesson screens are the course engine's layouts with a better mascot and a meadow edge, not new art per screen.
 * **Sprig's mouth only moves with real audio.** In captures without sound (and on a muted phone) the lesson screens look quiet; the critics saw exactly that.
 * **Garden Home:** the Play sheet still covers the lower third of the scene; Sprig stands in the garden (168 px) but the sheet competes with it.
-* **Not built from the Cookling list:** a dark or night theme (only the dusk footer), steam, an XP bar (replaced on purpose by a "days practised" counter that only goes up, which is the Finch rule), the lesson progress bar is still Sound Out's CSS transition rather than a spring, and tick draw-on is used on Home steps, not on every Practice tick.
+* **Not built from the Cookling list:** a dark or night theme (only the dusk footer), steam, an XP bar (replaced on purpose by a "days practised" counter that only goes up, which is the Finch rule), the lesson progress bar is still the course engine's CSS transition rather than a spring, and tick draw-on is used on Home steps, not on every Practice tick.
 * **No testimonials, awards or press** on the page because none exist; the critics asked for them. Not invented.
 * **Calm motion** is verified in code paths (springs snap, loops stop) and by `check_nav.py`, which runs the whole first-run walk with reduced motion on; it was not walked screen by screen by a person.
 * **Not pushed**, as instructed. The critic pair images and bar captures (about 100 MB) are kept out of git (see `.gitignore`); the README media (`shots/site/final`) and this table are the record.
