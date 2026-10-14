@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:artifact": "vite build -c vite.artifact.config.js && python3 tools/stage_artifact.py",
     "preview": "vite preview --port 5390 --strictPort",
     "test": "vitest run",
     "budget": "python3 tools/landing_budget.py",

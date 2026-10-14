@@ -1,6 +1,7 @@
 // The Sound Garden website: hero with a living garden scene, then how it works, the path, the 43 sounds, for grown-ups, privacy, FAQ, footer.
 // Motion = CSS keyframes + WAAPI (Sprig), transform and opacity only. One rAF-throttled scroll handler writes CSS variables; nothing reads layout in it.
 import { logoMark, speaker } from '../art/art.js';
+import { navTo } from '../router.js';
 import { createSprig } from '../sprig/sprig.js';
 import { popIn, springVal, bump, isCalm, Sp, addActor, toast } from '../motion/engine.js';
 import { heroLayers, cloudSvg, sunSvg, butterfly, sproutPlant, SPROUT_COLORS } from './hero-art.js';
@@ -144,7 +145,7 @@ function wire(el) {
   applyCalm();
 
   // start: the tap is the user gesture the browser wants before the first sound plays in the app
-  root.querySelectorAll('.start').forEach((b) => b.addEventListener('click', () => { window.__sg.tapAt = performance.now(); location.hash = '#/play'; }));
+  root.querySelectorAll('.start').forEach((b) => b.addEventListener('click', () => { window.__sg.tapAt = performance.now(); navTo('#/play'); }));
   // in-page links scroll smoothly (the hash belongs to the router)
   root.querySelectorAll('[data-go]').forEach((a) => a.addEventListener('click', (e) => {
     e.preventDefault(); const t = document.getElementById(a.dataset.go); if (!t) return;
