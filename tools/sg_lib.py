@@ -9,7 +9,8 @@ import sys, time, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent / "engine-compat/tools"))
 import _onb  # noqa: E402
 
-BASE = "http://localhost:5390/"
+import os
+BASE = os.environ.get("SG_BASE", "http://localhost:5390/")   # set SG_BASE to point the helpers at another port
 SHOTS = pathlib.Path("/tmp/sgshots")
 SEED = """async ([keys]) => {
   const d = await new Promise((res, rej) => { const r = indexedDB.open('sound-garden', 1); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });

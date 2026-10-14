@@ -22,7 +22,7 @@ const inlineSiteArt = () => ({
 const appCssLazy = () => ({
   name: 'sg-app-css-lazy', enforce: 'pre',
   transform(code, id) {
-    if (!/so\/app\/src\/.*\.js$/.test(id)) return null;
+    if (!/engine\/app\/src\/.*\.js$/.test(id)) return null;
     let n = 0;
     const out = code.replace(/^import '(\.{1,2}\/[^']+\.css)';/gm, (_, f) => `import __css${n} from '${f}?inline'; addCss(__css${n++});`);
     return n ? `import { addCss } from '@sg/appcss';\n${out}` : null;
