@@ -18,6 +18,28 @@ Real motion (frames of the live page, played back as taken, so a little choppier
 
 Frame strips (time runs left to right): [hero](shots/site/final/hero-strip.png) · [hatch](shots/site/final/hatch-strip.png) · [garden Home](shots/site/final/home-strip.png) · [celebration](shots/site/final/end-strip.png) · [a lesson](shots/site/final/lesson-strip.png) · [Sprig's poses](shots/site/final/sprig-poses.png) · [a hop](shots/site/final/sprig-hop.png) · [full page, phone](shots/site/final/page-390.png) · [full page, desktop](shots/site/final/page-1280.png).
 
+## Screenshots
+
+**Landing page, full length**
+
+| Desktop (1280) | Phone (390) |
+|---|---|
+| <img src="shots/site/final/page-1280.png" width="520"> | <img src="shots/site/final/page-390.png" width="220"> |
+
+**Inside the app** (phone width)
+
+| Who is reading | Garden home | A lesson | Hear a sound |
+|---|---|---|---|
+| <img src="shots/port/who.png" width="170"> | <img src="shots/port/home1.png" width="170"> | <img src="shots/port/lesson.png" width="170"> | <img src="shots/port/hear.png" width="170"> |
+
+| Blending | Practice | Sound it out | Teacher page |
+|---|---|---|---|
+| <img src="shots/port/blend.png" width="170"> | <img src="shots/port/practiceA.png" width="170"> | <img src="shots/port/sayitA.png" width="170"> | <img src="shots/port/teach.png" width="170"> |
+
+| Sprig's poses | Lesson frames | Seed hatching |
+|---|---|---|
+| <img src="shots/site/final/sprig-poses.png" width="240"> | <img src="shots/site/final/lesson-strip.png" width="240"> | <img src="shots/site/final/hatch-strip.png" width="240"> |
+
 ## The site
 
 * `#/` the home page: a hero garden (sky, sun, clouds, three hills, swaying flowers, butterflies) that slides against itself as you scroll or move the pointer, with Sprig
