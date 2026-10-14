@@ -3,6 +3,7 @@
 import './teach.css';
 import { scene } from '../art/art.js';
 import { stagger } from '../motion/engine.js';
+import { ART } from '../router.js';
 
 const LEVELS = [
   [1, 'First sounds', 'L1'], [2, 'Sounds together', 'L2'], [3, 'Long vowels', 'L3'], [4, 'Longer words', 'L4'],
@@ -50,6 +51,7 @@ export async function mount(el) {
     <a class="tp-btn" href="#/play">Open the app</a></section>
   </main>`;
   stagger(el.querySelectorAll('.tp-card'), 120, 85);   // the cards spring in (engine.js); calm motion shows them at once
+  if (ART) { el.querySelector('#tp-levels').innerHTML = '<p class="tp-note">The printable practice pages are on the full Sound Garden website. This preview shows the sounds and the lessons only.</p>'; return; }
   try {
     const ix = await (await fetch('./practice/index.json')).json();
     const box = el.querySelector('#tp-levels'); box.replaceChildren();

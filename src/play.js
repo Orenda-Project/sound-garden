@@ -2,6 +2,8 @@
 // URL: #/play  #/play/lesson/L2.04  #/play/practice  #/play/sound-it-out  #/play/grown-ups   (see router.js)
 // Back button: one logical step back, the same table the Android build uses (so/app/src/native.js backAction): a screen's own Back control,
 // the grown-ups sum closes, a guide topic goes to the guide list, everything else goes Home; on Home the Back button leaves to the landing page.
+import { ART } from './router.js';
+import { enable as appCssOn } from './appcss.js';
 let booted = null, deepUsed = false;
 
 function parse(rest) {
@@ -29,18 +31,20 @@ export async function mount(root, rest) {
   const live = document.getElementById('live') || Object.assign(document.createElement('div'), { id: 'live', className: 'sr-only', role: 'status' });
   live.setAttribute('aria-live', 'polite'); live.setAttribute('aria-atomic', 'true'); if (!live.parentNode) document.body.prepend(live);
   const so = await import('../so/app/src/main.js');
+  if (ART) appCssOn();
   const { backAction } = await import('../so/app/src/native.js');
   if (!booted) {
     booted = true;
     so.app.onScreen = (el) => {
+      if (ART) return;                                  // artifact frame: the address never changes
       try { history.replaceState(history.state, '', urlFor(el)); } catch { /* file: or sandboxed frames */ }
     };
     // Sound Out's sitting keys look like L2.04:A:D; the lesson id is the URL part
     const sit = so.app.sitting.bind(so.app);
     so.app.sitting = (key) => { window.__sg.lesson = String(key).split(':')[0]; return sit(key); };
     // Back: two history entries are kept so Back always has somewhere to go; each Back does one app step, then re-arms the entry
-    try { history.pushState({ sg: 1 }, '', location.hash); } catch { /* ignore */ }
-    window.addEventListener('popstate', () => {
+    if (!ART) try { history.pushState({ sg: 1 }, '', location.hash); } catch { /* ignore */ }
+    if (!ART) window.addEventListener('popstate', () => {
       if (!document.documentElement.classList.contains('sg-play')) return;
       const a = backAction();
       if (a === 'exit') { history.back(); return; }          // Home / first screen: leave the app (to the landing page)
@@ -66,7 +70,7 @@ export async function mount(root, rest) {
 // Word clips and the later levels are cached as they are played.
 async function prefetchCore() {
   try {
-    if (!import.meta.env.PROD || !navigator.serviceWorker) return;
+    if (ART || !import.meta.env.PROD || !navigator.serviceWorker) return;
     const reg = await navigator.serviceWorker.ready;
     const { audioIndex } = await import('../so/app/src/content.js');
     const urls = Object.entries(audioIndex.clips).filter(([k]) => /^(ph|ui|name|t2):/.test(k)).map(([, c]) => `audio/${c.id}.ogg`);
