@@ -59,13 +59,19 @@ Only transforms and opacity move; big art is static and the swaying parts are ti
 
 ## What is in it
 
-* Levels 1-7 (108 lessons), 43 isolated sounds with the 5-step meet-a-sound flow, 7,925 voiced clips (about 78 MB, one request per clip, cached as played).
+* Levels 1-7 (108 lessons), 43 isolated sounds in a teacher's voice (long or repeated, played once) with the 5-step meet-a-sound flow, 7,925 voiced clips (about 78 MB, one request per clip, cached as played).
 * Teaching flow: sound, blend, words, sentences. A failed check is not a pass: the lesson is taught again first.
 * Track A (a child, with Sprig) and Track B (a grown-up learner, calm, no mascot).
 * Sound it out (build a word, split it into sounds, say it), a Practice area (hear and trace sounds, replay words), helper mode.
 * `#/teach`: the Teach guide (8-page PDF) and a printable practice page for every lesson.
 * Shareable links: `#/play`, `#/play/lesson/L2.04`, `#/play/practice`, `#/play/sound-it-out`, `#/teach`. The browser Back button goes back one step.
 * Offline after the first visit (service worker); install from the browser menu.
+
+## The 43 sounds
+
+The isolated letter sounds are what a learner blends into words, so they are made the way a teacher says them to a child: long ("mmmm", "ssss"), repeated ("tuh, tuh, tuh") or, for vowels, a short phrase with the example word cut off ("ah, ah, ah ... apple"). They are ElevenLabs "River" renders, checked by speech recognition and an acoustic vowel gate, and picked by ear by the owner (2026-10-16). Each plays once in meet-a-sound.
+
+The set is produced in the sibling Sound Out project (a separate, private repository) and copied here with `python3 tools/sync_sounds_v5.py` (it reads Sound Out's `content/audio_index.json`, copies the `ph:<x>:pure` clips into `public/audio/` and the keys into `engine/content/audio_index.json`). One sound, v, is provisional until the owner picks from four new versions. The short clips used inside blended words are still the earlier set. Nobody has yet listened to the 65-clip sample in `tools/voice_review.html`.
 
 ## How it is built
 
