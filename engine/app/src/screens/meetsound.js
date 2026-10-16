@@ -1,6 +1,6 @@
 // Meet a sound: the compact teaching flow for one new sound (plan/sounds/proposal.md section 3, Read Write Inc. pure sounds + UFLI).
 //   1 picture anchor   "sss ... snake"        (ph:<x>:anchor)
-//   2 the pure sound   held 2x, stops once, vowels 3x, plus the mouth cue line   (ph:<x>:pure, the lesson's mouth-cue clip)
+//   2 the pure sound   played once (v5 clips are already long or repeated), plus the mouth cue line   (ph:<x>:pure, the lesson's mouth-cue clip)
 //   3 inside its word  "s ... un"             (ph:<x>:stretch; vowels have none, that beat is skipped)
 //   4 your turn        say it out loud, never graded: a grown-up / "I said it" tick, then the model again
 //   5 pick             two confusable sounds, tap the letter that makes the sound you hear (never blocks)
@@ -19,7 +19,7 @@ export const hasMeetSound = pid => !!(pid && audioIndex.clips[`ph:${pid}:anchor`
 const PAIRS = { t: 'd', d: 't', p: 'b', b: 'p', k: 'g', g: 'k', f: 'v', v: 'f', s: 'z', z: 's', sh: 's', m: 'n', n: 'm', a: 'e', e: 'i', i: 'e', o: 'u', u: 'o', ng: 'n', ch: 'sh', j: 'ch', th: 'f' };
 const LIPS = '<svg viewBox="0 0 48 32" aria-hidden="true"><path d="M3 16c6-9 13-10 21-6 8-4 15-3 21 6-6 10-13 12-21 12S9 26 3 16z" fill="currentColor"/><path d="M5 16c12 3 26 3 38 0" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>';
 
-const reps = cls => (cls.startsWith('stop') ? 1 : cls === 'vowel' ? 3 : 2);
+const reps = () => 1;   // v5 teacher-style clips are already long or repeated ("mmmm", "tuh, tuh, tuh"): play once
 function captionFor(letter, cls) {   // the sounds as the learner sees them: held sounds stretched (s -> sss, sh -> shhh), the rest repeated
   return cls.startsWith('held') ? `${letter + letter.slice(-1).repeat(2)} …` : `${letter}, ${letter}, ${letter} …`;
 }
