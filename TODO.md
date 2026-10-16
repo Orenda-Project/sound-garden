@@ -15,7 +15,7 @@ Last updated 2026-10-14. Nothing here is in progress.
 - [ ] Test on a real phone: 60 fps, installing from the browser menu, offline use.
 
 ## Sounds
-- [ ] A person listens to the 43 letter sounds and to the 65-clip sample in `tools/voice_review.html`. Machines checked them; no one has heard them.
+- [x] 2026-10-16: the 43 isolated sounds were replaced with the teacher-style set Kamal picked by ear (synced from Sound Out with tools/sync_sounds_v5.py). Still open: v is provisional (Kamal to pick from 4 new versions); the 65-clip sample in tools/voice_review.html is still unheard.
 - [ ] Weak sounds: ng, n, m, v, w, l, z (quiet on phone speakers), h, p, b, g (may thud).
 - [ ] 26 clips of 21 real words still sound off to the speech checker (vat, dat, thur, whiff, tin, pap and others).
 - [ ] Some scripts say symbols aloud ("slash", "equals", "right arrow"). Rewrite the text, then re-record.
